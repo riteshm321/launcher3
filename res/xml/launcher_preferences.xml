@@ -150,4 +150,8 @@
         settings:units="%"
         android:defaultValue="100" />
 
+    <Preference
+        android:key="pref_trust_apps"
+        android:title="@string/trust_apps_manager_name" />
+
 </androidx.preference.PreferenceScreen>

@@ -37,6 +37,9 @@
         </intent>
     </queries>
 
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
+
     <application
         tools:replace="android:icon,android:name"
         android:extractNativeLibs="false"

@@ -22,6 +22,11 @@ import static com.android.launcher3.states.RotationHelper.ALLOW_ROTATION_PREFERE
 
 import static com.android.launcher3.OverlayCallbackImpl.KEY_ENABLE_MINUS_ONE;
 
+import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+
+import com.android.launcher3.customization.IconDatabase;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,20 +36,13 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.launcher3.settings.preference.IconPackPrefSetter;
+import com.android.launcher3.settings.preference.ReloadingListPreference;
+import com.android.launcher3.util.AppReloader;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.WindowCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartFragmentCallback;
-import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartScreenCallback;
-import androidx.preference.PreferenceGroup.PreferencePositionCallback;
-import androidx.preference.PreferenceScreen;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.InvariantDeviceProfile;
@@ -63,12 +61,24 @@ import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragment;
+import androidx.preference.PreferenceFragment.OnPreferenceStartFragmentCallback;
+import androidx.preference.PreferenceFragment.OnPreferenceStartScreenCallback;
+import androidx.preference.PreferenceGroup.PreferencePositionCallback;
+import androidx.preference.PreferenceScreen;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Settings activity for Launcher. Currently implements the following setting: Allow rotation
  */
 public class SettingsActivity extends CollapsingToolbarBaseActivity
         implements OnPreferenceStartFragmentCallback, OnPreferenceStartScreenCallback,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        SharedPreferences.OnSharedPreferenceChangeListener {
+
+    public interface OnResumePreferenceCallback {
+        void onResume();
+    }
 
     /** List of fragments that can be hosted by this activity. */
     private static final List<String> VALID_PREFERENCE_FRAGMENTS = Collections.singletonList(
@@ -92,6 +102,10 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
     @VisibleForTesting
     static final String EXTRA_FRAGMENT_ARGS = ":settings:fragment_args";
 
+    private static final String KEY_ICON_PACK = "pref_icon_pack";
+
+    private static Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +113,7 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         Intent intent = getIntent();
+        mContext = getApplicationContext();
 
         if (savedInstanceState == null) {
             Bundle args = intent.getBundleExtra(EXTRA_FRAGMENT_ARGS);
@@ -111,12 +126,13 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                 args.putString(EXTRA_FRAGMENT_ARG_KEY, prefKey);
             }
 
-            final FragmentManager fm = getSupportFragmentManager();
-            final Fragment f = fm.getFragmentFactory().instantiate(getClassLoader(),
-                    getPreferenceFragment());
-            f.setArguments(args);
-            // Display the fragment as the main content.
-            fm.beginTransaction().replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame, f).commit();
+            Fragment f = Fragment.instantiate(
+                    this, getPreferenceFragment(), args);
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, f)
+                    .commit();
+
         }
         Utilities.getPrefs(getApplicationContext()).registerOnSharedPreferenceChangeListener(this);
     }
@@ -155,17 +171,16 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
         }
     }
 
+
     private boolean startPreference(String fragment, Bundle args, String key) {
-        if (Utilities.ATLEAST_P && getSupportFragmentManager().isStateSaved()) {
+        if (Utilities.ATLEAST_P && getFragmentManager().isStateSaved()) {
             // Sometimes onClick can come after onPause because of being posted on the handler.
             // Skip starting new preferences in that case.
             return false;
         }
-        final FragmentManager fm = getSupportFragmentManager();
-        final Fragment f = fm.getFragmentFactory().instantiate(getClassLoader(), fragment);
+        Fragment f = Fragment.instantiate(this, fragment, args);
         if (f instanceof DialogFragment) {
-            f.setArguments(args);
-            ((DialogFragment) f).show(fm, key);
+            ((DialogFragment) f).show(getFragmentManager(), key);
         } else {
             startActivity(new Intent(this, SettingsActivity.class)
                     .putExtra(EXTRA_FRAGMENT, fragment)
@@ -176,14 +191,14 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
 
     @Override
     public boolean onPreferenceStartFragment(
-            PreferenceFragmentCompat preferenceFragment, Preference pref) {
+            PreferenceFragment preferenceFragment, Preference pref) {
         return startPreference(pref.getFragment(), pref.getExtras(), pref.getKey());
     }
 
     @Override
-    public boolean onPreferenceStartScreen(PreferenceFragmentCompat caller, PreferenceScreen pref) {
+    public boolean onPreferenceStartScreen(PreferenceFragment caller, PreferenceScreen pref) {
         Bundle args = new Bundle();
-        args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, pref.getKey());
+        args.putString(PreferenceFragment.ARG_PREFERENCE_ROOT, pref.getKey());
         return startPreference(getString(R.string.settings_fragment_name), args, pref.getKey());
     }
 
@@ -199,7 +214,7 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
     /**
      * This fragment shows the launcher preferences.
      */
-    public static class LauncherSettingsFragment extends PreferenceFragmentCompat {
+    public static class LauncherSettingsFragment extends PreferenceFragment {
 
         private String mHighLightKey;
         private boolean mPreferenceHighlighted = false;
@@ -323,8 +338,18 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                         return true;
                     });
                     return true;
-            }
 
+                case KEY_ICON_PACK:
+                    ReloadingListPreference icons = (ReloadingListPreference) findPreference(KEY_ICON_PACK);
+                    icons.setValue(IconDatabase.getGlobal(getActivity()));
+                    icons.setOnReloadListener(IconPackPrefSetter::new);
+                    icons.setOnPreferenceChangeListener((pref, val) -> {
+                        IconDatabase.clearAll(getActivity());
+                        IconDatabase.setGlobal(getActivity(), (String) val);
+                        AppReloader.get(getActivity()).reload();
+                        return true;
+                    });
+            }
             return true;
         }
 

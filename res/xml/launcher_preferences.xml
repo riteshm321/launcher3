@@ -32,6 +32,13 @@
         android:title="@string/notification_dots_title"
         android:persistent="false"
         android:widgetLayout="@layout/notification_pref_warning" />
+        
+    <com.android.launcher3.settings.preference.ReloadingListPreference
+        android:key="pref_icon_pack"
+        android:title="@string/app_info_icon_pack"
+        android:summary="@string/placeholder_string"
+        android:defaultValue=""
+        android:persistent="true" />
 
     <!--
       LAUNCHER_ADD_NEW_APPS_TO_HOME_SCREEN_ENABLED(613)

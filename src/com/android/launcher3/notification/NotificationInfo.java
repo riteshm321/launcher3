@@ -31,6 +31,7 @@ import android.service.notification.StatusBarNotification;
 import android.view.View;
 
 import com.android.launcher3.AbstractFloatingView;
+import com.android.launcher3.Launcher;
 import com.android.launcher3.LauncherAppState;
 import com.android.launcher3.dot.DotInfo;
 import com.android.launcher3.graphics.IconPalette;
@@ -103,8 +104,8 @@ public class NotificationInfo implements View.OnClickListener {
             return;
         }
         final ActivityContext context = ActivityContext.lookupContext(view.getContext());
-        Bundle activityOptions = ActivityOptions.makeClipRevealAnimation(
-                view, 0, 0, view.getWidth(), view.getHeight()).toBundle();
+        Bundle activityOptions = launcher.getAppTransitionManager()
+                .getActivityLaunchOptions(view).toBundle();
         try {
             intent.send(null, 0, null, null, null, null, activityOptions);
             context.getStatsLogManager().logger().withItemInfo(mItemInfo)

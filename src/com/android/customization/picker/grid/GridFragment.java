@@ -23,6 +23,8 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
+import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,7 +49,6 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.BasePreviewAdapter;
 import com.android.customization.picker.BasePreviewAdapter.PreviewPage;
 import com.android.customization.widget.OptionSelectorController;
-import com.android.systemui.shared.system.SurfaceViewRequestUtils;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.ContentUriAsset;
@@ -55,6 +56,7 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.util.SurfaceViewUtils;
 import com.android.wallpaper.widget.PreviewPager;
 
 import com.bumptech.glide.Glide;
@@ -282,11 +284,18 @@ public class GridFragment extends ToolbarFragment {
             if (usesSurfaceViewForPreview) {
                 mPreviewSurface.setZOrderOnTop(true);
                 mPreviewSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
+
+                    private Message mCallback;
+
                     @Override
                     public void surfaceCreated(SurfaceHolder holder) {
-                        Bundle bundle = SurfaceViewRequestUtils.createSurfaceBundle(
-                                mPreviewSurface);
-                        mGridManager.renderPreview(bundle, mName);
+                        Bundle result = mGridManager.renderPreview(
+                                SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
+                        if (result != null) {
+                            mPreviewSurface.setChildSurfacePackage(
+                                    SurfaceViewUtils.getSurfacePackage(result));
+                            mCallback = SurfaceViewUtils.getCallback(result);
+                        }
                     }
 
                     @Override
@@ -294,7 +303,17 @@ public class GridFragment extends ToolbarFragment {
                             int height) {}
 
                     @Override
-                    public void surfaceDestroyed(SurfaceHolder holder) {}
+                    public void surfaceDestroyed(SurfaceHolder holder) {
+                        if (mCallback != null) {
+                            try {
+                                mCallback.replyTo.send(mCallback);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            } finally {
+                                mCallback = null;
+                            }
+                        }
+                    }
                 });
             } else {
                 mPreviewAsset.loadDrawableWithTransition(mActivity,

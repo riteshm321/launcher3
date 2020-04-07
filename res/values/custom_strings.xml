@@ -18,6 +18,7 @@
 -->
 
 <resources>
+    <string name="google_folder_title">Google</string>
 
     <!-- Settings title to show Google Now at -1 screen on launcher. [CHAR LIMIT=50] -->
     <string name="title_show_google_app">Show Google App</string>

@@ -65,7 +65,6 @@ import com.android.wallpaper.module.FormFactorChecker;
 import com.android.wallpaper.module.Injector;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.module.UserEventLogger;
-import com.android.wallpaper.module.WallpaperSetter;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
 import com.android.wallpaper.picker.MyPhotosStarter;
@@ -98,7 +97,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private static final Map<Integer, CustomizationSection> mSections = new HashMap<>();
     private CategoryFragment mWallpaperCategoryFragment;
-    private WallpaperSetter mWallpaperSetter;
 
     private boolean mWallpaperCategoryInitialized;
 
@@ -194,14 +192,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
         //Theme
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
-        mWallpaperSetter = new WallpaperSetter(injector.getWallpaperPersister(this),
-                injector.getPreferences(this), mUserEventLogger, false);
         ThemesUserEventLogger eventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(
                 this);
         ThemeManager themeManager = injector.getThemeManager(
                 new DefaultThemeProvider(this, injector.getCustomizationPreferences(this)),
-                this,
-                mWallpaperSetter, new OverlayManagerCompat(this), eventLogger);
+                this, new OverlayManagerCompat(this), eventLogger);
         if (themeManager.isAvailable()) {
             mSections.put(R.id.nav_theme, new ThemeSection(R.id.nav_theme, themeManager));
         } else {
@@ -388,14 +383,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     protected void onStop() {
         mUserEventLogger.logStopped();
         super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mWallpaperSetter != null) {
-            mWallpaperSetter.cleanUp();
-        }
     }
 
     @Override

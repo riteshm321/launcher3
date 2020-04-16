@@ -58,7 +58,7 @@ import com.android.wallpaper.asset.ContentUriAsset;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.util.SurfaceViewUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.PreviewPager;
@@ -72,7 +72,7 @@ import java.util.List;
 /**
  * Fragment that contains the UI for selecting and applying a GridOption.
  */
-public class GridFragment extends ToolbarFragment {
+public class GridFragment extends AppbarFragment {
 
     private static final int PREVIEW_FADE_DURATION_MS = 100;
 
@@ -87,7 +87,7 @@ public class GridFragment extends ToolbarFragment {
 
     public static GridFragment newInstance(CharSequence title) {
         GridFragment fragment = new GridFragment();
-        fragment.setArguments(ToolbarFragment.createArguments(title));
+        fragment.setArguments(AppbarFragment.createArguments(title));
         return fragment;
     }
 
@@ -167,8 +167,12 @@ public class GridFragment extends ToolbarFragment {
                 loadWallpaperBackground();
             }
         });
+        return view;
+    }
 
-        mBottomActionBar = getActivity().findViewById(R.id.bottom_actionbar);
+    @Override
+    protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
+        mBottomActionBar = bottomActionBar;
         mBottomActionBar.showActionsOnly(EnumSet.of(CANCEL, APPLY));
         mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
         mBottomActionBar.setActionClickListener(APPLY, unused -> {
@@ -185,7 +189,6 @@ public class GridFragment extends ToolbarFragment {
                 }
             });
         });
-        return view;
     }
 
     private void loadWallpaperBackground() {

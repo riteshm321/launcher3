@@ -42,14 +42,14 @@ import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.BitmapCachingAsset;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.picker.AppbarFragment;
 
 public class CustomThemeNameFragment extends CustomThemeStepFragment {
 
     public static CustomThemeNameFragment newInstance(CharSequence toolbarTitle, int position,
             int titleResId) {
         CustomThemeNameFragment fragment = new CustomThemeNameFragment();
-        Bundle arguments = ToolbarFragment.createArguments(toolbarTitle);
+        Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
         fragment.setArguments(arguments);
@@ -104,7 +104,6 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         mNameEditor = view.findViewById(R.id.custom_theme_name);
         mNameEditor.setText(mCustomThemeManager.getOriginalTheme().getTitle());
         bindCover(view.findViewById(R.id.component_preview_content));
-
         return view;
     }
 

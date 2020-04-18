@@ -52,7 +52,7 @@
     <string name="custom_theme_delete" msgid="4744494663184126202">"Izbriši"</string>
     <string name="font_component_title" msgid="8800340833695292049">"Odaberite font"</string>
     <string name="icon_component_title" msgid="5779787138399083903">"Odaberite ikone"</string>
-    <string name="color_component_title" msgid="1194089273921078816">"Izbor boje"</string>
+    <string name="color_component_title" msgid="1194089273921078816">"Odaberite boju"</string>
     <string name="shape_component_title" msgid="8366847436022025538">"Odaberite oblik"</string>
     <string name="name_component_title" msgid="532425087968663437">"Unesite naziv svojeg stila"</string>
     <string name="icon_component_label" msgid="2625784884001407944">"Ikone <xliff:g id="ID_1">%1$d</xliff:g>"</string>

@@ -40,7 +40,7 @@
     <string name="preview_name_shape" msgid="5676971146080968721">"צורה"</string>
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"טפט"</string>
     <string name="font_card_title" msgid="2343292653502548685">"אבג • 123"</string>
-    <string name="font_card_body" msgid="6790525594503904468">"אפשר להוסיף את הפונטים המועדפים לכל מסך"</string>
+    <string name="font_card_body" msgid="6790525594503904468">"אפשר להוסיף את הגופנים המועדפים לכל מסך"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
     <string name="applied_theme_msg" msgid="7348498271552054431">"הסגנון הוחל"</string>
     <string name="applied_clock_msg" msgid="1938218786265793285">"השעון הותקן"</string>

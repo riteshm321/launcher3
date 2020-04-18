@@ -23,7 +23,7 @@
     <string name="grid_title" msgid="2825094404523390773">"Торчо"</string>
     <string name="wallpaper_title" msgid="6952635398953194544">"Тушкагаз"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Колдонуу"</string>
-    <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Түзөтүү үчүн таптап коюңуз"</string>
+    <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Өзгөртүү үчүн таптап коюңуз"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Учурдагы тушкагаз калсын"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Колдонуу"</string>
     <string name="accessibility_preview_pager" msgid="3548503287402185430">"<xliff:g id="ID_2">%2$d</xliff:g> ичинен <xliff:g id="ID_1">%1$d</xliff:g>-барак"</string>

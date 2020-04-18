@@ -24,7 +24,7 @@
     <string name="wallpaper_title" msgid="6952635398953194544">"Шпалеры"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Ужыць"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Дакраніцеся, каб рэдагаваць"</string>
-    <string name="keep_my_wallpaper" msgid="8012385376769568517">"Захаваць цяперашнія шпалеры"</string>
+    <string name="keep_my_wallpaper" msgid="8012385376769568517">"Захаваць бягучыя шпалеры"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Ужыць"</string>
     <string name="accessibility_preview_pager" msgid="3548503287402185430">"Старонка <xliff:g id="ID_1">%1$d</xliff:g> з <xliff:g id="ID_2">%2$d</xliff:g>"</string>
     <string name="next_page_content_description" msgid="5290226604542300962">"Далей"</string>

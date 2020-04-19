@@ -67,8 +67,8 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
     }
 
     /** Call through content provider API to render preview */
-    public void renderPreview(Bundle bundle, String gridName) {
-        mProvider.renderPreview(gridName, bundle);
+    public Bundle renderPreview(Bundle bundle, String gridName) {
+        return mProvider.renderPreview(gridName, bundle);
     }
 
     private static class FetchTask extends AsyncTask<Void, Void, Pair<List<GridOption>, String>> {

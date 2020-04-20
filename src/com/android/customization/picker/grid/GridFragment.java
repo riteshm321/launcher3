@@ -17,12 +17,17 @@ package com.android.customization.picker.grid;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.CANCEL;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
+import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,7 +52,6 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.BasePreviewAdapter;
 import com.android.customization.picker.BasePreviewAdapter.PreviewPage;
 import com.android.customization.widget.OptionSelectorController;
-import com.android.systemui.shared.system.SurfaceViewRequestUtils;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.ContentUriAsset;
@@ -55,11 +59,14 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.util.SurfaceViewUtils;
+import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.PreviewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -98,6 +105,7 @@ public class GridFragment extends ToolbarFragment {
     private ContentLoadingProgressBar mLoading;
     private View mContent;
     private View mError;
+    private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
 
     @Override
@@ -139,20 +147,7 @@ public class GridFragment extends ToolbarFragment {
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
         setUpOptions();
-        view.findViewById(R.id.apply_button).setOnClickListener(v -> {
-            mGridManager.apply(mSelectedOption,  new Callback() {
-                @Override
-                public void onSuccess() {
-                    getActivity().finish();
-                }
 
-                @Override
-                public void onError(@Nullable Throwable throwable) {
-                    //TODO(santie): handle
-                }
-            });
-
-        });
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
 
@@ -171,6 +166,24 @@ public class GridFragment extends ToolbarFragment {
                 view.removeOnLayoutChangeListener(this);
                 loadWallpaperBackground();
             }
+        });
+
+        mBottomActionBar = getActivity().findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.showActionsOnly(EnumSet.of(CANCEL, APPLY));
+        mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
+        mBottomActionBar.setActionClickListener(APPLY, unused -> {
+            mBottomActionBar.disableActions();
+            mGridManager.apply(mSelectedOption, new Callback() {
+                @Override
+                public void onSuccess() {
+                    getActivity().finish();
+                }
+
+                @Override
+                public void onError(@Nullable Throwable throwable) {
+                    //TODO(santie): handle
+                }
+            });
         });
         return view;
     }
@@ -205,6 +218,7 @@ public class GridFragment extends ToolbarFragment {
 
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
+                    mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
                     createAdapter();
                 });
@@ -282,11 +296,18 @@ public class GridFragment extends ToolbarFragment {
             if (usesSurfaceViewForPreview) {
                 mPreviewSurface.setZOrderOnTop(true);
                 mPreviewSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
+
+                    private Message mCallback;
+
                     @Override
                     public void surfaceCreated(SurfaceHolder holder) {
-                        Bundle bundle = SurfaceViewRequestUtils.createSurfaceBundle(
-                                mPreviewSurface);
-                        mGridManager.renderPreview(bundle, mName);
+                        Bundle result = mGridManager.renderPreview(
+                                SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
+                        if (result != null) {
+                            mPreviewSurface.setChildSurfacePackage(
+                                    SurfaceViewUtils.getSurfacePackage(result));
+                            mCallback = SurfaceViewUtils.getCallback(result);
+                        }
                     }
 
                     @Override
@@ -294,7 +315,17 @@ public class GridFragment extends ToolbarFragment {
                             int height) {}
 
                     @Override
-                    public void surfaceDestroyed(SurfaceHolder holder) {}
+                    public void surfaceDestroyed(SurfaceHolder holder) {
+                        if (mCallback != null) {
+                            try {
+                                mCallback.replyTo.send(mCallback);
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            } finally {
+                                mCallback = null;
+                            }
+                        }
+                    }
                 });
             } else {
                 mPreviewAsset.loadDrawableWithTransition(mActivity,

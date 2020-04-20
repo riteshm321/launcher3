@@ -118,9 +118,9 @@ public class LauncherGridOptionsProvider {
      * @param bundle    surface view request bundle generated from
      *                  {@link SurfaceViewRequestUtils#createSurfaceBundle(SurfaceView)}.
      */
-    void renderPreview(String name, Bundle bundle) {
+    Bundle renderPreview(String name, Bundle bundle) {
         bundle.putString("name", name);
-        mPreviewUtils.renderPreview(bundle);
+        return mPreviewUtils.renderPreview(bundle);
     }
 
     int applyGrid(String name) {

@@ -37,6 +37,7 @@ import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -106,6 +107,41 @@ public class GridFragment extends AppbarFragment {
     private View mError;
     private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
+    private boolean mReloadOptionsAfterApplying;
+
+    private final Callback mApplyGridCallback = new Callback() {
+        @Override
+        public void onSuccess() {
+            mGridManager.fetchOptions(new OptionsFetchedListener<GridOption>() {
+                @Override
+                public void onOptionsLoaded(List<GridOption> options) {
+                    mOptionsController.resetOptions(options);
+                    mSelectedOption = getSelectedOption(options);
+                    mReloadOptionsAfterApplying = true;
+                    // It will trigger OptionSelectedListener#onOptionSelected.
+                    mOptionsController.setSelectedOption(mSelectedOption);
+                    Toast.makeText(getContext(), R.string.applied_grid_msg, Toast.LENGTH_SHORT)
+                            .show();
+                    // Since we disabled it when clicked apply button.
+                    mBottomActionBar.enableActions();
+                    mBottomActionBar.hide();
+                }
+
+                @Override
+                public void onError(@Nullable Throwable throwable) {
+                    if (throwable != null) {
+                        Log.e(TAG, "Error loading grid options", throwable);
+                    }
+                    showError();
+                }
+            }, true);
+        }
+
+        @Override
+        public void onError(@Nullable Throwable throwable) {
+            //TODO(chihhangchuang): handle
+        }
+    };
 
     @Override
     public void onAttach(Context context) {
@@ -176,17 +212,7 @@ public class GridFragment extends AppbarFragment {
         mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
         mBottomActionBar.setActionClickListener(APPLY, unused -> {
             mBottomActionBar.disableActions();
-            mGridManager.apply(mSelectedOption, new Callback() {
-                @Override
-                public void onSuccess() {
-                    getActivity().finish();
-                }
-
-                @Override
-                public void onError(@Nullable Throwable throwable) {
-                    //TODO(santie): handle
-                }
-            });
+            mGridManager.apply(mSelectedOption, mApplyGridCallback);
         });
     }
 
@@ -220,20 +246,16 @@ public class GridFragment extends AppbarFragment {
 
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
+                    if (mReloadOptionsAfterApplying) {
+                        mReloadOptionsAfterApplying = false;
+                        return;
+                    }
                     mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
                     createAdapter();
                 });
                 mOptionsController.initOptions(mGridManager);
-                for (GridOption option : options) {
-                    if (option.isActive(mGridManager)) {
-                        mSelectedOption = option;
-                    }
-                }
-                // For development only, as there should always be a grid set.
-                if (mSelectedOption == null) {
-                    mSelectedOption = options.get(0);
-                }
+                mSelectedOption = getSelectedOption(options);
                 createAdapter();
             }
 
@@ -245,6 +267,14 @@ public class GridFragment extends AppbarFragment {
                 showError();
             }
         }, false);
+    }
+
+    private GridOption getSelectedOption(List<GridOption> options) {
+        return options.stream()
+                .filter(option -> option.isActive(mGridManager))
+                .findAny()
+                // For development only, as there should always be a grid set.
+                .orElse(options.get(0));
     }
 
     private void hideError() {

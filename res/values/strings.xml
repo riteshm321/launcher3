@@ -99,10 +99,13 @@
     <string name="grid_title_pattern"><xliff:g name="num_cols" example="1">%1$d</xliff:g>x<xliff:g name="num_rows" example="1">%2$d</xliff:g></string>
 
     <!-- Message shown when a theme has been applied successfully in the system [CHAR LIMIT=NONE] -->
-    <string name="applied_theme_msg">Style applied</string>
+    <string name="applied_theme_msg">Style set successfully</string>
 
     <!-- Message shown when a clock has been applied successfully in the system [CHAR LIMIT=NONE] -->
-    <string name="applied_clock_msg">Clock applied</string>
+    <string name="applied_clock_msg">Clock set successfully</string>
+
+    <!-- Message shown when a grid has been applied successfully in the system [CHAR LIMIT=NONE] -->
+    <string name="applied_grid_msg">Grid set successfully</string>
 
     <!-- Message shown when a theme couldn't be applied in the system because of an error
         [CHAR LIMIT=NONE] -->

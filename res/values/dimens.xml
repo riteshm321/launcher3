@@ -21,15 +21,15 @@
     <dimen name="tip_dot_size">8dp</dimen>
     <dimen name="tip_dot_line_width">2dp</dimen>
 
-    <dimen name="check_size">20dp</dimen>
-    <dimen name="check_offset">-4dp</dimen>
+    <dimen name="check_size">16dp</dimen>
+    <dimen name="check_offset">4dp</dimen>
 
     <dimen name="component_preview_page_bottom_margin">16dp</dimen>
 
     <!-- Dimensions for the customization option tiles -->
-    <dimen name="options_container_height">104dp</dimen>
+    <dimen name="options_container_height">120dp</dimen>
     <dimen name="options_container_width">0dp</dimen>
-    <dimen name="option_tile_width">72dp</dimen>
+    <dimen name="option_tile_width">88dp</dimen>
     <dimen name="theme_option_icon_sample_height">18dp</dimen>
     <dimen name="theme_option_icon_sample_width">18dp</dimen>
     <dimen name="theme_option_shape_sample_height">16dp</dimen>
@@ -38,8 +38,8 @@
     <dimen name="theme_option_font_sample_width">52dp</dimen>
     <dimen name="theme_option_sample_padding">5dp</dimen>
     <!-- Note, using dp instead of sp as this is just the "+" symbol, not text -->
-    <dimen name="option_tile_padding_vertical">12dp</dimen>
-    <dimen name="option_tile_padding_horizontal">10dp</dimen>
+    <dimen name="option_tile_padding_vertical">16dp</dimen>
+    <dimen name="option_tile_padding_horizontal">16dp</dimen>
 
     <dimen name="option_bottom_margin">8dp</dimen>
     <!-- Note, using dp instead of sp as this text is more like a "snapshot" of the font -->

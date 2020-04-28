@@ -18,7 +18,6 @@ package com.android.customization.picker.grid;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
-import static com.android.wallpaper.widget.BottomActionBar.BottomAction.CANCEL;
 
 import android.app.Activity;
 import android.content.Context;
@@ -208,8 +207,7 @@ public class GridFragment extends AppbarFragment {
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(CANCEL, APPLY);
-        mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
+        mBottomActionBar.showActionsOnly(APPLY);
         mBottomActionBar.setActionClickListener(APPLY, unused -> {
             mBottomActionBar.disableActions();
             mGridManager.apply(mSelectedOption, mApplyGridCallback);

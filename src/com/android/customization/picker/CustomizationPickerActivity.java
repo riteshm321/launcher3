@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -101,6 +102,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private static final Map<Integer, CustomizationSection> mSections = new HashMap<>();
     private CategoryFragment mWallpaperCategoryFragment;
+    private BottomActionBar mBottomActionBar;
 
     private boolean mWallpaperCategoryInitialized;
 
@@ -137,6 +139,15 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
                                 ? R.id.nav_wallpaper : R.id.nav_theme);
             }
         }
+
+        mBottomActionBar = findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            // Only update the visibility of mBottomNav when mBottomActionBar visibility changes.
+            // Since the listener will be triggered by mBottomActionBar and its child views.
+            if (mBottomActionBar.getVisibility() == mBottomNav.getVisibility()) {
+                mBottomNav.setVisibility(mBottomActionBar.isVisible() ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -291,14 +302,14 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void onBackPressed() {
-        // For wallpaper tab, since it had child fragment.
-        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
-            return;
-        }
-
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragment instanceof BottomActionBarFragment
                 && ((BottomActionBarFragment) fragment).onBackPressed()) {
+            return;
+        }
+
+        // For wallpaper tab, since it had child fragment.
+        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
             return;
         }
 
@@ -413,7 +424,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public BottomActionBar getBottomActionBar() {
-        return findViewById(R.id.bottom_actionbar);
+        return mBottomActionBar;
     }
 
     /**

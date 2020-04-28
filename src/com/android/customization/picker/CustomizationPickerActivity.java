@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -65,6 +66,7 @@ import com.android.wallpaper.module.FormFactorChecker;
 import com.android.wallpaper.module.Injector;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.module.UserEventLogger;
+import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
 import com.android.wallpaper.picker.MyPhotosStarter;
@@ -73,6 +75,7 @@ import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -84,7 +87,8 @@ import java.util.Map;
  *  Fragments providing customization options.
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
-        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost {
+        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
+        BottomActionBarHost {
 
     private static final String TAG = "CustomizationPickerActivity";
     @VisibleForTesting static final String WALLPAPER_FLAVOR_EXTRA =
@@ -98,6 +102,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private static final Map<Integer, CustomizationSection> mSections = new HashMap<>();
     private CategoryFragment mWallpaperCategoryFragment;
+    private BottomActionBar mBottomActionBar;
 
     private boolean mWallpaperCategoryInitialized;
 
@@ -134,6 +139,15 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
                                 ? R.id.nav_wallpaper : R.id.nav_theme);
             }
         }
+
+        mBottomActionBar = findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            // Only update the visibility of mBottomNav when mBottomActionBar visibility changes.
+            // Since the listener will be triggered by mBottomActionBar and its child views.
+            if (mBottomActionBar.getVisibility() == mBottomNav.getVisibility()) {
+                mBottomNav.setVisibility(mBottomActionBar.isVisible() ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -288,15 +302,14 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void onBackPressed() {
-        // For wallpaper tab, since it had child fragment.
-        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment instanceof BottomActionBarFragment
+                && ((BottomActionBarFragment) fragment).onBackPressed()) {
             return;
         }
 
-        // For other tabs without child fragment. Hide the BottomActionBar if back key is pressed.
-        BottomActionBar bottomActionBar = findViewById(R.id.bottom_actionbar);
-        if (bottomActionBar != null && bottomActionBar.isVisible()) {
-            bottomActionBar.hide();
+        // For wallpaper tab, since it had child fragment.
+        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
             return;
         }
 
@@ -407,6 +420,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setResult(Activity.RESULT_OK);
         finish();
+    }
+
+    @Override
+    public BottomActionBar getBottomActionBar() {
+        return mBottomActionBar;
     }
 
     /**

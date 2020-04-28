@@ -43,7 +43,7 @@ import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.PreviewPager;
 
 import java.util.List;
@@ -51,7 +51,7 @@ import java.util.List;
 /**
  * Fragment that contains the main UI for selecting and applying a Clockface.
  */
-public class ClockFragment extends ToolbarFragment {
+public class ClockFragment extends AppbarFragment {
 
     private static final String TAG = "ClockFragment";
 
@@ -64,7 +64,7 @@ public class ClockFragment extends ToolbarFragment {
 
     public static ClockFragment newInstance(CharSequence title) {
         ClockFragment fragment = new ClockFragment();
-        fragment.setArguments(ToolbarFragment.createArguments(title));
+        fragment.setArguments(AppbarFragment.createArguments(title));
         return fragment;
     }
 

@@ -67,7 +67,7 @@
 
     <!-- Plus sign used to indicate that the user can add a custom theme -->
 
-    <!-- Name for the Android Theme that comes preset with the device [CHAR LIMIT=10]-->
+    <!-- Name for the Android Theme (Style/Wallpaper/Grid/Clock...) that comes preset with the device [CHAR LIMIT=10]-->
     <string name="default_theme_title">Default</string>
 
     <!-- Title of a page that shows the user the preview of a font selection [CHAR_LIMIT=20] -->
@@ -92,14 +92,20 @@
     <!-- Body text for previewing a font [CHAR LIMIT=160] -->
     <string name="font_card_body">Add your favorite fonts to every screen</string>
 
+    <!--Title for grid options [CHAR LIMIT=NONE] -->
+    <string name="grid_options_title">Choose a grid size</string>
+
     <!--Title for a grid option, describing the number of columns and rows, eg: 4x4 [CHAR LIMIT=10] -->
     <string name="grid_title_pattern"><xliff:g name="num_cols" example="1">%1$d</xliff:g>x<xliff:g name="num_rows" example="1">%2$d</xliff:g></string>
 
     <!-- Message shown when a theme has been applied successfully in the system [CHAR LIMIT=NONE] -->
-    <string name="applied_theme_msg">Style applied</string>
+    <string name="applied_theme_msg">Style set successfully</string>
 
     <!-- Message shown when a clock has been applied successfully in the system [CHAR LIMIT=NONE] -->
-    <string name="applied_clock_msg">Clock applied</string>
+    <string name="applied_clock_msg">Clock set successfully</string>
+
+    <!-- Message shown when a grid has been applied successfully in the system [CHAR LIMIT=NONE] -->
+    <string name="applied_grid_msg">Grid set successfully</string>
 
     <!-- Message shown when a theme couldn't be applied in the system because of an error
         [CHAR LIMIT=NONE] -->

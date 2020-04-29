@@ -15,8 +15,6 @@
  */
 package com.android.customization.picker.grid;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
 import android.app.Activity;
@@ -154,20 +152,8 @@ public class GridFragment extends AppbarFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view;
-        if (ADD_SCALABLE_HEADER) {
-            // TODO(b/147780560): Once the temporary flag (ADD_SCALABLE_HEADER) is removed,
-            // we should have a layout with the same name for portrait and landscape.
-            int orientation = getResources().getConfiguration().orientation;
-            view = inflater.inflate(
-                    orientation == ORIENTATION_LANDSCAPE
-                            ? R.layout.fragment_grid_picker
-                            : R.layout.fragment_grid_scalable_picker,
-                    container, /* attachToRoot */ false);
-        } else {
-            view = inflater.inflate(
-                    R.layout.fragment_grid_picker, container, /* attachToRoot */ false);
-        }
+        View view = inflater.inflate(
+                R.layout.fragment_grid_picker, container, /* attachToRoot */ false);
         setUpToolbar(view);
         mContent = view.findViewById(R.id.content_section);
         mPreviewPager = view.findViewById(R.id.grid_preview_pager);

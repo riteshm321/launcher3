@@ -1,6 +1,6 @@
 package com.android.customization.picker.theme;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -45,21 +45,20 @@ abstract class ThemePreviewPage extends PreviewPage {
     final int accentColor;
     protected final LayoutInflater inflater;
 
-    public ThemePreviewPage(Context context, @StringRes int titleResId,
-            @DrawableRes int iconSrc, @LayoutRes int contentLayoutRes,
-            @ColorInt int accentColor) {
-        super(null);
+    public ThemePreviewPage(Activity activity, @StringRes int titleResId,
+            @DrawableRes int iconSrc, @LayoutRes int contentLayoutRes, @ColorInt int accentColor) {
+        super(null, activity);
         this.nameResId = titleResId;
         if (iconSrc != Resources.ID_NULL) {
-            this.icon = context.getResources().getDrawable(iconSrc, context.getTheme());
-            int size = context.getResources().getDimensionPixelSize(R.dimen.card_header_icon_size);
+            this.icon = activity.getResources().getDrawable(iconSrc, activity.getTheme());
+            int size = activity.getResources().getDimensionPixelSize(R.dimen.card_header_icon_size);
             icon.setBounds(0, 0, size, size);
         } else {
             this.icon = null;
         }
         this.contentLayoutRes = contentLayoutRes;
         this.accentColor = accentColor;
-        this.inflater = LayoutInflater.from(context);
+        this.inflater = LayoutInflater.from(activity);
     }
 
     @Override
@@ -106,15 +105,17 @@ abstract class ThemePreviewPage extends PreviewPage {
         private final int mCornerRadius;
         private final ColorStateList mTintList;
 
-        public ThemeCoverPage(Context context, String title, int accentColor, List<Drawable> icons,
+        public ThemeCoverPage(Activity activity, String title, int accentColor,
+                List<Drawable> icons,
                 Typeface headlineFont, int cornerRadius,
                 Drawable shapeDrawable,
                 List<Drawable> shapeAppIcons,
                 OnClickListener editClickListener,
                 int[] colorButtonIds, int[] colorTileIds, int[][] colorTileIconIds,
                 int[] shapeIconIds, OnLayoutChangeListener... wallpaperListeners) {
-            super(context, 0, 0, R.layout.preview_card_cover_content, accentColor);
-            mRes = context.getResources();
+            super(activity, 0, 0, R.layout.preview_card_cover_content,
+                    accentColor);
+            mRes = activity.getResources();
             mTitle = title;
             mHeadlineFont = headlineFont;
             mIcons = icons;

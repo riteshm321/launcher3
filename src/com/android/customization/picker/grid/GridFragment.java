@@ -286,7 +286,7 @@ public class GridFragment extends AppbarFragment {
 
         private GridPreviewPage(Activity activity, int id, Uri previewUri, String name, int rows,
                 int cols) {
-            super(null);
+            super(null, activity);
             mPageId = id;
             mPreviewAsset = new ContentUriAsset(activity, previewUri,
                     RequestOptions.fitCenterTransform());

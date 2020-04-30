@@ -15,6 +15,7 @@
  */
 package com.android.customization.picker.clock;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -120,7 +121,7 @@ public class ClockFragment extends AppbarFragment {
     }
 
     private void createAdapter() {
-        mPreviewPager.setAdapter(new ClockPreviewAdapter(getContext(), mSelectedOption));
+        mPreviewPager.setAdapter(new ClockPreviewAdapter(getActivity(), mSelectedOption));
     }
 
     private void setUpOptions() {
@@ -174,8 +175,8 @@ public class ClockFragment extends AppbarFragment {
 
         private final Asset mPreviewAsset;
 
-        public ClockfacePreviewPage(String title, Asset previewAsset) {
-            super(title);
+        public ClockfacePreviewPage(String title, Activity activity, Asset previewAsset) {
+            super(title, activity);
             mPreviewAsset = previewAsset;
         }
 
@@ -199,9 +200,10 @@ public class ClockFragment extends AppbarFragment {
      * we don't want to just scroll)
      */
     private static class ClockPreviewAdapter extends BasePreviewAdapter<ClockfacePreviewPage> {
-        ClockPreviewAdapter(Context context, Clockface clockface) {
-            super(context, R.layout.clock_preview_card);
-            addPage(new ClockfacePreviewPage(clockface.getTitle(), clockface.getPreviewAsset()));
+        ClockPreviewAdapter(Activity activity, Clockface clockface) {
+            super(activity, R.layout.clock_preview_card);
+            addPage(new ClockfacePreviewPage(
+                    clockface.getTitle(), activity , clockface.getPreviewAsset()));
         }
     }
 }

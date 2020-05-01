@@ -28,6 +28,7 @@ import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -284,6 +285,43 @@ public class GridFragment extends AppbarFragment {
         private ImageView mPreview;
         private SurfaceView mPreviewSurface;
 
+        private final SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {
+
+            private Surface mLastSurface;
+            private Message mCallback;
+
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                if (mLastSurface != holder.getSurface()) {
+                    mLastSurface = holder.getSurface();
+                    Bundle result = mGridManager.renderPreview(
+                            SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
+                    if (result != null) {
+                        mPreviewSurface.setChildSurfacePackage(
+                                SurfaceViewUtils.getSurfacePackage(result));
+                        mCallback = SurfaceViewUtils.getCallback(result);
+                    }
+                }
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width,
+                    int height) {}
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                if (mCallback != null) {
+                    try {
+                        mCallback.replyTo.send(mCallback);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    } finally {
+                        mCallback = null;
+                    }
+                }
+            }
+        };
+
         private GridPreviewPage(Activity activity, int id, Uri previewUri, String name, int rows,
                 int cols) {
             super(null, activity);
@@ -311,38 +349,7 @@ public class GridFragment extends AppbarFragment {
             mPreviewSurface.setVisibility(usesSurfaceViewForPreview ? View.VISIBLE : View.GONE);
             if (usesSurfaceViewForPreview) {
                 mPreviewSurface.setZOrderOnTop(true);
-                mPreviewSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
-
-                    private Message mCallback;
-
-                    @Override
-                    public void surfaceCreated(SurfaceHolder holder) {
-                        Bundle result = mGridManager.renderPreview(
-                                SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
-                        if (result != null) {
-                            mPreviewSurface.setChildSurfacePackage(
-                                    SurfaceViewUtils.getSurfacePackage(result));
-                            mCallback = SurfaceViewUtils.getCallback(result);
-                        }
-                    }
-
-                    @Override
-                    public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                            int height) {}
-
-                    @Override
-                    public void surfaceDestroyed(SurfaceHolder holder) {
-                        if (mCallback != null) {
-                            try {
-                                mCallback.replyTo.send(mCallback);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            } finally {
-                                mCallback = null;
-                            }
-                        }
-                    }
-                });
+                mPreviewSurface.getHolder().addCallback(mSurfaceCallback);
             } else {
                 mPreviewAsset.loadDrawableWithTransition(mActivity,
                         mPreview /* imageView */,

@@ -278,8 +278,7 @@ public class ThemeFragment extends AppbarFragment {
                 }
                 if (mSelectedTheme == null) {
                     // Select the default theme if there is no matching custom enabled theme
-                    // TODO(b/124796742): default to custom if there is no matching theme bundle
-                    mSelectedTheme = options.get(0);
+                    mSelectedTheme = findDefaultThemeBundle(options);
                 } else {
                     // Only show show checkmark if we found a matching theme
                     mOptionsController.setAppliedOption(mSelectedTheme);
@@ -307,14 +306,24 @@ public class ThemeFragment extends AppbarFragment {
             }
             if (mSelectedTheme == null) {
                 // Select the default theme if there is no matching custom enabled theme
-                // TODO(b/124796742): default to custom if there is no matching theme bundle
-                mSelectedTheme = options.get(0);
+                mSelectedTheme = findDefaultThemeBundle(options);
             } else {
                 // Only show show checkmark if we found a matching theme
                 mOptionsController.setAppliedOption(mSelectedTheme);
             }
             mOptionsController.setSelectedOption(mSelectedTheme);
         }, true);
+    }
+
+    private ThemeBundle findDefaultThemeBundle(List<ThemeBundle> options) {
+        String defaultThemeTitle =
+                getActivity().getResources().getString(R.string.default_theme_title);
+        for (ThemeBundle bundle : options) {
+            if (bundle.getTitle().equals(defaultThemeTitle)) {
+                return bundle;
+            }
+        }
+        return null;
     }
 
     private void navigateToCustomTheme(CustomTheme themeToEdit) {

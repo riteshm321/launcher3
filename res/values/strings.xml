@@ -119,6 +119,9 @@
         [CHAR LIMIT=20] -->
     <string name="custom_theme_previous">Previous</string>
 
+    <!-- Title for "Custom theme" option. [CHAR LIMIT=15] -->
+    <string name="custom_theme">Custom</string>
+
     <!-- Generic label for one system Style/Theme (combination of fonts/colors/icons) that is
         defined and customized by the user (note there could be more than one so the label includes
         a number, eg "Custom 1, Custom 2, etc") [CHAR LIMIT=15] -->

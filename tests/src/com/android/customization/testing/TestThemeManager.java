@@ -6,6 +6,7 @@ import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.model.theme.ThemeManager;
 import com.android.customization.module.ThemesUserEventLogger;
+import com.android.wallpaper.module.WallpaperSetter;
 
 /**
  * Test implementation of {@link ThemeManager}.
@@ -17,9 +18,10 @@ public class TestThemeManager extends ThemeManager {
     public TestThemeManager(
             ThemeBundleProvider provider,
             FragmentActivity activity,
+            WallpaperSetter wallpaperSetter,
             OverlayManagerCompat overlayManagerCompat,
             ThemesUserEventLogger logger) {
-        super(provider, activity, overlayManagerCompat, logger);
+        super(provider, activity, wallpaperSetter, overlayManagerCompat, logger);
     }
 
     @Override

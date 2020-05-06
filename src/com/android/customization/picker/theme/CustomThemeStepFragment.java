@@ -18,9 +18,9 @@ import com.android.customization.model.theme.custom.CustomThemeManager;
 import com.android.customization.model.theme.custom.ThemeComponentOption;
 import com.android.customization.model.theme.custom.ThemeComponentOptionProvider;
 import com.android.wallpaper.R;
-import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.picker.ToolbarFragment;
 
-abstract class CustomThemeStepFragment extends AppbarFragment {
+abstract class CustomThemeStepFragment extends ToolbarFragment {
     protected static final String ARG_KEY_POSITION = "CustomThemeStepFragment.position";
     protected static final String ARG_KEY_TITLE_RES_ID = "CustomThemeStepFragment.title_res";
     protected CustomThemeComponentStepHost mHost;

@@ -17,16 +17,12 @@ package com.android.customization.picker.grid;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
-import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +32,6 @@ import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,15 +47,14 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.BasePreviewAdapter;
 import com.android.customization.picker.BasePreviewAdapter.PreviewPage;
 import com.android.customization.widget.OptionSelectorController;
+import com.android.systemui.shared.system.SurfaceViewRequestUtils;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.ContentUriAsset;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.picker.AppbarFragment;
-import com.android.wallpaper.util.SurfaceViewUtils;
-import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.picker.ToolbarFragment;
 import com.android.wallpaper.widget.PreviewPager;
 
 import com.bumptech.glide.Glide;
@@ -71,7 +65,7 @@ import java.util.List;
 /**
  * Fragment that contains the UI for selecting and applying a GridOption.
  */
-public class GridFragment extends AppbarFragment {
+public class GridFragment extends ToolbarFragment {
 
     private static final int PREVIEW_FADE_DURATION_MS = 100;
 
@@ -86,7 +80,7 @@ public class GridFragment extends AppbarFragment {
 
     public static GridFragment newInstance(CharSequence title) {
         GridFragment fragment = new GridFragment();
-        fragment.setArguments(AppbarFragment.createArguments(title));
+        fragment.setArguments(ToolbarFragment.createArguments(title));
         return fragment;
     }
 
@@ -104,43 +98,7 @@ public class GridFragment extends AppbarFragment {
     private ContentLoadingProgressBar mLoading;
     private View mContent;
     private View mError;
-    private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
-    private boolean mReloadOptionsAfterApplying;
-
-    private final Callback mApplyGridCallback = new Callback() {
-        @Override
-        public void onSuccess() {
-            mGridManager.fetchOptions(new OptionsFetchedListener<GridOption>() {
-                @Override
-                public void onOptionsLoaded(List<GridOption> options) {
-                    mOptionsController.resetOptions(options);
-                    mSelectedOption = getSelectedOption(options);
-                    mReloadOptionsAfterApplying = true;
-                    // It will trigger OptionSelectedListener#onOptionSelected.
-                    mOptionsController.setSelectedOption(mSelectedOption);
-                    Toast.makeText(getContext(), R.string.applied_grid_msg, Toast.LENGTH_SHORT)
-                            .show();
-                    // Since we disabled it when clicked apply button.
-                    mBottomActionBar.enableActions();
-                    mBottomActionBar.hide();
-                }
-
-                @Override
-                public void onError(@Nullable Throwable throwable) {
-                    if (throwable != null) {
-                        Log.e(TAG, "Error loading grid options", throwable);
-                    }
-                    showError();
-                }
-            }, true);
-        }
-
-        @Override
-        public void onError(@Nullable Throwable throwable) {
-            //TODO(chihhangchuang): handle
-        }
-    };
 
     @Override
     public void onAttach(Context context) {
@@ -181,7 +139,20 @@ public class GridFragment extends AppbarFragment {
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
         setUpOptions();
+        view.findViewById(R.id.apply_button).setOnClickListener(v -> {
+            mGridManager.apply(mSelectedOption,  new Callback() {
+                @Override
+                public void onSuccess() {
+                    getActivity().finish();
+                }
 
+                @Override
+                public void onError(@Nullable Throwable throwable) {
+                    //TODO(santie): handle
+                }
+            });
+
+        });
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
 
@@ -202,16 +173,6 @@ public class GridFragment extends AppbarFragment {
             }
         });
         return view;
-    }
-
-    @Override
-    protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
-        mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(APPLY);
-        mBottomActionBar.setActionClickListener(APPLY, unused -> {
-            mBottomActionBar.disableActions();
-            mGridManager.apply(mSelectedOption, mApplyGridCallback);
-        });
     }
 
     private void loadWallpaperBackground() {
@@ -244,16 +205,19 @@ public class GridFragment extends AppbarFragment {
 
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
-                    if (mReloadOptionsAfterApplying) {
-                        mReloadOptionsAfterApplying = false;
-                        return;
-                    }
-                    mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
                     createAdapter();
                 });
                 mOptionsController.initOptions(mGridManager);
-                mSelectedOption = getSelectedOption(options);
+                for (GridOption option : options) {
+                    if (option.isActive(mGridManager)) {
+                        mSelectedOption = option;
+                    }
+                }
+                // For development only, as there should always be a grid set.
+                if (mSelectedOption == null) {
+                    mSelectedOption = options.get(0);
+                }
                 createAdapter();
             }
 
@@ -265,14 +229,6 @@ public class GridFragment extends AppbarFragment {
                 showError();
             }
         }, false);
-    }
-
-    private GridOption getSelectedOption(List<GridOption> options) {
-        return options.stream()
-                .filter(option -> option.isActive(mGridManager))
-                .findAny()
-                // For development only, as there should always be a grid set.
-                .orElse(options.get(0));
     }
 
     private void hideError() {
@@ -326,18 +282,11 @@ public class GridFragment extends AppbarFragment {
             if (usesSurfaceViewForPreview) {
                 mPreviewSurface.setZOrderOnTop(true);
                 mPreviewSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
-
-                    private Message mCallback;
-
                     @Override
                     public void surfaceCreated(SurfaceHolder holder) {
-                        Bundle result = mGridManager.renderPreview(
-                                SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
-                        if (result != null) {
-                            mPreviewSurface.setChildSurfacePackage(
-                                    SurfaceViewUtils.getSurfacePackage(result));
-                            mCallback = SurfaceViewUtils.getCallback(result);
-                        }
+                        Bundle bundle = SurfaceViewRequestUtils.createSurfaceBundle(
+                                mPreviewSurface);
+                        mGridManager.renderPreview(bundle, mName);
                     }
 
                     @Override
@@ -345,17 +294,7 @@ public class GridFragment extends AppbarFragment {
                             int height) {}
 
                     @Override
-                    public void surfaceDestroyed(SurfaceHolder holder) {
-                        if (mCallback != null) {
-                            try {
-                                mCallback.replyTo.send(mCallback);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            } finally {
-                                mCallback = null;
-                            }
-                        }
-                    }
+                    public void surfaceDestroyed(SurfaceHolder holder) {}
                 });
             } else {
                 mPreviewAsset.loadDrawableWithTransition(mActivity,

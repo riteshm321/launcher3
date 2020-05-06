@@ -15,20 +15,27 @@
  */
 package com.android.customization.picker.theme;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.customization.model.theme.custom.CustomThemeManager;
 import com.android.customization.model.theme.custom.ThemeComponentOption;
 import com.android.customization.model.theme.custom.ThemeComponentOptionProvider;
 import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
-import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.picker.ToolbarFragment;
 
 public class CustomThemeComponentFragment extends CustomThemeStepFragment {
     private static final String ARG_USE_GRID_LAYOUT = "CustomThemeComponentFragment.use_grid";;
@@ -41,7 +48,7 @@ public class CustomThemeComponentFragment extends CustomThemeStepFragment {
     public static CustomThemeComponentFragment newInstance(CharSequence toolbarTitle, int position,
             int titleResId, boolean allowGridLayout) {
         CustomThemeComponentFragment fragment = new CustomThemeComponentFragment();
-        Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
+        Bundle arguments = ToolbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
         arguments.putBoolean(ARG_USE_GRID_LAYOUT, allowGridLayout);

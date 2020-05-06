@@ -47,7 +47,7 @@
     <string name="apply_theme_error_msg" msgid="791364062636538317">"حدثت مشكلة أثناء تطبيق النمط."</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"التالي"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"الخطوة السابقة"</string>
-    <string name="custom_theme_title" msgid="2192300350332693631">"<xliff:g id="ID_1">%1$d</xliff:g> مخصّصة"</string>
+    <string name="custom_theme_title" msgid="2192300350332693631">"مخصّص <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"النمط المخصّص"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"حذف"</string>
     <string name="font_component_title" msgid="8800340833695292049">"اختيار الخط"</string>

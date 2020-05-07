@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.os.RemoteException;
 import android.service.wallpaper.WallpaperService;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceControlViewHost;
@@ -57,6 +56,7 @@ import com.android.wallpaper.model.LiveWallpaperInfo;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.util.ScreenSizeCalculator;
 import com.android.wallpaper.util.SizeCalculator;
 import com.android.wallpaper.util.SurfaceViewUtils;
 import com.android.wallpaper.util.WallpaperConnection;
@@ -134,19 +134,19 @@ public class GridFullPreviewFragment extends AppbarFragment {
         mWallpaperSurface = view.findViewById(R.id.grid_full_preview_wallpaper_surface);
         mGridOptionSurface.setVisibility(View.GONE);
 
-        final DisplayMetrics dm = getResources().getDisplayMetrics();
-        float screenAspectRatio = (float) dm.heightPixels / dm.widthPixels;
+        final float screenAspectRatio =
+                ScreenSizeCalculator.getInstance().getScreenAspectRatio(getContext());
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                int cardWidth = (int) (mCardView.getMeasuredHeight() / screenAspectRatio);
+                final int cardWidth = (int) (mCardView.getMeasuredHeight() / screenAspectRatio);
                 ViewGroup.LayoutParams layoutParams = mCardView.getLayoutParams();
                 layoutParams.width = cardWidth;
                 mCardView.setLayoutParams(layoutParams);
                 mCardView.setRadius(SizeCalculator.getPreviewCornerRadius(
-                        getActivity(), mCardView.getMeasuredWidth()));
+                        getActivity(), cardWidth));
                 view.removeOnLayoutChangeListener(this);
             }
         });

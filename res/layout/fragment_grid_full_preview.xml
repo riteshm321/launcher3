@@ -40,12 +40,18 @@
             <ImageView
                 android:id="@+id/grid_full_preview_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/primary_color"/>
 
             <SurfaceView
-                android:id="@+id/grid_full_preview_surface"
+                android:id="@+id/grid_full_preview_option_surface"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+            <SurfaceView
+                android:id="@+id/grid_full_preview_wallpaper_surface"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
     </FrameLayout>

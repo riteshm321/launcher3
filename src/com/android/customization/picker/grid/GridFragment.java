@@ -16,6 +16,8 @@
 package com.android.customization.picker.grid;
 
 import static android.app.Activity.RESULT_OK;
+import static android.view.View.MeasureSpec.EXACTLY;
+import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
@@ -26,20 +28,20 @@ import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.RemoteException;
-import android.util.DisplayMetrics;
+import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
+import android.view.SurfaceControlViewHost;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,12 +65,15 @@ import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.ContentUriAsset;
+import com.android.wallpaper.model.LiveWallpaperInfo;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.util.SurfaceViewUtils;
+import com.android.wallpaper.util.WallpaperConnection;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.LiveTileOverlay;
 import com.android.wallpaper.widget.PreviewPager;
 
 import com.bumptech.glide.Glide;
@@ -86,6 +92,10 @@ public class GridFragment extends AppbarFragment {
 
     private static final String TAG = "GridFragment";
 
+    private final Rect mPreviewLocalRect = new Rect();
+    private final Rect mPreviewGlobalRect = new Rect();
+    private final int[] mLivePreviewLocation = new int[2];
+
     /**
      * Interface to be implemented by an Activity hosting a {@link GridFragment}
      */
@@ -100,10 +110,6 @@ public class GridFragment extends AppbarFragment {
     }
 
     private WallpaperInfo mHomeWallpaper;
-    private float mScreenAspectRatio;
-    private int mCardHeight;
-    private int mCardWidth;
-    private BitmapDrawable mCardBackground;
     private GridPreviewAdapter mAdapter;
     private RecyclerView mOptionsContainer;
     private OptionSelectorController<GridOption> mOptionsController;
@@ -171,9 +177,6 @@ public class GridFragment extends AppbarFragment {
         mOptionsContainer = view.findViewById(R.id.options_container);
         mLoading = view.findViewById(R.id.loading_indicator);
         mError = view.findViewById(R.id.error_section);
-        final Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        mScreenAspectRatio = (float) dm.heightPixels / dm.widthPixels;
 
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
@@ -182,23 +185,33 @@ public class GridFragment extends AppbarFragment {
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
 
-        factory.createCurrentWallpaperInfos((homeWallpaper, lockWallpaper, presentationMode) -> {
-            mHomeWallpaper = homeWallpaper;
-            loadWallpaperBackground();
-
-        }, false);
-        view.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                    int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mCardHeight = mPreviewPager.getHeight() - mPreviewPager.getPaddingTop() -
-                        res.getDimensionPixelSize(R.dimen.indicator_container_height);
-                mCardWidth = (int) (mCardHeight / mScreenAspectRatio);
-                view.removeOnLayoutChangeListener(this);
-                loadWallpaperBackground();
-            }
-        });
+        factory.createCurrentWallpaperInfos((homeWallpaper, lockWallpaper, presentationMode) ->
+                mHomeWallpaper = homeWallpaper, false);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdapter != null) {
+            mAdapter.setWallpaperConnectionVisibility(true);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mAdapter != null) {
+            mAdapter.setWallpaperConnectionVisibility(false);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mAdapter != null) {
+            mAdapter.disconnectWallpaperConnection();
+        }
     }
 
     @Override
@@ -220,20 +233,6 @@ public class GridFragment extends AppbarFragment {
     private void applyGridOption(GridOption gridOption) {
         mBottomActionBar.disableActions();
         mGridManager.apply(gridOption, mApplyGridCallback);
-    }
-
-    private void loadWallpaperBackground() {
-        if (mHomeWallpaper != null && mCardHeight > 0 && mCardWidth > 0) {
-            mHomeWallpaper.getThumbAsset(getContext()).decodeBitmap(mCardWidth,
-                    mCardHeight,
-                    bitmap -> {
-                        mCardBackground =
-                                new BitmapDrawable(getResources(), bitmap);
-                        if (mAdapter != null) {
-                            mAdapter.onWallpaperInfoLoaded();
-                        }
-                    });
-        }
     }
 
     private void createAdapter() {
@@ -303,6 +302,13 @@ public class GridFragment extends AppbarFragment {
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }
 
+    private Intent getWallpaperIntent(android.app.WallpaperInfo info) {
+        return new Intent(WallpaperService.SERVICE_INTERFACE)
+                .setClassName(info.getPackageName(), info.getServiceName());
+    }
+
+    // TODO(b/156059583): Remove the usage of PreviewPage, and add util class to load live wallpaper
+    // for GridFragment and GridFullPreviewFragment.
     private class GridPreviewPage extends PreviewPage {
         private final int mPageId;
         private final Asset mPreviewAsset;
@@ -312,10 +318,18 @@ public class GridFragment extends AppbarFragment {
 
         private final String mName;
 
-        private ImageView mPreview;
-        private SurfaceView mPreviewSurface;
+        private ImageView mHomePreview;
+        private SurfaceView mGridPreviewSurface;
+        private SurfaceView mWallpaperSurface;
 
-        private final SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {
+        private WallpaperConnection mWallpaperConnection;
+
+        // Home workspace surface is behind the app window, and so must the home image wallpaper
+        // like the live wallpaper. This view is rendered on mWallpaperSurface for home image
+        // wallpaper.
+        private ImageView mHomeImageWallpaper;
+
+        private final SurfaceHolder.Callback mGridSurfaceCallback = new SurfaceHolder.Callback() {
 
             private Surface mLastSurface;
             private Message mCallback;
@@ -325,9 +339,9 @@ public class GridFragment extends AppbarFragment {
                 if (mLastSurface != holder.getSurface()) {
                     mLastSurface = holder.getSurface();
                     Bundle result = mGridManager.renderPreview(
-                            SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
+                            SurfaceViewUtils.createSurfaceViewRequest(mGridPreviewSurface), mName);
                     if (result != null) {
-                        mPreviewSurface.setChildSurfacePackage(
+                        mGridPreviewSurface.setChildSurfacePackage(
                                 SurfaceViewUtils.getSurfacePackage(result));
                         mCallback = SurfaceViewUtils.getCallback(result);
                     }
@@ -352,6 +366,38 @@ public class GridFragment extends AppbarFragment {
             }
         };
 
+        private final SurfaceHolder.Callback mWallpaperSurfaceCallback =
+                new SurfaceHolder.Callback() {
+            private Surface mLastSurface;
+
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                if (mLastSurface != holder.getSurface()) {
+                    mLastSurface = holder.getSurface();
+                    mHomeImageWallpaper = new ImageView(getContext());
+                    mHomeImageWallpaper.setBackgroundColor(
+                            ContextCompat.getColor(getContext(), R.color.primary_color));
+                    mHomeImageWallpaper.measure(makeMeasureSpec(mHomePreview.getWidth(), EXACTLY),
+                            makeMeasureSpec(mHomePreview.getHeight(), EXACTLY));
+                    mHomeImageWallpaper.layout(
+                            0, 0, mHomePreview.getWidth(), mHomePreview.getHeight());
+
+                    SurfaceControlViewHost host = new SurfaceControlViewHost(getContext(),
+                            getContext().getDisplay(), mWallpaperSurface.getHostToken());
+                    host.setView(mHomeImageWallpaper, mHomeImageWallpaper.getWidth(),
+                            mHomeImageWallpaper.getHeight());
+                    mWallpaperSurface.setChildSurfacePackage(host.getSurfacePackage());
+                }
+                setUpWallpaperPreview();
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {}
+        };
+
         private GridPreviewPage(Activity activity, int id, Uri previewUri, String name, int rows,
                 int cols) {
             super(null, activity);
@@ -367,38 +413,115 @@ public class GridFragment extends AppbarFragment {
         @Override
         public void setCard(CardView card) {
             super.setCard(card);
-            mPreview = card.findViewById(R.id.grid_preview_image);
-            mPreviewSurface = card.findViewById(R.id.grid_preview_surface);
+            mHomePreview = card.findViewById(R.id.grid_preview_image);
+            mGridPreviewSurface = card.findViewById(R.id.grid_preview_surface);
+            mWallpaperSurface = card.findViewById(R.id.wallpaper_surface);
+            mGridPreviewSurface.setVisibility(View.GONE);
             // PreviewSurface is the top of its window(card view), due to #setZOrderOnTop(true).
-            mPreviewSurface.setOnClickListener(view -> showFullPreview());
+            mGridPreviewSurface.setOnClickListener(view -> showFullPreview());
         }
 
+        @Override
         public void bindPreviewContent() {
-            Resources resources = card.getResources();
-            bindWallpaperIfAvailable();
+            updateWallpaperSurface();
+            updateWorkspaceSurface();
+        }
+
+        private void updateWallpaperSurface() {
+            mWallpaperSurface.setZOrderMediaOverlay(false);
+            mWallpaperSurface.getHolder().addCallback(mWallpaperSurfaceCallback);
+        }
+
+        private void updateWorkspaceSurface() {
             final boolean usesSurfaceViewForPreview = mGridManager.usesSurfaceView();
-            mPreview.setVisibility(usesSurfaceViewForPreview ? View.GONE : View.VISIBLE);
-            mPreviewSurface.setVisibility(usesSurfaceViewForPreview ? View.VISIBLE : View.GONE);
             if (usesSurfaceViewForPreview) {
-                mPreviewSurface.setZOrderOnTop(true);
-                mPreviewSurface.getHolder().addCallback(mSurfaceCallback);
+                mGridPreviewSurface.setZOrderOnTop(true);
+                mGridPreviewSurface.getHolder().addCallback(mGridSurfaceCallback);
+                mGridPreviewSurface.setVisibility(View.VISIBLE);
             } else {
                 mPreviewAsset.loadDrawableWithTransition(mActivity,
-                        mPreview /* imageView */,
+                        mHomePreview /* imageView */,
                         PREVIEW_FADE_DURATION_MS /* duration */,
                         null /* drawableLoadedListener */,
-                        resources.getColor(android.R.color.transparent,
+                        card.getResources().getColor(android.R.color.transparent,
                                 null) /* placeHolderColorJ */);
             }
         }
 
-        void bindWallpaperIfAvailable() {
-            if (card != null && mCardBackground != null) {
-                mPreview.setBackground(mCardBackground);
-                mPreviewSurface.setBackground(mCardBackground);
+        private void setUpWallpaperPreview() {
+            if (mHomeWallpaper != null && mHomeImageWallpaper != null) {
+                boolean renderInImageWallpaperSurface =
+                        !(mHomeWallpaper instanceof LiveWallpaperInfo);
+                mHomeWallpaper.getThumbAsset(getContext())
+                        .loadPreviewImage(getActivity(),
+                                renderInImageWallpaperSurface ? mHomeImageWallpaper : mHomePreview,
+                                getResources().getColor(R.color.secondary_color));
+                LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
+                if (mHomeWallpaper instanceof LiveWallpaperInfo) {
+                    mHomeWallpaper.getThumbAsset(getContext().getApplicationContext())
+                            .loadPreviewImage(
+                                    getActivity(),
+                                    mHomeImageWallpaper,
+                                    getContext().getColor(R.color.secondary_color));
+                    setUpLiveWallpaperPreview(mHomeWallpaper);
+                } else {
+                    if (mWallpaperConnection != null) {
+                        mWallpaperConnection.disconnect();
+                        mWallpaperConnection = null;
+                    }
+                }
+            }
+        }
+
+        private void setUpLiveWallpaperPreview(WallpaperInfo homeWallpaper) {
+            Activity activity = getActivity();
+            if (activity == null) {
+                return;
+            }
+
+            if (mWallpaperConnection != null) {
+                mWallpaperConnection.disconnect();
+            }
+
+            mHomePreview.getLocationOnScreen(mLivePreviewLocation);
+            mPreviewGlobalRect.set(0, 0, mHomePreview.getMeasuredWidth(),
+                    mHomePreview.getMeasuredHeight());
+            mPreviewLocalRect.set(mPreviewGlobalRect);
+            mPreviewGlobalRect.offset(mLivePreviewLocation[0], mLivePreviewLocation[1]);
+
+            mWallpaperConnection = new WallpaperConnection(
+                    getWallpaperIntent(homeWallpaper.getWallpaperComponent()), activity,
+                    new WallpaperConnection.WallpaperConnectionListener() {
+                        @Override
+                        public void onEngineShown() {}
+                    }, mPreviewGlobalRect);
+
+            LiveTileOverlay.INSTANCE.update(new RectF(mPreviewLocalRect), card.getRadius());
+
+            mWallpaperConnection.setVisibility(true);
+            mHomePreview.post(() -> {
+                if (!mWallpaperConnection.connect()) {
+                    mWallpaperConnection = null;
+                    LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
+                }
+            });
+        }
+
+        void setWallpaperConnectionVisibility(boolean visibility) {
+            if (mWallpaperConnection != null) {
+                mWallpaperConnection.setVisibility(visibility);
+            }
+        }
+
+        void disconnectWallpaperConnection() {
+            LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
+            if (mWallpaperConnection != null) {
+                mWallpaperConnection.disconnect();
+                mWallpaperConnection = null;
             }
         }
     }
+
     /**
      * Adapter class for mPreviewPager.
      * This is a ViewPager as it allows for a nice pagination effect (ie, pages snap on swipe,
@@ -415,9 +538,15 @@ public class GridFragment extends AppbarFragment {
             }
         }
 
-        void onWallpaperInfoLoaded() {
+        void setWallpaperConnectionVisibility(boolean visibility) {
             for (GridPreviewPage page : mPages) {
-                page.bindWallpaperIfAvailable();
+                page.setWallpaperConnectionVisibility(visibility);
+            }
+        }
+
+        void disconnectWallpaperConnection() {
+            for (GridPreviewPage page : mPages) {
+                page.disconnectWallpaperConnection();
             }
         }
     }

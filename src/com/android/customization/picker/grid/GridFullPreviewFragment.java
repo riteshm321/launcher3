@@ -57,8 +57,8 @@ import com.android.wallpaper.model.LiveWallpaperInfo;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.util.SizeCalculator;
 import com.android.wallpaper.util.SurfaceViewUtils;
-import com.android.wallpaper.util.TileSizeCalculator;
 import com.android.wallpaper.util.WallpaperConnection;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.LiveTileOverlay;
@@ -145,7 +145,7 @@ public class GridFullPreviewFragment extends AppbarFragment {
                 ViewGroup.LayoutParams layoutParams = mCardView.getLayoutParams();
                 layoutParams.width = cardWidth;
                 mCardView.setLayoutParams(layoutParams);
-                mCardView.setRadius(TileSizeCalculator.getPreviewCornerRadius(
+                mCardView.setRadius(SizeCalculator.getPreviewCornerRadius(
                         getActivity(), mCardView.getMeasuredWidth()));
                 view.removeOnLayoutChangeListener(this);
             }

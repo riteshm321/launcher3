@@ -131,7 +131,7 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
     private void bindCover(CardView card) {
         Context context = getContext();
         PreviewInfo previewInfo = mCustomThemeManager.buildCustomThemePreviewInfo(context);
-        mCoverPage = new ThemeCoverPage(context, getThemeName(),
+        mCoverPage = new ThemeCoverPage(getActivity(), getThemeName(),
                 previewInfo.resolveAccentColor(getResources()), previewInfo.icons,
                 previewInfo.headlineFontFamily, previewInfo.bottomSheeetCornerRadius,
                 previewInfo.shapeDrawable, previewInfo.shapeAppIcons, null,

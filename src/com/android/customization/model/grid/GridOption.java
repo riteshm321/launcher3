@@ -18,6 +18,8 @@ package com.android.customization.model.grid;
 import android.content.Context;
 import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -29,10 +31,23 @@ import com.android.wallpaper.R;
 /**
  * Represents a grid layout option available in the current launcher.
  */
-public class GridOption implements CustomizationOption<GridOption> {
+// TODO(chihhangchuang): Consider moving Parcelable into CustomizationOption.
+public class GridOption implements CustomizationOption<GridOption>, Parcelable {
+    public static final Creator<GridOption> CREATOR = new Creator<GridOption>() {
+        @Override
+        public GridOption createFromParcel(Parcel in) {
+            return new GridOption(in);
+        }
+
+        @Override
+        public GridOption[] newArray(int size) {
+            return new GridOption[size];
+        }
+    };
 
     private final String mTitle;
     private final boolean mIsCurrent;
+    private final String mIconShapePath;
     private final GridTileDrawable mTileDrawable;
     public final String name;
     public final int rows;
@@ -44,12 +59,25 @@ public class GridOption implements CustomizationOption<GridOption> {
             Uri previewImageUri, int previewPagesCount, String iconShapePath) {
         mTitle = title;
         mIsCurrent = isCurrent;
-        mTileDrawable = new GridTileDrawable(rows, cols, iconShapePath);
+        mIconShapePath = iconShapePath;
+        mTileDrawable = new GridTileDrawable(rows, cols, mIconShapePath);
         this.name = name;
         this.rows = rows;
         this.cols = cols;
         this.previewImageUri = previewImageUri;
         this.previewPagesCount = previewPagesCount;
+    }
+
+    protected GridOption(Parcel in) {
+        mTitle = in.readString();
+        mIsCurrent = in.readByte() != 0;
+        mIconShapePath = in.readString();
+        name = in.readString();
+        rows = in.readInt();
+        cols = in.readInt();
+        previewImageUri = in.readParcelable(Uri.class.getClassLoader());
+        previewPagesCount = in.readInt();
+        mTileDrawable = new GridTileDrawable(rows, cols, mIconShapePath);
     }
 
     @Override
@@ -75,5 +103,22 @@ public class GridOption implements CustomizationOption<GridOption> {
     @Override
     public int getLayoutResId() {
         return R.layout.grid_option;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mTitle);
+        parcel.writeByte((byte) (mIsCurrent ? 1 : 0));
+        parcel.writeString(mIconShapePath);
+        parcel.writeString(name);
+        parcel.writeInt(rows);
+        parcel.writeInt(cols);
+        parcel.writeParcelable(previewImageUri, i);
+        parcel.writeInt(previewPagesCount);
     }
 }

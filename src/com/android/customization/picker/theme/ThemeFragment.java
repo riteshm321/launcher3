@@ -162,7 +162,10 @@ public class ThemeFragment extends AppbarFragment {
         mBottomActionBar = bottomActionBar;
         mBottomActionBar.bindBackButtonToSystemBackKey(getActivity());
         mBottomActionBar.showActionsOnly(APPLY);
-        mBottomActionBar.setActionClickListener(APPLY, v -> applyTheme());
+        mBottomActionBar.setActionClickListener(APPLY, v -> {
+            mBottomActionBar.disableActions();
+            applyTheme();
+        });
     }
 
     @Override
@@ -177,15 +180,19 @@ public class ThemeFragment extends AppbarFragment {
         mThemeManager.apply(mSelectedTheme, new Callback() {
             @Override
             public void onSuccess() {
+                // Since we disabled it when clicked apply button.
+                mBottomActionBar.enableActions();
+                mBottomActionBar.hide();
                 Toast.makeText(getContext(), R.string.applied_theme_msg,
                         Toast.LENGTH_LONG).show();
-                getActivity().finish();
-                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
 
             @Override
             public void onError(@Nullable Throwable throwable) {
                 Log.w(TAG, "Error applying theme", throwable);
+                // Since we disabled it when clicked apply button.
+                mBottomActionBar.enableActions();
+                mBottomActionBar.hide();
                 Toast.makeText(getContext(), R.string.apply_theme_error_msg,
                         Toast.LENGTH_LONG).show();
             }
@@ -233,6 +240,9 @@ public class ThemeFragment extends AppbarFragment {
             } else {
                 if (mSelectedTheme != null) {
                     mOptionsController.setSelectedOption(mSelectedTheme);
+                    // Set selected option above will show BottomActionBar,
+                    // hide BottomActionBar for the mis-trigger.
+                    mBottomActionBar.hide();
                 } else {
                     reloadOptions();
                 }
@@ -359,6 +369,9 @@ public class ThemeFragment extends AppbarFragment {
                 mOptionsController.setAppliedOption(mSelectedTheme);
             }
             mOptionsController.setSelectedOption(mSelectedTheme);
+            // Set selected option above will show BottomActionBar,
+            // hide BottomActionBar for the mis-trigger.
+            mBottomActionBar.hide();
         }, true);
     }
 

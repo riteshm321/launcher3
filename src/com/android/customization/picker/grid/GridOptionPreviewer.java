@@ -22,6 +22,7 @@ import android.os.RemoteException;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -78,12 +79,12 @@ class GridOptionPreviewer {
 
         if (usesSurfaceView) {
             mGridOptionSurface = new SurfaceView(mContext);
-            mPreviewContainer.addView(mGridOptionSurface);
+            setUpView(mGridOptionSurface);
             mGridOptionSurface.setZOrderOnTop(true);
             mGridOptionSurface.getHolder().addCallback(mSurfaceCallback);
         } else {
             final ImageView previewImage = new ImageView(mContext);
-            mPreviewContainer.addView(previewImage);
+            setUpView(previewImage);
             final Asset previewAsset = new ContentUriAsset(
                     mContext,
                     mGridOption.previewImageUri,
@@ -95,6 +96,13 @@ class GridOptionPreviewer {
                     mContext.getResources().getColor(android.R.color.transparent,
                             null) /* placeHolderColorJ */);
         }
+    }
+
+    private void setUpView(View view) {
+        view.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        mPreviewContainer.addView(view);
     }
 
     private final SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {

@@ -192,4 +192,7 @@
 
     <!-- Generic error message [CHAR_LIMIT=NONE] -->
     <string name="something_went_wrong">Oops! Something went wrong.</string>
+
+    <!-- Title for a section of a style preview screen that shows a preview of the style color and icons. [CHAR_LIMIT=30]-->
+    <string name="theme_preview_icons_section_title">Color / Icons</string>
 </resources>

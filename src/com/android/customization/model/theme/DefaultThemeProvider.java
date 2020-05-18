@@ -324,6 +324,13 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
         }
     }
 
+    @Nullable
+    @Override
+    public ThemeBundle.Builder parseThemeBundle(String serializedTheme) throws JSONException {
+        return parseCustomTheme(serializedTheme);
+    }
+
+    @Nullable
     @Override
     public CustomTheme.Builder parseCustomTheme(String serializedTheme) throws JSONException {
         JSONObject theme = new JSONObject(serializedTheme);

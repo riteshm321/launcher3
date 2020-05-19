@@ -18,50 +18,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/preview_theme_content_padding_top"
+    android:paddingHorizontal="@dimen/preview_theme_content_padding"
+    android:paddingBottom="@dimen/preview_theme_content_padding"
     android:orientation="vertical">
 
     <include layout="@layout/theme_preview_topbar" />
 
-    <!-- App icons for shapes. -->
-    <GridLayout
+    <TextView
+        android:id="@+id/smart_space_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:columnCount="2"
-        android:rowCount="2"
-        android:useDefaultMargins="true"
-        android:layout_marginTop="12dp">
+        android:textSize="@dimen/preview_theme_smart_space_date_size"
+        android:lineHeight="24dp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/preview_theme_smart_space_margin_top"/>
 
-        <ImageView
-            android:id="@+id/shape_preview_icon_0"
-            android:layout_width="@dimen/preview_theme_shape_size"
-            android:layout_height="@dimen/preview_theme_shape_size"
-            android:layout_gravity="start"
-            android:elevation="4dp"/>
-        <ImageView
-            android:id="@+id/shape_preview_icon_1"
-            android:layout_width="@dimen/preview_theme_shape_size"
-            android:layout_height="@dimen/preview_theme_shape_size"
-            android:layout_gravity="end"
-            android:elevation="4dp"/>
+    <include layout="@layout/theme_preview_app_icon_shape" />
 
-        <ImageView
-            android:id="@+id/shape_preview_icon_2"
-            android:layout_width="@dimen/preview_theme_shape_size"
-            android:layout_height="@dimen/preview_theme_shape_size"
-            android:layout_gravity="start"
-            android:elevation="4dp"/>
+    <include layout="@layout/theme_preview_color_icons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/preview_theme_color_icons_margin_top"/>
 
-        <ImageView
-            android:id="@+id/shape_preview_icon_3"
-            android:layout_width="@dimen/preview_theme_shape_size"
-            android:layout_height="@dimen/preview_theme_shape_size"
-            android:layout_gravity="end"
-            android:elevation="4dp"/>
-    </GridLayout>
-
-    <!-- Placeholder, will add more content later. -->
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"

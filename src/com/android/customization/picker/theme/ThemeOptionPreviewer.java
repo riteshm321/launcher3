@@ -16,16 +16,20 @@
 package com.android.customization.picker.theme;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.MainThread;
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
@@ -43,16 +47,41 @@ import java.util.TimeZone;
 
 /** A class to load the {@link ThemeBundle} preview to the view. */
 class ThemeOptionPreviewer implements LifecycleObserver {
+    // Maps which icon from ResourceConstants#ICONS_FOR_PREVIEW.
+    private static final int ICON_WIFI = 0;
+    private static final int ICON_BLUETOOTH = 1;
+    private static final int ICON_FLASHLIGHT = 3;
+    private static final int ICON_AUTO_ROTATE = 4;
+    private static final int ICON_CELLULAR_SIGNAL = 6;
+    private static final int ICON_BATTERY = 7;
 
-    /**
-     * Maps which icon from ResourceConstants#ICONS_FOR_PREVIEW to use for each icon in the
-     * top bar (fake "status bar") of the cover page.
-     */
-    private static final int [] sTopBarIconToPreviewIcon = new int [] { 0, 6, 7 };
+    // Icons in the top bar (fake "status bar") with the particular order.
+    private static final int [] sTopBarIconToPreviewIcon = new int [] {
+            ICON_WIFI, ICON_CELLULAR_SIGNAL, ICON_BATTERY };
 
-    private int[] mShapeIconIds = {
+    // Ids of app icon shape preview.
+    private int[] mShapeAppIconIds = {
             R.id.shape_preview_icon_0, R.id.shape_preview_icon_1,
             R.id.shape_preview_icon_2, R.id.shape_preview_icon_3
+    };
+    private int[] mShapeIconAppNameIds = {
+            R.id.shape_preview_icon_app_name_0, R.id.shape_preview_icon_app_name_1,
+            R.id.shape_preview_icon_app_name_2, R.id.shape_preview_icon_app_name_3
+    };
+
+    // Ids of color/icons section.
+    private int[][] mColorTileIconIds = {
+            new int[] { R.id.preview_color_qs_0_icon, ICON_WIFI},
+            new int[] { R.id.preview_color_qs_1_icon, ICON_BLUETOOTH},
+            new int[] { R.id.preview_color_qs_2_icon, ICON_FLASHLIGHT},
+            new int[] { R.id.preview_color_qs_3_icon, ICON_AUTO_ROTATE},
+    };
+    private int[] mColorTileIds = {
+            R.id.preview_color_qs_0_bg, R.id.preview_color_qs_1_bg,
+            R.id.preview_color_qs_2_bg, R.id.preview_color_qs_3_bg
+    };
+    private int[] mColorButtonIds = {
+            R.id.preview_check_selected, R.id.preview_radio_selected, R.id.preview_toggle_selected
     };
 
     private final Context mContext;
@@ -76,7 +105,10 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         PreviewInfo previewInfo = themeBundle.getPreviewInfo();
         setHeadlineFont(previewInfo.headlineFontFamily);
         setTopBarIcons(previewInfo.icons);
-        setShapeIcons(previewInfo.shapeAppIcons);
+        setAppIconShape(previewInfo.shapeAppIcons);
+        setColorAndIconsSection(previewInfo.icons, previewInfo.shapeDrawable,
+                previewInfo.resolveAccentColor(mContext.getResources()));
+        setColorAndIconsBoxRadius(previewInfo.bottomSheeetCornerRadius);
         setQsbRadius(previewInfo.bottomSheeetCornerRadius);
     }
 
@@ -98,7 +130,20 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private void setHeadlineFont(Typeface headlineFont) {
         mClock.setTypeface(headlineFont);
 
-        // Update other text style here.
+        TextView date = mContentView.findViewById(R.id.smart_space_date);
+        date.setTypeface(headlineFont);
+        // TODO(chihhangchuang): Use real date.
+        date.setText("Friday, Nov 12");
+
+        // TODO(chihhangchuang): Query the app name for icon shapes, we can get package name from
+        // res/values/override.xml to query the app name.
+        for (int id : mShapeIconAppNameIds) {
+            TextView appName = mContentView.findViewById(id);
+            appName.setTypeface(headlineFont);
+        }
+
+        TextView colorIconsSectionTitle = mContentView.findViewById(R.id.color_icons_section_title);
+        colorIconsSectionTitle.setTypeface(headlineFont);
     }
 
     private void setTopBarIcons(List<Drawable> icons) {
@@ -115,11 +160,42 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         }
     }
 
-    private void setShapeIcons(List<Drawable> icons) {
-        for (int i = 0; i < mShapeIconIds.length && i < icons.size(); i++) {
-            ImageView iconView = mContentView.findViewById(mShapeIconIds[i]);
-            iconView.setBackground(icons.get(i));
+    private void setAppIconShape(List<Drawable> appIcons) {
+        for (int i = 0; i < mShapeAppIconIds.length && i < appIcons.size(); i++) {
+            ImageView iconView = mContentView.findViewById(mShapeAppIconIds[i]);
+            iconView.setBackground(appIcons.get(i));
         }
+    }
+
+    private void setColorAndIconsSection(List<Drawable> icons, Drawable shapeDrawable,
+                                         int accentColor) {
+        // Set QS icons and background.
+        for (int i = 0; i < mColorTileIconIds.length && i < icons.size(); i++) {
+            Drawable icon = icons.get(mColorTileIconIds[i][1]).getConstantState()
+                    .newDrawable().mutate();
+            Drawable bgShape = shapeDrawable.getConstantState().newDrawable();
+            bgShape.setTint(accentColor);
+
+            ImageView bg = mContentView.findViewById(mColorTileIds[i]);
+            bg.setImageDrawable(bgShape);
+            ImageView fg = mContentView.findViewById(mColorTileIconIds[i][0]);
+            fg.setImageDrawable(icon);
+        }
+
+        // Set color for Buttons (CheckBox, RadioButton, and Switch).
+        ColorStateList tintList = getColorStateList(accentColor);
+        for (int mColorButtonId : mColorButtonIds) {
+            CompoundButton button = mContentView.findViewById(mColorButtonId);
+            button.setButtonTintList(tintList);
+            if (button instanceof Switch) {
+                ((Switch) button).setThumbTintList(tintList);
+                ((Switch) button).setTrackTintList(tintList);
+            }
+        }
+    }
+
+    private void setColorAndIconsBoxRadius(int cornerRadius) {
+        ((CardView) mContentView.findViewById(R.id.color_icons_section)).setRadius(cornerRadius);
     }
 
     private void setQsbRadius(int cornerRadius) {
@@ -156,5 +232,21 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private boolean useRoundedQSB(int cornerRadius) {
         return cornerRadius >= mContext.getResources().getDimensionPixelSize(
                 R.dimen.roundCornerThreshold);
+    }
+
+    private ColorStateList getColorStateList(int accentColor) {
+        int controlGreyColor = mContext.getColor(R.color.control_grey);
+        return new ColorStateList(
+                new int[][]{
+                        new int[]{android.R.attr.state_selected},
+                        new int[]{android.R.attr.state_checked},
+                        new int[]{-android.R.attr.state_enabled},
+                },
+                new int[] {
+                        accentColor,
+                        accentColor,
+                        controlGreyColor
+                }
+        );
     }
 }

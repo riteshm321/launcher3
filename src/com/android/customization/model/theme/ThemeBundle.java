@@ -251,12 +251,13 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         public final List<Drawable> icons;
         public final Drawable shapeDrawable;
         public final List<Drawable> shapeAppIcons;
+        public final List<String> shapeAppIconNames;
         @Dimension public final int bottomSheeetCornerRadius;
 
         private PreviewInfo(Context context, Typeface bodyFontFamily, Typeface headlineFontFamily,
                 int colorAccentLight, int colorAccentDark, List<Drawable> icons,
                 Drawable shapeDrawable, @Dimension int cornerRadius,
-                List<Drawable> shapeAppIcons) {
+                List<Drawable> shapeAppIcons, List<String> shapeAppIconNames) {
             this.bodyFontFamily = bodyFontFamily;
             this.headlineFontFamily = headlineFontFamily;
             this.colorAccentLight = colorAccentLight;
@@ -265,6 +266,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
             this.shapeDrawable = shapeDrawable;
             this.bottomSheeetCornerRadius = cornerRadius;
             this.shapeAppIcons = shapeAppIcons;
+            this.shapeAppIconNames = shapeAppIconNames;
         }
 
         /**
@@ -292,6 +294,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         @Dimension private int mCornerRadius;
         protected Map<String, String> mPackages = new HashMap<>();
         private List<Drawable> mAppIcons = new ArrayList<>();
+        private List<String> mAppIconNames = new ArrayList<>();
 
         public ThemeBundle build(Context context) {
             return new ThemeBundle(mTitle, mPackages, mIsDefault, createPreviewInfo(context));
@@ -322,7 +325,8 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
                 }
             }
             return new PreviewInfo(context, mBodyFontFamily, mHeadlineFontFamily, mColorAccentLight,
-                    mColorAccentDark, mIcons, shapeDrawable, mCornerRadius, shapeIcons);
+                    mColorAccentDark, mIcons, shapeDrawable, mCornerRadius, shapeIcons,
+                    mAppIconNames);
         }
 
         public Map<String, String> getPackages() {
@@ -385,6 +389,11 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
 
         public Builder addShapePreviewIcon(Drawable appIcon) {
             mAppIcons.add(appIcon);
+            return this;
+        }
+
+        public Builder addShapePreviewIconName(String appIconName) {
+            mAppIconNames.add(appIconName);
             return this;
         }
 

@@ -15,11 +15,17 @@
  */
 package com.android.customization.picker.theme;
 
+import static android.view.View.MeasureSpec.EXACTLY;
+import static android.view.View.MeasureSpec.makeMeasureSpec;
+
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +44,7 @@ import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
 import com.android.customization.picker.TimeTicker;
 import com.android.wallpaper.R;
+import com.android.wallpaper.util.ScreenSizeCalculator;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;
@@ -95,9 +102,46 @@ class ThemeOptionPreviewer implements LifecycleObserver {
 
         mContext = context;
         mContentView = LayoutInflater.from(context).inflate(
-                R.layout.theme_preview_content_v2, previewContainer);
+                R.layout.theme_preview_content_v2, /* root= */ null);
         mClock = mContentView.findViewById(R.id.theme_preview_clock);
         updateTime();
+        final float screenAspectRatio =
+                ScreenSizeCalculator.getInstance().getScreenAspectRatio(mContext);
+        previewContainer.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5,
+                                       int i6, int i7) {
+                // Calculate the full preview card height and width.
+                int fullPreviewCardHeight = getFullPreviewCardHeight();
+                int fullPreviewCardWidth = (int) (getFullPreviewCardHeight() / screenAspectRatio);
+
+                // Relayout the content view to match full preview card size.
+                mContentView.measure(
+                        makeMeasureSpec(fullPreviewCardWidth, EXACTLY),
+                        makeMeasureSpec(fullPreviewCardHeight, EXACTLY));
+                mContentView.layout(0, 0, fullPreviewCardWidth, fullPreviewCardHeight);
+
+                // Scale the content view from full preview size to the container size. For full
+                // preview, the scale value is 1.
+                float scale =
+                        (float) previewContainer.getMeasuredHeight() / getFullPreviewCardHeight();
+                mContentView.setScaleX(scale);
+                mContentView.setScaleY(scale);
+                // The pivot point is centered by default, set to (0, 0).
+                mContentView.setPivotX(0f);
+                mContentView.setPivotY(0f);
+
+                // Ensure there's only one content view in the container.
+                previewContainer.removeAllViews();
+                // Finally, add the content view to the container.
+                previewContainer.addView(
+                        mContentView,
+                        mContentView.getMeasuredWidth(),
+                        mContentView.getMeasuredHeight());
+
+                previewContainer.removeOnLayoutChangeListener(this);
+            }
+        });
     }
 
     /** Loads the Theme option into the container view. */
@@ -248,5 +292,33 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                         controlGreyColor
                 }
         );
+    }
+
+    /**
+     * Gets the screen height which does not include the system status bar and bottom navigation
+     * bar.
+     */
+    private int getDisplayHeight() {
+        final DisplayMetrics dm = mContext.getResources().getDisplayMetrics();
+        return dm.heightPixels;
+    }
+
+    // The height of top tool bar (R.layout.section_header).
+    private int getTopToolBarHeight() {
+        final TypedValue typedValue = new TypedValue();
+        return mContext.getTheme().resolveAttribute(
+                android.R.attr.actionBarSize, typedValue, true)
+                ? TypedValue.complexToDimensionPixelSize(
+                        typedValue.data, mContext.getResources().getDisplayMetrics())
+                : 0;
+    }
+
+    private int getFullPreviewCardHeight() {
+        final Resources res = mContext.getResources();
+        return getDisplayHeight()
+                - getTopToolBarHeight()
+                - res.getDimensionPixelSize(R.dimen.bottom_navbar_height)
+                - res.getDimensionPixelSize(R.dimen.full_preview_page_default_padding_top)
+                - res.getDimensionPixelSize(R.dimen.full_preview_page_default_padding_bottom);
     }
 }

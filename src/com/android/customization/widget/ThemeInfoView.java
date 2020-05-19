@@ -16,6 +16,7 @@
 package com.android.customization.widget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -76,6 +77,8 @@ public class ThemeInfoView extends LinearLayout {
 
             if (previewInfo.shapeDrawable != null) {
                 mShapePreviewImageView.setImageDrawable(previewInfo.shapeDrawable);
+                mShapePreviewImageView.setImageTintList(
+                        ColorStateList.valueOf(previewInfo.resolveAccentColor(getResources())));
             }
         }
     }

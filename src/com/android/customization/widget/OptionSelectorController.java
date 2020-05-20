@@ -245,6 +245,10 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
             int numColumns = res.getInteger(R.integer.options_grid_num_columns);
             int widthPerItem = totalWidth / mAdapter.getItemCount();
             int extraSpace = availableWidth - widthPerItem * numColumns;
+            while (extraSpace < 0) {
+                numColumns -= 1;
+                extraSpace = availableWidth - widthPerItem * numColumns;
+            }
             int containerSidePadding = extraSpace / (numColumns + 1);
             mContainer.setLayoutManager(new GridLayoutManager(mContainer.getContext(), numColumns));
             mContainer.setPaddingRelative(containerSidePadding, 0, containerSidePadding, 0);

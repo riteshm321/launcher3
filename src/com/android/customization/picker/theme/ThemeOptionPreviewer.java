@@ -18,6 +18,7 @@ package com.android.customization.picker.theme;
 import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
+import android.app.WallpaperColors;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -154,6 +155,31 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 previewInfo.resolveAccentColor(mContext.getResources()));
         setColorAndIconsBoxRadius(previewInfo.bottomSheeetCornerRadius);
         setQsbRadius(previewInfo.bottomSheeetCornerRadius);
+    }
+
+    /**
+     * Updates the color of widgets in launcher (like top status bar, smart space, and app name
+     * text) which will change its content color according to different wallpapers.
+     */
+    public void updateColorForLauncherWidgets(WallpaperColors colors) {
+        int color = mContext.getColor(
+                (colors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) == 0
+                        ? R.color.text_color_light
+                        : R.color.text_color_dark);
+        // Update the top status bar clock text color.
+        mClock.setTextColor(color);
+        // Update the top status bar icon color.
+        ViewGroup iconsContainer = mContentView.findViewById(R.id.theme_preview_top_bar_icons);
+        for (int i = 0; i < iconsContainer.getChildCount(); i++) {
+            ((ImageView) iconsContainer.getChildAt(i))
+                    .setImageTintList(ColorStateList.valueOf(color));
+        }
+        // Update smart space date color.
+        ((TextView) mContentView.findViewById(R.id.smart_space_date)).setTextColor(color);
+        // Update shape app icon name text color.
+        for (int id : mShapeIconAppNameIds) {
+            ((TextView) mContentView.findViewById(id)).setTextColor(color);
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)

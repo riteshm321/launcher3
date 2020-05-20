@@ -32,7 +32,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!-- The V2 preview card. -->
             <FrameLayout
                 android:id="@+id/preview_card_container"
                 android:layout_width="match_parent"
@@ -40,17 +39,9 @@
                 android:paddingTop="@dimen/preview_content_padding_top"
                 android:paddingBottom="@dimen/preview_content_padding_bottom"
                 android:clipToPadding="false"
-                android:background="@color/fullscreen_preview_background"
-                android:visibility="gone">
+                android:background="@color/fullscreen_preview_background">
                 <include layout="@layout/theme_preview_card_v2"/>
             </FrameLayout>
-
-            <!-- Will remove it later. -->
-            <com.android.wallpaper.widget.PreviewPager
-                android:id="@+id/theme_preview_pager"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/preview_content_height"
-                android:background="@color/preview_pager_background"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/options_container"

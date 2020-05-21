@@ -179,6 +179,7 @@ public class ThemeFragment extends AppbarFragment {
         if (mCurrentHomeWallpaper != null && mWallpaperImage.getMeasuredWidth() > 0
                 && mWallpaperImage.getMeasuredHeight() > 0) {
             WallpaperColorsLoader.getWallpaperColors(
+                    getContext(),
                     mCurrentHomeWallpaper.getThumbAsset(getContext()),
                     mWallpaperImage.getMeasuredWidth(),
                     mWallpaperImage.getMeasuredHeight(),

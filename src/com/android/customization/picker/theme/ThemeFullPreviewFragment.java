@@ -123,6 +123,7 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 wallpaperPreviewer.updatePreviewCardRadius();
                 WallpaperColorsLoader.getWallpaperColors(
+                        getContext(),
                         mWallpaper.getThumbAsset(getContext()),
                         wallpaperImageView.getMeasuredWidth(),
                         wallpaperImageView.getMeasuredHeight(),

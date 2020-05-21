@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -209,20 +210,23 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
             Log.d(TAG, "Didn't find shape overlay for default theme, will use system default");
             mOverlayProvider.addSystemDefaultShape(builder);
         }
+
+        List<Drawable> icons = new ArrayList<>();
+        List<String> names = new ArrayList<>();
         for (String packageName : mOverlayProvider.getShapePreviewIconPackages()) {
             try {
-                builder.addShapePreviewIcon(
-                        mContext.getPackageManager().getApplicationIcon(packageName));
-                // Add the shape icon app name.
+                icons.add(mContext.getPackageManager().getApplicationIcon(packageName));
                 ApplicationInfo appInfo = mContext.getPackageManager()
                         .getApplicationInfo(packageName, /* flag= */ 0);
-                builder.addShapePreviewIconName(
-                        String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo)));
+                names.add(String.valueOf(
+                        mContext.getPackageManager().getApplicationLabel(appInfo)));
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName + ", won't use it for icon shape"
                         + "preview");
             }
         }
+        builder.setShapePreviewIcons(icons);
+        builder.setShapePreviewIconNames(names);
 
         try {
             String iconAndroidOverlayPackage = getOverlayPackage(ICON_ANDROID_PREFIX,

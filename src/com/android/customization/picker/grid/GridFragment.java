@@ -23,30 +23,19 @@ import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTR
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.RemoteException;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,23 +44,17 @@ import com.android.customization.model.CustomizationManager.OptionsFetchedListen
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.module.ThemesUserEventLogger;
-import com.android.customization.picker.BasePreviewAdapter;
-import com.android.customization.picker.BasePreviewAdapter.PreviewPage;
 import com.android.customization.picker.ViewOnlyFullPreviewActivity;
+import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
-import com.android.wallpaper.asset.Asset;
-import com.android.wallpaper.asset.ContentUriAsset;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
-import com.android.wallpaper.util.SurfaceViewUtils;
 import com.android.wallpaper.widget.BottomActionBar;
-import com.android.wallpaper.widget.PreviewPager;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -79,8 +62,6 @@ import java.util.List;
  * Fragment that contains the UI for selecting and applying a GridOption.
  */
 public class GridFragment extends AppbarFragment {
-
-    static final int PREVIEW_FADE_DURATION_MS = 100;
 
     private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
 
@@ -100,22 +81,19 @@ public class GridFragment extends AppbarFragment {
     }
 
     private WallpaperInfo mHomeWallpaper;
-    private float mScreenAspectRatio;
-    private int mCardHeight;
-    private int mCardWidth;
-    private BitmapDrawable mCardBackground;
-    private GridPreviewAdapter mAdapter;
     private RecyclerView mOptionsContainer;
     private OptionSelectorController<GridOption> mOptionsController;
     private GridOptionsManager mGridManager;
     private GridOption mSelectedOption;
-    private PreviewPager mPreviewPager;
     private ContentLoadingProgressBar mLoading;
+    private ViewGroup mGridPreviewContainer;
     private View mContent;
     private View mError;
     private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
     private boolean mReloadOptionsAfterApplying;
+
+    private GridOptionPreviewer mGridOptionPreviewer;
 
     private final Callback mApplyGridCallback = new Callback() {
         @Override
@@ -166,39 +144,47 @@ public class GridFragment extends AppbarFragment {
         View view = inflater.inflate(
                 R.layout.fragment_grid_picker, container, /* attachToRoot */ false);
         setUpToolbar(view);
+        mGridPreviewContainer = view.findViewById(R.id.grid_preview_container);
         mContent = view.findViewById(R.id.content_section);
-        mPreviewPager = view.findViewById(R.id.grid_preview_pager);
         mOptionsContainer = view.findViewById(R.id.options_container);
         mLoading = view.findViewById(R.id.loading_indicator);
         mError = view.findViewById(R.id.error_section);
-        final Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        mScreenAspectRatio = (float) dm.heightPixels / dm.widthPixels;
 
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
         setUpOptions();
 
+        ImageView wallpaperPreviewImage = view.findViewById(R.id.wallpaper_preview_image);
+        wallpaperPreviewImage.setOnClickListener(v -> showFullPreview());
+        SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
+        WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(
+                getLifecycle(), getActivity(), wallpaperPreviewImage, wallpaperSurface);
+
+        // Loads current Wallpaper.
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
-
         factory.createCurrentWallpaperInfos((homeWallpaper, lockWallpaper, presentationMode) -> {
             mHomeWallpaper = homeWallpaper;
-            loadWallpaperBackground();
-
+            wallpaperPreviewer.setWallpaper(mHomeWallpaper);
         }, false);
-        view.addOnLayoutChangeListener(new OnLayoutChangeListener() {
+
+        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                    int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mCardHeight = mPreviewPager.getHeight() - mPreviewPager.getPaddingTop() -
-                        res.getDimensionPixelSize(R.dimen.indicator_container_height);
-                mCardWidth = (int) (mCardHeight / mScreenAspectRatio);
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                wallpaperPreviewer.updatePreviewCardRadius();
                 view.removeOnLayoutChangeListener(this);
-                loadWallpaperBackground();
             }
         });
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mGridOptionPreviewer != null) {
+            mGridOptionPreviewer.release();
+        }
     }
 
     @Override
@@ -222,23 +208,13 @@ public class GridFragment extends AppbarFragment {
         mGridManager.apply(gridOption, mApplyGridCallback);
     }
 
-    private void loadWallpaperBackground() {
-        if (mHomeWallpaper != null && mCardHeight > 0 && mCardWidth > 0) {
-            mHomeWallpaper.getThumbAsset(getContext()).decodeBitmap(mCardWidth,
-                    mCardHeight,
-                    bitmap -> {
-                        mCardBackground =
-                                new BitmapDrawable(getResources(), bitmap);
-                        if (mAdapter != null) {
-                            mAdapter.onWallpaperInfoLoaded();
-                        }
-                    });
+    private void updatePreview() {
+        if (mGridOptionPreviewer != null) {
+            mGridOptionPreviewer.release();
         }
-    }
-
-    private void createAdapter() {
-        mAdapter = new GridPreviewAdapter(mSelectedOption);
-        mPreviewPager.setAdapter(mAdapter);
+        mGridOptionPreviewer = new GridOptionPreviewer(
+                getContext(), mGridManager, mGridPreviewContainer);
+        mGridOptionPreviewer.setGridOption(mSelectedOption, mGridManager.usesSurfaceView());
     }
 
     private void setUpOptions() {
@@ -258,11 +234,11 @@ public class GridFragment extends AppbarFragment {
                     }
                     mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
-                    createAdapter();
+                    updatePreview();
                 });
                 mOptionsController.initOptions(mGridManager);
                 mSelectedOption = getSelectedOption(options);
-                createAdapter();
+                updatePreview();
             }
 
             @Override
@@ -301,124 +277,5 @@ public class GridFragment extends AppbarFragment {
         bundle.putBoolean(EXTRA_GRID_USES_SURFACE_VIEW, mGridManager.usesSurfaceView());
         Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_GRID, bundle);
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
-    }
-
-    private class GridPreviewPage extends PreviewPage {
-        private final int mPageId;
-        private final Asset mPreviewAsset;
-        private final int mCols;
-        private final int mRows;
-        private final Activity mActivity;
-
-        private final String mName;
-
-        private ImageView mPreview;
-        private SurfaceView mPreviewSurface;
-
-        private final SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {
-
-            private Surface mLastSurface;
-            private Message mCallback;
-
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                if (mLastSurface != holder.getSurface()) {
-                    mLastSurface = holder.getSurface();
-                    Bundle result = mGridManager.renderPreview(
-                            SurfaceViewUtils.createSurfaceViewRequest(mPreviewSurface), mName);
-                    if (result != null) {
-                        mPreviewSurface.setChildSurfacePackage(
-                                SurfaceViewUtils.getSurfacePackage(result));
-                        mCallback = SurfaceViewUtils.getCallback(result);
-                    }
-                }
-            }
-
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width,
-                    int height) {}
-
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                if (mCallback != null) {
-                    try {
-                        mCallback.replyTo.send(mCallback);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    } finally {
-                        mCallback = null;
-                    }
-                }
-            }
-        };
-
-        private GridPreviewPage(Activity activity, int id, Uri previewUri, String name, int rows,
-                int cols) {
-            super(null, activity);
-            mPageId = id;
-            mPreviewAsset = new ContentUriAsset(activity, previewUri,
-                    RequestOptions.fitCenterTransform());
-            mName = name;
-            mRows = rows;
-            mCols = cols;
-            mActivity = activity;
-        }
-
-        @Override
-        public void setCard(CardView card) {
-            super.setCard(card);
-            mPreview = card.findViewById(R.id.grid_preview_image);
-            mPreviewSurface = card.findViewById(R.id.grid_preview_surface);
-            // PreviewSurface is the top of its window(card view), due to #setZOrderOnTop(true).
-            mPreviewSurface.setOnClickListener(view -> showFullPreview());
-        }
-
-        public void bindPreviewContent() {
-            Resources resources = card.getResources();
-            bindWallpaperIfAvailable();
-            final boolean usesSurfaceViewForPreview = mGridManager.usesSurfaceView();
-            mPreview.setVisibility(usesSurfaceViewForPreview ? View.GONE : View.VISIBLE);
-            mPreviewSurface.setVisibility(usesSurfaceViewForPreview ? View.VISIBLE : View.GONE);
-            if (usesSurfaceViewForPreview) {
-                mPreviewSurface.setZOrderOnTop(true);
-                mPreviewSurface.getHolder().addCallback(mSurfaceCallback);
-            } else {
-                mPreviewAsset.loadDrawableWithTransition(mActivity,
-                        mPreview /* imageView */,
-                        PREVIEW_FADE_DURATION_MS /* duration */,
-                        null /* drawableLoadedListener */,
-                        resources.getColor(android.R.color.transparent,
-                                null) /* placeHolderColorJ */);
-            }
-        }
-
-        void bindWallpaperIfAvailable() {
-            if (card != null && mCardBackground != null) {
-                mPreview.setBackground(mCardBackground);
-                mPreviewSurface.setBackground(mCardBackground);
-            }
-        }
-    }
-    /**
-     * Adapter class for mPreviewPager.
-     * This is a ViewPager as it allows for a nice pagination effect (ie, pages snap on swipe,
-     * we don't want to just scroll)
-     */
-    class GridPreviewAdapter extends BasePreviewAdapter<GridPreviewPage> {
-
-        GridPreviewAdapter(GridOption gridOption) {
-            super(getContext(), R.layout.grid_preview_card);
-            for (int i = 0; i < gridOption.previewPagesCount; i++) {
-                addPage(new GridPreviewPage(getActivity(), i,
-                        gridOption.previewImageUri.buildUpon().appendPath("" + i).build(),
-                        gridOption.name, gridOption.rows, gridOption.cols));
-            }
-        }
-
-        void onWallpaperInfoLoaded() {
-            for (GridPreviewPage page : mPages) {
-                page.bindWallpaperIfAvailable();
-            }
-        }
     }
 }

@@ -116,7 +116,7 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
                 getLifecycle(),
                 getContext(),
                 view.findViewById(R.id.theme_preview_container));
-        themeOptionPreviewer.setThemeBundle(mThemeBundle);
+        themeOptionPreviewer.setPreviewInfo(mThemeBundle.getPreviewInfo());
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,

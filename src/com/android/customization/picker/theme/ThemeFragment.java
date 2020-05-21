@@ -274,7 +274,7 @@ public class ThemeFragment extends AppbarFragment {
                         mSelectedTheme.setOverrideThemeWallpaper(mCurrentHomeWallpaper);
                         mEventLogger.logThemeSelected(mSelectedTheme,
                                 selected instanceof CustomTheme);
-                        mThemeOptionPreviewer.setThemeBundle(mSelectedTheme);
+                        mThemeOptionPreviewer.setPreviewInfo(mSelectedTheme.getPreviewInfo());
                         if (mThemeInfoView != null && mSelectedTheme != null) {
                             mThemeInfoView.populateThemeInfo(mSelectedTheme);
                         }

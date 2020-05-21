@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 import com.bumptech.glide.Glide;
 
@@ -101,20 +103,13 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
         Glide.get(getContext()).clearMemory();
 
         // Set wallpaper background.
+        ImageView wallpaperImageView = view.findViewById(R.id.wallpaper_preview_image);
         final WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(
                 getLifecycle(),
                 getActivity(),
-                view.findViewById(R.id.wallpaper_preview_image),
+                wallpaperImageView,
                 view.findViewById(R.id.wallpaper_preview_surface));
         wallpaperPreviewer.setWallpaper(mWallpaper);
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                wallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
 
         // Set theme option.
         final ThemeOptionPreviewer themeOptionPreviewer = new ThemeOptionPreviewer(
@@ -122,6 +117,19 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
                 getContext(),
                 view.findViewById(R.id.theme_preview_container));
         themeOptionPreviewer.setThemeBundle(mThemeBundle);
+        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                wallpaperPreviewer.updatePreviewCardRadius();
+                WallpaperColorsLoader.getWallpaperColors(
+                        mWallpaper.getThumbAsset(getContext()),
+                        wallpaperImageView.getMeasuredWidth(),
+                        wallpaperImageView.getMeasuredHeight(),
+                        themeOptionPreviewer::updateColorForLauncherWidgets);
+                view.removeOnLayoutChangeListener(this);
+            }
+        });
         return view;
     }
 

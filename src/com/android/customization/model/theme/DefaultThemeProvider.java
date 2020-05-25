@@ -28,6 +28,7 @@ import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY
 import static com.android.customization.model.ResourceConstants.SYSUI_PACKAGE;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.text.TextUtils;
@@ -78,9 +79,6 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
     private static final String THEME_TITLE_FIELD = "_theme_title";
     private static final String THEME_ID_FIELD = "_theme_id";
 
-    // Maximum number of themes allowed (including default, pre-bundled and custom)
-    private static final int MAX_TOTAL_THEMES = 10;
-
     private final OverlayThemeExtractor mOverlayProvider;
     private List<ThemeBundle> mThemes;
     private final CustomizationPreferences mCustomizationPreferences;
@@ -109,6 +107,10 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
     }
 
     private void loadAll() {
+        // Add "Custom" option at the first.
+        mThemes.add(new CustomTheme(CustomTheme.newId(), mContext.getString(
+                R.string.custom_theme), new HashMap<>(), null));
+
         addDefaultTheme();
 
         String[] themeNames = getItemsFromStub(THEMES_ARRAY);
@@ -211,6 +213,11 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
             try {
                 builder.addShapePreviewIcon(
                         mContext.getPackageManager().getApplicationIcon(packageName));
+                // Add the shape icon app name.
+                ApplicationInfo appInfo = mContext.getPackageManager()
+                        .getApplicationInfo(packageName, /* flag= */ 0);
+                builder.addShapePreviewIconName(
+                        String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo)));
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName + ", won't use it for icon shape"
                         + "preview");
@@ -321,15 +328,15 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
                         new HashMap<>(), null));
             }
         }
-
-        if (mThemes.size() < MAX_TOTAL_THEMES) {
-            // Add an empty one at the end.
-            mThemes.add(new CustomTheme(CustomTheme.newId(), mContext.getString(
-                    R.string.custom_theme_title, customThemesCount + 1), new HashMap<>(), null));
-        }
-
     }
 
+    @Nullable
+    @Override
+    public ThemeBundle.Builder parseThemeBundle(String serializedTheme) throws JSONException {
+        return parseCustomTheme(serializedTheme);
+    }
+
+    @Nullable
     @Override
     public CustomTheme.Builder parseCustomTheme(String serializedTheme) throws JSONException {
         JSONObject theme = new JSONObject(serializedTheme);

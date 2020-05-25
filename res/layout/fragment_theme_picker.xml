@@ -46,7 +46,7 @@
                 app:layout_constraintHeight_max="@dimen/preview_pager_max_height"
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintHeight_percent="@dimen/preview_pager_maximum_height_ratio">
-                <include layout="@layout/theme_preview_card_v2"/>
+                <include layout="@layout/theme_preview_card"/>
             </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView

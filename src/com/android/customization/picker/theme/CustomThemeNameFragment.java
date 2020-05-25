@@ -15,6 +15,12 @@
  */
 package com.android.customization.picker.theme;
 
+import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_STYLE;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,8 +34,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
+import com.android.customization.model.theme.custom.CustomTheme;
 import com.android.customization.module.CustomizationInjector;
 import com.android.customization.module.CustomizationPreferences;
+import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
@@ -91,10 +99,10 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
                 }, false);
 
         // Set theme option.
-        mThemeOptionPreviewer = new ThemeOptionPreviewer(
-                getLifecycle(),
-                getContext(),
-                view.findViewById(R.id.theme_preview_container));
+        ViewGroup previewContainer = view.findViewById(R.id.theme_preview_container);
+        previewContainer.setOnClickListener(v -> showFullPreview());
+        mThemeOptionPreviewer = new ThemeOptionPreviewer(getLifecycle(), getContext(),
+                previewContainer);
         PreviewInfo previewInfo = mCustomThemeManager.buildCustomThemePreviewInfo(getContext());
         mThemeOptionPreviewer.setPreviewInfo(previewInfo);
 
@@ -156,5 +164,16 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
 
     public String getThemeName() {
         return mNameEditor.getText().toString();
+    }
+
+    private void showFullPreview() {
+        CustomTheme themeToFullPreview = mCustomThemeManager.buildPartialCustomTheme(
+                getContext(), /* id= */ "", getThemeName());
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_WALLPAPER_INFO, mCurrentHomeWallpaper);
+        bundle.putString(EXTRA_THEME_OPTION, themeToFullPreview.getSerializedPackages());
+        bundle.putString(EXTRA_THEME_OPTION_TITLE, themeToFullPreview.getTitle());
+        Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_STYLE, bundle);
+        startActivity(intent);
     }
 }

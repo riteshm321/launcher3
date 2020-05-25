@@ -18,6 +18,7 @@ package com.android.customization.picker.theme;
 import static android.app.Activity.RESULT_OK;
 
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_STYLE;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_CAN_APPLY_FROM_FULL_PREVIEW;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
@@ -371,6 +372,7 @@ public class ThemeFragment extends AppbarFragment {
         bundle.putParcelable(EXTRA_WALLPAPER_INFO, mCurrentHomeWallpaper);
         bundle.putString(EXTRA_THEME_OPTION, mSelectedTheme.getSerializedPackages());
         bundle.putString(EXTRA_THEME_OPTION_TITLE, mSelectedTheme.getTitle());
+        bundle.putBoolean(EXTRA_CAN_APPLY_FROM_FULL_PREVIEW, true);
         Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_STYLE, bundle);
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }

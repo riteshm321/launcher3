@@ -26,33 +26,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingTop="@dimen/full_preview_page_default_padding_top"
+        android:paddingBottom="@dimen/full_preview_page_default_padding_bottom"
+        android:clipToPadding="false"
         android:background="@color/fullscreen_preview_background">
 
-        <androidx.cardview.widget.CardView
-            style="@style/FullContentPreviewCard"
-            android:id="@+id/grid_full_preview_card"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="32dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
-
-            <ImageView
-                android:id="@+id/grid_full_preview_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_color"/>
-
-            <SurfaceView
-                android:id="@+id/grid_full_preview_option_surface"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-            <SurfaceView
-                android:id="@+id/grid_full_preview_wallpaper_surface"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </androidx.cardview.widget.CardView>
+        <include layout="@layout/grid_preview_card"/>
     </FrameLayout>
 </LinearLayout>

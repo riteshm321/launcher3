@@ -30,20 +30,22 @@
     <dimen name="options_container_height">120dp</dimen>
     <dimen name="options_container_width">0dp</dimen>
     <dimen name="option_tile_width">88dp</dimen>
-    <dimen name="theme_option_icon_sample_height">18dp</dimen>
-    <dimen name="theme_option_icon_sample_width">18dp</dimen>
-    <dimen name="theme_option_shape_sample_height">16dp</dimen>
-    <dimen name="theme_option_shape_sample_width">16dp</dimen>
-    <dimen name="theme_option_font_sample_height">16dp</dimen>
+    <dimen name="option_icon_size">16dp</dimen>
+    <dimen name="theme_option_icon_sample_height">22dp</dimen>
+    <dimen name="theme_option_icon_sample_width">22dp</dimen>
+    <dimen name="theme_option_shape_sample_height">20dp</dimen>
+    <dimen name="theme_option_shape_sample_width">20dp</dimen>
+    <dimen name="theme_option_font_sample_height">20dp</dimen>
     <dimen name="theme_option_font_sample_width">52dp</dimen>
-    <dimen name="theme_option_sample_padding">5dp</dimen>
+    <dimen name="theme_option_sample_margin">10dp</dimen>
     <!-- Note, using dp instead of sp as this is just the "+" symbol, not text -->
-    <dimen name="option_tile_padding_vertical">16dp</dimen>
-    <dimen name="option_tile_padding_horizontal">16dp</dimen>
+    <dimen name="option_tile_padding_vertical">18dp</dimen>
+    <dimen name="option_tile_padding_horizontal">18dp</dimen>
 
     <dimen name="option_bottom_margin">8dp</dimen>
+    <dimen name="option_padding_horizontal">2dp</dimen>
     <!-- Note, using dp instead of sp as this text is more like a "snapshot" of the font -->
-    <dimen name="theme_option_font_text_size">16dp</dimen>
+    <dimen name="theme_option_font_text_size">20dp</dimen>
     <dimen name="theme_option_font_min_text_size">15dp</dimen>
 
     <dimen name="option_tile_margin_horizontal">6dp</dimen>
@@ -64,11 +66,35 @@
     <dimen name="preview_theme_icon_size">30dp</dimen>
     <dimen name="preview_theme_tile_size">16dp</dimen>
     <dimen name="preview_theme_shape_size">36dp</dimen>
-    <dimen name="preview_theme_cover_topbar_clock_size">14sp</dimen>
+    <dimen name="preview_theme_cover_topbar_clock_size">12sp</dimen>
     <dimen name="preview_theme_cover_topbar_icon_size">16dp</dimen>
     <dimen name="preview_theme_cover_content_extra_margin">16dp</dimen>
     <dimen name="preview_theme_content_bottom">@dimen/min_taptarget_height</dimen>
     <dimen name="preview_theme_cover_content_bottom">@dimen/preview_theme_content_bottom</dimen>
+
+    <!--  For the new preview of theme picker.  -->
+    <dimen name="preview_theme_content_padding_top">12dp</dimen>
+    <dimen name="preview_theme_content_padding">@dimen/preview_card_padding</dimen>
+    <dimen name="preview_theme_smart_space_margin_top">48dp</dimen>
+    <dimen name="preview_theme_smart_space_date_size">16sp</dimen>
+    <dimen name="preview_theme_app_icon_shape_padding_horizontal">36dp</dimen>
+    <dimen name="preview_theme_app_icon_shape_padding_top">28dp</dimen>
+    <dimen name="preview_theme_app_icon_shape_text_margin_top">8dp</dimen>
+    <dimen name="preview_theme_app_icon_shape_text_size">16sp</dimen>
+    <dimen name="preview_theme_color_icons_margin_top">40dp</dimen>
+    <dimen name="preview_theme_color_icons_padding_horizontal">18dp</dimen>
+    <dimen name="preview_theme_color_icons_title_text_size">12sp</dimen>
+    <dimen name="preview_theme_color_icons_title_margin_top">12dp</dimen>
+    <dimen name="preview_theme_color_icons_title_margin_bottom">20dp</dimen>
+    <dimen name="preview_theme_color_icons_icon_size">@dimen/preview_theme_icon_size</dimen>
+    <dimen name="preview_theme_color_icons_tile_size">@dimen/preview_theme_tile_size</dimen>
+    <dimen name="preview_theme_color_icons_buttons_margin_top">32dp</dimen>
+    <dimen name="preview_theme_color_icons_buttons_margin_bottom">28dp</dimen>
+
+    <!--  For the customization previews on the picker. -->
+    <dimen name="preview_content_height">@dimen/preview_pager_height</dimen>
+    <dimen name="preview_content_padding_top">@dimen/preview_page_top_margin</dimen>
+    <dimen name="preview_content_padding_bottom">@dimen/indicator_container_height</dimen>
 
     <dimen name="font_preview_body_width">200dp</dimen>
     <dimen name="font_preview_divider_gap">24dp</dimen>
@@ -90,5 +116,12 @@
     <dimen name="roundCornerThreshold">16dp</dimen>
 
     <dimen name="min_taptarget_height">48dp</dimen>
+
+    <!--  For the style info preview sheet. -->
+    <dimen name="theme_info_margin">12dp</dimen>
+    <dimen name="theme_info_icon_size">24dp</dimen>
+    <dimen name="theme_info_app_preview_icon_margin">2dp</dimen>
+    <dimen name="theme_info_app_preview_icon_elevation">2dp</dimen>
+    <dimen name="theme_info_text_size">28sp</dimen>
 
 </resources>

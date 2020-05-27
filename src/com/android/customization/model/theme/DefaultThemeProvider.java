@@ -40,6 +40,7 @@ import androidx.annotation.Nullable;
 import com.android.customization.model.CustomizationManager.OptionsFetchedListener;
 import com.android.customization.model.ResourcesApkProvider;
 import com.android.customization.model.theme.ThemeBundle.Builder;
+import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.customization.model.theme.custom.CustomTheme;
 import com.android.customization.module.CustomizationPreferences;
 import com.android.wallpaper.R;
@@ -211,28 +212,25 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
             mOverlayProvider.addSystemDefaultShape(builder);
         }
 
-        List<Drawable> icons = new ArrayList<>();
-        List<String> names = new ArrayList<>();
+        List<ShapeAppIcon> icons = new ArrayList<>();
         for (String packageName : mOverlayProvider.getShapePreviewIconPackages()) {
             Drawable icon = null;
-            String name = null;
+            CharSequence name = null;
             try {
                 icon = mContext.getPackageManager().getApplicationIcon(packageName);
                 ApplicationInfo appInfo = mContext.getPackageManager()
                         .getApplicationInfo(packageName, /* flag= */ 0);
-                name = String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo));
+                name = mContext.getPackageManager().getApplicationLabel(appInfo);
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName + ", won't use it for icon shape"
                         + "preview");
             } finally {
                 if (icon != null && !TextUtils.isEmpty(name)) {
-                    icons.add(icon);
-                    names.add(name);
+                    icons.add(new ShapeAppIcon(icon, name));
                 }
             }
         }
         builder.setShapePreviewIcons(icons);
-        builder.setShapePreviewIconNames(names);
 
         try {
             String iconAndroidOverlayPackage = getOverlayPackage(ICON_ANDROID_PREFIX,

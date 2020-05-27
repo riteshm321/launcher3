@@ -44,6 +44,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
+import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.ScreenSizeCalculator;
 import com.android.wallpaper.util.TimeUtils;
@@ -155,7 +156,6 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         setHeadlineFont(previewInfo.headlineFontFamily);
         setTopBarIcons(previewInfo.icons);
         setAppIconShape(previewInfo.shapeAppIcons);
-        setAppIconName(previewInfo.shapeAppIconNames);
         setColorAndIconsSection(previewInfo.icons, previewInfo.shapeDrawable,
                 previewInfo.resolveAccentColor(mContext.getResources()));
         setColorAndIconsBoxRadius(previewInfo.bottomSheeetCornerRadius);
@@ -231,17 +231,16 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         }
     }
 
-    private void setAppIconShape(List<Drawable> appIcons) {
-        for (int i = 0; i < mShapeAppIconIds.length && i < appIcons.size(); i++) {
+    private void setAppIconShape(List<ShapeAppIcon> appIcons) {
+        for (int i = 0; i < mShapeAppIconIds.length && i < mShapeIconAppNameIds.length
+                && i < appIcons.size(); i++) {
+            ShapeAppIcon icon = appIcons.get(i);
+            // Set app icon.
             ImageView iconView = mContentView.findViewById(mShapeAppIconIds[i]);
-            iconView.setBackground(appIcons.get(i));
-        }
-    }
-
-    private void setAppIconName(List<String> appIconNames) {
-        for (int i = 0; i < mShapeIconAppNameIds.length && i < appIconNames.size(); i++) {
+            iconView.setBackground(icon.getDrawable());
+            // Set app name.
             TextView appName = mContentView.findViewById(mShapeIconAppNameIds[i]);
-            appName.setText(appIconNames.get(i));
+            appName.setText(icon.getAppName());
         }
     }
 

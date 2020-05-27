@@ -14,16 +14,28 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/preview_theme_content_padding_top"
     android:paddingHorizontal="@dimen/preview_theme_content_padding"
     android:paddingBottom="@dimen/preview_theme_content_padding"
-    android:orientation="vertical">
+    android:clipChildren="false">
 
-    <include layout="@layout/theme_preview_topbar" />
+    <FrameLayout
+        android:id="@+id/topbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/smart_space_date"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="spread_inside">
+        <include layout="@layout/theme_preview_topbar" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/smart_space_date"
@@ -31,20 +43,46 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/preview_theme_smart_space_date_size"
         android:lineHeight="24dp"
+        android:singleLine="true"
         android:gravity="center"
-        android:layout_marginTop="@dimen/preview_theme_smart_space_margin_top"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topbar_container"
+        app:layout_constraintBottom_toTopOf="@id/app_icon_shape_container" />
 
-    <include layout="@layout/theme_preview_app_icon_shape" />
-
-    <include layout="@layout/theme_preview_color_icons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/preview_theme_color_icons_margin_top"/>
-
-    <Space
+    <FrameLayout
+        android:id="@+id/app_icon_shape_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/smart_space_date"
+        app:layout_constraintBottom_toTopOf="@id/color_icons_container"
+        app:layout_constraintHeight_percent="0.4">
+        <include layout="@layout/theme_preview_app_icon_shape" />
+    </FrameLayout>
 
-    <include layout="@layout/theme_cover_qsb" />
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/color_icons_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_icon_shape_container"
+        app:layout_constraintBottom_toTopOf="@id/theme_qsb_container"
+        app:layout_constraintHeight_percent="0.3">
+        <include layout="@layout/theme_preview_color_icons" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/theme_qsb_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/color_icons_container"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <include layout="@layout/theme_cover_qsb" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

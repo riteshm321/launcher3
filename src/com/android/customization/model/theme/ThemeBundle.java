@@ -303,6 +303,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         public PreviewInfo createPreviewInfo(Context context) {
             ShapeDrawable shapeDrawable = null;
             List<Drawable> shapeIcons = new ArrayList<>();
+            List<String> shapeIconNames = new ArrayList<>();
             Path path = mShapePath;
             if (!TextUtils.isEmpty(mPathString)) {
                 path = PathParser.createPathFromPathData(mPathString);
@@ -312,13 +313,17 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
                 shapeDrawable = new ShapeDrawable(shape);
                 shapeDrawable.setIntrinsicHeight((int) PATH_SIZE);
                 shapeDrawable.setIntrinsicWidth((int) PATH_SIZE);
-                for (Drawable icon : mAppIcons) {
+                for (int i = 0; i < mAppIcons.size(); i++) {
+                    Drawable icon = mAppIcons.get(i);
+                    String name = mAppIconNames.get(i);
                     if (icon instanceof AdaptiveIconDrawable) {
                         AdaptiveIconDrawable adaptiveIcon = (AdaptiveIconDrawable) icon;
                         shapeIcons.add(new DynamicAdaptiveIconDrawable(adaptiveIcon.getBackground(),
                                 adaptiveIcon.getForeground(), path));
+                        shapeIconNames.add(name);
                     } else if (icon instanceof DynamicAdaptiveIconDrawable) {
                         shapeIcons.add(icon);
+                        shapeIconNames.add(name);
                     }
                     // TODO: add iconloader library's legacy treatment helper methods for
                     //  non-adaptive icons
@@ -326,7 +331,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
             }
             return new PreviewInfo(context, mBodyFontFamily, mHeadlineFontFamily, mColorAccentLight,
                     mColorAccentDark, mIcons, shapeDrawable, mCornerRadius, shapeIcons,
-                    mAppIconNames);
+                    shapeIconNames);
         }
 
         public Map<String, String> getPackages() {

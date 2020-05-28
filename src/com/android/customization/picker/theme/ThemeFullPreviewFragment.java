@@ -125,11 +125,12 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 wallpaperPreviewer.updatePreviewCardRadius();
+                // Let's use half size of full preview card to reduce memory and loading time.
                 WallpaperColorsLoader.getWallpaperColors(
                         getContext(),
                         mWallpaper.getThumbAsset(getContext()),
-                        wallpaperImageView.getMeasuredWidth(),
-                        wallpaperImageView.getMeasuredHeight(),
+                        wallpaperImageView.getMeasuredWidth() / 2,
+                        wallpaperImageView.getMeasuredHeight() / 2,
                         themeOptionPreviewer::updateColorForLauncherWidgets);
                 view.removeOnLayoutChangeListener(this);
             }

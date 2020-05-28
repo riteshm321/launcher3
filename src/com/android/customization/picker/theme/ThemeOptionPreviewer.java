@@ -205,11 +205,23 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private void setHeadlineFont(Typeface headlineFont) {
         mStatusBarClock.setTypeface(headlineFont);
         mSmartSpaceDate.setTypeface(headlineFont);
+        mSmartSpaceDate.setShadowLayer(
+                mContext.getResources().getDimension(
+                        R.dimen.preview_theme_smartspace_key_ambient_shadow_blur),
+                /* dx = */ 0,
+                /* dy = */ 0,
+                mContext.getColor(R.color.theme_preview_workspace_shadow_color));
 
         // Update font of app names.
         for (int id : mShapeIconAppNameIds) {
             TextView appName = mContentView.findViewById(id);
             appName.setTypeface(headlineFont);
+            appName.setShadowLayer(
+                    mContext.getResources().getDimension(
+                            R.dimen.preview_theme_app_name_key_ambient_shadow_blur),
+                    /* dx = */ 0,
+                    /* dy = */ 0,
+                    mContext.getColor(R.color.theme_preview_workspace_shadow_color));
         }
 
         // Update font of color/icons section title.

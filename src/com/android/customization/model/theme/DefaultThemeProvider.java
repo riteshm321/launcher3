@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -39,6 +40,7 @@ import androidx.annotation.Nullable;
 import com.android.customization.model.CustomizationManager.OptionsFetchedListener;
 import com.android.customization.model.ResourcesApkProvider;
 import com.android.customization.model.theme.ThemeBundle.Builder;
+import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.customization.model.theme.custom.CustomTheme;
 import com.android.customization.module.CustomizationPreferences;
 import com.android.wallpaper.R;
@@ -209,20 +211,26 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
             Log.d(TAG, "Didn't find shape overlay for default theme, will use system default");
             mOverlayProvider.addSystemDefaultShape(builder);
         }
+
+        List<ShapeAppIcon> icons = new ArrayList<>();
         for (String packageName : mOverlayProvider.getShapePreviewIconPackages()) {
+            Drawable icon = null;
+            CharSequence name = null;
             try {
-                builder.addShapePreviewIcon(
-                        mContext.getPackageManager().getApplicationIcon(packageName));
-                // Add the shape icon app name.
+                icon = mContext.getPackageManager().getApplicationIcon(packageName);
                 ApplicationInfo appInfo = mContext.getPackageManager()
                         .getApplicationInfo(packageName, /* flag= */ 0);
-                builder.addShapePreviewIconName(
-                        String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo)));
+                name = mContext.getPackageManager().getApplicationLabel(appInfo);
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName + ", won't use it for icon shape"
                         + "preview");
+            } finally {
+                if (icon != null && !TextUtils.isEmpty(name)) {
+                    icons.add(new ShapeAppIcon(icon, name));
+                }
             }
         }
+        builder.setShapePreviewIcons(icons);
 
         try {
             String iconAndroidOverlayPackage = getOverlayPackage(ICON_ANDROID_PREFIX,

@@ -25,11 +25,13 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -43,18 +45,21 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
+import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.ScreenSizeCalculator;
-import com.android.wallpaper.util.TimeTicker;
+import com.android.wallpaper.util.TimeUtils;
+import com.android.wallpaper.util.TimeUtils.TimeTicker;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /** A class to load the {@link ThemeBundle} preview to the view. */
 class ThemeOptionPreviewer implements LifecycleObserver {
+    private static final String DATE_FORMAT = "EEEE, MMM d";
+
     // Maps which icon from ResourceConstants#ICONS_FOR_PREVIEW.
     private static final int ICON_WIFI = 0;
     private static final int ICON_BLUETOOTH = 1;
@@ -95,16 +100,22 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private final Context mContext;
 
     private View mContentView;
-    private TextView mClock;
+    private TextView mStatusBarClock;
+    private TextView mSmartSpaceDate;
     private TimeTicker mTicker;
+
+    private boolean mHasPreviewInfoSet;
+    private boolean mHasWallpaperColorSet;
 
     ThemeOptionPreviewer(Lifecycle lifecycle, Context context, ViewGroup previewContainer) {
         lifecycle.addObserver(this);
 
         mContext = context;
         mContentView = LayoutInflater.from(context).inflate(
-                R.layout.theme_preview_content_v2, /* root= */ null);
-        mClock = mContentView.findViewById(R.id.theme_preview_clock);
+                R.layout.theme_preview_content, /* root= */ null);
+        mContentView.setVisibility(View.INVISIBLE);
+        mStatusBarClock = mContentView.findViewById(R.id.theme_preview_clock);
+        mSmartSpaceDate = mContentView.findViewById(R.id.smart_space_date);
         updateTime();
         final float screenAspectRatio =
                 ScreenSizeCalculator.getInstance().getScreenAspectRatio(mContext);
@@ -150,11 +161,12 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         setHeadlineFont(previewInfo.headlineFontFamily);
         setTopBarIcons(previewInfo.icons);
         setAppIconShape(previewInfo.shapeAppIcons);
-        setAppIconName(previewInfo.shapeAppIconNames);
         setColorAndIconsSection(previewInfo.icons, previewInfo.shapeDrawable,
                 previewInfo.resolveAccentColor(mContext.getResources()));
         setColorAndIconsBoxRadius(previewInfo.bottomSheeetCornerRadius);
         setQsbRadius(previewInfo.bottomSheeetCornerRadius);
+        mHasPreviewInfoSet = true;
+        showPreviewIfHasAllConfigSet();
     }
 
     /**
@@ -167,7 +179,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                         ? R.color.text_color_light
                         : R.color.text_color_dark);
         // Update the top status bar clock text color.
-        mClock.setTextColor(color);
+        mStatusBarClock.setTextColor(color);
         // Update the top status bar icon color.
         ViewGroup iconsContainer = mContentView.findViewById(R.id.theme_preview_top_bar_icons);
         for (int i = 0; i < iconsContainer.getChildCount(); i++) {
@@ -180,6 +192,9 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         for (int id : mShapeIconAppNameIds) {
             ((TextView) mContentView.findViewById(id)).setTextColor(color);
         }
+
+        mHasWallpaperColorSet = true;
+        showPreviewIfHasAllConfigSet();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -197,20 +212,40 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         }
     }
 
-    private void setHeadlineFont(Typeface headlineFont) {
-        // Update font of status bar clock.
-        mClock.setTypeface(headlineFont);
+    private void showPreviewIfHasAllConfigSet() {
+        if (mHasPreviewInfoSet && mHasWallpaperColorSet
+                && mContentView.getVisibility() != View.VISIBLE) {
+            mContentView.setAlpha(0f);
+            mContentView.setVisibility(View.VISIBLE);
+            mContentView.animate().alpha(1f)
+                    .setStartDelay(50)
+                    .setDuration(200)
+                    .setInterpolator(AnimationUtils.loadInterpolator(mContext,
+                            android.R.interpolator.fast_out_linear_in))
+                    .start();
+        }
+    }
 
-        // Update font of the smart space date.
-        TextView date = mContentView.findViewById(R.id.smart_space_date);
-        date.setTypeface(headlineFont);
-        // TODO(chihhangchuang): Use real date.
-        date.setText("Friday, Nov 12");
+    private void setHeadlineFont(Typeface headlineFont) {
+        mStatusBarClock.setTypeface(headlineFont);
+        mSmartSpaceDate.setTypeface(headlineFont);
+        mSmartSpaceDate.setShadowLayer(
+                mContext.getResources().getDimension(
+                        R.dimen.preview_theme_smartspace_key_ambient_shadow_blur),
+                /* dx = */ 0,
+                /* dy = */ 0,
+                mContext.getColor(R.color.theme_preview_workspace_shadow_color));
 
         // Update font of app names.
         for (int id : mShapeIconAppNameIds) {
             TextView appName = mContentView.findViewById(id);
             appName.setTypeface(headlineFont);
+            appName.setShadowLayer(
+                    mContext.getResources().getDimension(
+                            R.dimen.preview_theme_app_name_key_ambient_shadow_blur),
+                    /* dx = */ 0,
+                    /* dy = */ 0,
+                    mContext.getColor(R.color.theme_preview_workspace_shadow_color));
         }
 
         // Update font of color/icons section title.
@@ -232,17 +267,16 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         }
     }
 
-    private void setAppIconShape(List<Drawable> appIcons) {
-        for (int i = 0; i < mShapeAppIconIds.length && i < appIcons.size(); i++) {
+    private void setAppIconShape(List<ShapeAppIcon> appIcons) {
+        for (int i = 0; i < mShapeAppIconIds.length && i < mShapeIconAppNameIds.length
+                && i < appIcons.size(); i++) {
+            ShapeAppIcon icon = appIcons.get(i);
+            // Set app icon.
             ImageView iconView = mContentView.findViewById(mShapeAppIconIds[i]);
-            iconView.setBackground(appIcons.get(i));
-        }
-    }
-
-    private void setAppIconName(List<String> appIconNames) {
-        for (int i = 0; i < mShapeIconAppNameIds.length && i < appIconNames.size(); i++) {
+            iconView.setBackground(icon.getDrawable());
+            // Set app name.
             TextView appName = mContentView.findViewById(mShapeIconAppNameIds[i]);
-            appName.setText(appIconNames.get(i));
+            appName.setText(icon.getAppName());
         }
     }
 
@@ -292,20 +326,15 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     }
 
     private void updateTime() {
-        if (mClock != null) {
-            mClock.setText(getFormattedTime());
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        if (mStatusBarClock != null) {
+            mStatusBarClock.setText(TimeUtils.getFormattedTime(mContext, calendar));
         }
-    }
-
-    private String getFormattedTime() {
-        DateFormat df = DateFormat.getTimeInstance(DateFormat.SHORT);
-        StringBuffer time = new StringBuffer();
-        FieldPosition amPmPosition = new FieldPosition(DateFormat.Field.AM_PM);
-        df.format(Calendar.getInstance(TimeZone.getDefault()).getTime(), time, amPmPosition);
-        if (amPmPosition.getBeginIndex() > 0) {
-            time.delete(amPmPosition.getBeginIndex(), amPmPosition.getEndIndex());
+        if (mSmartSpaceDate != null) {
+            String datePattern =
+                    DateFormat.getBestDateTimePattern(Locale.getDefault(), DATE_FORMAT);
+            mSmartSpaceDate.setText(DateFormat.format(datePattern, calendar));
         }
-        return time.toString();
     }
 
     private boolean useRoundedQSB(int cornerRadius) {

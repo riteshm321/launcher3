@@ -355,8 +355,7 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId,
-                    true);
+                    titleResId);
         }
     }
 

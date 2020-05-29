@@ -18,6 +18,7 @@ package com.android.customization.picker.theme;
 import static android.app.Activity.RESULT_OK;
 
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_STYLE;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_CAN_APPLY_FROM_FULL_PREVIEW;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
@@ -179,6 +180,7 @@ public class ThemeFragment extends AppbarFragment {
         if (mCurrentHomeWallpaper != null && mWallpaperImage.getMeasuredWidth() > 0
                 && mWallpaperImage.getMeasuredHeight() > 0) {
             WallpaperColorsLoader.getWallpaperColors(
+                    getContext(),
                     mCurrentHomeWallpaper.getThumbAsset(getContext()),
                     mWallpaperImage.getMeasuredWidth(),
                     mWallpaperImage.getMeasuredHeight(),
@@ -224,7 +226,7 @@ public class ThemeFragment extends AppbarFragment {
                 mSelectedTheme = null;
                 reloadOptions();
             } else if (resultCode == CustomThemeActivity.RESULT_THEME_APPLIED) {
-                getActivity().finish();
+                reloadOptions();
             } else {
                 if (mSelectedTheme != null) {
                     mOptionsController.setSelectedOption(mSelectedTheme);
@@ -361,6 +363,7 @@ public class ThemeFragment extends AppbarFragment {
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_ID, themeToEdit.getId());
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_PACKAGES,
                 themeToEdit.getSerializedPackages());
+        intent.putExtra(CustomThemeActivity.CREATE_NEW_THEME, !themeToEdit.isDefined());
         startActivityForResult(intent, CustomThemeActivity.REQUEST_CODE_CUSTOM_THEME);
     }
 
@@ -369,6 +372,7 @@ public class ThemeFragment extends AppbarFragment {
         bundle.putParcelable(EXTRA_WALLPAPER_INFO, mCurrentHomeWallpaper);
         bundle.putString(EXTRA_THEME_OPTION, mSelectedTheme.getSerializedPackages());
         bundle.putString(EXTRA_THEME_OPTION_TITLE, mSelectedTheme.getTitle());
+        bundle.putBoolean(EXTRA_CAN_APPLY_FROM_FULL_PREVIEW, true);
         Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_STYLE, bundle);
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }

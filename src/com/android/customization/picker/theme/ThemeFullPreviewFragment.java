@@ -56,9 +56,11 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
     public static final String EXTRA_THEME_OPTION_TITLE = "theme_option_title";
     protected static final String EXTRA_THEME_OPTION = "theme_option";
     protected static final String EXTRA_WALLPAPER_INFO = "wallpaper_info";
+    protected static final String EXTRA_CAN_APPLY_FROM_FULL_PREVIEW = "can_apply";
 
     private WallpaperInfo mWallpaper;
     private ThemeBundle mThemeBundle;
+    private boolean mCanApplyFromFullPreview;
 
     /**
      * Returns a new {@link ThemeFullPreviewFragment} with the provided title and bundle arguments
@@ -77,6 +79,7 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mWallpaper = getArguments().getParcelable(EXTRA_WALLPAPER_INFO);
+        mCanApplyFromFullPreview = getArguments().getBoolean(EXTRA_CAN_APPLY_FROM_FULL_PREVIEW);
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
         ThemeBundleProvider themeProvider = new DefaultThemeProvider(
                 getContext(), injector.getCustomizationPreferences(getContext()));
@@ -122,10 +125,12 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 wallpaperPreviewer.updatePreviewCardRadius();
+                // Let's use half size of full preview card to reduce memory and loading time.
                 WallpaperColorsLoader.getWallpaperColors(
+                        getContext(),
                         mWallpaper.getThumbAsset(getContext()),
-                        wallpaperImageView.getMeasuredWidth(),
-                        wallpaperImageView.getMeasuredHeight(),
+                        wallpaperImageView.getMeasuredWidth() / 2,
+                        wallpaperImageView.getMeasuredHeight() / 2,
                         themeOptionPreviewer::updateColorForLauncherWidgets);
                 view.removeOnLayoutChangeListener(this);
             }
@@ -135,8 +140,12 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
 
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
-        bottomActionBar.showActionsOnly(INFORMATION, APPLY);
-        bottomActionBar.setActionClickListener(APPLY, v -> finishActivityWithResultOk());
+        if (mCanApplyFromFullPreview) {
+            bottomActionBar.showActionsOnly(INFORMATION, APPLY);
+            bottomActionBar.setActionClickListener(APPLY, v -> finishActivityWithResultOk());
+        } else {
+            bottomActionBar.showActionsOnly(INFORMATION);
+        }
         ThemeInfoView themeInfoView = (ThemeInfoView) LayoutInflater.from(getContext()).inflate(
                 R.layout.theme_info_view, /* root= */ null);
         themeInfoView.populateThemeInfo(mThemeBundle);

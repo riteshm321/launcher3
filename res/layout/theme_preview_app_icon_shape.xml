@@ -14,27 +14,38 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/preview_theme_app_icon_shape_padding_horizontal"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/app_row_0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/preview_theme_app_icon_shape_padding_top"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/app_row_1">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/app_item_0"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/app_item_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_0"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_0"
@@ -42,23 +53,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preview_theme_app_icon_shape_text_margin_top"
                 android:textSize="@dimen/preview_theme_app_icon_shape_text_size"
-                android:lineHeight="20dp"/>
+                android:lineHeight="20dp"
+                android:singleLine="true"/>
         </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/app_item_1"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            app:layout_constraintStart_toEndOf="@id/app_item_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_1"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_1"
@@ -66,25 +79,36 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preview_theme_app_icon_shape_text_margin_top"
                 android:textSize="@dimen/preview_theme_app_icon_shape_text_size"
-                android:lineHeight="20dp"/>
+                android:lineHeight="20dp"
+                android:singleLine="true"/>
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/app_row_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/preview_theme_app_icon_shape_padding_top"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_row_0"
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/app_item_2"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/app_item_3"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_2"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_2"
@@ -92,23 +116,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preview_theme_app_icon_shape_text_margin_top"
                 android:textSize="@dimen/preview_theme_app_icon_shape_text_size"
-                android:lineHeight="20dp"/>
+                android:lineHeight="20dp"
+                android:singleLine="true"/>
         </LinearLayout>
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/app_item_3"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            app:layout_constraintStart_toEndOf="@id/app_item_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_3"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_3"
@@ -116,7 +142,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/preview_theme_app_icon_shape_text_margin_top"
                 android:textSize="@dimen/preview_theme_app_icon_shape_text_size"
-                android:lineHeight="20dp"/>
+                android:lineHeight="20dp"
+                android:singleLine="true"/>
         </LinearLayout>
-    </LinearLayout>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

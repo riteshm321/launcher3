@@ -64,6 +64,7 @@ public class CustomThemeActivity extends FragmentActivity implements
     public static final String EXTRA_THEME_ID = "CustomThemeActivity.ThemeId";
     public static final String EXTRA_THEME_TITLE = "CustomThemeActivity.ThemeTitle";
     public static final String EXTRA_THEME_PACKAGES = "CustomThemeActivity.ThemePackages";
+    public static final String CREATE_NEW_THEME = "CustomThemeActivity.NewTheme";
     public static final int REQUEST_CODE_CUSTOM_THEME = 1;
     public static final int RESULT_THEME_DELETED = 10;
     public static final int RESULT_THEME_APPLIED = 20;
@@ -78,6 +79,7 @@ public class CustomThemeActivity extends FragmentActivity implements
     private ThemeManager mThemeManager;
     private TextView mNextButton;
     private TextView mPreviousButton;
+    private boolean mIsDefinedTheme = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +91,7 @@ public class CustomThemeActivity extends FragmentActivity implements
                 && intent.hasExtra(EXTRA_THEME_TITLE) && intent.hasExtra(EXTRA_THEME_ID)) {
             ThemeBundleProvider themeProvider =
                     new DefaultThemeProvider(this, injector.getCustomizationPreferences(this));
+            mIsDefinedTheme = intent.getBooleanExtra(CREATE_NEW_THEME, true);
             try {
                 CustomTheme.Builder themeBuilder = themeProvider.parseCustomTheme(
                         intent.getStringExtra(EXTRA_THEME_PACKAGES));
@@ -220,7 +223,8 @@ public class CustomThemeActivity extends FragmentActivity implements
         mThemeManager.apply(themeToApply, new Callback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(CustomThemeActivity.this, R.string.applied_theme_msg,
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Toast.makeText(getApplicationContext(), R.string.applied_theme_msg,
                         Toast.LENGTH_LONG).show();
                 setResult(RESULT_THEME_APPLIED);
                 finish();
@@ -383,7 +387,8 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeNameFragment.newInstance(
                     title,
                     position,
-                    titleResId);
+                    titleResId,
+                    mIsDefinedTheme);
         }
     }
 }

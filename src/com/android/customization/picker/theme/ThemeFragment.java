@@ -177,6 +177,9 @@ public class ThemeFragment extends AppbarFragment {
     }
 
     private void updateThemePreviewColorPerWallpaper() {
+        if (getContext() == null) {
+            return;
+        }
         if (mCurrentHomeWallpaper != null && mWallpaperImage.getMeasuredWidth() > 0
                 && mWallpaperImage.getMeasuredHeight() > 0) {
             WallpaperColorsLoader.getWallpaperColors(

@@ -20,8 +20,11 @@ import android.graphics.PorterDuff.Mode;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
 
 import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.CustomizationOption;
@@ -31,7 +34,6 @@ import com.android.wallpaper.R;
 /**
  * Represents a grid layout option available in the current launcher.
  */
-// TODO(chihhangchuang): Consider moving Parcelable into CustomizationOption.
 public class GridOption implements CustomizationOption<GridOption>, Parcelable {
     public static final Creator<GridOption> CREATOR = new Creator<GridOption>() {
         @Override
@@ -98,6 +100,21 @@ public class GridOption implements CustomizationOption<GridOption>, Parcelable {
     @Override
     public boolean isActive(CustomizationManager<GridOption> manager) {
         return mIsCurrent;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof GridOption) {
+            GridOption other = (GridOption) obj;
+            return TextUtils.equals(this.name, other.name)
+                    && this.cols == other.cols
+                    && this.rows == other.rows;
+        }
+        return false;
     }
 
     @Override

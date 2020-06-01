@@ -68,6 +68,8 @@ public class ThemeFragment extends AppbarFragment {
 
     private static final String TAG = "ThemeFragment";
     private static final String KEY_SELECTED_THEME = "ThemeFragment.SelectedThemeBundle";
+    private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY =
+            "ThemeFragment.bottomActionBarVisibility";
     private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
 
     /**
@@ -220,6 +222,10 @@ public class ThemeFragment extends AppbarFragment {
         if (mSelectedTheme != null && !mSelectedTheme.isActive(mThemeManager)) {
             outState.putString(KEY_SELECTED_THEME, mSelectedTheme.getSerializedPackages());
         }
+        if (mBottomActionBar != null) {
+            outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY,
+                    mBottomActionBar.isVisible());
+        }
     }
 
     @Override
@@ -316,10 +322,11 @@ public class ThemeFragment extends AppbarFragment {
                     mSelectedTheme = findDefaultThemeBundle(options);
                 }
                 mOptionsController.setSelectedOption(mSelectedTheme);
-                // Set selected option above will show BottomActionBar when entering the tab. But
-                // it should not show when entering the tab. But it's visible for previously
-                // selected theme.
-                if (mSelectedTheme != previouslySelectedTheme) {
+                boolean bottomActionBarVisibility = savedInstanceState != null
+                        && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY);
+                if (bottomActionBarVisibility) {
+                    mBottomActionBar.show();
+                } else {
                     mBottomActionBar.hide();
                 }
             }

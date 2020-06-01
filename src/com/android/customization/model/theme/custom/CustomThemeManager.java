@@ -35,7 +35,7 @@ import java.util.Map;
 public class CustomThemeManager implements CustomizationManager<ThemeComponentOption> {
 
     private static final String TAG = "CustomThemeManager";
-    private static final String EXTRA_CUSTOM_THEME_OPTION = "custom_theme_option";
+    private static final String KEY_STATE_CURRENT_SELECTION = "CustomThemeManager.currentSelection";
 
     private final CustomTheme mOriginalTheme;
     private CustomTheme.Builder mBuilder;
@@ -85,14 +85,14 @@ public class CustomThemeManager implements CustomizationManager<ThemeComponentOp
     public void saveCustomTheme(Context context, Bundle savedInstanceState) {
         CustomTheme customTheme =
                 buildPartialCustomTheme(context, /* id= */ null, /* title= */ null);
-        savedInstanceState.putString(EXTRA_CUSTOM_THEME_OPTION,
+        savedInstanceState.putString(KEY_STATE_CURRENT_SELECTION,
                 customTheme.getSerializedPackages());
     }
 
     /** Reads the saved custom theme after system config changed. */
     public void readCustomTheme(ThemeBundleProvider themeBundleProvider,
                                 Bundle savedInstanceState) {
-        String packages = savedInstanceState.getString(EXTRA_CUSTOM_THEME_OPTION);
+        String packages = savedInstanceState.getString(KEY_STATE_CURRENT_SELECTION);
         if (!TextUtils.isEmpty(packages)) {
             try {
                 mBuilder = themeBundleProvider.parseCustomTheme(packages);

@@ -85,12 +85,12 @@ public class CustomThemeActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
         mUserEventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(this);
+        ThemeBundleProvider themeProvider =
+                new DefaultThemeProvider(this, injector.getCustomizationPreferences(this));
         Intent intent = getIntent();
         CustomTheme customTheme = null;
         if (intent != null && intent.hasExtra(EXTRA_THEME_PACKAGES)
                 && intent.hasExtra(EXTRA_THEME_TITLE) && intent.hasExtra(EXTRA_THEME_ID)) {
-            ThemeBundleProvider themeProvider =
-                    new DefaultThemeProvider(this, injector.getCustomizationPreferences(this));
             mIsDefinedTheme = intent.getBooleanExtra(CREATE_NEW_THEME, true);
             try {
                 CustomTheme.Builder themeBuilder = themeProvider.parseCustomTheme(
@@ -112,6 +112,9 @@ public class CustomThemeActivity extends FragmentActivity implements
                 mUserEventLogger);
         mThemeManager.fetchOptions(null, false);
         mCustomThemeManager = CustomThemeManager.create(customTheme, mThemeManager);
+        if (savedInstanceState != null) {
+            mCustomThemeManager.readCustomTheme(themeProvider, savedInstanceState);
+        }
 
         int currentStep = 0;
         if (savedInstanceState != null) {
@@ -138,6 +141,9 @@ public class CustomThemeActivity extends FragmentActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_STATE_CURRENT_STEP, mCurrentStep);
+        if (mCustomThemeManager != null) {
+            mCustomThemeManager.saveCustomTheme(this, outState);
+        }
     }
 
     private void navigateToStep(int i) {
@@ -355,8 +361,7 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId,
-                    true);
+                    titleResId);
         }
     }
 

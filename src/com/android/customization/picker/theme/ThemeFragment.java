@@ -68,6 +68,8 @@ public class ThemeFragment extends AppbarFragment {
 
     private static final String TAG = "ThemeFragment";
     private static final String KEY_SELECTED_THEME = "ThemeFragment.SelectedThemeBundle";
+    private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY =
+            "ThemeFragment.bottomActionBarVisibility";
     private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
 
     /**
@@ -177,6 +179,9 @@ public class ThemeFragment extends AppbarFragment {
     }
 
     private void updateThemePreviewColorPerWallpaper() {
+        if (getContext() == null) {
+            return;
+        }
         if (mCurrentHomeWallpaper != null && mWallpaperImage.getMeasuredWidth() > 0
                 && mWallpaperImage.getMeasuredHeight() > 0) {
             WallpaperColorsLoader.getWallpaperColors(
@@ -192,11 +197,9 @@ public class ThemeFragment extends AppbarFragment {
         mThemeManager.apply(mSelectedTheme, new Callback() {
             @Override
             public void onSuccess() {
-                // Since we disabled it when clicked apply button.
-                mBottomActionBar.enableActions();
-                mBottomActionBar.hide();
-                Toast.makeText(getContext(), R.string.applied_theme_msg,
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.applied_theme_msg, Toast.LENGTH_LONG).show();
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().finish();
             }
 
             @Override
@@ -217,6 +220,10 @@ public class ThemeFragment extends AppbarFragment {
         if (mSelectedTheme != null && !mSelectedTheme.isActive(mThemeManager)) {
             outState.putString(KEY_SELECTED_THEME, mSelectedTheme.getSerializedPackages());
         }
+        if (mBottomActionBar != null) {
+            outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY,
+                    mBottomActionBar.isVisible());
+        }
     }
 
     @Override
@@ -226,7 +233,8 @@ public class ThemeFragment extends AppbarFragment {
                 mSelectedTheme = null;
                 reloadOptions();
             } else if (resultCode == CustomThemeActivity.RESULT_THEME_APPLIED) {
-                reloadOptions();
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().finish();
             } else {
                 if (mSelectedTheme != null) {
                     mOptionsController.setSelectedOption(mSelectedTheme);
@@ -290,28 +298,36 @@ public class ThemeFragment extends AppbarFragment {
                     }
                 });
                 mOptionsController.initOptions(mThemeManager);
+
                 String previouslySelected = savedInstanceState != null
                         ? savedInstanceState.getString(KEY_SELECTED_THEME) : null;
+                ThemeBundle previouslySelectedTheme = null;
+                ThemeBundle activeTheme = null;
                 for (ThemeBundle theme : options) {
                     if (previouslySelected != null
                             && previouslySelected.equals(theme.getSerializedPackages())) {
-                        mSelectedTheme = theme;
-                    } else if (theme.isActive(mThemeManager)) {
-                        mSelectedTheme = theme;
-                        break;
+                        previouslySelectedTheme = theme;
+                    }
+                    if (theme.isActive(mThemeManager)) {
+                        activeTheme = theme;
                     }
                 }
+                mSelectedTheme = previouslySelectedTheme != null
+                        ? previouslySelectedTheme
+                        : activeTheme;
+
                 if (mSelectedTheme == null) {
                     // Select the default theme if there is no matching custom enabled theme
                     mSelectedTheme = findDefaultThemeBundle(options);
-                } else {
-                    // Only show show checkmark if we found a matching theme
-                    mOptionsController.setAppliedOption(mSelectedTheme);
                 }
                 mOptionsController.setSelectedOption(mSelectedTheme);
-                // Set selected option above will show BottomActionBar when entering the tab. But
-                // it should not show when entering the tab.
-                mBottomActionBar.hide();
+                boolean bottomActionBarVisibility = savedInstanceState != null
+                        && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY);
+                if (bottomActionBarVisibility) {
+                    mBottomActionBar.show();
+                } else {
+                    mBottomActionBar.hide();
+                }
             }
             @Override
             public void onError(@Nullable Throwable throwable) {
@@ -335,9 +351,6 @@ public class ThemeFragment extends AppbarFragment {
             if (mSelectedTheme == null) {
                 // Select the default theme if there is no matching custom enabled theme
                 mSelectedTheme = findDefaultThemeBundle(options);
-            } else {
-                // Only show show checkmark if we found a matching theme
-                mOptionsController.setAppliedOption(mSelectedTheme);
             }
             mOptionsController.setSelectedOption(mSelectedTheme);
             // Set selected option above will show BottomActionBar,

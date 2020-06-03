@@ -26,8 +26,7 @@
     <item android:state_activated="false">
         <shape android:shape="rectangle">
             <stroke
-                android:color="@color/black_24_alpha"
-                android:alpha="0.24"
+                android:color="@color/option_border_color"
                 android:width="@dimen/option_border_width" />
             <corners android:radius="?android:dialogCornerRadius" />
         </shape>

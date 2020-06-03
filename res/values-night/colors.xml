@@ -24,8 +24,6 @@
     <color name="switch_track_tint">#171717</color>
     <color name="switch_thumb_tint">#bdbdbd</color>
 
-    <color name="theme_preview_workspace_shadow_color">@android:color/transparent</color>
-
     <color name="tile_enabled_icon_color">#2d2d2d</color>
     <color name="tile_disabled_icon_color">@color/light_grey</color>
     <color name="tile_disabled_background_color">#353535</color>

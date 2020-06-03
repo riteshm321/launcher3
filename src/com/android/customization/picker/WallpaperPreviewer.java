@@ -174,7 +174,7 @@ public class WallpaperPreviewer implements LifecycleObserver {
 
         mWallpaperConnection.setVisibility(true);
         mHomePreview.post(() -> {
-            if (!mWallpaperConnection.connect()) {
+            if (mWallpaperConnection != null && !mWallpaperConnection.connect()) {
                 mWallpaperConnection = null;
                 LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
             }

@@ -62,6 +62,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Represents a Theme component available in the system as a "persona" bundle.
@@ -87,7 +88,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         mTitle = title;
         mIsDefault = isDefault;
         mPreviewInfo = previewInfo;
-        mPackagesByCategory = Collections.unmodifiableMap(overlayPackages);
+        mPackagesByCategory = Collections.unmodifiableMap(removeNullValues(overlayPackages));
     }
 
     @Override
@@ -212,6 +213,13 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         for (String key : keysToRemove) {
             json.remove(key);
         }
+    }
+
+    private Map<String, String> removeNullValues(Map<String, String> map) {
+        return map.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() != null)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     protected CharSequence getContentDescription(Context context) {

@@ -31,7 +31,8 @@
     <color name="clockface_preview_background">@android:color/black</color>
 
     <color name="theme_preview_icon_color">@color/google_grey700</color>
-    <color name="theme_preview_workspace_shadow_color">#B0000000</color>
+    <color name="theme_preview_workspace_shadow_color_dark">#B0000000</color>
+    <color name="theme_preview_workspace_shadow_color_transparent">@android:color/transparent</color>
 
     <color name="text_color_dark">#2d2d2d</color>
     <color name="text_color_light">@color/material_white_text</color>

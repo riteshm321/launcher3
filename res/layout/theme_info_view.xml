@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/theme_info_margin"
+            android:importantForAccessibility="no"
             android:textSize="@dimen/theme_info_text_size"
             android:textColor="?android:attr/colorForeground"
             android:text="@string/font_component_option_thumbnail"/>

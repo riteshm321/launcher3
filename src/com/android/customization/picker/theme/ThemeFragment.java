@@ -123,12 +123,10 @@ public class ThemeFragment extends AppbarFragment {
                 .getCurrentWallpaperFactory(getActivity().getApplicationContext());
         mOptionsContainer = view.findViewById(R.id.options_container);
 
-        ViewGroup previewContainer = view.findViewById(R.id.theme_preview_container);
-        previewContainer.setOnClickListener(v -> showFullPreview());
         mThemeOptionPreviewer = new ThemeOptionPreviewer(
                 getLifecycle(),
                 getContext(),
-                previewContainer);
+                view.findViewById(R.id.theme_preview_container));
 
         // Set Wallpaper background.
         mWallpaperImage = view.findViewById(R.id.wallpaper_preview_image);
@@ -158,6 +156,8 @@ public class ThemeFragment extends AppbarFragment {
                 view.removeOnLayoutChangeListener(this);
             }
         });
+
+        view.findViewById(R.id.theme_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 

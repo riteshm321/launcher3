@@ -145,13 +145,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
 
         mBottomActionBar = findViewById(R.id.bottom_actionbar);
-        mBottomActionBar.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            // Only update the visibility of mBottomNav when mBottomActionBar visibility changes.
-            // Since the listener will be triggered by mBottomActionBar and its child views.
-            if (mBottomActionBar.getVisibility() == mBottomNav.getVisibility()) {
-                mBottomNav.setVisibility(mBottomActionBar.isVisible() ? View.GONE : View.VISIBLE);
-            }
-        });
+        mBottomActionBar.addVisibilityChangeListener(
+                isVisible -> mBottomNav.setVisibility(isVisible ? View.GONE : View.VISIBLE));
     }
 
     @Override

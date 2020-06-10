@@ -357,6 +357,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    public void show(String collectionId) {
+        mDelegate.show(collectionId);
+    }
+
+    @Override
     public void onWallpapersReady() {
 
     }

@@ -19,7 +19,6 @@ import static android.app.Activity.RESULT_OK;
 
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
-import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_USES_SURFACE_VIEW;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
@@ -31,7 +30,6 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -89,12 +87,10 @@ public class GridFragment extends AppbarFragment {
     private GridOptionsManager mGridManager;
     private GridOption mSelectedOption;
     private ContentLoadingProgressBar mLoading;
-    private ViewGroup mGridPreviewContainer;
     private View mContent;
     private View mError;
     private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
-    private boolean mReloadOptionsAfterApplying;
 
     private GridOptionPreviewer mGridOptionPreviewer;
 
@@ -130,7 +126,6 @@ public class GridFragment extends AppbarFragment {
         View view = inflater.inflate(
                 R.layout.fragment_grid_picker, container, /* attachToRoot */ false);
         setUpToolbar(view);
-        mGridPreviewContainer = view.findViewById(R.id.grid_preview_container);
         mContent = view.findViewById(R.id.content_section);
         mOptionsContainer = view.findViewById(R.id.options_container);
         mLoading = view.findViewById(R.id.loading_indicator);
@@ -140,12 +135,9 @@ public class GridFragment extends AppbarFragment {
         Glide.get(getContext()).clearMemory();
         setUpOptions(savedInstanceState);
 
-        ImageView wallpaperPreviewImage = view.findViewById(R.id.wallpaper_preview_image);
-        wallpaperPreviewImage.setOnClickListener(v -> showFullPreview());
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
-        WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(
-                getLifecycle(), getActivity(), wallpaperPreviewImage, wallpaperSurface);
-
+        WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(getLifecycle(),
+                getActivity(), view.findViewById(R.id.wallpaper_preview_image), wallpaperSurface);
         // Loads current Wallpaper.
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
@@ -153,6 +145,9 @@ public class GridFragment extends AppbarFragment {
             mHomeWallpaper = homeWallpaper;
             wallpaperPreviewer.setWallpaper(mHomeWallpaper);
         }, false);
+
+        mGridOptionPreviewer = new GridOptionPreviewer(mGridManager,
+                view.findViewById(R.id.grid_preview_container));
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -162,6 +157,8 @@ public class GridFragment extends AppbarFragment {
                 view.removeOnLayoutChangeListener(this);
             }
         });
+
+        view.findViewById(R.id.grid_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 
@@ -206,18 +203,6 @@ public class GridFragment extends AppbarFragment {
         mGridManager.apply(gridOption, mApplyGridCallback);
     }
 
-    private void updatePreview() {
-        if (mGridOptionPreviewer != null) {
-            mGridOptionPreviewer.release();
-        }
-        if (getContext() == null) {
-            return;
-        }
-        mGridOptionPreviewer = new GridOptionPreviewer(
-                getContext(), mGridManager, mGridPreviewContainer);
-        mGridOptionPreviewer.setGridOption(mSelectedOption, mGridManager.usesSurfaceView());
-    }
-
     private void setUpOptions(@Nullable Bundle savedInstanceState) {
         hideError();
         mLoading.show();
@@ -228,13 +213,9 @@ public class GridFragment extends AppbarFragment {
                 mOptionsController = new OptionSelectorController<>(mOptionsContainer, options);
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
-                    if (mReloadOptionsAfterApplying) {
-                        mReloadOptionsAfterApplying = false;
-                        return;
-                    }
                     mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
-                    updatePreview();
+                    mGridOptionPreviewer.setGridOption(mSelectedOption);
                 });
                 mOptionsController.initOptions(mGridManager);
 
@@ -246,6 +227,7 @@ public class GridFragment extends AppbarFragment {
                 mSelectedOption = previouslySelectedOption != null
                         ? previouslySelectedOption
                         : getActiveOption(options);
+                // Will trigger selected listener.
                 mOptionsController.setSelectedOption(mSelectedOption);
                 boolean bottomActionBarVisibility = savedInstanceState != null
                         && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY);
@@ -254,7 +236,6 @@ public class GridFragment extends AppbarFragment {
                 } else {
                     mBottomActionBar.hide();
                 }
-                updatePreview();
             }
 
             @Override
@@ -298,7 +279,6 @@ public class GridFragment extends AppbarFragment {
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_WALLPAPER_INFO, mHomeWallpaper);
         bundle.putParcelable(EXTRA_GRID_OPTION, mSelectedOption);
-        bundle.putBoolean(EXTRA_GRID_USES_SURFACE_VIEW, mGridManager.usesSurfaceView());
         Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_GRID, bundle);
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }

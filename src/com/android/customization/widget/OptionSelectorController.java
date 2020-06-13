@@ -160,6 +160,11 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                 return mOptions.get(position).getLayoutResId();
             }
 
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
             @NonNull
             @Override
             public TileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -185,7 +190,8 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
                 if (mShowCheckmark && option.equals(mAppliedOption)) {
                     Resources res = mContainer.getContext().getResources();
-                    Drawable checkmark = res.getDrawable(R.drawable.ic_check_circle_filled_24px);
+                    Drawable checkmark = res.getDrawable(R.drawable.check_circle_accent_24dp,
+                            mContainer.getContext().getTheme());
                     Drawable frame = holder.tileView.getForeground();
                     Drawable[] layers = {frame, checkmark};
                     if (frame == null) {
@@ -225,6 +231,11 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         mContainer.setLayoutManager(new LinearLayoutManager(mContainer.getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         Resources res = mContainer.getContext().getResources();
+
+        // A workaround from b/37088814, fix TalkBack will lose focus when receive notify*Changed()
+        mAdapter.setHasStableIds(true);
+        mContainer.setItemAnimator(null);
+
         mContainer.setAdapter(mAdapter);
 
         // Measure RecyclerView to get to the total amount of space used by all options.

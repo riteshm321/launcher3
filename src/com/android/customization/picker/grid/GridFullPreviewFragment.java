@@ -51,11 +51,9 @@ public class GridFullPreviewFragment extends AppbarFragment {
 
     static final String EXTRA_WALLPAPER_INFO = "wallpaper_info";
     static final String EXTRA_GRID_OPTION = "grid_option";
-    static final String EXTRA_GRID_USES_SURFACE_VIEW = "uses_surface_view";
 
     private WallpaperInfo mWallpaper;
     private GridOption mGridOption;
-    private boolean mUsesSurfaceView;
 
     private WallpaperPreviewer mWallpaperPreviewer;
     private GridOptionPreviewer mGridOptionPreviewer;
@@ -78,7 +76,6 @@ public class GridFullPreviewFragment extends AppbarFragment {
         super.onCreate(savedInstanceState);
         mWallpaper = getArguments().getParcelable(EXTRA_WALLPAPER_INFO);
         mGridOption = getArguments().getParcelable(EXTRA_GRID_OPTION);
-        mUsesSurfaceView = getArguments().getBoolean(EXTRA_GRID_USES_SURFACE_VIEW);
     }
 
     @Nullable
@@ -105,9 +102,8 @@ public class GridFullPreviewFragment extends AppbarFragment {
                         getString(R.string.grid_control_metadata_name)),
                 eventLogger);
 
-        ViewGroup gridPreviewContainer = view.findViewById(R.id.grid_preview_container);
-        mGridOptionPreviewer = new GridOptionPreviewer(
-                getContext(), gridManager, gridPreviewContainer);
+        mGridOptionPreviewer = new GridOptionPreviewer(gridManager,
+                view.findViewById(R.id.grid_preview_container));
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -124,7 +120,7 @@ public class GridFullPreviewFragment extends AppbarFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mWallpaperPreviewer.setWallpaper(mWallpaper);
-        mGridOptionPreviewer.setGridOption(mGridOption, mUsesSurfaceView);
+        mGridOptionPreviewer.setGridOption(mGridOption);
     }
 
     @Override

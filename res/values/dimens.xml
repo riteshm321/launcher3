@@ -76,10 +76,10 @@
     <dimen name="preview_theme_topbar_container_margin_horizontal">16dp</dimen>
     <dimen name="preview_theme_color_icons_container_margin_horizontal">10dp</dimen>
     <dimen name="preview_theme_qsb_container_margin_horizontal">14dp</dimen>
-    <dimen name="preview_theme_smart_space_date_size">16sp</dimen>
+    <dimen name="preview_theme_smart_space_date_size">18sp</dimen>
     <dimen name="preview_theme_app_icon_size">64dp</dimen>
     <dimen name="preview_theme_app_icon_shape_text_margin_top">8dp</dimen>
-    <dimen name="preview_theme_app_icon_shape_text_size">14sp</dimen>
+    <dimen name="preview_theme_app_icon_shape_text_size">16sp</dimen>
     <dimen name="preview_theme_color_icons_padding_top">12dp</dimen>
     <dimen name="preview_theme_color_icons_padding_bottom">20dp</dimen>
     <dimen name="preview_theme_color_icons_padding_horizontal">18dp</dimen>

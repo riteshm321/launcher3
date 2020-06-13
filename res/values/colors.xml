@@ -33,6 +33,8 @@
     <color name="theme_preview_icon_color">@color/google_grey700</color>
     <color name="theme_preview_workspace_shadow_color_dark">#B0000000</color>
     <color name="theme_preview_workspace_shadow_color_transparent">@android:color/transparent</color>
+    <color name="theme_preview_color_icons_background">@color/material_white_100</color>
+    <color name="theme_preview_color_icons_title_color">@color/black_87_alpha</color>
 
     <color name="text_color_dark">#2d2d2d</color>
     <color name="text_color_light">@color/material_white_text</color>
@@ -49,9 +51,6 @@
 
     <color name="tip_dot_color">#34A853</color>
     <color name="tip_dot_line_color">#FFFFFF</color>
-
-    <color name="selected_check_color">#FFFFFF</color>
-    <color name="selected_check_background_color">#1E8E3E</color>
 
     <color name="toolbar_icon_color">@color/text_color_dark</color>
 

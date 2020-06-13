@@ -123,6 +123,11 @@ public class ThemeFragment extends AppbarFragment {
                 .getCurrentWallpaperFactory(getActivity().getApplicationContext());
         mOptionsContainer = view.findViewById(R.id.options_container);
 
+        mThemeOptionPreviewer = new ThemeOptionPreviewer(
+                getLifecycle(),
+                getContext(),
+                view.findViewById(R.id.theme_preview_container));
+
         // Set Wallpaper background.
         mWallpaperImage = view.findViewById(R.id.wallpaper_preview_image);
         mWallpaperPreviewer = new WallpaperPreviewer(
@@ -134,25 +139,25 @@ public class ThemeFragment extends AppbarFragment {
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
                     mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
-                    updateThemePreviewColorPerWallpaper();
+                    Context context = getContext();
+                    if (context != null) {
+                        WallpaperColorsLoader.getWallpaperColors(
+                                context,
+                                mCurrentHomeWallpaper.getThumbAsset(context),
+                                mThemeOptionPreviewer::updateColorForLauncherWidgets);
+                    }
                 }, false);
-
-        ViewGroup previewContainer = view.findViewById(R.id.theme_preview_container);
-        previewContainer.setOnClickListener(v -> showFullPreview());
-        mThemeOptionPreviewer = new ThemeOptionPreviewer(
-                getLifecycle(),
-                getContext(),
-                previewContainer);
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 mWallpaperPreviewer.updatePreviewCardRadius();
-                updateThemePreviewColorPerWallpaper();
                 view.removeOnLayoutChangeListener(this);
             }
         });
+
+        view.findViewById(R.id.theme_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 
@@ -176,21 +181,6 @@ public class ThemeFragment extends AppbarFragment {
         // Setup options here when all views are ready(including BottomActionBar), since we need to
         // update views after options are loaded.
         setUpOptions(savedInstanceState);
-    }
-
-    private void updateThemePreviewColorPerWallpaper() {
-        if (getContext() == null) {
-            return;
-        }
-        if (mCurrentHomeWallpaper != null && mWallpaperImage.getMeasuredWidth() > 0
-                && mWallpaperImage.getMeasuredHeight() > 0) {
-            WallpaperColorsLoader.getWallpaperColors(
-                    getContext(),
-                    mCurrentHomeWallpaper.getThumbAsset(getContext()),
-                    mWallpaperImage.getMeasuredWidth(),
-                    mWallpaperImage.getMeasuredHeight(),
-                    mThemeOptionPreviewer::updateColorForLauncherWidgets);
-        }
     }
 
     private void applyTheme() {
@@ -376,7 +366,6 @@ public class ThemeFragment extends AppbarFragment {
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_ID, themeToEdit.getId());
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_PACKAGES,
                 themeToEdit.getSerializedPackages());
-        intent.putExtra(CustomThemeActivity.CREATE_NEW_THEME, !themeToEdit.isDefined());
         startActivityForResult(intent, CustomThemeActivity.REQUEST_CODE_CUSTOM_THEME);
     }
 

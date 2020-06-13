@@ -61,11 +61,6 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
         new FetchTask(mProvider, callback, reload).execute();
     }
 
-    /** See if using surface view to render grid options */
-    public boolean usesSurfaceView() {
-        return mProvider.usesSurfaceView();
-    }
-
     /** Call through content provider API to render preview */
     public Bundle renderPreview(Bundle bundle, String gridName) {
         return mProvider.renderPreview(gridName, bundle);

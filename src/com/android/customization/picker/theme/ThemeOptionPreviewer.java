@@ -38,6 +38,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
@@ -159,6 +160,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     /** Loads the Theme option preview into the container view. */
     public void setPreviewInfo(PreviewInfo previewInfo) {
         setHeadlineFont(previewInfo.headlineFontFamily);
+        setBodyFont(previewInfo.bodyFontFamily);
         setTopBarIcons(previewInfo.icons);
         setAppIconShape(previewInfo.shapeAppIcons);
         setColorAndIconsSection(previewInfo.icons, previewInfo.shapeDrawable,
@@ -172,10 +174,13 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     /**
      * Updates the color of widgets in launcher (like top status bar, smart space, and app name
      * text) which will change its content color according to different wallpapers.
+     *
+     * @param colors the {@link WallpaperColors} of the wallpaper, or {@code null} to use light
+     *               color as default
      */
-    public void updateColorForLauncherWidgets(WallpaperColors colors) {
-        boolean useLightTextColor =
-                (colors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) == 0;
+    public void updateColorForLauncherWidgets(@Nullable WallpaperColors colors) {
+        boolean useLightTextColor = colors == null
+                || (colors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) == 0;
         int textColor = mContext.getColor(useLightTextColor
                 ? R.color.text_color_light
                 : R.color.text_color_dark);
@@ -248,15 +253,17 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         mStatusBarClock.setTypeface(headlineFont);
         mSmartSpaceDate.setTypeface(headlineFont);
 
-        // Update font of app names.
-        for (int id : mShapeIconAppNameIds) {
-            TextView appName = mContentView.findViewById(id);
-            appName.setTypeface(headlineFont);
-        }
-
         // Update font of color/icons section title.
         TextView colorIconsSectionTitle = mContentView.findViewById(R.id.color_icons_section_title);
         colorIconsSectionTitle.setTypeface(headlineFont);
+    }
+
+    private void setBodyFont(Typeface bodyFont) {
+        // Update font of app names.
+        for (int id : mShapeIconAppNameIds) {
+            TextView appName = mContentView.findViewById(id);
+            appName.setTypeface(bodyFont);
+        }
     }
 
     private void setTopBarIcons(List<Drawable> icons) {

@@ -89,6 +89,15 @@ public class WallpaperPreviewer implements LifecycleObserver {
         }
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    @MainThread
+    public void onStop() {
+        if (mWallpaperConnection != null) {
+            mWallpaperConnection.disconnect();
+            mWallpaperConnection = null;
+        }
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @MainThread
     public void onDestroy() {
@@ -164,10 +173,7 @@ public class WallpaperPreviewer implements LifecycleObserver {
 
         mWallpaperConnection = new WallpaperConnection(
                 getWallpaperIntent(homeWallpaper.getWallpaperComponent()), mActivity,
-                new WallpaperConnection.WallpaperConnectionListener() {
-                    @Override
-                    public void onEngineShown() {}
-                }, mPreviewGlobalRect);
+                /* listener= */ null, mPreviewGlobalRect);
 
         LiveTileOverlay.INSTANCE.update(new RectF(mPreviewLocalRect),
                 ((CardView) mHomePreview.getParent()).getRadius());

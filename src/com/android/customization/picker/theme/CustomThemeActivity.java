@@ -64,7 +64,6 @@ public class CustomThemeActivity extends FragmentActivity implements
     public static final String EXTRA_THEME_ID = "CustomThemeActivity.ThemeId";
     public static final String EXTRA_THEME_TITLE = "CustomThemeActivity.ThemeTitle";
     public static final String EXTRA_THEME_PACKAGES = "CustomThemeActivity.ThemePackages";
-    public static final String CREATE_NEW_THEME = "CustomThemeActivity.NewTheme";
     public static final int REQUEST_CODE_CUSTOM_THEME = 1;
     public static final int RESULT_THEME_DELETED = 10;
     public static final int RESULT_THEME_APPLIED = 20;
@@ -79,7 +78,6 @@ public class CustomThemeActivity extends FragmentActivity implements
     private ThemeManager mThemeManager;
     private TextView mNextButton;
     private TextView mPreviousButton;
-    private boolean mIsDefinedTheme = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +89,6 @@ public class CustomThemeActivity extends FragmentActivity implements
         CustomTheme customTheme = null;
         if (intent != null && intent.hasExtra(EXTRA_THEME_PACKAGES)
                 && intent.hasExtra(EXTRA_THEME_TITLE) && intent.hasExtra(EXTRA_THEME_ID)) {
-            mIsDefinedTheme = intent.getBooleanExtra(CREATE_NEW_THEME, true);
             try {
                 CustomTheme.Builder themeBuilder = themeProvider.parseCustomTheme(
                         intent.getStringExtra(EXTRA_THEME_PACKAGES));
@@ -392,8 +389,7 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeNameFragment.newInstance(
                     title,
                     position,
-                    titleResId,
-                    mIsDefinedTheme);
+                    titleResId);
         }
     }
 }

@@ -57,6 +57,7 @@ import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.BottomActionBar.AccessibilityCallback;
 
 import java.util.List;
 
@@ -166,6 +167,22 @@ public class ThemeFragment extends AppbarFragment {
                 R.layout.theme_info_view, /* root= */ null);
         mBottomActionBar.attachViewToBottomSheetAndBindAction(mThemeInfoView, INFORMATION);
         mBottomActionBar.setActionClickListener(CUSTOMIZE, this::onCustomizeClicked);
+
+        // Update target view's accessibility param since it will be blocked by the bottom sheet
+        // when expanded.
+        mBottomActionBar.setAccessibilityCallback(new AccessibilityCallback() {
+            @Override
+            public void onBottomSheetCollapsed() {
+                mOptionsContainer.setImportantForAccessibility(
+                        View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            }
+
+            @Override
+            public void onBottomSheetExpanded() {
+                mOptionsContainer.setImportantForAccessibility(
+                        View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
+            }
+        });
     }
 
     @Override

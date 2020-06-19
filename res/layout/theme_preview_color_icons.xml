@@ -129,18 +129,18 @@
         </LinearLayout>
 
         <!-- Icons of CheckBox/RadioButton/Switch. -->
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/button_icons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/qs_icons"
             app:layout_constraintBottom_toBottomOf="parent">
             <FrameLayout
                 android:layout_width="@dimen/preview_theme_icon_size"
-                android:layout_height="@dimen/preview_theme_icon_size">
+                android:layout_height="@dimen/preview_theme_icon_size"
+                android:layout_alignParentStart="true">
                 <CheckBox
                     android:id="@+id/preview_check_selected"
                     android:layout_width="wrap_content"
@@ -149,13 +149,11 @@
                     android:checked="true"
                     android:enabled="false"/>
             </FrameLayout>
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+
             <FrameLayout
                 android:layout_width="@dimen/preview_theme_icon_size"
-                android:layout_height="@dimen/preview_theme_icon_size">
+                android:layout_height="@dimen/preview_theme_icon_size"
+                android:layout_centerHorizontal="true">
                 <RadioButton
                     android:id="@+id/preview_radio_selected"
                     android:layout_width="wrap_content"
@@ -164,13 +162,11 @@
                     android:checked="true"
                     android:enabled="false"/>
             </FrameLayout>
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+
             <FrameLayout
-                android:layout_width="@dimen/preview_theme_icon_size"
-                android:layout_height="@dimen/preview_theme_icon_size">
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/preview_theme_icon_size"
+                android:layout_alignParentEnd="true">
                 <Switch
                     android:id="@+id/preview_toggle_selected"
                     android:layout_width="wrap_content"
@@ -179,7 +175,7 @@
                     android:checked="true"
                     android:enabled="false"/>
             </FrameLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

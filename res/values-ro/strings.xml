@@ -21,14 +21,14 @@
     <string name="theme_title" msgid="2144932106319405101">"Stil"</string>
     <string name="clock_title" msgid="2126046720254613991">"Ceas"</string>
     <string name="grid_title" msgid="2825094404523390773">"Grilă"</string>
-    <string name="wallpaper_title" msgid="6952635398953194544">"Imagine de fundal"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Aplicați"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Atingeți pentru a modifica"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Păstrați imaginea de fundal actuală"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Aplicați"</string>
-    <string name="accessibility_preview_pager" msgid="3548503287402185430">"Pagina <xliff:g id="ID_1">%1$d</xliff:g> din <xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="next_page_content_description" msgid="5290226604542300962">"Înainte"</string>
-    <string name="previous_page_content_description" msgid="6025726405430262788">"Înapoi"</string>
+    <!-- no translation found for theme_preview_card_content_description (5989222908619535533) -->
+    <skip />
+    <!-- no translation found for grid_preview_card_content_description (8449383777584714842) -->
+    <skip />
     <string name="option_applied_description" msgid="5022305212078053534">"S-a aplicat <xliff:g id="ID_1">%1$s</xliff:g> acum"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, aplicată și previzualizată acum"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, previzualizată acum"</string>
@@ -41,12 +41,20 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"Imagine de fundal"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"Adăugați fonturile preferate pe fiecare ecran"</string>
+    <!-- no translation found for grid_options_title (7071930966989877023) -->
+    <skip />
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g> x <xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="7348498271552054431">"S-a aplicat stilul"</string>
-    <string name="applied_clock_msg" msgid="1938218786265793285">"S-a aplicat ceasul"</string>
+    <!-- no translation found for applied_theme_msg (3749018706366796244) -->
+    <skip />
+    <!-- no translation found for applied_clock_msg (1303338016701443767) -->
+    <skip />
+    <!-- no translation found for applied_grid_msg (3250499654436933034) -->
+    <skip />
     <string name="apply_theme_error_msg" msgid="791364062636538317">"A apărut o problemă la aplicarea stilului"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"Înainte"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"Înapoi"</string>
+    <!-- no translation found for custom_theme (1618351922263478163) -->
+    <skip />
     <string name="custom_theme_title" msgid="2192300350332693631">"<xliff:g id="ID_1">%1$d</xliff:g> personalizat"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"Stil personalizat"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"Ștergeți"</string>
@@ -66,4 +74,8 @@
     <string name="no_thanks" msgid="7286616980115687627">"Nu, mulțumesc"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Previzualizarea ceasului <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Hopa! Ceva nu a funcționat cum trebuie."</string>
+    <!-- no translation found for theme_preview_icons_section_title (7064768910744000643) -->
+    <skip />
+    <!-- no translation found for style_info_description (4201603728542216488) -->
+    <skip />
 </resources>

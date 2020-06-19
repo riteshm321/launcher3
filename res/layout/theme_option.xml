@@ -46,7 +46,7 @@
             android:layout_width="@dimen/theme_option_icon_sample_width"
             android:layout_height="@dimen/theme_option_icon_sample_height"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:tint="?android:colorForeground"/>
         <ImageView
             android:id="@+id/theme_option_shape"
@@ -54,7 +54,7 @@
             android:layout_height="@dimen/theme_option_shape_sample_height"
             android:layout_alignBottom="@+id/theme_option_icon"
             android:layout_toEndOf="@id/theme_option_icon"
-            android:layout_marginLeft="@dimen/theme_option_sample_margin"/>
+            android:layout_marginStart="@dimen/theme_option_sample_margin"/>
         <TextView
             android:id="@+id/theme_option_font"
             android:layout_width="@dimen/theme_option_font_sample_width"

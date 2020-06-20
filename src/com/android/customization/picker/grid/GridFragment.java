@@ -143,7 +143,7 @@ public class GridFragment extends AppbarFragment {
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
         factory.createCurrentWallpaperInfos((homeWallpaper, lockWallpaper, presentationMode) -> {
             mHomeWallpaper = homeWallpaper;
-            wallpaperPreviewer.setWallpaper(mHomeWallpaper);
+            wallpaperPreviewer.setWallpaper(mHomeWallpaper, /* listener= */ null);
         }, false);
 
         mGridOptionPreviewer = new GridOptionPreviewer(mGridManager,

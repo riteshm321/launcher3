@@ -57,7 +57,6 @@ import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
-import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 import java.util.List;
 
@@ -138,14 +137,8 @@ public class ThemeFragment extends AppbarFragment {
         mCurrentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
-                    mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
-                    Context context = getContext();
-                    if (context != null) {
-                        WallpaperColorsLoader.getWallpaperColors(
-                                context,
-                                mCurrentHomeWallpaper.getThumbAsset(context),
-                                mThemeOptionPreviewer::updateColorForLauncherWidgets);
-                    }
+                    mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper,
+                            mThemeOptionPreviewer::updateColorForLauncherWidgets);
                 }, false);
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {

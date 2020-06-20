@@ -119,7 +119,7 @@ public class GridFullPreviewFragment extends AppbarFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mWallpaperPreviewer.setWallpaper(mWallpaper);
+        mWallpaperPreviewer.setWallpaper(mWallpaper, /* listener= */ null);
         mGridOptionPreviewer.setGridOption(mGridOption);
     }
 

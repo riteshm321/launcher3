@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.SurfaceView;
 
 import androidx.annotation.Nullable;
@@ -59,7 +58,6 @@ public class LauncherGridOptionsProvider {
     private final Context mContext;
     private final PreviewUtils mPreviewUtils;
     private List<GridOption> mOptions;
-    private String mVersion;
 
     public LauncherGridOptionsProvider(Context context, String authorityMetadataKey) {
         mPreviewUtils = new PreviewUtils(context, authorityMetadataKey);
@@ -76,19 +74,18 @@ public class LauncherGridOptionsProvider {
      */
     @WorkerThread
     @Nullable
-    Pair<List<GridOption>, String> fetch(boolean reload) {
+    List<GridOption> fetch(boolean reload) {
         if (!areGridsAvailable()) {
             return null;
         }
         if (mOptions != null && !reload) {
-            return Pair.create(mOptions, mVersion);
+            return mOptions;
         }
         ContentResolver resolver = mContext.getContentResolver();
         String iconPath = mContext.getResources().getString(Resources.getSystem().getIdentifier(
                 ResourceConstants.CONFIG_ICON_MASK, "string", ResourceConstants.ANDROID_PACKAGE));
         try (Cursor c = resolver.query(mPreviewUtils.getUri(LIST_OPTIONS), null, null, null,
                 null)) {
-            mVersion = c.getExtras().getString(METADATA_KEY_PREVIEW_VERSION);
             mOptions = new ArrayList<>();
             while(c.moveToNext()) {
                 String name = c.getString(c.getColumnIndex(COL_NAME));
@@ -105,9 +102,8 @@ public class LauncherGridOptionsProvider {
             Glide.get(mContext).clearDiskCache();
         } catch (Exception e) {
             mOptions = null;
-            mVersion = null;
         }
-        return Pair.create(mOptions, mVersion);
+        return mOptions;
     }
 
     /**

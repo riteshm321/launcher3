@@ -187,8 +187,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 ? R.color.text_color_light
                 : R.color.text_color_dark);
         int textShadowColor = mContext.getColor(useLightTextColor
-                ? R.color.theme_preview_workspace_shadow_color_dark
-                : R.color.theme_preview_workspace_shadow_color_transparent);
+                ? R.color.smartspace_preview_shadow_color_dark
+                : R.color.smartspace_preview_shadow_color_transparent);
         // Update the top status bar clock text color.
         mStatusBarClock.setTextColor(textColor);
         // Update the top status bar icon color.
@@ -201,7 +201,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         mSmartSpaceDate.setTextColor(textColor);
         mSmartSpaceDate.setShadowLayer(
                 mContext.getResources().getDimension(
-                        R.dimen.preview_theme_smartspace_key_ambient_shadow_blur),
+                        R.dimen.smartspace_preview_key_ambient_shadow_blur),
                 /* dx = */ 0,
                 /* dy = */ 0,
                 textShadowColor);

@@ -17,7 +17,6 @@ package com.android.customization.picker.grid;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
@@ -54,11 +53,6 @@ class GridOptionPreviewer {
     public void release() {
         if (mGridOptionSurface != null) {
             mSurfaceCallback.cleanUp();
-            mGridOptionSurface.getHolder().removeCallback(mSurfaceCallback);
-            Surface surface = mGridOptionSurface.getHolder().getSurface();
-            if (surface != null) {
-                surface.release();
-            }
             mGridOptionSurface = null;
         }
         mPreviewContainer.removeAllViews();

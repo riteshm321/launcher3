@@ -20,7 +20,6 @@ import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EX
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -45,7 +44,6 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
-import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,28 +99,13 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         currentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
-                    wallpaperPreviewer.setWallpaper(homeWallpaper);
-                    Context context =  getContext();
-                    if (context != null) {
-                        WallpaperColorsLoader.getWallpaperColors(
-                                context,
-                                mCurrentHomeWallpaper.getThumbAsset(context),
-                                mThemeOptionPreviewer::updateColorForLauncherWidgets);
-                    }
+                    wallpaperPreviewer.setWallpaper(homeWallpaper,
+                            mThemeOptionPreviewer::updateColorForLauncherWidgets);
                 }, false);
 
         // Set theme default name.
         mNameEditor = view.findViewById(R.id.custom_theme_name);
         mNameEditor.setText(getOriginalThemeName());
-
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                wallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
         return view;
     }
 

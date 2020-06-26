@@ -17,7 +17,6 @@ package com.android.customization.model.grid;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -66,7 +65,7 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
         return mProvider.renderPreview(gridName, bundle);
     }
 
-    private static class FetchTask extends AsyncTask<Void, Void, Pair<List<GridOption>, String>> {
+    private static class FetchTask extends AsyncTask<Void, Void, List<GridOption>> {
         private final LauncherGridOptionsProvider mProvider;
         @Nullable private final OptionsFetchedListener<GridOption> mCallback;
         private final boolean mReload;
@@ -79,16 +78,15 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
         }
 
         @Override
-        protected Pair<List<GridOption>, String> doInBackground(Void[] params) {
+        protected List<GridOption> doInBackground(Void[] params) {
             return mProvider.fetch(mReload);
         }
 
         @Override
-        protected void onPostExecute(Pair<List<GridOption>, String> gridOptionsResult) {
+        protected void onPostExecute(List<GridOption> gridOptions) {
             if (mCallback != null) {
-                if (gridOptionsResult != null && gridOptionsResult.first != null
-                        && !gridOptionsResult.first.isEmpty()) {
-                    mCallback.onOptionsLoaded(gridOptionsResult.first);
+                if (gridOptions != null && !gridOptions.isEmpty()) {
+                    mCallback.onOptionsLoaded(gridOptions);
                 } else {
                     mCallback.onError(null);
                 }

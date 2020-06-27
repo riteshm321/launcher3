@@ -126,10 +126,19 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
         setContentView(R.layout.activity_customization_picker_main);
         setUpBottomNavView();
+        mBottomActionBar = findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.addVisibilityChangeListener(
+                isBottomActionBarVisible -> {
+                    boolean isBottomNavVisible = mBottomNav.getVisibility() == View.VISIBLE;
+                    // Switch the visibility of BottomNav if visibility of BottomActionBar and
+                    // BottomNav are same.
+                    if (isBottomActionBarVisible == isBottomNavVisible) {
+                        mBottomNav.setVisibility(isBottomActionBarVisible
+                                ? View.GONE : View.VISIBLE);
+                    }
+                });
 
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
-
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragment == null) {
             // App launch specific logic: log the "app launched" event and set up daily logging.
             mUserEventLogger.logAppLaunched();
@@ -143,10 +152,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
                     WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
                             ? R.id.nav_wallpaper : R.id.nav_theme);
         }
-
-        mBottomActionBar = findViewById(R.id.bottom_actionbar);
-        mBottomActionBar.addVisibilityChangeListener(
-                isVisible -> mBottomNav.setVisibility(isVisible ? View.GONE : View.VISIBLE));
     }
 
     @Override
@@ -359,6 +364,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     @Override
     public void show(String collectionId) {
         mDelegate.show(collectionId);
+    }
+
+    @Override
+    public boolean isNavigationTabsContained() {
+        return true;
     }
 
     @Override

@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.customization.model.CustomizationManager.Callback;
 import com.android.customization.model.CustomizationManager.OptionsFetchedListener;
+import com.android.customization.model.CustomizationOption;
 import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeManager;
 import com.android.customization.model.theme.custom.CustomTheme;
@@ -57,7 +58,7 @@ import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
-import com.android.wallpaper.widget.WallpaperColorsLoader;
+import com.android.wallpaper.widget.BottomActionBar.AccessibilityCallback;
 
 import java.util.List;
 
@@ -68,8 +69,8 @@ public class ThemeFragment extends AppbarFragment {
 
     private static final String TAG = "ThemeFragment";
     private static final String KEY_SELECTED_THEME = "ThemeFragment.SelectedThemeBundle";
-    private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY =
-            "ThemeFragment.bottomActionBarVisibility";
+    private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE =
+            "ThemeFragment.bottomActionBarVisible";
     private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
 
     /**
@@ -138,24 +139,9 @@ public class ThemeFragment extends AppbarFragment {
         mCurrentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
-                    mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
-                    Context context = getContext();
-                    if (context != null) {
-                        WallpaperColorsLoader.getWallpaperColors(
-                                context,
-                                mCurrentHomeWallpaper.getThumbAsset(context),
-                                mThemeOptionPreviewer::updateColorForLauncherWidgets);
-                    }
+                    mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper,
+                            mThemeOptionPreviewer::updateColorForLauncherWidgets);
                 }, false);
-
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mWallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
 
         view.findViewById(R.id.theme_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
@@ -173,6 +159,22 @@ public class ThemeFragment extends AppbarFragment {
                 R.layout.theme_info_view, /* root= */ null);
         mBottomActionBar.attachViewToBottomSheetAndBindAction(mThemeInfoView, INFORMATION);
         mBottomActionBar.setActionClickListener(CUSTOMIZE, this::onCustomizeClicked);
+
+        // Update target view's accessibility param since it will be blocked by the bottom sheet
+        // when expanded.
+        mBottomActionBar.setAccessibilityCallback(new AccessibilityCallback() {
+            @Override
+            public void onBottomSheetCollapsed() {
+                mOptionsContainer.setImportantForAccessibility(
+                        View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+            }
+
+            @Override
+            public void onBottomSheetExpanded() {
+                mOptionsContainer.setImportantForAccessibility(
+                        View.IMPORTANT_FOR_ACCESSIBILITY_NO_HIDE_DESCENDANTS);
+            }
+        });
     }
 
     @Override
@@ -211,8 +213,7 @@ public class ThemeFragment extends AppbarFragment {
             outState.putString(KEY_SELECTED_THEME, mSelectedTheme.getSerializedPackages());
         }
         if (mBottomActionBar != null) {
-            outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY,
-                    mBottomActionBar.isVisible());
+            outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE, mBottomActionBar.isVisible());
         }
     }
 
@@ -265,30 +266,10 @@ public class ThemeFragment extends AppbarFragment {
             @Override
             public void onOptionsLoaded(List<ThemeBundle> options) {
                 mOptionsController = new OptionSelectorController<>(mOptionsContainer, options);
-                mOptionsController.addListener(selected -> {
-                    mLoading.hide();
-                    if (selected instanceof CustomTheme && !((CustomTheme) selected).isDefined()) {
-                        navigateToCustomTheme((CustomTheme) selected);
-                    } else {
-                        mSelectedTheme = (ThemeBundle) selected;
-                        mSelectedTheme.setOverrideThemeWallpaper(mCurrentHomeWallpaper);
-                        mEventLogger.logThemeSelected(mSelectedTheme,
-                                selected instanceof CustomTheme);
-                        mThemeOptionPreviewer.setPreviewInfo(mSelectedTheme.getPreviewInfo());
-                        if (mThemeInfoView != null && mSelectedTheme != null) {
-                            mThemeInfoView.populateThemeInfo(mSelectedTheme);
-                        }
-
-                        if (selected instanceof CustomTheme) {
-                            mBottomActionBar.showActionsOnly(INFORMATION, CUSTOMIZE, APPLY);
-                        } else {
-                            mBottomActionBar.showActionsOnly(INFORMATION, APPLY);
-                        }
-                        mBottomActionBar.show();
-                    }
-                });
                 mOptionsController.initOptions(mThemeManager);
 
+                // Find out the selected theme option.
+                // 1. Find previously selected theme.
                 String previouslySelected = savedInstanceState != null
                         ? savedInstanceState.getString(KEY_SELECTED_THEME) : null;
                 ThemeBundle previouslySelectedTheme = null;
@@ -302,22 +283,26 @@ public class ThemeFragment extends AppbarFragment {
                         activeTheme = theme;
                     }
                 }
+                // 2. Use active theme if no previously selected theme.
                 mSelectedTheme = previouslySelectedTheme != null
                         ? previouslySelectedTheme
                         : activeTheme;
-
+                // 3. Select the default theme if there is no matching custom enabled theme.
                 if (mSelectedTheme == null) {
-                    // Select the default theme if there is no matching custom enabled theme
                     mSelectedTheme = findDefaultThemeBundle(options);
                 }
+
                 mOptionsController.setSelectedOption(mSelectedTheme);
-                boolean bottomActionBarVisibility = savedInstanceState != null
-                        && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY);
-                if (bottomActionBarVisibility) {
-                    mBottomActionBar.show();
-                } else {
-                    mBottomActionBar.hide();
-                }
+                onOptionSelected(mSelectedTheme);
+                restoreBottomActionBarVisibility(savedInstanceState);
+
+                mOptionsController.addListener(selectedOption -> {
+                    onOptionSelected(selectedOption);
+                    if (!isAddCustomThemeOption(selectedOption)) {
+                        mBottomActionBar.show();
+                    }
+                });
+                mLoading.hide();
             }
             @Override
             public void onError(@Nullable Throwable throwable) {
@@ -358,6 +343,41 @@ public class ThemeFragment extends AppbarFragment {
             }
         }
         return null;
+    }
+
+    private void onOptionSelected(CustomizationOption selectedOption) {
+        if (isAddCustomThemeOption(selectedOption)) {
+            navigateToCustomTheme((CustomTheme) selectedOption);
+        } else {
+            mSelectedTheme = (ThemeBundle) selectedOption;
+            mSelectedTheme.setOverrideThemeWallpaper(mCurrentHomeWallpaper);
+            mEventLogger.logThemeSelected(mSelectedTheme,
+                    selectedOption instanceof CustomTheme);
+            mThemeOptionPreviewer.setPreviewInfo(mSelectedTheme.getPreviewInfo());
+            if (mThemeInfoView != null && mSelectedTheme != null) {
+                mThemeInfoView.populateThemeInfo(mSelectedTheme);
+            }
+
+            if (selectedOption instanceof CustomTheme) {
+                mBottomActionBar.showActionsOnly(INFORMATION, CUSTOMIZE, APPLY);
+            } else {
+                mBottomActionBar.showActionsOnly(INFORMATION, APPLY);
+            }
+        }
+    }
+
+    private void restoreBottomActionBarVisibility(@Nullable Bundle savedInstanceState) {
+        boolean isBottomActionBarVisible = savedInstanceState != null
+                && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE);
+        if (isBottomActionBarVisible) {
+            mBottomActionBar.show();
+        } else {
+            mBottomActionBar.hide();
+        }
+    }
+
+    private boolean isAddCustomThemeOption(CustomizationOption option) {
+        return option instanceof CustomTheme && !((CustomTheme) option).isDefined();
     }
 
     private void navigateToCustomTheme(CustomTheme themeToEdit) {

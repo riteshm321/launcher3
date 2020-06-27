@@ -21,7 +21,6 @@ import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.INFORMATION;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +43,6 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
-import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 import com.bumptech.glide.Glide;
 
@@ -106,6 +104,13 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
         setUpToolbar(view);
         Glide.get(getContext()).clearMemory();
 
+        // Set theme option.
+        final ThemeOptionPreviewer themeOptionPreviewer = new ThemeOptionPreviewer(
+                getLifecycle(),
+                getContext(),
+                view.findViewById(R.id.theme_preview_container));
+        themeOptionPreviewer.setPreviewInfo(mThemeBundle.getPreviewInfo());
+
         // Set wallpaper background.
         ImageView wallpaperImageView = view.findViewById(R.id.wallpaper_preview_image);
         final WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(
@@ -113,29 +118,8 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
                 getActivity(),
                 wallpaperImageView,
                 view.findViewById(R.id.wallpaper_preview_surface));
-        wallpaperPreviewer.setWallpaper(mWallpaper);
-
-        // Set theme option.
-        final ThemeOptionPreviewer themeOptionPreviewer = new ThemeOptionPreviewer(
-                getLifecycle(),
-                getContext(),
-                view.findViewById(R.id.theme_preview_container));
-        themeOptionPreviewer.setPreviewInfo(mThemeBundle.getPreviewInfo());
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                wallpaperPreviewer.updatePreviewCardRadius();
-                Context context = getContext();
-                if (context != null) {
-                    WallpaperColorsLoader.getWallpaperColors(
-                            context,
-                            mWallpaper.getThumbAsset(context),
-                            themeOptionPreviewer::updateColorForLauncherWidgets);
-                }
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
+        wallpaperPreviewer.setWallpaper(mWallpaper,
+                themeOptionPreviewer::updateColorForLauncherWidgets);
         return view;
     }
 

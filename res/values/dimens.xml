@@ -86,7 +86,6 @@
     <dimen name="preview_theme_color_icons_title_text_size">12sp</dimen>
     <dimen name="preview_theme_color_icons_icon_size">@dimen/preview_theme_icon_size</dimen>
     <dimen name="preview_theme_color_icons_tile_size">@dimen/preview_theme_tile_size</dimen>
-    <dimen name="preview_theme_smartspace_key_ambient_shadow_blur">1.5dp</dimen>
     <dimen name="preview_theme_app_name_key_ambient_shadow_blur">2.5dp</dimen>
 
     <!--  For the customization previews on the picker. -->

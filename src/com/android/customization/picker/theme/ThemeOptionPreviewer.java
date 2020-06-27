@@ -128,8 +128,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
             public void onLayoutChange(View view, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 // Calculate the full preview card height and width.
-                int fullPreviewCardHeight = getFullPreviewCardHeight();
-                int fullPreviewCardWidth = (int) (getFullPreviewCardHeight() / screenAspectRatio);
+                final int fullPreviewCardHeight = getFullPreviewCardHeight();
+                final int fullPreviewCardWidth = (int) (fullPreviewCardHeight / screenAspectRatio);
 
                 // Relayout the content view to match full preview card size.
                 mContentView.measure(
@@ -139,8 +139,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
 
                 // Scale the content view from full preview size to the container size. For full
                 // preview, the scale value is 1.
-                float scale =
-                        (float) previewContainer.getMeasuredHeight() / getFullPreviewCardHeight();
+                float scale = (float) previewContainer.getMeasuredHeight() / fullPreviewCardHeight;
                 mContentView.setScaleX(scale);
                 mContentView.setScaleY(scale);
                 // The pivot point is centered by default, set to (0, 0).
@@ -188,8 +187,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 ? R.color.text_color_light
                 : R.color.text_color_dark);
         int textShadowColor = mContext.getColor(useLightTextColor
-                ? R.color.theme_preview_workspace_shadow_color_dark
-                : R.color.theme_preview_workspace_shadow_color_transparent);
+                ? R.color.smartspace_preview_shadow_color_dark
+                : R.color.smartspace_preview_shadow_color_transparent);
         // Update the top status bar clock text color.
         mStatusBarClock.setTextColor(textColor);
         // Update the top status bar icon color.
@@ -202,7 +201,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         mSmartSpaceDate.setTextColor(textColor);
         mSmartSpaceDate.setShadowLayer(
                 mContext.getResources().getDimension(
-                        R.dimen.preview_theme_smartspace_key_ambient_shadow_blur),
+                        R.dimen.smartspace_preview_key_ambient_shadow_blur),
                 /* dx = */ 0,
                 /* dy = */ 0,
                 textShadowColor);

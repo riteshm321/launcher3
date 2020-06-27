@@ -19,6 +19,7 @@ import static android.view.View.MeasureSpec.EXACTLY;
 import static android.view.View.MeasureSpec.makeMeasureSpec;
 
 import android.app.Activity;
+import android.app.WallpaperColors;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -27,10 +28,12 @@ import android.view.Surface;
 import android.view.SurfaceControlViewHost;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.MainThread;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
@@ -43,7 +46,9 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.util.ScreenSizeCalculator;
 import com.android.wallpaper.util.SizeCalculator;
 import com.android.wallpaper.util.WallpaperConnection;
+import com.android.wallpaper.util.WallpaperConnection.WallpaperConnectionListener;
 import com.android.wallpaper.widget.LiveTileOverlay;
+import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 /** A class to load the wallpaper to the view. */
 public class WallpaperPreviewer implements LifecycleObserver {
@@ -63,6 +68,13 @@ public class WallpaperPreviewer implements LifecycleObserver {
     // Home workspace surface is behind the app window, and so must the home image wallpaper like
     // the live wallpaper. This view is rendered on mWallpaperSurface for home image wallpaper.
     private ImageView mHomeImageWallpaper;
+    @Nullable private WallpaperColorsListener mWallpaperColorsListener;
+
+    /** Interface for getting {@link WallpaperColors} from wallpaper. */
+    public interface WallpaperColorsListener {
+        /** Gets called when wallpaper color is available or updated. */
+        void onWallpaperColorsChanged(WallpaperColors colors);
+    }
 
     public WallpaperPreviewer(Lifecycle lifecycle, Activity activity, ImageView homePreview,
                               SurfaceView wallpaperSurface) {
@@ -73,6 +85,16 @@ public class WallpaperPreviewer implements LifecycleObserver {
         mWallpaperSurface = wallpaperSurface;
         mWallpaperSurface.setZOrderMediaOverlay(false);
         mWallpaperSurface.getHolder().addCallback(mWallpaperSurfaceCallback);
+
+        View rootView = homePreview.getRootView();
+        rootView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                updatePreviewCardRadius();
+                rootView.removeOnLayoutChangeListener(this);
+            }
+        });
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -117,21 +139,16 @@ public class WallpaperPreviewer implements LifecycleObserver {
         }
     }
 
-    /** Updates the preview card view radius to match the device radius. */
-    public void updatePreviewCardRadius() {
-        final float screenAspectRatio =
-                ScreenSizeCalculator.getInstance().getScreenAspectRatio(mActivity);
-        CardView cardView = (CardView) mHomePreview.getParent();
-        final int cardWidth = (int) (cardView.getMeasuredHeight() / screenAspectRatio);
-        ViewGroup.LayoutParams layoutParams = cardView.getLayoutParams();
-        layoutParams.width = cardWidth;
-        cardView.setLayoutParams(layoutParams);
-        cardView.setRadius(SizeCalculator.getPreviewCornerRadius(mActivity, cardWidth));
-    }
-
-    /** Loads the wallpaper. */
-    public void setWallpaper(WallpaperInfo wallpaperInfo) {
-        mWallpaper =  wallpaperInfo;
+    /**
+     * Sets a wallpaper to be shown on preview screen.
+     *
+     * @param wallpaperInfo the wallpaper to preview
+     * @param listener the listener for getting the wallpaper color of {@param wallpaperInfo}
+     */
+    public void setWallpaper(WallpaperInfo wallpaperInfo,
+                             @Nullable WallpaperColorsListener listener) {
+        mWallpaper = wallpaperInfo;
+        mWallpaperColorsListener = listener;
         setUpWallpaperPreview();
     }
 
@@ -151,9 +168,18 @@ public class WallpaperPreviewer implements LifecycleObserver {
                                 mActivity.getColor(R.color.secondary_color));
                 setUpLiveWallpaperPreview(mWallpaper);
             } else {
+                // Ensure live wallpaper connection is disconnected.
                 if (mWallpaperConnection != null) {
                     mWallpaperConnection.disconnect();
                     mWallpaperConnection = null;
+                }
+
+                // Load wallpaper color for static wallpaper.
+                if (mWallpaperColorsListener != null) {
+                    WallpaperColorsLoader.getWallpaperColors(
+                            mActivity,
+                            mWallpaper.getThumbAsset(mActivity),
+                            mWallpaperColorsListener::onWallpaperColorsChanged);
                 }
             }
         }
@@ -176,7 +202,14 @@ public class WallpaperPreviewer implements LifecycleObserver {
 
         mWallpaperConnection = new WallpaperConnection(
                 getWallpaperIntent(homeWallpaper.getWallpaperComponent()), mActivity,
-                /* listener= */ null, mPreviewGlobalRect);
+                new WallpaperConnectionListener() {
+                    @Override
+                    public void onWallpaperColorsChanged(WallpaperColors colors, int displayId) {
+                        if (mWallpaperColorsListener != null) {
+                            mWallpaperColorsListener.onWallpaperColorsChanged(colors);
+                        }
+                    }
+                }, mPreviewGlobalRect);
 
         LiveTileOverlay.INSTANCE.update(new RectF(mPreviewLocalRect),
                 ((CardView) mHomePreview.getParent()).getRadius());
@@ -188,6 +221,23 @@ public class WallpaperPreviewer implements LifecycleObserver {
                 LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
             }
         });
+    }
+
+    /** Updates the preview card view corner radius to match the device corner radius. */
+    private void updatePreviewCardRadius() {
+        final float screenAspectRatio =
+                ScreenSizeCalculator.getInstance().getScreenAspectRatio(mActivity);
+        CardView cardView = (CardView) mHomePreview.getParent();
+        final int cardWidth = (int) (cardView.getMeasuredHeight() / screenAspectRatio);
+        ViewGroup.LayoutParams layoutParams = cardView.getLayoutParams();
+        layoutParams.width = cardWidth;
+        cardView.setLayoutParams(layoutParams);
+        cardView.setRadius(SizeCalculator.getPreviewCornerRadius(mActivity, cardWidth));
+    }
+
+    private static Intent getWallpaperIntent(android.app.WallpaperInfo info) {
+        return new Intent(WallpaperService.SERVICE_INTERFACE)
+                .setClassName(info.getPackageName(), info.getServiceName());
     }
 
     private class WallpaperSurfaceCallback implements SurfaceHolder.Callback {
@@ -228,10 +278,5 @@ public class WallpaperPreviewer implements LifecycleObserver {
                 mHost = null;
             }
         }
-    };
-
-    private static Intent getWallpaperIntent(android.app.WallpaperInfo info) {
-        return new Intent(WallpaperService.SERVICE_INTERFACE)
-                .setClassName(info.getPackageName(), info.getServiceName());
     }
 }

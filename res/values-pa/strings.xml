@@ -25,10 +25,8 @@
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"ਸੰਪਾਦਨ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"ਮੌਜੂਦਾ ਵਾਲਪੇਪਰ ਬਰਕਰਾਰ ਰੱਖੋ"</string>
     <string name="apply_btn" msgid="7965877231041987336">"ਲਾਗੂ ਕਰੋ"</string>
-    <!-- no translation found for theme_preview_card_content_description (5989222908619535533) -->
-    <skip />
-    <!-- no translation found for grid_preview_card_content_description (8449383777584714842) -->
-    <skip />
+    <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ਸਟਾਈਲ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ਗ੍ਰਿਡ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫ਼ਿਲਹਾਲ ਲਾਗੂ ਕੀਤਾ ਗਿਆ"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫਿਲਹਾਲ ਲਾਗੂ ਕਰਕੇ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫਿਲਹਾਲ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>
@@ -41,20 +39,15 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"ਵਾਲਪੇਪਰ"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"ਹਰ ਸਕ੍ਰੀਨ \'ਤੇ ਆਪਣੇ ਮਨਪਸੰਦ ਫੌਂਟ ਸ਼ਾਮਲ ਕਰੋ"</string>
-    <!-- no translation found for grid_options_title (7071930966989877023) -->
-    <skip />
+    <string name="grid_options_title" msgid="7071930966989877023">"ਗ੍ਰਿਡ ਦਾ ਆਕਾਰ ਚੁਣੋ"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <!-- no translation found for applied_theme_msg (3749018706366796244) -->
-    <skip />
-    <!-- no translation found for applied_clock_msg (1303338016701443767) -->
-    <skip />
-    <!-- no translation found for applied_grid_msg (3250499654436933034) -->
-    <skip />
+    <string name="applied_theme_msg" msgid="3749018706366796244">"ਸਟਾਈਲ ਸਫਲਤਾਪੂਰਵਕ ਸੈੱਟ ਕੀਤਾ ਗਿਆ"</string>
+    <string name="applied_clock_msg" msgid="1303338016701443767">"ਘੜੀ ਸਫਲਤਾਪੂਰਵਕ ਸੈੱਟ ਕੀਤੀ ਗਈ"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"ਗ੍ਰਿਡ ਸਫਲਤਾਪੂਰਵਕ ਸੈੱਟ ਕੀਤਾ ਗਿਆ"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"ਸ਼ੈਲੀ ਨੂੰ ਲਾਗੂ ਕਰਨ ਵਿੱਚ ਕੋਈ ਸਮੱਸਿਆ ਆਈ"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"ਅੱਗੇ"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"ਪਿੱਛੇ"</string>
-    <!-- no translation found for custom_theme (1618351922263478163) -->
-    <skip />
+    <string name="custom_theme" msgid="1618351922263478163">"ਵਿਉਂਤਬੱਧ"</string>
     <string name="custom_theme_title" msgid="2192300350332693631">"ਵਿਉਂਤਿਆ <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"ਵਿਉਂਂਤੀ ਸ਼ੈਲੀ"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"ਮਿਟਾਓ"</string>
@@ -74,8 +67,6 @@
     <string name="no_thanks" msgid="7286616980115687627">"ਨਹੀਂ, ਧੰਨਵਾਦ"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ਘੜੀ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ਓਹੋ! ਕੋਈ ਗੜਬੜ ਹੋਈ।"</string>
-    <!-- no translation found for theme_preview_icons_section_title (7064768910744000643) -->
-    <skip />
-    <!-- no translation found for style_info_description (4201603728542216488) -->
-    <skip />
+    <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ਰੰਗ / ਪ੍ਰਤੀਕ"</string>
+    <string name="style_info_description" msgid="4201603728542216488">"ਫ਼ੌਂਟ, ਪ੍ਰਤੀਕ, ਆਕ੍ਰਿਤੀ, ਰੰਗ <xliff:g id="ID_1">%1$s</xliff:g> ਸਟਾਈਲ ਵਿੱਚ ਬਦਲ ਜਾਣਗੇ"</string>
 </resources>

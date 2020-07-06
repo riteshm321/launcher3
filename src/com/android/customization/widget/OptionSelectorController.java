@@ -320,6 +320,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
             CharSequence cd = context.getString(id, title);
             if (labelView != null && !TextUtils.isEmpty(labelView.getText())) {
+                labelView.setAccessibilityPaneTitle(cd);
                 labelView.setContentDescription(cd);
             } else if (tileView != null) {
                 tileView.setAccessibilityPaneTitle(cd);
@@ -329,6 +330,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
         public void resetContentDescription() {
             if (labelView != null && !TextUtils.isEmpty(labelView.getText())) {
+                labelView.setAccessibilityPaneTitle(title);
                 labelView.setContentDescription(title);
             } else if (tileView != null) {
                 tileView.setAccessibilityPaneTitle(title);

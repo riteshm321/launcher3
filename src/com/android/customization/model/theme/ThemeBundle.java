@@ -272,9 +272,9 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
                 mAppName = appName;
             }
 
-            /** Returns the app icon drawable. */
-            public Drawable getDrawable() {
-                return mIconDrawable;
+            /** Returns a copy of app icon drawable. */
+            public Drawable getDrawableCopy() {
+                return mIconDrawable.getConstantState().newDrawable().mutate();
             }
 
             /** Returns the app name. */
@@ -340,7 +340,7 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
                 shapeDrawable.setIntrinsicHeight((int) PATH_SIZE);
                 shapeDrawable.setIntrinsicWidth((int) PATH_SIZE);
                 for (ShapeAppIcon icon : mAppIcons) {
-                    Drawable drawable = icon.getDrawable();
+                    Drawable drawable = icon.mIconDrawable;
                     if (drawable instanceof AdaptiveIconDrawable) {
                         AdaptiveIconDrawable adaptiveIcon = (AdaptiveIconDrawable) drawable;
                         shapeIcons.add(new ShapeAppIcon(

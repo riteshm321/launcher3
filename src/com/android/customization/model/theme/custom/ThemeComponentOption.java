@@ -138,6 +138,9 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
 
         @Override
         public void bindPreview(ViewGroup container) {
+            container.setContentDescription(
+                    container.getContext().getString(R.string.font_preview_content_description));
+
             bindPreviewHeader(container, R.string.preview_name_font, R.drawable.ic_font);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
@@ -225,6 +228,9 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
 
         @Override
         public void bindPreview(ViewGroup container) {
+            container.setContentDescription(
+                    container.getContext().getString(R.string.icon_preview_content_description));
+
             bindPreviewHeader(container, R.string.preview_name_icon, R.drawable.ic_wifi_24px);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
@@ -355,6 +361,9 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
 
         @Override
         public void bindPreview(ViewGroup container) {
+            container.setContentDescription(
+                    container.getContext().getString(R.string.color_preview_content_description));
+
             bindPreviewHeader(container, R.string.preview_name_color, R.drawable.ic_colorize_24px);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
@@ -495,6 +504,9 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
 
         @Override
         public void bindPreview(ViewGroup container) {
+            container.setContentDescription(
+                    container.getContext().getString(R.string.shape_preview_content_description));
+
             bindPreviewHeader(container, R.string.preview_name_shape, R.drawable.ic_shapes_24px);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
@@ -504,7 +516,7 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             }
             for (int i = 0; i < mShapeIconIds.length && i < mAppIcons.size(); i++) {
                 ImageView iconView = cardBody.findViewById(mShapeIconIds[i]);
-                iconView.setBackground(mAppIcons.get(i).getDrawable());
+                iconView.setBackground(mAppIcons.get(i).getDrawableCopy());
             }
         }
 

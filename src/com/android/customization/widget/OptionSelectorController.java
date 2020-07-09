@@ -228,9 +228,14 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
             }
         };
 
-        mContainer.setLayoutManager(new LinearLayoutManager(mContainer.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
         Resources res = mContainer.getContext().getResources();
+        if (mUseGrid) {
+            mContainer.setLayoutManager(new GridLayoutManager(mContainer.getContext(),
+                    res.getInteger(R.integer.options_grid_num_columns)));
+        } else {
+            mContainer.setLayoutManager(new LinearLayoutManager(mContainer.getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+        }
 
         mContainer.setAdapter(mAdapter);
 
@@ -250,14 +255,18 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
         if (mUseGrid) {
             int numColumns = res.getInteger(R.integer.options_grid_num_columns);
-            int widthPerItem = totalWidth / mAdapter.getItemCount();
+            int widthPerItem = res.getDimensionPixelOffset(R.dimen.option_tile_width);
             int extraSpace = availableWidth - widthPerItem * numColumns;
             while (extraSpace < 0) {
                 numColumns -= 1;
                 extraSpace = availableWidth - widthPerItem * numColumns;
             }
-            int containerSidePadding = extraSpace / (numColumns + 1);
-            mContainer.setLayoutManager(new GridLayoutManager(mContainer.getContext(), numColumns));
+
+            if (mContainer.getLayoutManager() != null) {
+                ((GridLayoutManager) mContainer.getLayoutManager()).setSpanCount(numColumns);
+            }
+
+            int containerSidePadding = (extraSpace / (numColumns + 1)) / 2;
             mContainer.setPaddingRelative(containerSidePadding, 0, containerSidePadding, 0);
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
             return;

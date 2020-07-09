@@ -52,6 +52,18 @@
     <!-- Content description of grid preview card. [CHAR_LIMIT=30]-->
     <string name="grid_preview_card_content_description">Grid preview</string>
 
+    <!-- Content description of font preview. [CHAR_LIMIT=30]-->
+    <string name="font_preview_content_description">Font preview</string>
+
+    <!-- Content description of icon preview. [CHAR_LIMIT=30]-->
+    <string name="icon_preview_content_description">Icon preview</string>
+
+    <!-- Content description of color preview. [CHAR_LIMIT=30]-->
+    <string name="color_preview_content_description">Color preview</string>
+
+    <!-- Content description of shape preview. [CHAR_LIMIT=30]-->
+    <string name="shape_preview_content_description">Shape preview</string>
+
     <!-- Content description indicating that the selected option is currently applied to the device. [CHAR_LIMIT=NONE] -->
     <string name="option_applied_description"><xliff:g name="style_name">%1$s</xliff:g>, currently applied</string>
 

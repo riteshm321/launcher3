@@ -210,7 +210,6 @@
     <!-- Title for a section of a style preview screen that shows a preview of the style color and icons. [CHAR_LIMIT=30]-->
     <string name="theme_preview_icons_section_title">Color / Icons</string>
 
-    <!-- Bottom sheet dialog which displaying different theme's info. [CHAR_LIMIT=80]
-    (eg, Fonts, icons, shape, color will change to the "Default" Style) -->
-    <string name="style_info_description">Fonts, icons, shape, color will change to the <xliff:g name="style_name">%1$s</xliff:g> Style</string>
+    <!-- Bottom sheet dialog which displaying different theme's info. [CHAR_LIMIT=80] -->
+    <string name="style_info_description">Preview of font, icons, app shape, and color</string>
 </resources>

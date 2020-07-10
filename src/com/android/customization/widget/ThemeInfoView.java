@@ -58,8 +58,7 @@ public class ThemeInfoView extends LinearLayout {
         ThemeBundle.PreviewInfo previewInfo = selectedTheme.getPreviewInfo();
 
         if (previewInfo != null) {
-            mTitle.setText(getContext().getString(
-                    R.string.style_info_description, selectedTheme.getTitle()));
+            mTitle.setText(getContext().getString(R.string.style_info_description));
             if (previewInfo.headlineFontFamily != null) {
                 mTitle.setTypeface(previewInfo.headlineFontFamily);
                 mFontPreviewTextView.setTypeface(previewInfo.headlineFontFamily);

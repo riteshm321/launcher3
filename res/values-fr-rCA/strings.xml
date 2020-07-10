@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"Appliquer"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Aperçu du style"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Aperçu de la grille"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"Aperçu de la police"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Aperçu de l\'icône"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Aperçu de la couleur"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Aperçu de la forme"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"L\'option <xliff:g id="ID_1">%1$s</xliff:g> est présentement active"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"Option appliquée et en cours d\'aperçu : <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"Option en cours d\'aperçu : <xliff:g id="ID_1">%1$s</xliff:g>"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Aperçu de l\'horloge <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Oups! Une erreur s\'est produite."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Couleurs et icônes"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"Le style <xliff:g id="ID_1">%1$s</xliff:g> définit les polices, les icônes, les formes et les couleurs"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

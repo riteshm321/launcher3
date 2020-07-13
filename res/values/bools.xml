@@ -16,5 +16,5 @@
      limitations under the License.
 -->
 <resources>
-    <bool name="use_grid_for_options">false</bool>
+    <bool name="use_grid_for_options">true</bool>
 </resources>

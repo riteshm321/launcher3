@@ -32,6 +32,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -55,6 +56,7 @@ import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 import java.util.List;
 
@@ -91,6 +93,7 @@ public class ThemeFragment extends AppbarFragment {
     private CurrentWallpaperInfoFactory mCurrentWallpaperFactory;
     private BottomActionBar mBottomActionBar;
     private WallpaperPreviewer mWallpaperPreviewer;
+    private ImageView mWallpaperImage;
     private ThemeOptionPreviewer mThemeOptionPreviewer;
     private ThemeInfoView mThemeInfoView;
 
@@ -118,24 +121,18 @@ public class ThemeFragment extends AppbarFragment {
         mOptionsContainer = view.findViewById(R.id.options_container);
 
         // Set Wallpaper background.
+        mWallpaperImage = view.findViewById(R.id.wallpaper_preview_image);
         mWallpaperPreviewer = new WallpaperPreviewer(
                 getLifecycle(),
                 getActivity(),
-                view.findViewById(R.id.wallpaper_preview_image),
+                mWallpaperImage,
                 view.findViewById(R.id.wallpaper_preview_surface));
         mCurrentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
                     mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
+                    updateThemePreviewColorPerWallpaper();
                 }, false);
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                mWallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
 
         ViewGroup previewContainer = view.findViewById(R.id.theme_preview_container);
         previewContainer.setOnClickListener(v -> showFullPreview());
@@ -143,6 +140,16 @@ public class ThemeFragment extends AppbarFragment {
                 getLifecycle(),
                 getContext(),
                 previewContainer);
+
+        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                mWallpaperPreviewer.updatePreviewCardRadius();
+                updateThemePreviewColorPerWallpaper();
+                view.removeOnLayoutChangeListener(this);
+            }
+        });
         return view;
     }
 
@@ -166,6 +173,17 @@ public class ThemeFragment extends AppbarFragment {
         // Setup options here when all views are ready(including BottomActionBar), since we need to
         // update views after options are loaded.
         setUpOptions(savedInstanceState);
+    }
+
+    private void updateThemePreviewColorPerWallpaper() {
+        if (mCurrentHomeWallpaper != null && mWallpaperImage.getMeasuredWidth() > 0
+                && mWallpaperImage.getMeasuredHeight() > 0) {
+            WallpaperColorsLoader.getWallpaperColors(
+                    mCurrentHomeWallpaper.getThumbAsset(getContext()),
+                    mWallpaperImage.getMeasuredWidth(),
+                    mWallpaperImage.getMeasuredHeight(),
+                    mThemeOptionPreviewer::updateColorForLauncherWidgets);
+        }
     }
 
     private void applyTheme() {

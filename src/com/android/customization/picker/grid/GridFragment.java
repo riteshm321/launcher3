@@ -19,6 +19,7 @@ import static android.app.Activity.RESULT_OK;
 
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
+import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_USES_SURFACE_VIEW;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
@@ -297,6 +298,7 @@ public class GridFragment extends AppbarFragment {
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_WALLPAPER_INFO, mHomeWallpaper);
         bundle.putParcelable(EXTRA_GRID_OPTION, mSelectedOption);
+        bundle.putBoolean(EXTRA_GRID_USES_SURFACE_VIEW, mGridManager.usesSurfaceView());
         Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_GRID, bundle);
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }
@@ -367,7 +369,8 @@ public class GridFragment extends AppbarFragment {
             super.setCard(card);
             mPreview = card.findViewById(R.id.grid_preview_image);
             mPreviewSurface = card.findViewById(R.id.grid_preview_surface);
-            card.setOnClickListener(view -> showFullPreview());
+            // PreviewSurface is the top of its window(card view), due to #setZOrderOnTop(true).
+            mPreviewSurface.setOnClickListener(view -> showFullPreview());
         }
 
         public void bindPreviewContent() {

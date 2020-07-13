@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"အသုံးပြုရန်"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ပုံစံ အစမ်းကြည့်ရှုခြင်း"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ဇယားကွက် အစမ်းကြည့်ရှုခြင်း"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"ဖောင့် အစမ်းကြည့်ရှုခြင်း"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"သင်္ကေတ အစမ်းကြည့်ရှုခြင်း"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"အရောင် အစမ်းကြည့်ရှုခြင်း"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"ပုံသဏ္ဌာန် အစမ်းကြည့်ရှုခြင်း"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> ကို လက်ရှိအသုံးပြုထားသည်"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>၊ လက်ရှိ အသုံးပြုပြီး အစမ်းကြည့်ထားသည်"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>၊ လက်ရှိ အစမ်းကြည့်ထားသည်"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> နာရီ အစမ်းကြည့်ခြင်း"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"သည်းခံပါ။ တစ်ခုခု မှားသွားသည်။"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"အရောင် / သင်္ကေတများ"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"ဖောင့်၊ သင်္ကေတ၊ ပုံသဏ္ဌာန်၊ အရောင်တို့သည် <xliff:g id="ID_1">%1$s</xliff:g> ပုံစံကို ပြောင်းလဲစေလိမ့်မည်"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

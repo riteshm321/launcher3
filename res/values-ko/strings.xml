@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"적용"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"스타일 미리보기"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"그리드 미리보기"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"글꼴 미리보기"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"아이콘 미리보기"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"색상 미리보기"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"도형 미리보기"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, 현재 적용됨"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, 현재 적용되어 미리보기 중"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, 현재 미리보기 중"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> 시계 미리보기"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"죄송합니다. 문제가 발생했습니다."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"색상/아이콘"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"글꼴, 아이콘, 모양, 색상을 <xliff:g id="ID_1">%1$s</xliff:g> 스타일로 변경합니다."</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

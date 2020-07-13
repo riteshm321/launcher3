@@ -190,7 +190,8 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
                 if (mShowCheckmark && option.equals(mAppliedOption)) {
                     Resources res = mContainer.getContext().getResources();
-                    Drawable checkmark = res.getDrawable(R.drawable.ic_check_circle_filled_24px);
+                    Drawable checkmark = res.getDrawable(R.drawable.check_circle_accent_24dp,
+                            mContainer.getContext().getTheme());
                     Drawable frame = holder.tileView.getForeground();
                     Drawable[] layers = {frame, checkmark};
                     if (frame == null) {

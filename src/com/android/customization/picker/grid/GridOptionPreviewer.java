@@ -39,6 +39,9 @@ class GridOptionPreviewer {
 
     private static final int PREVIEW_FADE_DURATION_MS = 100;
 
+    private final WorkspaceSurfaceHolderCallback mSurfaceCallback =
+            new WorkspaceSurfaceHolderCallback();
+
     private final Context mContext;
     private final GridOptionsManager mGridManager;
     private final ViewGroup mPreviewContainer;
@@ -62,11 +65,13 @@ class GridOptionPreviewer {
     /** Releases the view resource. */
     public void release() {
         if (mGridOptionSurface != null) {
+            mSurfaceCallback.cleanUp();
             mGridOptionSurface.getHolder().removeCallback(mSurfaceCallback);
             Surface surface = mGridOptionSurface.getHolder().getSurface();
             if (surface != null) {
                 surface.release();
             }
+            mGridOptionSurface = null;
         }
         mPreviewContainer.removeAllViews();
     }
@@ -78,13 +83,16 @@ class GridOptionPreviewer {
         mPreviewContainer.removeAllViews();
 
         if (usesSurfaceView) {
-            mGridOptionSurface = new SurfaceView(mContext);
-            setUpView(mGridOptionSurface);
-            mGridOptionSurface.setZOrderMediaOverlay(true);
-            mGridOptionSurface.getHolder().addCallback(mSurfaceCallback);
+            mSurfaceCallback.mLastSurface = null;
+            if (mGridOptionSurface == null) {
+                mGridOptionSurface = new SurfaceView(mContext);
+                mGridOptionSurface.setZOrderMediaOverlay(true);
+                mGridOptionSurface.getHolder().addCallback(mSurfaceCallback);
+            }
+            addViewToContainer(mGridOptionSurface);
         } else {
             final ImageView previewImage = new ImageView(mContext);
-            setUpView(previewImage);
+            addViewToContainer(previewImage);
             final Asset previewAsset = new ContentUriAsset(
                     mContext,
                     mGridOption.previewImageUri,
@@ -98,14 +106,14 @@ class GridOptionPreviewer {
         }
     }
 
-    private void setUpView(View view) {
+    private void addViewToContainer(View view) {
         view.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         mPreviewContainer.addView(view);
     }
 
-    private final SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {
+    private class WorkspaceSurfaceHolderCallback implements SurfaceHolder.Callback {
         private Surface mLastSurface;
         private Message mCallback;
 
@@ -128,17 +136,18 @@ class GridOptionPreviewer {
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
 
         @Override
-        public void surfaceDestroyed(SurfaceHolder holder) {
+        public void surfaceDestroyed(SurfaceHolder holder) {}
+
+        public void cleanUp() {
             if (mCallback != null) {
                 try {
                     mCallback.replyTo.send(mCallback);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } finally {
-                    mCallback.recycle();
                     mCallback = null;
                 }
             }
         }
-    };
+    }
 }

@@ -89,12 +89,10 @@ public class GridFragment extends AppbarFragment {
     private GridOptionsManager mGridManager;
     private GridOption mSelectedOption;
     private ContentLoadingProgressBar mLoading;
-    private ViewGroup mGridPreviewContainer;
     private View mContent;
     private View mError;
     private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
-    private boolean mReloadOptionsAfterApplying;
 
     private GridOptionPreviewer mGridOptionPreviewer;
 
@@ -130,7 +128,6 @@ public class GridFragment extends AppbarFragment {
         View view = inflater.inflate(
                 R.layout.fragment_grid_picker, container, /* attachToRoot */ false);
         setUpToolbar(view);
-        mGridPreviewContainer = view.findViewById(R.id.grid_preview_container);
         mContent = view.findViewById(R.id.content_section);
         mOptionsContainer = view.findViewById(R.id.options_container);
         mLoading = view.findViewById(R.id.loading_indicator);
@@ -153,6 +150,9 @@ public class GridFragment extends AppbarFragment {
             mHomeWallpaper = homeWallpaper;
             wallpaperPreviewer.setWallpaper(mHomeWallpaper);
         }, false);
+
+        mGridOptionPreviewer = new GridOptionPreviewer(
+                getContext(), mGridManager, view.findViewById(R.id.grid_preview_container));
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -207,14 +207,6 @@ public class GridFragment extends AppbarFragment {
     }
 
     private void updatePreview() {
-        if (mGridOptionPreviewer != null) {
-            mGridOptionPreviewer.release();
-        }
-        if (getContext() == null) {
-            return;
-        }
-        mGridOptionPreviewer = new GridOptionPreviewer(
-                getContext(), mGridManager, mGridPreviewContainer);
         mGridOptionPreviewer.setGridOption(mSelectedOption, mGridManager.usesSurfaceView());
     }
 
@@ -228,10 +220,6 @@ public class GridFragment extends AppbarFragment {
                 mOptionsController = new OptionSelectorController<>(mOptionsContainer, options);
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
-                    if (mReloadOptionsAfterApplying) {
-                        mReloadOptionsAfterApplying = false;
-                        return;
-                    }
                     mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
                     updatePreview();
@@ -246,6 +234,7 @@ public class GridFragment extends AppbarFragment {
                 mSelectedOption = previouslySelectedOption != null
                         ? previouslySelectedOption
                         : getActiveOption(options);
+                // Will trigger selected listener.
                 mOptionsController.setSelectedOption(mSelectedOption);
                 boolean bottomActionBarVisibility = savedInstanceState != null
                         && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY);
@@ -254,7 +243,6 @@ public class GridFragment extends AppbarFragment {
                 } else {
                     mBottomActionBar.hide();
                 }
-                updatePreview();
             }
 
             @Override

@@ -212,6 +212,9 @@ public class GridFragment extends AppbarFragment {
         if (mGridOptionPreviewer != null) {
             mGridOptionPreviewer.release();
         }
+        if (getContext() == null) {
+            return;
+        }
         mGridOptionPreviewer = new GridOptionPreviewer(
                 getContext(), mGridManager, mGridPreviewContainer);
         mGridOptionPreviewer.setGridOption(mSelectedOption, mGridManager.usesSurfaceView());

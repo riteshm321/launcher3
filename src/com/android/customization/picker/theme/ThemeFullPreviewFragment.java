@@ -18,6 +18,7 @@ package com.android.customization.picker.theme;
 import static android.app.Activity.RESULT_OK;
 
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.INFORMATION;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.module.CustomizationInjector;
 import com.android.customization.picker.WallpaperPreviewer;
+import com.android.customization.widget.ThemeInfoView;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;
@@ -125,8 +127,12 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
 
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
-        bottomActionBar.showActionsOnly(APPLY);
+        bottomActionBar.showActionsOnly(INFORMATION, APPLY);
         bottomActionBar.setActionClickListener(APPLY, v -> finishActivityWithResultOk());
+        ThemeInfoView themeInfoView = (ThemeInfoView) LayoutInflater.from(getContext()).inflate(
+                R.layout.theme_info_view, /* root= */ null);
+        themeInfoView.populateThemeInfo(mThemeBundle);
+        bottomActionBar.attachViewToBottomSheetAndBindAction(themeInfoView, INFORMATION);
         bottomActionBar.show();
     }
 

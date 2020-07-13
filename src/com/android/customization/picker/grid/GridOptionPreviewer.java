@@ -15,51 +15,41 @@
  */
 package com.android.customization.picker.grid;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.RemoteException;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.grid.GridOptionsManager;
-import com.android.wallpaper.asset.Asset;
-import com.android.wallpaper.asset.ContentUriAsset;
 import com.android.wallpaper.util.SurfaceViewUtils;
-
-import com.bumptech.glide.request.RequestOptions;
 
 /** A class to load the {@link GridOption} preview to the view. */
 class GridOptionPreviewer {
 
-    private static final int PREVIEW_FADE_DURATION_MS = 100;
-
     private final WorkspaceSurfaceHolderCallback mSurfaceCallback =
             new WorkspaceSurfaceHolderCallback();
 
-    private final Context mContext;
     private final GridOptionsManager mGridManager;
     private final ViewGroup mPreviewContainer;
 
     private SurfaceView mGridOptionSurface;
     private GridOption mGridOption;
 
-    GridOptionPreviewer(Context context, GridOptionsManager gridManager,
-                        ViewGroup previewContainer) {
-        mContext = context;
+    GridOptionPreviewer(GridOptionsManager gridManager, ViewGroup previewContainer) {
         mGridManager = gridManager;
         mPreviewContainer = previewContainer;
     }
 
     /** Loads the Grid option into the container view. */
-    public void setGridOption(GridOption gridOption, boolean usesSurfaceView) {
+    public void setGridOption(GridOption gridOption) {
         mGridOption = gridOption;
-        updateWorkspacePreview(usesSurfaceView);
+        if (mGridOption != null) {
+            updateWorkspacePreview();
+        }
     }
 
     /** Releases the view resource. */
@@ -76,43 +66,21 @@ class GridOptionPreviewer {
         mPreviewContainer.removeAllViews();
     }
 
-    private void updateWorkspacePreview(boolean usesSurfaceView) {
-        if (mGridOption == null) {
-            return;
-        }
+    private void updateWorkspacePreview() {
+        // Reattach SurfaceView to trigger #surfaceCreated to update preview for different option.
         mPreviewContainer.removeAllViews();
-
-        if (usesSurfaceView) {
-            mSurfaceCallback.mLastSurface = null;
-            if (mGridOptionSurface == null) {
-                mGridOptionSurface = new SurfaceView(mContext);
-                mGridOptionSurface.setZOrderMediaOverlay(true);
-                mGridOptionSurface.getHolder().addCallback(mSurfaceCallback);
-            }
-            addViewToContainer(mGridOptionSurface);
-        } else {
-            final ImageView previewImage = new ImageView(mContext);
-            addViewToContainer(previewImage);
-            final Asset previewAsset = new ContentUriAsset(
-                    mContext,
-                    mGridOption.previewImageUri,
-                    RequestOptions.fitCenterTransform());
-            previewAsset.loadDrawableWithTransition(mContext,
-                    previewImage /* imageView */,
-                    PREVIEW_FADE_DURATION_MS /* duration */,
-                    null /* drawableLoadedListener */,
-                    mContext.getResources().getColor(android.R.color.transparent,
-                            null) /* placeHolderColorJ */);
+        mSurfaceCallback.mLastSurface = null;
+        if (mGridOptionSurface == null) {
+            mGridOptionSurface = new SurfaceView(mPreviewContainer.getContext());
+            mGridOptionSurface.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            mGridOptionSurface.setZOrderMediaOverlay(true);
+            mGridOptionSurface.getHolder().addCallback(mSurfaceCallback);
         }
+        mPreviewContainer.addView(mGridOptionSurface);
     }
 
-    private void addViewToContainer(View view) {
-        view.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        mPreviewContainer.addView(view);
-    }
-
+    // TODO(158163054): Refactor and use with WorkspaceSurfaceHolderCallback.
     private class WorkspaceSurfaceHolderCallback implements SurfaceHolder.Callback {
         private Surface mLastSurface;
         private Message mCallback;

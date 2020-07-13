@@ -19,7 +19,6 @@ import static android.app.Activity.RESULT_OK;
 
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
-import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_USES_SURFACE_VIEW;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
@@ -151,8 +150,8 @@ public class GridFragment extends AppbarFragment {
             wallpaperPreviewer.setWallpaper(mHomeWallpaper);
         }, false);
 
-        mGridOptionPreviewer = new GridOptionPreviewer(
-                getContext(), mGridManager, view.findViewById(R.id.grid_preview_container));
+        mGridOptionPreviewer = new GridOptionPreviewer(mGridManager,
+                view.findViewById(R.id.grid_preview_container));
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -206,10 +205,6 @@ public class GridFragment extends AppbarFragment {
         mGridManager.apply(gridOption, mApplyGridCallback);
     }
 
-    private void updatePreview() {
-        mGridOptionPreviewer.setGridOption(mSelectedOption, mGridManager.usesSurfaceView());
-    }
-
     private void setUpOptions(@Nullable Bundle savedInstanceState) {
         hideError();
         mLoading.show();
@@ -222,7 +217,7 @@ public class GridFragment extends AppbarFragment {
                     mSelectedOption = (GridOption) selected;
                     mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
-                    updatePreview();
+                    mGridOptionPreviewer.setGridOption(mSelectedOption);
                 });
                 mOptionsController.initOptions(mGridManager);
 
@@ -286,7 +281,6 @@ public class GridFragment extends AppbarFragment {
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_WALLPAPER_INFO, mHomeWallpaper);
         bundle.putParcelable(EXTRA_GRID_OPTION, mSelectedOption);
-        bundle.putBoolean(EXTRA_GRID_USES_SURFACE_VIEW, mGridManager.usesSurfaceView());
         Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_GRID, bundle);
         startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }

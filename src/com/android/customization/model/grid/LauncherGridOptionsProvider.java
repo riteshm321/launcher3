@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Pair;
 import android.view.SurfaceView;
 
@@ -69,11 +68,6 @@ public class LauncherGridOptionsProvider {
 
     boolean areGridsAvailable() {
         return mPreviewUtils.supportsPreview();
-    }
-
-    boolean usesSurfaceView() {
-        // If no version code is returned, fall back to V1.
-        return TextUtils.equals(mVersion, "V2");
     }
 
     /**

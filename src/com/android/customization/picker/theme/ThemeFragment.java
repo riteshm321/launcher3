@@ -366,7 +366,6 @@ public class ThemeFragment extends AppbarFragment {
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_ID, themeToEdit.getId());
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_PACKAGES,
                 themeToEdit.getSerializedPackages());
-        intent.putExtra(CustomThemeActivity.CREATE_NEW_THEME, !themeToEdit.isDefined());
         startActivityForResult(intent, CustomThemeActivity.REQUEST_CODE_CUSTOM_THEME);
     }
 

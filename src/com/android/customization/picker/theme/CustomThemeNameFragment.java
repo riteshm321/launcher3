@@ -54,15 +54,13 @@ import org.json.JSONException;
 public class CustomThemeNameFragment extends CustomThemeStepFragment {
 
     private static final String TAG = "CustomThemeNameFragment";
-    private static final String ARG_IS_DEFINED_THEME = "CustomThemeNameFragment.new_theme";
 
     public static CustomThemeNameFragment newInstance(CharSequence toolbarTitle, int position,
-            int titleResId, boolean mIsDefinedTheme) {
+            int titleResId) {
         CustomThemeNameFragment fragment = new CustomThemeNameFragment();
         Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
-        arguments.putBoolean(ARG_IS_DEFINED_THEME, mIsDefinedTheme);
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -115,8 +113,7 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
 
         // Set theme default name.
         mNameEditor = view.findViewById(R.id.custom_theme_name);
-        mNameEditor.setText(
-                getCustomThemeDefaultName(getArguments().getBoolean(ARG_IS_DEFINED_THEME, true)));
+        mNameEditor.setText(getOriginalThemeName());
 
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -129,8 +126,9 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         return view;
     }
 
-    private String getCustomThemeDefaultName(boolean mIsDefinedTheme) {
-        if (mIsDefinedTheme) {
+    private String getOriginalThemeName() {
+        CustomTheme originalTheme = mCustomThemeManager.getOriginalTheme();
+        if (originalTheme == null || !originalTheme.isDefined()) {
             // For new custom theme. use custom themes amount plus 1 as default naming.
             String serializedThemes = mCustomizationPreferences.getSerializedCustomThemes();
             int customThemesCount = 0;
@@ -146,9 +144,8 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
                     R.string.custom_theme_title, customThemesCount + 1);
         } else {
             // For existing custom theme, keep its name as default naming.
-            return mCustomThemeManager.getOriginalTheme().getTitle();
+            return originalTheme.getTitle();
         }
-
     }
 
     @Override

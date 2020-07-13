@@ -55,6 +55,8 @@ public class WallpaperPreviewer implements LifecycleObserver {
     private final Activity mActivity;
     private final ImageView mHomePreview;
     private final SurfaceView mWallpaperSurface;
+    private final WallpaperSurfaceCallback mWallpaperSurfaceCallback =
+            new WallpaperSurfaceCallback();
 
     private WallpaperInfo mWallpaper;
     private WallpaperConnection mWallpaperConnection;
@@ -70,7 +72,7 @@ public class WallpaperPreviewer implements LifecycleObserver {
         mHomePreview = homePreview;
         mWallpaperSurface = wallpaperSurface;
         mWallpaperSurface.setZOrderMediaOverlay(false);
-        mWallpaperSurface.getHolder().addCallback(mSurfaceCallback);
+        mWallpaperSurface.getHolder().addCallback(mWallpaperSurfaceCallback);
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -107,7 +109,8 @@ public class WallpaperPreviewer implements LifecycleObserver {
             mWallpaperConnection = null;
         }
 
-        mWallpaperSurface.getHolder().removeCallback(mSurfaceCallback);
+        mWallpaperSurfaceCallback.cleanUp();
+        mWallpaperSurface.getHolder().removeCallback(mWallpaperSurfaceCallback);
         Surface surface = mWallpaperSurface.getHolder().getSurface();
         if (surface != null) {
             surface.release();
@@ -187,9 +190,10 @@ public class WallpaperPreviewer implements LifecycleObserver {
         });
     }
 
-    private final SurfaceHolder.Callback mSurfaceCallback = new SurfaceHolder.Callback() {
+    private class WallpaperSurfaceCallback implements SurfaceHolder.Callback {
 
         private Surface mLastSurface;
+        private SurfaceControlViewHost mHost;
 
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
@@ -202,11 +206,12 @@ public class WallpaperPreviewer implements LifecycleObserver {
                         makeMeasureSpec(mHomePreview.getHeight(), EXACTLY));
                 mHomeImageWallpaper.layout(0, 0, mHomePreview.getWidth(), mHomePreview.getHeight());
 
-                SurfaceControlViewHost host = new SurfaceControlViewHost(mActivity,
+                cleanUp();
+                mHost = new SurfaceControlViewHost(mActivity,
                         mActivity.getDisplay(), mWallpaperSurface.getHostToken());
-                host.setView(mHomeImageWallpaper, mHomeImageWallpaper.getWidth(),
+                mHost.setView(mHomeImageWallpaper, mHomeImageWallpaper.getWidth(),
                         mHomeImageWallpaper.getHeight());
-                mWallpaperSurface.setChildSurfacePackage(host.getSurfacePackage());
+                mWallpaperSurface.setChildSurfacePackage(mHost.getSurfacePackage());
             }
             setUpWallpaperPreview();
         }
@@ -216,6 +221,13 @@ public class WallpaperPreviewer implements LifecycleObserver {
 
         @Override
         public void surfaceDestroyed(SurfaceHolder holder) {}
+
+        public void cleanUp() {
+            if (mHost != null) {
+                mHost.release();
+                mHost = null;
+            }
+        }
     };
 
     private static Intent getWallpaperIntent(android.app.WallpaperInfo info) {

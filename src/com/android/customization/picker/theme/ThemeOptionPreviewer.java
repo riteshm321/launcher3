@@ -109,8 +109,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 ScreenSizeCalculator.getInstance().getScreenAspectRatio(mContext);
         previewContainer.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
-            public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5,
-                                       int i6, int i7) {
+            public void onLayoutChange(View view, int left, int top, int right, int bottom,
+                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 // Calculate the full preview card height and width.
                 int fullPreviewCardHeight = getFullPreviewCardHeight();
                 int fullPreviewCardWidth = (int) (getFullPreviewCardHeight() / screenAspectRatio);
@@ -131,7 +131,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 mContentView.setPivotX(0f);
                 mContentView.setPivotY(0f);
 
-                // Ensure there's only one content view in the container.
+                // Ensure there will be only one content view in the container.
                 previewContainer.removeAllViews();
                 // Finally, add the content view to the container.
                 previewContainer.addView(

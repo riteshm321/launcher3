@@ -101,34 +101,16 @@ public class GridFragment extends AppbarFragment {
     private final Callback mApplyGridCallback = new Callback() {
         @Override
         public void onSuccess() {
-            mGridManager.fetchOptions(new OptionsFetchedListener<GridOption>() {
-                @Override
-                public void onOptionsLoaded(List<GridOption> options) {
-                    mOptionsController.resetOptions(options);
-                    mSelectedOption = getActiveOption(options);
-                    mOptionsController.setAppliedOption(mSelectedOption);
-                    mReloadOptionsAfterApplying = true;
-                    // It will trigger OptionSelectedListener#onOptionSelected.
-                    mOptionsController.setSelectedOption(mSelectedOption);
-                    Toast.makeText(getContext(), R.string.applied_grid_msg, Toast.LENGTH_SHORT)
-                            .show();
-                    // Since we disabled it when clicked apply button.
-                    mBottomActionBar.enableActions();
-                    mBottomActionBar.hide();
-                }
-
-                @Override
-                public void onError(@Nullable Throwable throwable) {
-                    if (throwable != null) {
-                        Log.e(TAG, "Error loading grid options", throwable);
-                    }
-                    showError();
-                }
-            }, true);
+            Toast.makeText(getContext(), R.string.applied_grid_msg, Toast.LENGTH_SHORT).show();
+            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            getActivity().finish();
         }
 
         @Override
         public void onError(@Nullable Throwable throwable) {
+            // Since we disabled it when clicked apply button.
+            mBottomActionBar.enableActions();
+            mBottomActionBar.hide();
             //TODO(chihhangchuang): handle
         }
     };

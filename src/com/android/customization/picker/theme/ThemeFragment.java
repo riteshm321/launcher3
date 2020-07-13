@@ -197,11 +197,9 @@ public class ThemeFragment extends AppbarFragment {
         mThemeManager.apply(mSelectedTheme, new Callback() {
             @Override
             public void onSuccess() {
-                // Since we disabled it when clicked apply button.
-                mBottomActionBar.enableActions();
-                mBottomActionBar.hide();
-                Toast.makeText(getContext(), R.string.applied_theme_msg,
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.applied_theme_msg, Toast.LENGTH_LONG).show();
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().finish();
             }
 
             @Override
@@ -235,7 +233,8 @@ public class ThemeFragment extends AppbarFragment {
                 mSelectedTheme = null;
                 reloadOptions();
             } else if (resultCode == CustomThemeActivity.RESULT_THEME_APPLIED) {
-                reloadOptions();
+                getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                getActivity().finish();
             } else {
                 if (mSelectedTheme != null) {
                     mOptionsController.setSelectedOption(mSelectedTheme);

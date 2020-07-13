@@ -22,6 +22,7 @@ import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EX
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
 import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.INFORMATION;
 
 import android.app.Activity;
 import android.app.WallpaperColors;
@@ -67,6 +68,7 @@ import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.picker.theme.ThemePreviewPage.ThemeCoverPage;
 import com.android.customization.picker.theme.ThemePreviewPage.TimeContainer;
 import com.android.customization.widget.OptionSelectorController;
+import com.android.customization.widget.ThemeInfoView;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.Asset.CenterCropBitmapTask;
@@ -121,6 +123,7 @@ public class ThemeFragment extends AppbarFragment {
     private BottomActionBar mBottomActionBar;
     private WallpaperPreviewer mWallpaperPreviewer;
     private ThemeOptionPreviewer mThemeOptionPreviewer;
+    private ThemeInfoView mThemeInfoView;
 
     @Override
     public void onAttach(Context context) {
@@ -182,11 +185,14 @@ public class ThemeFragment extends AppbarFragment {
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(APPLY);
+        mBottomActionBar.showActionsOnly(INFORMATION, APPLY);
         mBottomActionBar.setActionClickListener(APPLY, v -> {
             mBottomActionBar.disableActions();
             applyTheme();
         });
+        mThemeInfoView = (ThemeInfoView) LayoutInflater.from(getContext()).inflate(
+                R.layout.theme_info_view, /* root= */ null);
+        mBottomActionBar.attachViewToBottomSheetAndBindAction(mThemeInfoView, INFORMATION);
     }
 
     @Override
@@ -337,6 +343,9 @@ public class ThemeFragment extends AppbarFragment {
                             mThemeOptionPreviewer.setThemeBundle(mSelectedTheme);
                         } else {
                             createAdapter(options);
+                        }
+                        if (mThemeInfoView != null && mSelectedTheme != null) {
+                            mThemeInfoView.populateThemeInfo(mSelectedTheme);
                         }
                         mBottomActionBar.show();
                     }

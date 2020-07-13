@@ -72,7 +72,7 @@ public class ThemeInfoView extends LinearLayout {
 
             if (previewInfo.shapeAppIcons.get(SHAPE_PREVIEW_INDEX) != null) {
                 mAppPreviewImageView.setBackground(
-                        previewInfo.shapeAppIcons.get(SHAPE_PREVIEW_INDEX));
+                        previewInfo.shapeAppIcons.get(SHAPE_PREVIEW_INDEX).getDrawable());
             }
 
             if (previewInfo.shapeDrawable != null) {

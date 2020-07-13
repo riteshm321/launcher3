@@ -66,6 +66,7 @@ import com.android.wallpaper.module.FormFactorChecker;
 import com.android.wallpaper.module.Injector;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.module.UserEventLogger;
+import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
@@ -132,6 +133,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         if (fragment == null) {
             // App launch specific logic: log the "app launched" event and set up daily logging.
             mUserEventLogger.logAppLaunched();
+            WallpaperPreferences preferences = injector.getPreferences(this);
+            preferences.incrementAppLaunched();
             DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
 
             // Navigate to the Wallpaper tab if we started directly from launcher, otherwise

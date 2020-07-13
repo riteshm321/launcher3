@@ -107,7 +107,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
 
         mContext = context;
         mContentView = LayoutInflater.from(context).inflate(
-                R.layout.theme_preview_content_v2, /* root= */ null);
+                R.layout.theme_preview_content, /* root= */ null);
         mStatusBarClock = mContentView.findViewById(R.id.theme_preview_clock);
         mSmartSpaceDate = mContentView.findViewById(R.id.smart_space_date);
         updateTime();

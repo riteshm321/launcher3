@@ -31,6 +31,6 @@
         android:clipToPadding="false"
         android:background="@color/fullscreen_preview_background">
 
-        <include layout="@layout/theme_preview_card_v2"/>
+        <include layout="@layout/theme_preview_card"/>
     </FrameLayout>
 </LinearLayout>

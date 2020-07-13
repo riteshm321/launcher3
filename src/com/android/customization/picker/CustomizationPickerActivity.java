@@ -120,24 +120,25 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         if (!supportsCustomization()) {
             Log.w(TAG, "Themes not supported, reverting to Wallpaper Picker");
             skipToWallpaperPicker();
-        } else {
-            setContentView(R.layout.activity_customization_picker_main);
-            setUpBottomNavView();
+            return;
+        }
 
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        setContentView(R.layout.activity_customization_picker_main);
+        setUpBottomNavView();
 
-            if (fragment == null) {
-                // App launch specific logic: log the "app launched" event and set up daily logging.
-                mUserEventLogger.logAppLaunched();
-                DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
 
-                // Navigate to the Wallpaper tab if we started directly from launcher, otherwise
-                // start at the Styles tab
-                navigateToSection(
-                        WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
-                                ? R.id.nav_wallpaper : R.id.nav_theme);
-            }
+        if (fragment == null) {
+            // App launch specific logic: log the "app launched" event and set up daily logging.
+            mUserEventLogger.logAppLaunched();
+            DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
+
+            // Navigate to the Wallpaper tab if we started directly from launcher, otherwise
+            // start at the Styles tab
+            navigateToSection(
+                    WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
+                            ? R.id.nav_wallpaper : R.id.nav_theme);
         }
 
         mBottomActionBar = findViewById(R.id.bottom_actionbar);

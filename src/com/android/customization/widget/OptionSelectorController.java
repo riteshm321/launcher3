@@ -72,14 +72,14 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
     private CustomizationOption mAppliedOption;
 
     public OptionSelectorController(RecyclerView container, List<T> options) {
-        this(container, options, false, true);
+        this(container, options, true, true);
     }
 
     public OptionSelectorController(RecyclerView container, List<T> options,
             boolean useGrid, boolean showCheckmark) {
         mContainer = container;
         mOptions = options;
-        mUseGrid = container.getResources().getBoolean(R.bool.use_grid_for_options) || useGrid;
+        mUseGrid = useGrid;
         mShowCheckmark = showCheckmark;
     }
 

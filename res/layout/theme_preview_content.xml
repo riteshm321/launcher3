@@ -21,6 +21,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/preview_theme_content_padding_top"
     android:paddingBottom="@dimen/preview_theme_content_padding_bottom"
+    android:clipToPadding="false"
     android:clipChildren="false">
 
     <FrameLayout

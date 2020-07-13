@@ -98,6 +98,9 @@ public class CustomThemeComponentFragment extends CustomThemeStepFragment {
             mOptionsController.addListener(selected -> {
                 mSelectedOption = (ThemeComponentOption) selected;
                 bindPreview();
+                // Preview and apply. The selection will be kept whatever user goes to previous page
+                // or encounter system config changes, the current selection can be recovered.
+                mCustomThemeManager.apply(mSelectedOption, /* callback= */ null);
             });
             mOptionsController.initOptions(mCustomThemeManager);
 

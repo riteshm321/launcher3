@@ -176,14 +176,12 @@ public class WallpaperPreviewer implements LifecycleObserver {
                 }
 
                 // Load wallpaper color for static wallpaper.
-                WallpaperColorsLoader.getWallpaperColors(
-                        mActivity,
-                        mWallpaper.getThumbAsset(mActivity),
-                        colors -> {
-                            if (mWallpaperColorsListener != null) {
-                                mWallpaperColorsListener.onWallpaperColorsChanged(colors);
-                            }
-                        });
+                if (mWallpaperColorsListener != null) {
+                    WallpaperColorsLoader.getWallpaperColors(
+                            mActivity,
+                            mWallpaper.getThumbAsset(mActivity),
+                            mWallpaperColorsListener::onWallpaperColorsChanged);
+                }
             }
         }
     }

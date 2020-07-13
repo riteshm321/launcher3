@@ -179,7 +179,6 @@ abstract class ThemePreviewPage extends PreviewPage {
             }
 
             // Shape preview icons:
-
             for (int i = 0; i < 3 && i < mShapeAppIcons.size(); i++) {
                 ImageView iconView = card.findViewById(mShapeIconIds[i]);
                 iconView.setBackground(mShapeAppIcons.get(i));

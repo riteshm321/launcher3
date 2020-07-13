@@ -30,7 +30,6 @@ import com.android.wallpaper.module.DefaultCategoryProvider;
 import com.android.wallpaper.module.LoggingOptInStatusProvider;
 import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.module.WallpaperRotationRefresher;
-import com.android.wallpaper.module.WallpaperSetter;
 import com.android.wallpaper.monitor.PerformanceMonitor;
 import com.android.wallpaper.picker.PreviewFragment;
 
@@ -49,7 +48,6 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
         }
         return mPrefs;
     }
-
 
     @Override
     public CustomizationPreferences getCustomizationPreferences(Context context) {
@@ -115,9 +113,8 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
 
     @Override
     public ThemeManager getThemeManager(ThemeBundleProvider provider, FragmentActivity activity,
-            WallpaperSetter wallpaperSetter, OverlayManagerCompat overlayManagerCompat,
-            ThemesUserEventLogger logger) {
-        return new ThemeManager(provider, activity, wallpaperSetter, overlayManagerCompat, logger);
+            OverlayManagerCompat overlayManagerCompat, ThemesUserEventLogger logger) {
+        return new ThemeManager(provider, activity, overlayManagerCompat, logger);
     }
 
 }

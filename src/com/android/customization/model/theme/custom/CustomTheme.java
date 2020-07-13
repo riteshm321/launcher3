@@ -41,7 +41,7 @@ public class CustomTheme extends ThemeBundle {
 
     public CustomTheme(@NonNull String id, String title, Map<String, String> overlayPackages,
             @Nullable PreviewInfo previewInfo) {
-        super(title, overlayPackages, false, null, null, previewInfo);
+        super(title, overlayPackages, false, previewInfo);
         mId = id;
     }
 
@@ -73,11 +73,6 @@ public class CustomTheme extends ThemeBundle {
     @Override
     public int getLayoutResId() {
         return isDefined() ? R.layout.theme_option : R.layout.custom_theme_option;
-    }
-
-    @Override
-    public boolean shouldUseThemeWallpaper() {
-        return false;
     }
 
     @Override

@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -63,6 +62,7 @@ import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.Asset.CenterCropBitmapTask;
+import com.android.wallpaper.asset.BitmapCachingAsset;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
@@ -92,7 +92,6 @@ public class ThemeFragment extends ToolbarFragment {
     }
 
     private RecyclerView mOptionsContainer;
-    private CheckBox mUseMyWallpaperButton;
     private OptionSelectorController<ThemeBundle> mOptionsController;
     private ThemeManager mThemeManager;
     private ThemesUserEventLogger mEventLogger;
@@ -102,8 +101,9 @@ public class ThemeFragment extends ToolbarFragment {
     private ContentLoadingProgressBar mLoading;
     private View mContent;
     private View mError;
-    private boolean mUseMyWallpaper;
+    private boolean mUseMyWallpaper = true;
     private WallpaperInfo mCurrentHomeWallpaper;
+    private Asset mCurrentWallpaperThumbAsset;
     private CurrentWallpaperInfoFactory mCurrentWallpaperFactory;
     private TimeTicker mTicker;
 
@@ -145,8 +145,6 @@ public class ThemeFragment extends ToolbarFragment {
         view.findViewById(R.id.apply_button).setOnClickListener(v -> {
             applyTheme();
         });
-        mUseMyWallpaperButton = view.findViewById(R.id.use_my_wallpaper);
-        mUseMyWallpaperButton.setOnCheckedChangeListener(this::onUseMyWallpaperCheckChanged);
         setUpOptions(savedInstanceState);
 
         return view;
@@ -220,32 +218,23 @@ public class ThemeFragment extends ToolbarFragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void onUseMyWallpaperCheckChanged(CompoundButton checkbox, boolean checked) {
-        mUseMyWallpaper = checked;
-        reloadWallpaper();
-    }
-
     private void reloadWallpaper() {
         mCurrentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
-                    if (mSelectedTheme != null) {
-                        if (mUseMyWallpaper || (mSelectedTheme instanceof CustomTheme)) {
-                            mSelectedTheme.setOverrideThemeWallpaper(homeWallpaper);
-                        } else {
-                            mSelectedTheme.setOverrideThemeWallpaper(null);
-                        }
-                        if (mAdapter != null) {
-                            mAdapter.rebindWallpaperIfAvailable();
-                        }
+                    mCurrentWallpaperThumbAsset = new BitmapCachingAsset(getContext(),
+                            mCurrentHomeWallpaper.getThumbAsset(getContext()));
+                    if (mSelectedTheme != null && mAdapter != null) {
+                        mAdapter.setWallpaperAsset(mCurrentWallpaperThumbAsset);
+                        mAdapter.rebindWallpaperIfAvailable();
                     }
         }, false);
     }
 
     private void createAdapter(List<ThemeBundle> options) {
         mAdapter = new ThemePreviewAdapter(getActivity(), mSelectedTheme,
-                mSelectedTheme instanceof CustomTheme ? this::onEditClicked : null,
-                new PreloadWallpapersLayoutListener(options));
+                mCurrentWallpaperThumbAsset,
+                mSelectedTheme instanceof CustomTheme ? this::onEditClicked : null);
         mPreviewPager.setAdapter(mAdapter);
     }
 
@@ -253,11 +242,6 @@ public class ThemeFragment extends ToolbarFragment {
         if (mSelectedTheme instanceof CustomTheme) {
             navigateToCustomTheme((CustomTheme) mSelectedTheme);
         }
-    }
-
-    private void updateButtonsVisibility() {
-        mUseMyWallpaperButton.setVisibility(mSelectedTheme instanceof CustomTheme
-                ? View.INVISIBLE : View.VISIBLE);
     }
 
     private void hideError() {
@@ -292,7 +276,6 @@ public class ThemeFragment extends ToolbarFragment {
                         mEventLogger.logThemeSelected(mSelectedTheme,
                                 selected instanceof CustomTheme);
                         createAdapter(options);
-                        updateButtonsVisibility();
                     }
                 });
                 mOptionsController.initOptions(mThemeManager);
@@ -384,11 +367,12 @@ public class ThemeFragment extends ToolbarFragment {
                 R.id.shape_preview_icon_0, R.id.shape_preview_icon_1, R.id.shape_preview_icon_2,
                 R.id.shape_preview_icon_3, R.id.shape_preview_icon_4, R.id.shape_preview_icon_5
         };
+        private Asset mWallpaperAsset;
 
-        ThemePreviewAdapter(Activity activity, ThemeBundle theme,
-                @Nullable OnClickListener editClickListener,
-                @Nullable OnLayoutChangeListener coverCardLayoutListener) {
+        ThemePreviewAdapter(Activity activity, ThemeBundle theme, @Nullable Asset wallpaperAsset,
+                @Nullable OnClickListener editClickListener) {
             super(activity, R.layout.theme_preview_card);
+            mWallpaperAsset = wallpaperAsset;
             final Resources res = activity.getResources();
             final PreviewInfo previewInfo = theme.getPreviewInfo();
 
@@ -397,14 +381,14 @@ public class ThemeFragment extends ToolbarFragment {
                     : null;
 
             WallpaperPreviewLayoutListener wallpaperListener = new WallpaperPreviewLayoutListener(
-                    theme, previewInfo, coverScrim, true);
+                    () -> mWallpaperAsset, previewInfo, coverScrim, true);
 
             addPage(new ThemeCoverPage(activity, theme.getTitle(),
                     previewInfo.resolveAccentColor(res), previewInfo.icons,
                     previewInfo.headlineFontFamily, previewInfo.bottomSheeetCornerRadius,
                     previewInfo.shapeDrawable, previewInfo.shapeAppIcons, editClickListener,
                     mColorButtonIds, mColorTileIds, mColorTileIconIds, mShapeIconIds,
-                    wallpaperListener, coverCardLayoutListener));
+                    wallpaperListener));
             addPage(new ThemePreviewPage(activity, R.string.preview_name_font, R.drawable.ic_font,
                     R.layout.preview_card_font_content,
                     previewInfo.resolveAccentColor(res)) {
@@ -501,31 +485,6 @@ public class ThemeFragment extends ToolbarFragment {
                     }
                 });
             }
-            if (previewInfo.wallpaperAsset != null) {
-                addPage(new ThemePreviewPage(activity, R.string.preview_name_wallpaper,
-                        R.drawable.ic_nav_wallpaper, R.layout.preview_card_wallpaper_content,
-                        previewInfo.resolveAccentColor(res)) {
-
-                    private final WallpaperPreviewLayoutListener mListener =
-                            new WallpaperPreviewLayoutListener(theme, previewInfo, null, false);
-
-                    @Override
-                    protected boolean containsWallpaper() {
-                        return true;
-                    }
-
-                    @Override
-                    protected void bindBody(boolean forceRebind) {
-                        if (card == null) {
-                            return;
-                        }
-                        card.addOnLayoutChangeListener(mListener);
-                        if (forceRebind) {
-                            card.requestLayout();
-                        }
-                    }
-                });
-            }
         }
 
         public void rebindWallpaperIfAvailable() {
@@ -544,15 +503,23 @@ public class ThemeFragment extends ToolbarFragment {
             }
         }
 
+        public void setWallpaperAsset(Asset wallpaperAsset) {
+            mWallpaperAsset = wallpaperAsset;
+        }
+
         private static class WallpaperPreviewLayoutListener implements OnLayoutChangeListener {
-            private final ThemeBundle mTheme;
+            interface WallpaperPreviewAssetProvider {
+                Asset getAsset();
+            }
+            private final WallpaperPreviewAssetProvider mWallpaperPreviewAssetProvider;
             private final PreviewInfo mPreviewInfo;
             private final Drawable mScrim;
             private final boolean mIsTranslucent;
 
-            public WallpaperPreviewLayoutListener(ThemeBundle theme, PreviewInfo previewInfo,
-                    Drawable scrim, boolean translucent) {
-                mTheme = theme;
+            WallpaperPreviewLayoutListener(
+                    WallpaperPreviewAssetProvider wallpaperPreviewAssetProvider,
+                    PreviewInfo previewInfo, Drawable scrim, boolean translucent) {
+                mWallpaperPreviewAssetProvider = wallpaperPreviewAssetProvider;
                 mPreviewInfo = previewInfo;
                 mScrim = scrim;
                 mIsTranslucent = translucent;
@@ -564,8 +531,7 @@ public class ThemeFragment extends ToolbarFragment {
                 int targetWidth = right - left;
                 int targetHeight = bottom - top;
                 if (targetWidth > 0 && targetHeight > 0) {
-                    Asset wallpaperPreviewAsset = mTheme.getWallpaperPreviewAsset(
-                            view.getContext());
+                    Asset wallpaperPreviewAsset = mWallpaperPreviewAssetProvider.getAsset();
                     if (wallpaperPreviewAsset != null) {
                         wallpaperPreviewAsset.decodeBitmap(
                                 targetWidth, targetHeight,
@@ -608,43 +574,6 @@ public class ThemeFragment extends ToolbarFragment {
                                 mPreviewInfo.colorAccentLight));
                     }
                 }
-            }
-        }
-    }
-
-    /**
-     * Runs only once after the card size is known, and requests decoding wallpaper bitmaps
-     * for all the options, to warm-up the bitmap cache.
-     */
-    private static class PreloadWallpapersLayoutListener implements OnLayoutChangeListener {
-        private static boolean alreadyRunOnce;
-        private final List<ThemeBundle> mOptions;
-
-        public PreloadWallpapersLayoutListener(List<ThemeBundle> options) {
-            mOptions = options;
-        }
-
-        @Override
-        public void onLayoutChange(View view, int left, int top, int right,
-                int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-            if (alreadyRunOnce) {
-                view.removeOnLayoutChangeListener(this);
-                return;
-            }
-            int targetWidth = right - left;
-            int targetHeight = bottom - top;
-            if (targetWidth > 0 && targetHeight > 0) {
-                for (ThemeBundle theme : mOptions) {
-                    if (theme instanceof CustomTheme && !((CustomTheme) theme).isDefined()) {
-                        continue;
-                    }
-                    Asset wallpaperAsset = theme.getWallpaperPreviewAsset(view.getContext());
-                    if (wallpaperAsset != null) {
-                        wallpaperAsset.decodeBitmap(targetWidth, targetHeight, bitmap -> {});
-                    }
-                }
-                view.removeOnLayoutChangeListener(this);
-                alreadyRunOnce = true;
             }
         }
     }

@@ -290,28 +290,35 @@ public class ThemeFragment extends AppbarFragment {
                     }
                 });
                 mOptionsController.initOptions(mThemeManager);
+
                 String previouslySelected = savedInstanceState != null
                         ? savedInstanceState.getString(KEY_SELECTED_THEME) : null;
+                ThemeBundle previouslySelectedTheme = null;
+                ThemeBundle activeTheme = null;
                 for (ThemeBundle theme : options) {
                     if (previouslySelected != null
                             && previouslySelected.equals(theme.getSerializedPackages())) {
-                        mSelectedTheme = theme;
-                    } else if (theme.isActive(mThemeManager)) {
-                        mSelectedTheme = theme;
-                        break;
+                        previouslySelectedTheme = theme;
+                    }
+                    if (theme.isActive(mThemeManager)) {
+                        activeTheme = theme;
                     }
                 }
+                mSelectedTheme = previouslySelectedTheme != null
+                        ? previouslySelectedTheme
+                        : activeTheme;
+
                 if (mSelectedTheme == null) {
                     // Select the default theme if there is no matching custom enabled theme
                     mSelectedTheme = findDefaultThemeBundle(options);
-                } else {
-                    // Only show show checkmark if we found a matching theme
-                    mOptionsController.setAppliedOption(mSelectedTheme);
                 }
                 mOptionsController.setSelectedOption(mSelectedTheme);
                 // Set selected option above will show BottomActionBar when entering the tab. But
-                // it should not show when entering the tab.
-                mBottomActionBar.hide();
+                // it should not show when entering the tab. But it's visible for previously
+                // selected theme.
+                if (mSelectedTheme != previouslySelectedTheme) {
+                    mBottomActionBar.hide();
+                }
             }
             @Override
             public void onError(@Nullable Throwable throwable) {
@@ -335,9 +342,6 @@ public class ThemeFragment extends AppbarFragment {
             if (mSelectedTheme == null) {
                 // Select the default theme if there is no matching custom enabled theme
                 mSelectedTheme = findDefaultThemeBundle(options);
-            } else {
-                // Only show show checkmark if we found a matching theme
-                mOptionsController.setAppliedOption(mSelectedTheme);
             }
             mOptionsController.setSelectedOption(mSelectedTheme);
             // Set selected option above will show BottomActionBar,

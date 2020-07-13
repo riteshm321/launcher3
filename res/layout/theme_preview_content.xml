@@ -41,15 +41,15 @@
     <TextView
         android:id="@+id/smart_space_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:textSize="@dimen/preview_theme_smart_space_date_size"
-        android:lineHeight="24dp"
         android:singleLine="true"
-        android:gravity="center"
+        android:gravity="center|bottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topbar_container"
-        app:layout_constraintBottom_toTopOf="@id/app_icon_shape_container" />
+        app:layout_constraintBottom_toTopOf="@id/app_icon_shape_container"
+        app:layout_constraintHeight_percent="0.1" />
 
     <FrameLayout
         android:id="@+id/app_icon_shape_container"
@@ -72,19 +72,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_icon_shape_container"
         app:layout_constraintBottom_toTopOf="@id/theme_qsb_container"
-        app:layout_constraintHeight_percent="0.28">
+        app:layout_constraintHeight_percent="0.275">
         <include layout="@layout/theme_preview_color_icons" />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/theme_qsb_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginHorizontal="@dimen/preview_theme_qsb_container_margin_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/color_icons_container"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.1">
         <include layout="@layout/theme_cover_qsb" />
     </FrameLayout>
 

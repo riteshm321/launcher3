@@ -31,6 +31,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -102,12 +103,16 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private TextView mSmartSpaceDate;
     private TimeTicker mTicker;
 
+    private boolean mHasPreviewInfoSet;
+    private boolean mHasWallpaperColorSet;
+
     ThemeOptionPreviewer(Lifecycle lifecycle, Context context, ViewGroup previewContainer) {
         lifecycle.addObserver(this);
 
         mContext = context;
         mContentView = LayoutInflater.from(context).inflate(
                 R.layout.theme_preview_content, /* root= */ null);
+        mContentView.setVisibility(View.INVISIBLE);
         mStatusBarClock = mContentView.findViewById(R.id.theme_preview_clock);
         mSmartSpaceDate = mContentView.findViewById(R.id.smart_space_date);
         updateTime();
@@ -160,6 +165,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 previewInfo.resolveAccentColor(mContext.getResources()));
         setColorAndIconsBoxRadius(previewInfo.bottomSheeetCornerRadius);
         setQsbRadius(previewInfo.bottomSheeetCornerRadius);
+        mHasPreviewInfoSet = true;
+        showPreviewIfHasAllConfigSet();
     }
 
     /**
@@ -185,6 +192,9 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         for (int id : mShapeIconAppNameIds) {
             ((TextView) mContentView.findViewById(id)).setTextColor(color);
         }
+
+        mHasWallpaperColorSet = true;
+        showPreviewIfHasAllConfigSet();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -199,6 +209,20 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     public void onPause() {
         if (mContext != null) {
             mContext.unregisterReceiver(mTicker);
+        }
+    }
+
+    private void showPreviewIfHasAllConfigSet() {
+        if (mHasPreviewInfoSet && mHasWallpaperColorSet
+                && mContentView.getVisibility() != View.VISIBLE) {
+            mContentView.setAlpha(0f);
+            mContentView.setVisibility(View.VISIBLE);
+            mContentView.animate().alpha(1f)
+                    .setStartDelay(50)
+                    .setDuration(200)
+                    .setInterpolator(AnimationUtils.loadInterpolator(mContext,
+                            android.R.interpolator.fast_out_linear_in))
+                    .start();
         }
     }
 

@@ -35,7 +35,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
-import com.android.customization.picker.TimeTicker;
 import com.android.customization.picker.theme.ThemePreviewPage.ThemeCoverPage;
 import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
@@ -43,6 +42,7 @@ import com.android.wallpaper.asset.BitmapCachingAsset;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.util.TimeTicker;
 
 public class CustomThemeNameFragment extends CustomThemeStepFragment {
 

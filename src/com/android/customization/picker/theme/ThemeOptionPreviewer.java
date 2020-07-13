@@ -42,9 +42,9 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
-import com.android.customization.picker.TimeTicker;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.ScreenSizeCalculator;
+import com.android.wallpaper.util.TimeTicker;
 
 import java.text.DateFormat;
 import java.text.FieldPosition;

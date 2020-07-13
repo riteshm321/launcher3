@@ -150,6 +150,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         setHeadlineFont(previewInfo.headlineFontFamily);
         setTopBarIcons(previewInfo.icons);
         setAppIconShape(previewInfo.shapeAppIcons);
+        setAppIconName(previewInfo.shapeAppIconNames);
         setColorAndIconsSection(previewInfo.icons, previewInfo.shapeDrawable,
                 previewInfo.resolveAccentColor(mContext.getResources()));
         setColorAndIconsBoxRadius(previewInfo.bottomSheeetCornerRadius);
@@ -172,20 +173,22 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     }
 
     private void setHeadlineFont(Typeface headlineFont) {
+        // Update font of status bar clock.
         mClock.setTypeface(headlineFont);
 
+        // Update font of the smart space date.
         TextView date = mContentView.findViewById(R.id.smart_space_date);
         date.setTypeface(headlineFont);
         // TODO(chihhangchuang): Use real date.
         date.setText("Friday, Nov 12");
 
-        // TODO(chihhangchuang): Query the app name for icon shapes, we can get package name from
-        // res/values/override.xml to query the app name.
+        // Update font of app names.
         for (int id : mShapeIconAppNameIds) {
             TextView appName = mContentView.findViewById(id);
             appName.setTypeface(headlineFont);
         }
 
+        // Update font of color/icons section title.
         TextView colorIconsSectionTitle = mContentView.findViewById(R.id.color_icons_section_title);
         colorIconsSectionTitle.setTypeface(headlineFont);
     }
@@ -208,6 +211,13 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         for (int i = 0; i < mShapeAppIconIds.length && i < appIcons.size(); i++) {
             ImageView iconView = mContentView.findViewById(mShapeAppIconIds[i]);
             iconView.setBackground(appIcons.get(i));
+        }
+    }
+
+    private void setAppIconName(List<String> appIconNames) {
+        for (int i = 0; i < mShapeIconAppNameIds.length && i < appIconNames.size(); i++) {
+            TextView appName = mContentView.findViewById(mShapeIconAppNameIds[i]);
+            appName.setText(appIconNames.get(i));
         }
     }
 

@@ -28,6 +28,7 @@ import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY
 import static com.android.customization.model.ResourceConstants.SYSUI_PACKAGE;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources.NotFoundException;
 import android.text.TextUtils;
@@ -212,6 +213,11 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
             try {
                 builder.addShapePreviewIcon(
                         mContext.getPackageManager().getApplicationIcon(packageName));
+                // Add the shape icon app name.
+                ApplicationInfo appInfo = mContext.getPackageManager()
+                        .getApplicationInfo(packageName, /* flag= */ 0);
+                builder.addShapePreviewIconName(
+                        String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo)));
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName + ", won't use it for icon shape"
                         + "preview");

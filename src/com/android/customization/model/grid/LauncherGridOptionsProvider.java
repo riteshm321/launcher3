@@ -29,7 +29,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import com.android.customization.model.ResourceConstants;
-import com.android.systemui.shared.system.SurfaceViewRequestUtils;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.PreviewUtils;
 
@@ -116,7 +115,7 @@ public class LauncherGridOptionsProvider {
      * Request rendering of home screen preview via Launcher to Wallpaper using SurfaceView
      * @param name      the grid option name
      * @param bundle    surface view request bundle generated from
-     *                  {@link SurfaceViewRequestUtils#createSurfaceBundle(SurfaceView)}.
+     *    {@link com.android.wallpaper.util.SurfaceViewUtils#createSurfaceViewRequest(SurfaceView)}.
      */
     Bundle renderPreview(String name, Bundle bundle) {
         bundle.putString("name", name);

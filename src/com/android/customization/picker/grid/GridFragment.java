@@ -66,7 +66,6 @@ import com.android.wallpaper.widget.PreviewPager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -173,7 +172,7 @@ public class GridFragment extends AppbarFragment {
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(EnumSet.of(CANCEL, APPLY));
+        mBottomActionBar.showActionsOnly(CANCEL, APPLY);
         mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
         mBottomActionBar.setActionClickListener(APPLY, unused -> {
             mBottomActionBar.disableActions();

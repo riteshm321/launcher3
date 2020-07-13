@@ -174,23 +174,41 @@ class ThemeOptionPreviewer implements LifecycleObserver {
      * text) which will change its content color according to different wallpapers.
      */
     public void updateColorForLauncherWidgets(WallpaperColors colors) {
-        int color = mContext.getColor(
-                (colors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) == 0
-                        ? R.color.text_color_light
-                        : R.color.text_color_dark);
+        boolean useLightTextColor =
+                (colors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) == 0;
+        int textColor = mContext.getColor(useLightTextColor
+                ? R.color.text_color_light
+                : R.color.text_color_dark);
+        int textShadowColor = mContext.getColor(useLightTextColor
+                ? R.color.theme_preview_workspace_shadow_color_dark
+                : R.color.theme_preview_workspace_shadow_color_transparent);
         // Update the top status bar clock text color.
-        mStatusBarClock.setTextColor(color);
+        mStatusBarClock.setTextColor(textColor);
         // Update the top status bar icon color.
         ViewGroup iconsContainer = mContentView.findViewById(R.id.theme_preview_top_bar_icons);
         for (int i = 0; i < iconsContainer.getChildCount(); i++) {
             ((ImageView) iconsContainer.getChildAt(i))
-                    .setImageTintList(ColorStateList.valueOf(color));
+                    .setImageTintList(ColorStateList.valueOf(textColor));
         }
         // Update smart space date color.
-        ((TextView) mContentView.findViewById(R.id.smart_space_date)).setTextColor(color);
+        mSmartSpaceDate.setTextColor(textColor);
+        mSmartSpaceDate.setShadowLayer(
+                mContext.getResources().getDimension(
+                        R.dimen.preview_theme_smartspace_key_ambient_shadow_blur),
+                /* dx = */ 0,
+                /* dy = */ 0,
+                textShadowColor);
+
         // Update shape app icon name text color.
         for (int id : mShapeIconAppNameIds) {
-            ((TextView) mContentView.findViewById(id)).setTextColor(color);
+            TextView appName = mContentView.findViewById(id);
+            appName.setTextColor(textColor);
+            appName.setShadowLayer(
+                    mContext.getResources().getDimension(
+                            R.dimen.preview_theme_app_name_key_ambient_shadow_blur),
+                    /* dx = */ 0,
+                    /* dy = */ 0,
+                    textShadowColor);
         }
 
         mHasWallpaperColorSet = true;
@@ -229,23 +247,11 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private void setHeadlineFont(Typeface headlineFont) {
         mStatusBarClock.setTypeface(headlineFont);
         mSmartSpaceDate.setTypeface(headlineFont);
-        mSmartSpaceDate.setShadowLayer(
-                mContext.getResources().getDimension(
-                        R.dimen.preview_theme_smartspace_key_ambient_shadow_blur),
-                /* dx = */ 0,
-                /* dy = */ 0,
-                mContext.getColor(R.color.theme_preview_workspace_shadow_color));
 
         // Update font of app names.
         for (int id : mShapeIconAppNameIds) {
             TextView appName = mContentView.findViewById(id);
             appName.setTypeface(headlineFont);
-            appName.setShadowLayer(
-                    mContext.getResources().getDimension(
-                            R.dimen.preview_theme_app_name_key_ambient_shadow_blur),
-                    /* dx = */ 0,
-                    /* dy = */ 0,
-                    mContext.getColor(R.color.theme_preview_workspace_shadow_color));
         }
 
         // Update font of color/icons section title.

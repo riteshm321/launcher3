@@ -15,6 +15,8 @@
  */
 package com.android.customization.picker.theme;
 
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+
 import android.app.Activity;
 import android.app.WallpaperColors;
 import android.content.Context;
@@ -54,6 +56,7 @@ import com.android.customization.model.theme.custom.CustomTheme;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.BasePreviewAdapter;
 import com.android.customization.picker.TimeTicker;
+import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.picker.theme.ThemePreviewPage.ThemeCoverPage;
 import com.android.customization.picker.theme.ThemePreviewPage.TimeContainer;
 import com.android.customization.widget.OptionSelectorController;
@@ -65,6 +68,7 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.PreviewPager;
 
 import java.util.List;
@@ -76,6 +80,8 @@ public class ThemeFragment extends AppbarFragment {
 
     private static final String TAG = "ThemeFragment";
     private static final String KEY_SELECTED_THEME = "ThemeFragment.SelectedThemeBundle";
+
+    private static final boolean USE_NEW_PREVIEW = false;
 
     /**
      * Interface to be implemented by an Activity hosting a {@link ThemeFragment}
@@ -104,6 +110,8 @@ public class ThemeFragment extends AppbarFragment {
     private Asset mCurrentWallpaperThumbAsset;
     private CurrentWallpaperInfoFactory mCurrentWallpaperFactory;
     private TimeTicker mTicker;
+    private BottomActionBar mBottomActionBar;
+    private WallpaperPreviewer mWallpaperPreviewer;
 
     @Override
     public void onAttach(Context context) {
@@ -128,12 +136,41 @@ public class ThemeFragment extends AppbarFragment {
                 .getCurrentWallpaperFactory(getActivity().getApplicationContext());
         mPreviewPager = view.findViewById(R.id.theme_preview_pager);
         mOptionsContainer = view.findViewById(R.id.options_container);
-        view.findViewById(R.id.apply_button).setOnClickListener(v -> {
-            applyTheme();
-        });
-        setUpOptions(savedInstanceState);
 
+        if (USE_NEW_PREVIEW) {
+            mPreviewPager.setVisibility(View.GONE);
+            view.findViewById(R.id.preview_card_container).setVisibility(View.VISIBLE);
+            mWallpaperPreviewer = new WallpaperPreviewer(
+                    getLifecycle(),
+                    getActivity(),
+                    view.findViewById(R.id.wallpaper_preview_image),
+                    view.findViewById(R.id.wallpaper_preview_surface));
+            view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                           int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    mWallpaperPreviewer.updatePreviewCardRadius();
+                    view.removeOnLayoutChangeListener(this);
+                }
+            });
+        }
         return view;
+    }
+
+    @Override
+    protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
+        mBottomActionBar = bottomActionBar;
+        mBottomActionBar.bindBackButtonToSystemBackKey(getActivity());
+        mBottomActionBar.showActionsOnly(APPLY);
+        mBottomActionBar.setActionClickListener(APPLY, v -> applyTheme());
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Setup options here when all views are ready(including BottomActionBar), since we need to
+        // update views after options are loaded.
+        setUpOptions(savedInstanceState);
     }
 
     private void applyTheme() {
@@ -208,11 +245,15 @@ public class ThemeFragment extends AppbarFragment {
         mCurrentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
-                    mCurrentWallpaperThumbAsset = new BitmapCachingAsset(getContext(),
-                            mCurrentHomeWallpaper.getThumbAsset(getContext()));
-                    if (mSelectedTheme != null && mAdapter != null) {
-                        mAdapter.setWallpaperAsset(mCurrentWallpaperThumbAsset);
-                        mAdapter.rebindWallpaperIfAvailable();
+                    if (USE_NEW_PREVIEW) {
+                        mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
+                    } else {
+                        mCurrentWallpaperThumbAsset = new BitmapCachingAsset(getContext(),
+                                mCurrentHomeWallpaper.getThumbAsset(getContext()));
+                        if (mSelectedTheme != null && mAdapter != null) {
+                            mAdapter.setWallpaperAsset(mCurrentWallpaperThumbAsset);
+                            mAdapter.rebindWallpaperIfAvailable();
+                        }
                     }
         }, false);
     }
@@ -261,7 +302,10 @@ public class ThemeFragment extends AppbarFragment {
                         }
                         mEventLogger.logThemeSelected(mSelectedTheme,
                                 selected instanceof CustomTheme);
-                        createAdapter(options);
+                        if (!USE_NEW_PREVIEW) {
+                            createAdapter(options);
+                        }
+                        mBottomActionBar.show();
                     }
                 });
                 mOptionsController.initOptions(mThemeManager);
@@ -285,6 +329,9 @@ public class ThemeFragment extends AppbarFragment {
                     mOptionsController.setAppliedOption(mSelectedTheme);
                 }
                 mOptionsController.setSelectedOption(mSelectedTheme);
+                // Set selected option above will show BottomActionBar when entering the tab. But
+                // it should not show when entering the tab.
+                mBottomActionBar.hide();
             }
             @Override
             public void onError(@Nullable Throwable throwable) {

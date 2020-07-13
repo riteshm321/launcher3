@@ -80,7 +80,7 @@ class GridOptionPreviewer {
         if (usesSurfaceView) {
             mGridOptionSurface = new SurfaceView(mContext);
             setUpView(mGridOptionSurface);
-            mGridOptionSurface.setZOrderOnTop(true);
+            mGridOptionSurface.setZOrderMediaOverlay(true);
             mGridOptionSurface.getHolder().addCallback(mSurfaceCallback);
         } else {
             final ImageView previewImage = new ImageView(mContext);

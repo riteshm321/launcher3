@@ -16,6 +16,8 @@
 package com.android.customization.picker.theme;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
+import com.android.customization.module.CustomizationInjector;
+import com.android.customization.module.CustomizationPreferences;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
@@ -34,15 +38,22 @@ import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.WallpaperColorsLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 /** Fragment of naming a custom theme. */
 public class CustomThemeNameFragment extends CustomThemeStepFragment {
 
+    private static final String TAG = "CustomThemeNameFragment";
+    private static final String ARG_IS_DEFINED_THEME = "CustomThemeNameFragment.new_theme";
+
     public static CustomThemeNameFragment newInstance(CharSequence toolbarTitle, int position,
-            int titleResId) {
+            int titleResId, boolean mIsDefinedTheme) {
         CustomThemeNameFragment fragment = new CustomThemeNameFragment();
         Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
+        arguments.putBoolean(ARG_IS_DEFINED_THEME, mIsDefinedTheme);
         fragment.setArguments(arguments);
         return fragment;
     }
@@ -51,6 +62,7 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
     private ImageView mWallpaperImage;
     private WallpaperInfo mCurrentHomeWallpaper;
     private ThemeOptionPreviewer mThemeOptionPreviewer;
+    private CustomizationPreferences mCustomizationPreferences;
 
     @Nullable
     @Override
@@ -59,10 +71,10 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mTitle = view.findViewById(R.id.component_options_title);
         mTitle.setText(mTitleResId);
-        mNameEditor = view.findViewById(R.id.custom_theme_name);
-        mNameEditor.setText(mCustomThemeManager.getOriginalTheme().getTitle());
         CurrentWallpaperInfoFactory currentWallpaperFactory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getActivity().getApplicationContext());
+        CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
+        mCustomizationPreferences = injector.getCustomizationPreferences(getContext());
 
         // Set wallpaper background.
         mWallpaperImage = view.findViewById(R.id.wallpaper_preview_image);
@@ -86,6 +98,11 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         PreviewInfo previewInfo = mCustomThemeManager.buildCustomThemePreviewInfo(getContext());
         mThemeOptionPreviewer.setPreviewInfo(previewInfo);
 
+        // Set theme default name.
+        mNameEditor = view.findViewById(R.id.custom_theme_name);
+        mNameEditor.setText(
+                getCustomThemeDefaultName(getArguments().getBoolean(ARG_IS_DEFINED_THEME, true)));
+
         view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
@@ -108,6 +125,28 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
                     mWallpaperImage.getMeasuredHeight(),
                     mThemeOptionPreviewer::updateColorForLauncherWidgets);
         }
+    }
+
+    private String getCustomThemeDefaultName(boolean mIsDefinedTheme) {
+        if (mIsDefinedTheme) {
+            // For new custom theme. use custom themes amount plus 1 as default naming.
+            String serializedThemes = mCustomizationPreferences.getSerializedCustomThemes();
+            int customThemesCount = 0;
+            if (!TextUtils.isEmpty(serializedThemes)) {
+                try {
+                    JSONArray customThemes = new JSONArray(serializedThemes);
+                    customThemesCount = customThemes.length();
+                } catch (JSONException e) {
+                    Log.w(TAG, "Couldn't read stored custom theme");
+                }
+            }
+            return getContext().getString(
+                    R.string.custom_theme_title, customThemesCount + 1);
+        } else {
+            // For existing custom theme, keep its name as default naming.
+            return mCustomThemeManager.getOriginalTheme().getTitle();
+        }
+
     }
 
     @Override

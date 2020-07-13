@@ -145,9 +145,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         });
     }
 
-    /** Loads the Theme option into the container view. */
-    public void setThemeBundle(ThemeBundle themeBundle) {
-        PreviewInfo previewInfo = themeBundle.getPreviewInfo();
+    /** Loads the Theme option preview into the container view. */
+    public void setPreviewInfo(PreviewInfo previewInfo) {
         setHeadlineFont(previewInfo.headlineFontFamily);
         setTopBarIcons(previewInfo.icons);
         setAppIconShape(previewInfo.shapeAppIcons);

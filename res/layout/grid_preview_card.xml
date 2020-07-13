@@ -18,22 +18,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/FullContentPreviewCard"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <FrameLayout
+        android:id="@+id/grid_preview_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_color" />
 
     <ImageView
-        android:id="@+id/grid_preview_image"
+        android:id="@+id/wallpaper_preview_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/primary_color" />
 
     <SurfaceView
-        android:id="@+id/grid_preview_surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primary_color" />
-
-    <SurfaceView
-        android:id="@+id/wallpaper_surface"
+        android:id="@+id/wallpaper_preview_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

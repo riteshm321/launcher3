@@ -26,12 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
 
 import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.CustomizationOption;
@@ -154,15 +156,13 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
      * Initializes the UI for the options passed in the constructor of this class.
      */
     public void initOptions(final CustomizationManager<T> manager) {
+        mContainer.setAccessibilityDelegateCompat(
+                new OptionSelectorAccessibilityDelegate(mContainer));
+
         mAdapter = new RecyclerView.Adapter<TileViewHolder>() {
             @Override
             public int getItemViewType(int position) {
                 return mOptions.get(position).getLayoutResId();
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
             }
 
             @NonNull
@@ -231,10 +231,6 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         mContainer.setLayoutManager(new LinearLayoutManager(mContainer.getContext(),
                 LinearLayoutManager.HORIZONTAL, false));
         Resources res = mContainer.getContext().getResources();
-
-        // A workaround from b/37088814, fix TalkBack will lose focus when receive notify*Changed()
-        mAdapter.setHasStableIds(true);
-        mContainer.setItemAnimator(null);
 
         mContainer.setAdapter(mAdapter);
 
@@ -338,6 +334,42 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                 tileView.setAccessibilityPaneTitle(title);
                 tileView.setContentDescription(title);
             }
+        }
+    }
+
+    private class OptionSelectorAccessibilityDelegate extends RecyclerViewAccessibilityDelegate {
+
+        OptionSelectorAccessibilityDelegate(RecyclerView recyclerView) {
+            super(recyclerView);
+        }
+
+        @Override
+        public boolean onRequestSendAccessibilityEvent(
+                ViewGroup host, View child, AccessibilityEvent event) {
+
+            // Apply this workaround to horizontal recyclerview only,
+            // since the symptom is TalkBack will lose focus when navigating horizontal list items.
+            if (mContainer.getLayoutManager() != null
+                    && mContainer.getLayoutManager().canScrollHorizontally()
+                    && event.getEventType() == AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
+                int itemPos = mContainer.getChildLayoutPosition(child);
+                int itemWidth = mContainer.getContext().getResources()
+                        .getDimensionPixelOffset(R.dimen.option_tile_width);
+                int itemMarginHorizontal = mContainer.getContext().getResources()
+                        .getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal) * 2;
+                int scrollOffset = itemWidth + itemMarginHorizontal;
+
+                // Make focusing item's previous/next item totally visible when changing focus,
+                // ensure TalkBack won't lose focus when recyclerview scrolling.
+                if (itemPos >= ((LinearLayoutManager) mContainer.getLayoutManager())
+                        .findLastCompletelyVisibleItemPosition()) {
+                    mContainer.scrollBy(scrollOffset, 0);
+                } else if (itemPos <= ((LinearLayoutManager) mContainer.getLayoutManager())
+                        .findFirstCompletelyVisibleItemPosition() && itemPos != 0) {
+                    mContainer.scrollBy(-scrollOffset, 0);
+                }
+            }
+            return super.onRequestSendAccessibilityEvent(host, child, event);
         }
     }
 }

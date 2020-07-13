@@ -21,6 +21,7 @@ import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.INFORMATION;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -125,13 +126,13 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
             public void onLayoutChange(View v, int left, int top, int right, int bottom,
                                        int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 wallpaperPreviewer.updatePreviewCardRadius();
-                // Let's use half size of full preview card to reduce memory and loading time.
-                WallpaperColorsLoader.getWallpaperColors(
-                        getContext(),
-                        mWallpaper.getThumbAsset(getContext()),
-                        wallpaperImageView.getMeasuredWidth() / 2,
-                        wallpaperImageView.getMeasuredHeight() / 2,
-                        themeOptionPreviewer::updateColorForLauncherWidgets);
+                Context context = getContext();
+                if (context != null) {
+                    WallpaperColorsLoader.getWallpaperColors(
+                            context,
+                            mWallpaper.getThumbAsset(context),
+                            themeOptionPreviewer::updateColorForLauncherWidgets);
+                }
                 view.removeOnLayoutChangeListener(this);
             }
         });

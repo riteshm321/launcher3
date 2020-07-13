@@ -209,7 +209,6 @@ public class GridFragment extends AppbarFragment {
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         mBottomActionBar = bottomActionBar;
         mBottomActionBar.showActionsOnly(CANCEL, APPLY);
-        mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
         mBottomActionBar.setActionClickListener(APPLY, unused -> {
             mBottomActionBar.disableActions();
             mGridManager.apply(mSelectedOption, mApplyGridCallback);

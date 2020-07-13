@@ -291,14 +291,14 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void onBackPressed() {
-        // For wallpaper tab, since it had child fragment.
-        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
-            return;
-        }
-
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragment instanceof BottomActionBarFragment
                 && ((BottomActionBarFragment) fragment).onBackPressed()) {
+            return;
+        }
+
+        // For wallpaper tab, since it had child fragment.
+        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
             return;
         }
 

@@ -112,21 +112,28 @@ public class ShapeOptionsProvider extends ThemeComponentOptionProvider<ShapeOpti
         List<Drawable> icons = new ArrayList<>();
         List<String> names = new ArrayList<>();
         for (String packageName : mShapePreviewIconPackages) {
+            Drawable icon = null;
+            String name = null;
             try {
                 Drawable appIcon = mContext.getPackageManager().getApplicationIcon(packageName);
                 if (appIcon instanceof AdaptiveIconDrawable) {
                     AdaptiveIconDrawable adaptiveIcon = (AdaptiveIconDrawable) appIcon;
-                    icons.add(new DynamicAdaptiveIconDrawable(adaptiveIcon.getBackground(),
-                            adaptiveIcon.getForeground(), path));
+                    icon = new DynamicAdaptiveIconDrawable(adaptiveIcon.getBackground(),
+                            adaptiveIcon.getForeground(), path);
 
                     ApplicationInfo appInfo = mContext.getPackageManager()
                             .getApplicationInfo(packageName, /* flag= */ 0);
-                    names.add(String.valueOf(
-                            mContext.getPackageManager().getApplicationLabel(appInfo)));
+                    name = String.valueOf(
+                            mContext.getPackageManager().getApplicationLabel(appInfo));
                 }
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName
                         + ", won't use it for icon shape preview");
+            } finally {
+                if (icon != null && !TextUtils.isEmpty(name)) {
+                    icons.add(icon);
+                    names.add(name);
+                }
             }
         }
         return Pair.create(icons, names);

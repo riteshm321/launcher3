@@ -214,15 +214,21 @@ public class DefaultThemeProvider extends ResourcesApkProvider implements ThemeB
         List<Drawable> icons = new ArrayList<>();
         List<String> names = new ArrayList<>();
         for (String packageName : mOverlayProvider.getShapePreviewIconPackages()) {
+            Drawable icon = null;
+            String name = null;
             try {
-                icons.add(mContext.getPackageManager().getApplicationIcon(packageName));
+                icon = mContext.getPackageManager().getApplicationIcon(packageName);
                 ApplicationInfo appInfo = mContext.getPackageManager()
                         .getApplicationInfo(packageName, /* flag= */ 0);
-                names.add(String.valueOf(
-                        mContext.getPackageManager().getApplicationLabel(appInfo)));
+                name = String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo));
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName + ", won't use it for icon shape"
                         + "preview");
+            } finally {
+                if (icon != null && !TextUtils.isEmpty(name)) {
+                    icons.add(icon);
+                    names.add(name);
+                }
             }
         }
         builder.setShapePreviewIcons(icons);

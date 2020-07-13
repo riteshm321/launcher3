@@ -164,10 +164,7 @@ public class WallpaperPreviewer implements LifecycleObserver {
 
         mWallpaperConnection = new WallpaperConnection(
                 getWallpaperIntent(homeWallpaper.getWallpaperComponent()), mActivity,
-                new WallpaperConnection.WallpaperConnectionListener() {
-                    @Override
-                    public void onEngineShown() {}
-                }, mPreviewGlobalRect);
+                /* listener= */ null, mPreviewGlobalRect);
 
         LiveTileOverlay.INSTANCE.update(new RectF(mPreviewLocalRect),
                 ((CardView) mHomePreview.getParent()).getRadius());

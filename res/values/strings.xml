@@ -46,6 +46,12 @@
         [CHAR LIMIT=20] -->
     <string name="apply_btn">Apply</string>
 
+    <!-- Content description of theme preview card. [CHAR_LIMIT=30]-->
+    <string name="theme_preview_card_content_description">Style preview</string>
+
+    <!-- Content description of grid preview card. [CHAR_LIMIT=30]-->
+    <string name="grid_preview_card_content_description">Grid preview</string>
+
     <!-- Content description indicating that the selected option is currently applied to the device. [CHAR_LIMIT=NONE] -->
     <string name="option_applied_description"><xliff:g name="style_name">%1$s</xliff:g>, currently applied</string>
 

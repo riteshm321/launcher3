@@ -30,7 +30,6 @@ import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -136,12 +135,9 @@ public class GridFragment extends AppbarFragment {
         Glide.get(getContext()).clearMemory();
         setUpOptions(savedInstanceState);
 
-        ImageView wallpaperPreviewImage = view.findViewById(R.id.wallpaper_preview_image);
-        wallpaperPreviewImage.setOnClickListener(v -> showFullPreview());
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
-        WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(
-                getLifecycle(), getActivity(), wallpaperPreviewImage, wallpaperSurface);
-
+        WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(getLifecycle(),
+                getActivity(), view.findViewById(R.id.wallpaper_preview_image), wallpaperSurface);
         // Loads current Wallpaper.
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
@@ -161,6 +157,8 @@ public class GridFragment extends AppbarFragment {
                 view.removeOnLayoutChangeListener(this);
             }
         });
+
+        view.findViewById(R.id.grid_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 

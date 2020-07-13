@@ -47,7 +47,7 @@
                 app:layout_constraintBottom_toTopOf="@id/options_title"
                 app:layout_constraintHeight_max="@dimen/preview_pager_max_height"
                 app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintHeight_percent="0.7">
+                app:layout_constraintHeight_percent="@dimen/preview_pager_maximum_height_ratio">
                 <include layout="@layout/grid_preview_card"/>
             </FrameLayout>
 

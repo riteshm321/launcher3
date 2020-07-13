@@ -32,4 +32,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <FrameLayout
+        android:id="@+id/theme_preview_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="@dimen/preview_card_top_padding"
+        android:paddingHorizontal="@dimen/preview_card_padding"/>
 </androidx.cardview.widget.CardView>

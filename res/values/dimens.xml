@@ -64,7 +64,7 @@
     <dimen name="preview_theme_icon_size">30dp</dimen>
     <dimen name="preview_theme_tile_size">16dp</dimen>
     <dimen name="preview_theme_shape_size">36dp</dimen>
-    <dimen name="preview_theme_cover_topbar_clock_size">14sp</dimen>
+    <dimen name="preview_theme_cover_topbar_clock_size">12sp</dimen>
     <dimen name="preview_theme_cover_topbar_icon_size">16dp</dimen>
     <dimen name="preview_theme_cover_content_extra_margin">16dp</dimen>
     <dimen name="preview_theme_content_bottom">@dimen/min_taptarget_height</dimen>

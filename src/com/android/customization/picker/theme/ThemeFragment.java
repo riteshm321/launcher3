@@ -112,6 +112,7 @@ public class ThemeFragment extends AppbarFragment {
     private TimeTicker mTicker;
     private BottomActionBar mBottomActionBar;
     private WallpaperPreviewer mWallpaperPreviewer;
+    private ThemeOptionPreviewer mThemeOptionPreviewer;
 
     @Override
     public void onAttach(Context context) {
@@ -153,6 +154,10 @@ public class ThemeFragment extends AppbarFragment {
                     view.removeOnLayoutChangeListener(this);
                 }
             });
+            mThemeOptionPreviewer = new ThemeOptionPreviewer(
+                    getLifecycle(),
+                    getContext(),
+                    view.findViewById(R.id.theme_preview_container));
         }
         return view;
     }
@@ -302,7 +307,9 @@ public class ThemeFragment extends AppbarFragment {
                         }
                         mEventLogger.logThemeSelected(mSelectedTheme,
                                 selected instanceof CustomTheme);
-                        if (!USE_NEW_PREVIEW) {
+                        if (USE_NEW_PREVIEW) {
+                            mThemeOptionPreviewer.setThemeBundle(mSelectedTheme);
+                        } else {
                             createAdapter(options);
                         }
                         mBottomActionBar.show();

@@ -225,7 +225,7 @@ public class ThemeFragment extends AppbarFragment {
                 mSelectedTheme = null;
                 reloadOptions();
             } else if (resultCode == CustomThemeActivity.RESULT_THEME_APPLIED) {
-                getActivity().finish();
+                reloadOptions();
             } else {
                 if (mSelectedTheme != null) {
                     mOptionsController.setSelectedOption(mSelectedTheme);

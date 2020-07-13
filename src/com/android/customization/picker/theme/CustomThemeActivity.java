@@ -220,7 +220,8 @@ public class CustomThemeActivity extends FragmentActivity implements
         mThemeManager.apply(themeToApply, new Callback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(CustomThemeActivity.this, R.string.applied_theme_msg,
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Toast.makeText(getApplicationContext(), R.string.applied_theme_msg,
                         Toast.LENGTH_LONG).show();
                 setResult(RESULT_THEME_APPLIED);
                 finish();

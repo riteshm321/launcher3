@@ -25,7 +25,9 @@ import com.android.customization.model.ResourceConstants;
 import com.android.customization.model.theme.ThemeBundle.Builder;
 import com.android.wallpaper.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -98,21 +100,23 @@ class OverlayThemeExtractor {
     }
 
     private void addShapePreviewIcons(Builder builder) {
+        List<Drawable> icons = new ArrayList<>();
+        List<String> names = new ArrayList<>();
         for (String packageName : mShapePreviewIconPackages) {
             try {
-                builder.addShapePreviewIcon(
-                        mContext.getPackageManager().getApplicationIcon(
-                                packageName));
+                icons.add(mContext.getPackageManager().getApplicationIcon(packageName));
                 // Add the shape icon app name.
                 ApplicationInfo appInfo = mContext.getPackageManager()
                         .getApplicationInfo(packageName, /* flag= */ 0);
-                builder.addShapePreviewIconName(
-                        String.valueOf(mContext.getPackageManager().getApplicationLabel(appInfo)));
+                names.add(String.valueOf(
+                        mContext.getPackageManager().getApplicationLabel(appInfo)));
             } catch (NameNotFoundException e) {
                 Log.d(TAG, "Couldn't find app " + packageName
                         + ", won't use it for icon shape preview");
             }
         }
+        builder.setShapePreviewIcons(icons);
+        builder.setShapePreviewIconNames(names);
     }
 
     void addNoPreviewIconOverlay(Builder builder, String overlayPackage) {

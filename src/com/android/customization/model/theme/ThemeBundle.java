@@ -387,13 +387,15 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
             return this;
         }
 
-        public Builder addShapePreviewIcon(Drawable appIcon) {
-            mAppIcons.add(appIcon);
+        public Builder setShapePreviewIcons(List<Drawable> appIcons) {
+            mAppIcons.clear();
+            mAppIcons.addAll(appIcons);
             return this;
         }
 
-        public Builder addShapePreviewIconName(String appIconName) {
-            mAppIconNames.add(appIconName);
+        public Builder setShapePreviewIconNames(List<String> appIconNames) {
+            mAppIconNames.clear();
+            mAppIconNames.addAll(appIconNames);
             return this;
         }
 

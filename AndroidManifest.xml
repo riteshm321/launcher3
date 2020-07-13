@@ -34,6 +34,10 @@
         <activity android:name="com.android.customization.picker.theme.CustomThemeActivity"
                   android:resizeableActivity="false"
                   android:theme="@style/CustomizationTheme.NoActionBar"/>
+
+        <activity android:name="com.android.customization.picker.ViewOnlyFullPreviewActivity"
+            android:resizeableActivity="false"
+            android:theme="@style/CustomizationTheme.NoActionBar"/>
     </application>
 
 </manifest>

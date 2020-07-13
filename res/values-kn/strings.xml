@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"ಅನ್ವಯಿಸಿ"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ಶೈಲಿ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ಗ್ರಿಡ್ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"ಫಾಂಟ್ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"ಐಕಾನ್ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"ಬಣ್ಣ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"ಆಕಾರ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"ಪ್ರಸ್ತುತ <xliff:g id="ID_1">%1$s</xliff:g> ಅನ್ನು ಅನ್ವಯಿಸಲಾಗಿದೆ"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ಪ್ರಸ್ತುತ ಸಲ್ಲಿಸಲಾಗಿದೆ ಮತ್ತು ಪೂರ್ವವೀಕ್ಷಿಸಲಾಗಿದೆ"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ಪ್ರಸ್ತುತ ಪೂರ್ವವೀಕ್ಷಿಸಲಾಗಿದೆ"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ಗಡಿಯಾರ ಪೂರ್ವವೀಕ್ಷಣೆ"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ಓಹ್! ಯಾವುದೋ ತಪ್ಪು ಸಂಭವಿಸಿದೆ."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ಬಣ್ಣ / ಐಕಾನ್‌ಗಳು"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"ಫಾಂಟ್‌ಗಳು, ಐಕಾನ್‌ಗಳು, ಆಕಾರ, ಬಣ್ಣ <xliff:g id="ID_1">%1$s</xliff:g> ಶೈಲಿಗೆ ಬದಲಾಗುತ್ತದೆ"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

@@ -46,9 +46,9 @@ import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.ScreenSizeCalculator;
-import com.android.wallpaper.util.TimeTicker;
+import com.android.wallpaper.util.TimeUtils;
+import com.android.wallpaper.util.TimeUtils.TimeTicker;
 
-import java.text.FieldPosition;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -293,13 +293,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     private void updateTime() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
         if (mStatusBarClock != null) {
-            StringBuffer time = new StringBuffer();
-            FieldPosition amPmPosition = new FieldPosition(java.text.DateFormat.Field.AM_PM);
-            DateFormat.getTimeFormat(mContext).format(calendar.getTime(), time, amPmPosition);
-            if (amPmPosition.getBeginIndex() > 0) {
-                time.delete(amPmPosition.getBeginIndex(), amPmPosition.getEndIndex());
-            }
-            mStatusBarClock.setText(time);
+            mStatusBarClock.setText(TimeUtils.getFormattedTime(mContext, calendar));
         }
         if (mSmartSpaceDate != null) {
             String datePattern =

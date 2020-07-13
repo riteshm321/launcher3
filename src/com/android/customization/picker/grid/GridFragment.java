@@ -64,6 +64,9 @@ import java.util.List;
 public class GridFragment extends AppbarFragment {
 
     private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
+    private static final String KEY_STATE_SELECTED_OPTION = "GridFragment.selectedOption";
+    private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY =
+            "GridFragment.bottomActionBarVisibility";
 
     private static final String TAG = "GridFragment";
 
@@ -102,7 +105,8 @@ public class GridFragment extends AppbarFragment {
                 @Override
                 public void onOptionsLoaded(List<GridOption> options) {
                     mOptionsController.resetOptions(options);
-                    mSelectedOption = getSelectedOption(options);
+                    mSelectedOption = getActiveOption(options);
+                    mOptionsController.setAppliedOption(mSelectedOption);
                     mReloadOptionsAfterApplying = true;
                     // It will trigger OptionSelectedListener#onOptionSelected.
                     mOptionsController.setSelectedOption(mSelectedOption);
@@ -152,7 +156,7 @@ public class GridFragment extends AppbarFragment {
 
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
-        setUpOptions();
+        setUpOptions(savedInstanceState);
 
         ImageView wallpaperPreviewImage = view.findViewById(R.id.wallpaper_preview_image);
         wallpaperPreviewImage.setOnClickListener(v -> showFullPreview());
@@ -184,6 +188,18 @@ public class GridFragment extends AppbarFragment {
         super.onDestroy();
         if (mGridOptionPreviewer != null) {
             mGridOptionPreviewer.release();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mSelectedOption != null) {
+            outState.putParcelable(KEY_STATE_SELECTED_OPTION, mSelectedOption);
+        }
+        if (mBottomActionBar != null) {
+            outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY,
+                    mBottomActionBar.isVisible());
         }
     }
 
@@ -220,7 +236,7 @@ public class GridFragment extends AppbarFragment {
         mGridOptionPreviewer.setGridOption(mSelectedOption, mGridManager.usesSurfaceView());
     }
 
-    private void setUpOptions() {
+    private void setUpOptions(@Nullable Bundle savedInstanceState) {
         hideError();
         mLoading.show();
         mGridManager.fetchOptions(new OptionsFetchedListener<GridOption>() {
@@ -228,7 +244,6 @@ public class GridFragment extends AppbarFragment {
             public void onOptionsLoaded(List<GridOption> options) {
                 mLoading.hide();
                 mOptionsController = new OptionSelectorController<>(mOptionsContainer, options);
-
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
                     if (mReloadOptionsAfterApplying) {
@@ -240,7 +255,23 @@ public class GridFragment extends AppbarFragment {
                     updatePreview();
                 });
                 mOptionsController.initOptions(mGridManager);
-                mSelectedOption = getSelectedOption(options);
+
+                GridOption previouslySelectedOption = null;
+                if (savedInstanceState != null) {
+                    previouslySelectedOption = findEquivalent(
+                            options, savedInstanceState.getParcelable(KEY_STATE_SELECTED_OPTION));
+                }
+                mSelectedOption = previouslySelectedOption != null
+                        ? previouslySelectedOption
+                        : getActiveOption(options);
+                mOptionsController.setSelectedOption(mSelectedOption);
+                boolean bottomActionBarVisibility = savedInstanceState != null
+                        && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBILITY);
+                if (bottomActionBarVisibility) {
+                    mBottomActionBar.show();
+                } else {
+                    mBottomActionBar.hide();
+                }
                 updatePreview();
             }
 
@@ -254,12 +285,20 @@ public class GridFragment extends AppbarFragment {
         }, false);
     }
 
-    private GridOption getSelectedOption(List<GridOption> options) {
+    private GridOption getActiveOption(List<GridOption> options) {
         return options.stream()
                 .filter(option -> option.isActive(mGridManager))
                 .findAny()
                 // For development only, as there should always be a grid set.
                 .orElse(options.get(0));
+    }
+
+    @Nullable
+    private GridOption findEquivalent(List<GridOption> options, GridOption target) {
+        return options.stream()
+                .filter(option -> option.equals(target))
+                .findAny()
+                .orElse(null);
     }
 
     private void hideError() {

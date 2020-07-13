@@ -15,9 +15,12 @@
  */
 package com.android.customization.picker;
 
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
@@ -25,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.android.customization.picker.grid.GridFullPreviewFragment;
+import com.android.customization.picker.theme.ThemeFullPreviewFragment;
 import com.android.wallpaper.R;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
@@ -63,8 +67,15 @@ public class ViewOnlyFullPreviewActivity extends FragmentActivity implements Bot
         @Section final int section = intent.getIntExtra(EXTRA_PREVIEW_SECTION, 0);
         final Bundle bundle = intent.getBundleExtra(EXTRA_PREVIEW_BUNDLE);
         if (section == SECTION_GRID) {
-            showFragment(
-                    GridFullPreviewFragment.newInstance(getString(R.string.grid_title), bundle));
+            showFragment(GridFullPreviewFragment.newInstance(
+                    getString(R.string.grid_title), bundle));
+        } else if (section == SECTION_STYLE) {
+            final String themeTitle = bundle.getString(EXTRA_THEME_OPTION_TITLE);
+            showFragment(ThemeFullPreviewFragment.newInstance(
+                    TextUtils.isEmpty(themeTitle)
+                            ? getString(R.string.theme_title)
+                            : themeTitle,
+                    bundle));
         }
     }
 

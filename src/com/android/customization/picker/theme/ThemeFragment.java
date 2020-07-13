@@ -15,6 +15,12 @@
  */
 package com.android.customization.picker.theme;
 
+import static android.app.Activity.RESULT_OK;
+
+import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_STYLE;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
+import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
 import android.app.Activity;
@@ -56,6 +62,7 @@ import com.android.customization.model.theme.custom.CustomTheme;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.BasePreviewAdapter;
 import com.android.customization.picker.TimeTicker;
+import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.picker.theme.ThemePreviewPage.ThemeCoverPage;
 import com.android.customization.picker.theme.ThemePreviewPage.TimeContainer;
@@ -80,6 +87,7 @@ public class ThemeFragment extends AppbarFragment {
 
     private static final String TAG = "ThemeFragment";
     private static final String KEY_SELECTED_THEME = "ThemeFragment.SelectedThemeBundle";
+    private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
 
     private static final boolean USE_NEW_PREVIEW = false;
 
@@ -141,11 +149,17 @@ public class ThemeFragment extends AppbarFragment {
         if (USE_NEW_PREVIEW) {
             mPreviewPager.setVisibility(View.GONE);
             view.findViewById(R.id.preview_card_container).setVisibility(View.VISIBLE);
+            // Set Wallpaper background.
             mWallpaperPreviewer = new WallpaperPreviewer(
                     getLifecycle(),
                     getActivity(),
                     view.findViewById(R.id.wallpaper_preview_image),
                     view.findViewById(R.id.wallpaper_preview_surface));
+            mCurrentWallpaperFactory.createCurrentWallpaperInfos(
+                    (homeWallpaper, lockWallpaper, presentationMode) -> {
+                        mCurrentHomeWallpaper = homeWallpaper;
+                        mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
+                    }, false);
             view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @Override
                 public void onLayoutChange(View v, int left, int top, int right, int bottom,
@@ -154,10 +168,13 @@ public class ThemeFragment extends AppbarFragment {
                     view.removeOnLayoutChangeListener(this);
                 }
             });
+
+            ViewGroup previewContainer = view.findViewById(R.id.theme_preview_container);
+            previewContainer.setOnClickListener(v -> showFullPreview());
             mThemeOptionPreviewer = new ThemeOptionPreviewer(
                     getLifecycle(),
                     getContext(),
-                    view.findViewById(R.id.theme_preview_container));
+                    previewContainer);
         }
         return view;
     }
@@ -206,9 +223,11 @@ public class ThemeFragment extends AppbarFragment {
     @Override
     public void onResume() {
         super.onResume();
-        mTicker = TimeTicker.registerNewReceiver(getContext(), this::updateTime);
-        reloadWallpaper();
-        updateTime();
+        if (!USE_NEW_PREVIEW) {
+            mTicker = TimeTicker.registerNewReceiver(getContext(), this::updateTime);
+            reloadWallpaper();
+            updateTime();
+        }
     }
 
     private void updateTime() {
@@ -220,7 +239,7 @@ public class ThemeFragment extends AppbarFragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (getContext() != null) {
+        if (getContext() != null && !USE_NEW_PREVIEW) {
             getContext().unregisterReceiver(mTicker);
         }
     }
@@ -251,6 +270,8 @@ public class ThemeFragment extends AppbarFragment {
                     reloadOptions();
                 }
             }
+        } else if (requestCode == FULL_PREVIEW_REQUEST_CODE && resultCode == RESULT_OK) {
+            applyTheme();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -259,15 +280,11 @@ public class ThemeFragment extends AppbarFragment {
         mCurrentWallpaperFactory.createCurrentWallpaperInfos(
                 (homeWallpaper, lockWallpaper, presentationMode) -> {
                     mCurrentHomeWallpaper = homeWallpaper;
-                    if (USE_NEW_PREVIEW) {
-                        mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper);
-                    } else {
-                        mCurrentWallpaperThumbAsset = new BitmapCachingAsset(getContext(),
-                                mCurrentHomeWallpaper.getThumbAsset(getContext()));
-                        if (mSelectedTheme != null && mAdapter != null) {
-                            mAdapter.setWallpaperAsset(mCurrentWallpaperThumbAsset);
-                            mAdapter.rebindWallpaperIfAvailable();
-                        }
+                    mCurrentWallpaperThumbAsset = new BitmapCachingAsset(getContext(),
+                            mCurrentHomeWallpaper.getThumbAsset(getContext()));
+                    if (mSelectedTheme != null && mAdapter != null) {
+                        mAdapter.setWallpaperAsset(mCurrentWallpaperThumbAsset);
+                        mAdapter.rebindWallpaperIfAvailable();
                     }
         }, false);
     }
@@ -399,6 +416,15 @@ public class ThemeFragment extends AppbarFragment {
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_PACKAGES,
                 themeToEdit.getSerializedPackages());
         startActivityForResult(intent, CustomThemeActivity.REQUEST_CODE_CUSTOM_THEME);
+    }
+
+    private void showFullPreview() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(EXTRA_WALLPAPER_INFO, mCurrentHomeWallpaper);
+        bundle.putString(EXTRA_THEME_OPTION, mSelectedTheme.getSerializedPackages());
+        bundle.putString(EXTRA_THEME_OPTION_TITLE, mSelectedTheme.getTitle());
+        Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_STYLE, bundle);
+        startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }
 
     /**

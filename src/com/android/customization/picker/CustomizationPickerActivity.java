@@ -65,6 +65,7 @@ import com.android.wallpaper.module.FormFactorChecker;
 import com.android.wallpaper.module.Injector;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.module.UserEventLogger;
+import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
 import com.android.wallpaper.picker.MyPhotosStarter;
@@ -73,6 +74,7 @@ import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -84,7 +86,8 @@ import java.util.Map;
  *  Fragments providing customization options.
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
-        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost {
+        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
+        BottomActionBarHost {
 
     private static final String TAG = "CustomizationPickerActivity";
     @VisibleForTesting static final String WALLPAPER_FLAVOR_EXTRA =
@@ -293,10 +296,9 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             return;
         }
 
-        // For other tabs without child fragment. Hide the BottomActionBar if back key is pressed.
-        BottomActionBar bottomActionBar = findViewById(R.id.bottom_actionbar);
-        if (bottomActionBar != null && bottomActionBar.isVisible()) {
-            bottomActionBar.hide();
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment instanceof BottomActionBarFragment
+                && ((BottomActionBarFragment) fragment).onBackPressed()) {
             return;
         }
 
@@ -407,6 +409,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setResult(Activity.RESULT_OK);
         finish();
+    }
+
+    @Override
+    public BottomActionBar getBottomActionBar() {
+        return findViewById(R.id.bottom_actionbar);
     }
 
     /**

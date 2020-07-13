@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"ប្រើ"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ការមើល​រចនាប័ទ្មសាកល្បង"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ការមើល​ក្រឡាសាកល្បង"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"ការមើលពុម្ព​អក្សរសាកល្បង"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"ការមើលរូបតំណាង​សាកល្បង"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"ការមើល​ពណ៌សាកល្បង"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"ការមើល​រូបរាងសាកល្បង"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> ត្រូវបានប្រើ​បច្ចុប្បន្ននេះ"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g> កំពុងត្រូវបានអនុវត្ត និង​មើលសាកល្បង​បច្ចុប្បន្ននេះ"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g> កំពុងត្រូវបាន​មើលសាកល្បង​បច្ចុប្បន្ននេះ"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ការមើល​នាឡិកា <xliff:g id="ID_1">%1$s</xliff:g> សាកល្បង"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"អូ៎! មានអ្វីមួយខុសប្រក្រតី។"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ពណ៌ / រូបតំណាង"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"ពុម្ពអក្សរ រូបតំណាង រូបរាង ពណ៌នឹងប្ដូរទៅរចនាប័ទ្ម <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

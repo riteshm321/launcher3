@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"ใช้"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"พรีวิวรูปแบบ"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"พรีวิวตารางกริด"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"พรีวิวแบบอักษร"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"พรีวิวไอคอน"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"พรีวิวสี"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"พรีวิวรูปร่าง"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> ใช้อยู่ในขณะนี้"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>แสดงตัวอย่างและใช้อยู่"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>แสดงตัวอย่างอยู่"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ตัวอย่างนาฬิกา <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"อ๊ะ! มีบางอย่างผิดปกติ"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"สี/ไอคอน"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"แบบอักษร ไอคอน รูปร่าง สีจะเปลี่ยนไปใช้รูปแบบ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

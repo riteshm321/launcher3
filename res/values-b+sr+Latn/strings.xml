@@ -27,6 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"Primeni"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Pregled stila"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Pregled mreže"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"Pregled fonta"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Pregled ikone"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Pregled boje"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Pregled oblika"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, trenutno je primenjeno"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, trenutno je primenjeno i pregleda se"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, trenutno se pregleda"</string>
@@ -68,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Pregled sata <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Ups! Došlo je do greške."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Boja/ikone"</string>
-    <string name="style_info_description" msgid="4201603728542216488">"Fontovi, ikone, oblik i boja će se promeniti na stil <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

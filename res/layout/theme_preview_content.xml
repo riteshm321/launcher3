@@ -20,14 +20,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/preview_theme_content_padding_top"
-    android:paddingHorizontal="@dimen/preview_theme_content_padding"
-    android:paddingBottom="@dimen/preview_theme_content_padding"
+    android:paddingBottom="@dimen/preview_theme_content_padding_bottom"
     android:clipChildren="false">
 
     <FrameLayout
         android:id="@+id/topbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/preview_theme_topbar_container_margin_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/smart_space_date"
         app:layout_constraintBottom_toTopOf="@id/color_icons_container"
-        app:layout_constraintHeight_percent="0.4">
+        app:layout_constraintHeight_percent="0.49">
         <include layout="@layout/theme_preview_app_icon_shape" />
     </FrameLayout>
 
@@ -66,11 +66,12 @@
         android:id="@+id/color_icons_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/preview_theme_color_icons_container_margin_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_icon_shape_container"
         app:layout_constraintBottom_toTopOf="@id/theme_qsb_container"
-        app:layout_constraintHeight_percent="0.3">
+        app:layout_constraintHeight_percent="0.28">
         <include layout="@layout/theme_preview_color_icons" />
     </FrameLayout>
 
@@ -78,6 +79,7 @@
         android:id="@+id/theme_qsb_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/preview_theme_qsb_container_margin_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/color_icons_container"

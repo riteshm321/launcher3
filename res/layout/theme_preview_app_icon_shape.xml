@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:id="@+id/app_item_0"
-            android:layout_width="@dimen/preview_theme_app_icon_shape_item_width"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -43,8 +43,8 @@
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_0"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_0"
@@ -58,7 +58,7 @@
 
         <LinearLayout
             android:id="@+id/app_item_1"
-            android:layout_width="@dimen/preview_theme_app_icon_shape_item_width"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -68,8 +68,8 @@
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_1"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_1"
@@ -94,7 +94,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:id="@+id/app_item_2"
-            android:layout_width="@dimen/preview_theme_app_icon_shape_item_width"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -104,8 +104,8 @@
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_2"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_2"
@@ -119,7 +119,7 @@
 
         <LinearLayout
             android:id="@+id/app_item_3"
-            android:layout_width="@dimen/preview_theme_app_icon_shape_item_width"
+            android:layout_width="@dimen/preview_theme_app_icon_size"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -129,8 +129,8 @@
             app:layout_constraintBottom_toBottomOf="parent">
             <ImageView
                 android:id="@+id/shape_preview_icon_3"
-                android:layout_width="@dimen/preview_theme_shape_size"
-                android:layout_height="@dimen/preview_theme_shape_size"
+                android:layout_width="@dimen/preview_theme_app_icon_size"
+                android:layout_height="@dimen/preview_theme_app_icon_size"
                 android:elevation="4dp"/>
             <TextView
                 android:id="@+id/shape_preview_icon_app_name_3"

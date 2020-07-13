@@ -71,10 +71,13 @@
     <dimen name="preview_theme_content_bottom">@dimen/min_taptarget_height</dimen>
 
     <!--  For the new preview of theme picker.  -->
-    <dimen name="preview_theme_content_padding_top">12dp</dimen>
-    <dimen name="preview_theme_content_padding">@dimen/preview_card_padding</dimen>
+    <dimen name="preview_theme_content_padding_top">16dp</dimen>
+    <dimen name="preview_theme_content_padding_bottom">24dp</dimen>
+    <dimen name="preview_theme_topbar_container_margin_horizontal">16dp</dimen>
+    <dimen name="preview_theme_color_icons_container_margin_horizontal">10dp</dimen>
+    <dimen name="preview_theme_qsb_container_margin_horizontal">12dp</dimen>
     <dimen name="preview_theme_smart_space_date_size">16sp</dimen>
-    <dimen name="preview_theme_app_icon_shape_item_width">64dp</dimen>
+    <dimen name="preview_theme_app_icon_size">64dp</dimen>
     <dimen name="preview_theme_app_icon_shape_text_margin_top">8dp</dimen>
     <dimen name="preview_theme_app_icon_shape_text_size">16sp</dimen>
     <dimen name="preview_theme_color_icons_padding_top">12dp</dimen>

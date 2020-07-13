@@ -17,6 +17,9 @@ package com.android.customization.picker.grid;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.CANCEL;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -57,11 +60,13 @@ import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.ToolbarFragment;
 import com.android.wallpaper.util.SurfaceViewUtils;
+import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.PreviewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.EnumSet;
 import java.util.List;
 
 /**
@@ -100,6 +105,7 @@ public class GridFragment extends ToolbarFragment {
     private ContentLoadingProgressBar mLoading;
     private View mContent;
     private View mError;
+    private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
 
     @Override
@@ -141,20 +147,7 @@ public class GridFragment extends ToolbarFragment {
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
         setUpOptions();
-        view.findViewById(R.id.apply_button).setOnClickListener(v -> {
-            mGridManager.apply(mSelectedOption,  new Callback() {
-                @Override
-                public void onSuccess() {
-                    getActivity().finish();
-                }
 
-                @Override
-                public void onError(@Nullable Throwable throwable) {
-                    //TODO(santie): handle
-                }
-            });
-
-        });
         CurrentWallpaperInfoFactory factory = InjectorProvider.getInjector()
                 .getCurrentWallpaperFactory(getContext().getApplicationContext());
 
@@ -173,6 +166,24 @@ public class GridFragment extends ToolbarFragment {
                 view.removeOnLayoutChangeListener(this);
                 loadWallpaperBackground();
             }
+        });
+
+        mBottomActionBar = getActivity().findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.showActionsOnly(EnumSet.of(CANCEL, APPLY));
+        mBottomActionBar.setActionClickListener(CANCEL, unused -> getActivity().onBackPressed());
+        mBottomActionBar.setActionClickListener(APPLY, unused -> {
+            mBottomActionBar.disableActions();
+            mGridManager.apply(mSelectedOption, new Callback() {
+                @Override
+                public void onSuccess() {
+                    getActivity().finish();
+                }
+
+                @Override
+                public void onError(@Nullable Throwable throwable) {
+                    //TODO(santie): handle
+                }
+            });
         });
         return view;
     }
@@ -207,6 +218,7 @@ public class GridFragment extends ToolbarFragment {
 
                 mOptionsController.addListener(selected -> {
                     mSelectedOption = (GridOption) selected;
+                    mBottomActionBar.show();
                     mEventLogger.logGridSelected(mSelectedOption);
                     createAdapter();
                 });

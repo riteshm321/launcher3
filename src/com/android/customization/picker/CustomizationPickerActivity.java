@@ -72,6 +72,7 @@ import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
 import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
+import com.android.wallpaper.widget.BottomActionBar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -287,9 +288,18 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void onBackPressed() {
+        // For wallpaper tab, since it had child fragment.
         if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
             return;
         }
+
+        // For other tabs without child fragment. Hide the BottomActionBar if back key is pressed.
+        BottomActionBar bottomActionBar = findViewById(R.id.bottom_actionbar);
+        if (bottomActionBar != null && bottomActionBar.isVisible()) {
+            bottomActionBar.hide();
+            return;
+        }
+
         if (getSupportFragmentManager().popBackStackImmediate()) {
             return;
         }

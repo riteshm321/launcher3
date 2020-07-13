@@ -165,7 +165,6 @@ public class ThemeFragment extends AppbarFragment {
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.bindBackButtonToSystemBackKey(getActivity());
         mBottomActionBar.showActionsOnly(APPLY);
         mBottomActionBar.setActionClickListener(APPLY, v -> applyTheme());
     }

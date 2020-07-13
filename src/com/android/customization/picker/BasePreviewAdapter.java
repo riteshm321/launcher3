@@ -113,11 +113,17 @@ public class BasePreviewAdapter<T extends PreviewPage> extends PagerAdapter {
         }
 
         public void setCard(CardView card) {
-            this.card = card;
-            this.card.addOnLayoutChangeListener(
-                    (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
+            card.addOnLayoutChangeListener(
+                    new View.OnLayoutChangeListener() {
+                        @Override
+                        public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                                int oldLeft, int oldTop, int oldRight, int oldBottom) {
                             card.setRadius(TileSizeCalculator.getPreviewCornerRadius(
-                                    mActivity, card.getMeasuredWidth())));
+                                    mActivity, card.getMeasuredWidth()));
+                            card.removeOnLayoutChangeListener(this);
+                        }
+                    });
+            this.card = card;
         }
 
         public abstract void bindPreviewContent();

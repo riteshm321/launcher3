@@ -21,6 +21,7 @@ import static android.view.View.MeasureSpec.makeMeasureSpec;
 import android.app.WallpaperColors;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -120,6 +121,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         updateTime();
         final float screenAspectRatio =
                 ScreenSizeCalculator.getInstance().getScreenAspectRatio(mContext);
+        Configuration config = mContext.getResources().getConfiguration();
+        final boolean directionLTR = config.getLayoutDirection() == View.LAYOUT_DIRECTION_LTR;
         previewContainer.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View view, int left, int top, int right, int bottom,
@@ -141,7 +144,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
                 mContentView.setScaleX(scale);
                 mContentView.setScaleY(scale);
                 // The pivot point is centered by default, set to (0, 0).
-                mContentView.setPivotX(0f);
+                mContentView.setPivotX(directionLTR ? 0f : mContentView.getMeasuredWidth());
                 mContentView.setPivotY(0f);
 
                 // Ensure there will be only one content view in the container.

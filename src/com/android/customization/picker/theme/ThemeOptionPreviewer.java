@@ -288,7 +288,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
             ShapeAppIcon icon = appIcons.get(i);
             // Set app icon.
             ImageView iconView = mContentView.findViewById(mShapeAppIconIds[i]);
-            iconView.setBackground(icon.getDrawable());
+            iconView.setBackground(icon.getDrawableCopy());
             // Set app name.
             TextView appName = mContentView.findViewById(mShapeIconAppNameIds[i]);
             appName.setText(icon.getAppName());

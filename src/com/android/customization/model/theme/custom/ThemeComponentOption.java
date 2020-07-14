@@ -504,7 +504,7 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             }
             for (int i = 0; i < mShapeIconIds.length && i < mAppIcons.size(); i++) {
                 ImageView iconView = cardBody.findViewById(mShapeIconIds[i]);
-                iconView.setBackground(mAppIcons.get(i).getDrawable());
+                iconView.setBackground(mAppIcons.get(i).getDrawableCopy());
             }
         }
 

@@ -120,15 +120,6 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
                 view.findViewById(R.id.wallpaper_preview_surface));
         wallpaperPreviewer.setWallpaper(mWallpaper,
                 themeOptionPreviewer::updateColorForLauncherWidgets);
-
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                wallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
         return view;
     }
 

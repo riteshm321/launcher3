@@ -150,15 +150,6 @@ public class GridFragment extends AppbarFragment {
         mGridOptionPreviewer = new GridOptionPreviewer(mGridManager,
                 view.findViewById(R.id.grid_preview_container));
 
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                wallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
-
         view.findViewById(R.id.grid_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }

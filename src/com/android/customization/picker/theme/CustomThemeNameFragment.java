@@ -106,15 +106,6 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         // Set theme default name.
         mNameEditor = view.findViewById(R.id.custom_theme_name);
         mNameEditor.setText(getOriginalThemeName());
-
-        view.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                       int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                wallpaperPreviewer.updatePreviewCardRadius();
-                view.removeOnLayoutChangeListener(this);
-            }
-        });
         return view;
     }
 

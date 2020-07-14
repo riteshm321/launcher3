@@ -367,6 +367,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    public boolean isNavigationTabsContained() {
+        return true;
+    }
+
+    @Override
     public void onWallpapersReady() {
 
     }

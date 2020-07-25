@@ -72,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> နာရီ အစမ်းကြည့်ခြင်း"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"သည်းခံပါ။ တစ်ခုခု မှားသွားသည်။"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"အရောင် / သင်္ကေတများ"</string>
-    <string name="style_info_description" msgid="2612473574431003251">"ဖောင့်၊ သင်္ကေတများ၊ အက်ပ်၊ ပုံသဏ္ဌာန်နှင့် အရောင် အစမ်းကြည့်ရှုခြင်း"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

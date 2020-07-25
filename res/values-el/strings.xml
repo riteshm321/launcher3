@@ -27,10 +27,14 @@
     <string name="apply_btn" msgid="7965877231041987336">"Εφαρμογή"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Προεπισκόπηση στιλ"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Προεπισκόπηση πλέγματος"</string>
-    <string name="font_preview_content_description" msgid="128230439293337891">"Προεπισκόπηση γραμματοσειράς"</string>
-    <string name="icon_preview_content_description" msgid="7761101284351952890">"Προεπισκόπηση εικονιδίου"</string>
-    <string name="color_preview_content_description" msgid="4879120462082058124">"Προεπισκόπηση χρώματος"</string>
-    <string name="shape_preview_content_description" msgid="6479487796176550432">"Προεπισκόπηση σχήματος"</string>
+    <!-- no translation found for font_preview_content_description (128230439293337891) -->
+    <skip />
+    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
+    <skip />
+    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
+    <skip />
+    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
+    <skip />
     <string name="option_applied_description" msgid="5022305212078053534">"Αυτήν τη στιγμή εφαρμόζεται το θέμα <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"Αυτήν τη στιγμή εφαρμόζεται και εμφανίζεται σε προεπισκόπηση η επιλογή <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"Αυτήν τη στιγμή εμφανίζεται σε προεπισκόπηση η επιλογή <xliff:g id="ID_1">%1$s</xliff:g>"</string>
@@ -72,5 +76,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Προεπισκόπηση ρολογιού <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Δυστυχώς, παρουσιάστηκε κάποιο πρόβλημα."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Χρώμα / Εικονίδια"</string>
-    <string name="style_info_description" msgid="2612473574431003251">"Προεπισκόπηση γραμματοσειράς, εικονιδίων, σχήματος εφαρμογής και χρώματος"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

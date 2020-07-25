@@ -72,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ຕົວຢ່າງໂມງ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ຂໍອະໄພ! ເກີດບາງຢ່າງຜິດພາດຂຶ້ນ."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ສີ / ໄອຄອນ"</string>
-    <string name="style_info_description" msgid="2612473574431003251">"ຕົວຢ່າງຟອນ, ໄອຄອນ, ຮູບຮ່າງ ແລະ ສີແອັບ"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

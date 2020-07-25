@@ -72,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"「<xliff:g id="ID_1">%1$s</xliff:g>」時鐘預覽畫面"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"糟糕！發生錯誤。"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"顏色/圖示"</string>
-    <string name="style_info_description" msgid="2612473574431003251">"預覽字型、圖示、應用程式圖形及顏色"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

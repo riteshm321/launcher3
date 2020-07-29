@@ -72,5 +72,6 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ការមើល​នាឡិកា <xliff:g id="ID_1">%1$s</xliff:g> សាកល្បង"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"អូ៎! មានអ្វីមួយខុសប្រក្រតី។"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ពណ៌ / រូបតំណាង"</string>
-    <string name="style_info_description" msgid="2612473574431003251">"ការមើលសាកល្បង​នៃពុម្ពអក្សរ រូបតំណាង រូបរាងកម្មវិធី និងពណ៌"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

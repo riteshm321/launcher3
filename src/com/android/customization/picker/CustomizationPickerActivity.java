@@ -75,6 +75,7 @@ import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
 import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
+import com.android.wallpaper.util.DeepLinkUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
 
@@ -91,10 +92,10 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
         BottomActionBarHost {
 
-    private static final String TAG = "CustomizationPickerActivity";
-    @VisibleForTesting static final String WALLPAPER_FLAVOR_EXTRA =
+    public static final String WALLPAPER_FLAVOR_EXTRA =
             "com.android.launcher3.WALLPAPER_FLAVOR";
-    @VisibleForTesting static final String WALLPAPER_FOCUS = "focus_wallpaper";
+    public static final String WALLPAPER_FOCUS = "focus_wallpaper";
+    private static final String TAG = "CustomizationPickerActivity";
     @VisibleForTesting static final String WALLPAPER_ONLY = "wallpaper_only";
 
     private WallpaperPickerDelegate mDelegate;
@@ -105,15 +106,12 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     private CategoryFragment mWallpaperCategoryFragment;
     private BottomActionBar mBottomActionBar;
 
-    private boolean mWallpaperCategoryInitialized;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Injector injector = InjectorProvider.getInjector();
         mDelegate = new WallpaperPickerDelegate(this, this, injector);
         mUserEventLogger = injector.getUserEventLogger(this);
         initSections();
-        mWallpaperCategoryInitialized = false;
 
         // Restore this Activity's state before restoring contained Fragments state.
         super.onCreate(savedInstanceState);
@@ -190,6 +188,9 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private void skipToWallpaperPicker() {
         Intent intent = new Intent(this, TopLevelPickerActivity.class);
+        if (DeepLinkUtils.isDeepLink(getIntent())) {
+            intent.setData(getIntent().getData());
+        }
         startActivity(intent);
         finish();
     }
@@ -372,6 +373,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    public void fetchCategories() {
+        mDelegate.initialize(!mDelegate.getCategoryProvider().isCategoriesFetched());
+    }
+
+    @Override
     public void onWallpapersReady() {
 
     }
@@ -471,7 +477,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
      * {@link CustomizationSection} corresponding to the "Wallpaper" section of the Picker.
      */
     private class WallpaperSection extends CustomizationSection {
-        private boolean mForceCategoryRefresh;
 
         private WallpaperSection(int id) {
             super(id, null);
@@ -482,17 +487,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             if (mWallpaperCategoryFragment == null) {
                 mWallpaperCategoryFragment = CategoryFragment.newInstance(
                         getString(R.string.wallpaper_title));
-                mForceCategoryRefresh = true;
             }
             return mWallpaperCategoryFragment;
-        }
-
-        @Override
-        void onVisible() {
-            if (!mWallpaperCategoryInitialized) {
-                mDelegate.initialize(mForceCategoryRefresh);
-            }
-            mWallpaperCategoryInitialized = true;
         }
     }
 

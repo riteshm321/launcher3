@@ -76,6 +76,5 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ਘੜੀ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ਓਹੋ! ਕੋਈ ਗੜਬੜ ਹੋਈ।"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ਰੰਗ / ਪ੍ਰਤੀਕ"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"ਫ਼ੌਂਟ, ਪ੍ਰਤੀਕਾਂ, ਐਪ ਆਕਾਰ ਅਤੇ ਰੰਗ ਦੀ ਪੂਰਵ-ਝਲਕ ਦੇਖੋ"</string>
 </resources>

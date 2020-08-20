@@ -15,7 +15,12 @@
  */
 package com.android.customization.module;
 
+import static com.android.customization.picker.CustomizationPickerActivity.WALLPAPER_FLAVOR_EXTRA;
+import static com.android.customization.picker.CustomizationPickerActivity.WALLPAPER_FOCUS;
+
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -23,6 +28,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.model.theme.ThemeManager;
+import com.android.customization.picker.CustomizationPickerActivity;
 import com.android.wallpaper.model.CategoryProvider;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.BaseWallpaperInjector;
@@ -92,6 +98,16 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
             boolean viewAsHome,
             boolean testingModeEnabled) {
         return PreviewFragment.newInstance(wallpaperInfo, mode, viewAsHome, testingModeEnabled);
+    }
+
+    @Override
+    public Intent getDeepLinkRedirectIntent(Context context, Uri uri) {
+        Intent intent = new Intent();
+        intent.setClass(context, CustomizationPickerActivity.class);
+        intent.setData(uri);
+        intent.putExtra(WALLPAPER_FLAVOR_EXTRA, WALLPAPER_FOCUS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
     }
 
     @Override

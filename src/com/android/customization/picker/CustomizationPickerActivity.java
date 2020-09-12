@@ -70,6 +70,7 @@ import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
+import com.android.wallpaper.picker.FragmentTransactionChecker;
 import com.android.wallpaper.picker.MyPhotosStarter;
 import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
 import com.android.wallpaper.picker.TopLevelPickerActivity;
@@ -90,7 +91,7 @@ import java.util.Map;
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
         CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
-        BottomActionBarHost {
+        BottomActionBarHost, FragmentTransactionChecker {
 
     public static final String WALLPAPER_FLAVOR_EXTRA =
             "com.android.launcher3.WALLPAPER_FLAVOR";
@@ -105,6 +106,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     private static final Map<Integer, CustomizationSection> mSections = new HashMap<>();
     private CategoryFragment mWallpaperCategoryFragment;
     private BottomActionBar mBottomActionBar;
+    private boolean mIsSafeToCommitFragmentTransaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -155,6 +157,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     @Override
     protected void onResume() {
         super.onResume();
+        mIsSafeToCommitFragmentTransaction = true;
         boolean wallpaperOnly =
                 WALLPAPER_ONLY.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA));
         boolean provisioned = Settings.Global.getInt(getContentResolver(),
@@ -175,6 +178,12 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             switchFragment(section);
             section.onVisible();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mIsSafeToCommitFragmentTransaction = false;
     }
 
     @Override
@@ -445,6 +454,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     @Override
     public BottomActionBar getBottomActionBar() {
         return mBottomActionBar;
+    }
+
+    @Override
+    public boolean isSafeToCommitFragmentTransaction() {
+        return mIsSafeToCommitFragmentTransaction;
     }
 
     /**

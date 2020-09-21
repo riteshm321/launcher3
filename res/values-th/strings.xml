@@ -65,13 +65,12 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"ลบ"</string>
     <string name="cancel" msgid="4651030493668562067">"ยกเลิก"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"ตั้งค่าวอลเปเปอร์รูปแบบ"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"ใช้ <xliff:g id="ID_1">%1$s</xliff:g> แทนไหม"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"ส่วนประกอบที่คุณเลือกตรงกับรูปแบบ <xliff:g id="ID_1">%1$s</xliff:g> ต้องการใช้ <xliff:g id="ID_2">%1$s</xliff:g> แทนไหม"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"ใช้<xliff:g id="ID_1">%1$s</xliff:g>แทนไหม"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"ส่วนประกอบที่คุณเลือกตรงกับรูปแบบ<xliff:g id="ID_1">%1$s</xliff:g> ต้องการใช้<xliff:g id="ID_2">%1$s</xliff:g>แทนไหม"</string>
     <string name="use_style_button" msgid="1754493078383627019">"ใช้ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"ไม่เป็นไร"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ตัวอย่างนาฬิกา <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"อ๊ะ! มีบางอย่างผิดปกติ"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"สี/ไอคอน"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"ตัวอย่างของแบบอักษร ไอคอน รูปร่างของแอป และสี"</string>
 </resources>

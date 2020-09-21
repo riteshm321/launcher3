@@ -35,7 +35,7 @@
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, trenutno je primenjeno i pregleda se"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, trenutno se pregleda"</string>
     <string name="theme_description" msgid="3697012391785254635">"Font: <xliff:g id="ID_1">%1$s</xliff:g>, ikone: <xliff:g id="ID_2">%2$s</xliff:g>, oblik: <xliff:g id="ID_3">%3$s</xliff:g>, boja: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
-    <string name="default_theme_title" msgid="2555741736622366797">"Podrazum."</string>
+    <string name="default_theme_title" msgid="2555741736622366797">"Podrazumevano"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"Font"</string>
     <string name="preview_name_icon" msgid="6818927315316316440">"Ikona"</string>
     <string name="preview_name_color" msgid="8776203144994416172">"Boja"</string>
@@ -45,9 +45,9 @@
     <string name="font_card_body" msgid="6790525594503904468">"Dodajte omiljene fontove na svaki ekran"</string>
     <string name="grid_options_title" msgid="7071930966989877023">"Odaberite veličinu mreže"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="3749018706366796244">"Podešavanje stila je uspelo"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"Stil je podešen"</string>
     <string name="applied_clock_msg" msgid="1303338016701443767">"Podešavanje sata je uspelo"</string>
-    <string name="applied_grid_msg" msgid="3250499654436933034">"Podešavanje mreže je uspelo"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"Mreža je podešena"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"Došlo je do problema pri primeni stila"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"Dalje"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"Prethodno"</string>
@@ -72,6 +72,5 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Pregled sata <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Ups! Došlo je do greške."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Boja/ikone"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"Pregled fonta, ikona, oblika aplikacije i boje"</string>
 </resources>

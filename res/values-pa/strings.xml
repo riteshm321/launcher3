@@ -27,14 +27,10 @@
     <string name="apply_btn" msgid="7965877231041987336">"ਲਾਗੂ ਕਰੋ"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ਸਟਾਈਲ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ਗ੍ਰਿਡ ਪੂਰਵ-ਝਲਕ"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"ਫ਼ੌਂਟ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"ਪ੍ਰਤੀਕ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"ਰੰਗ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"ਆਕਾਰ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫ਼ਿਲਹਾਲ ਲਾਗੂ ਕੀਤਾ ਗਿਆ"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫਿਲਹਾਲ ਲਾਗੂ ਕਰਕੇ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫਿਲਹਾਲ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>

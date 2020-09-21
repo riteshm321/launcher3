@@ -65,13 +65,12 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Kustuta"</string>
     <string name="cancel" msgid="4651030493668562067">"Tühista"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Määrake stiili taustapilt"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"Kas kasutada hoopis teemat <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Valitud komponendid ühtivad stiiliga <xliff:g id="ID_1">%1$s</xliff:g>. Kas soovite selle asemel kasutada teemat <xliff:g id="ID_2">%1$s</xliff:g>?"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"Kasuta teemat <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"Kas kasutada hoopis stiili <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Valitud komponendid ühtivad stiiliga <xliff:g id="ID_1">%1$s</xliff:g>. Kas soovite selle asemel kasutada stiili <xliff:g id="ID_2">%1$s</xliff:g>?"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"Kasuta stiili <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Tänan, ei"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Kella <xliff:g id="ID_1">%1$s</xliff:g> eelvaade"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Vabandust! Midagi läks valesti."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Värv/ikoonid"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"Fondi, ikoonide, rakenduse kuju ja värvi eelvaade"</string>
 </resources>

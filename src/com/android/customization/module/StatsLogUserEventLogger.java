@@ -44,24 +44,24 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
 
     @Override
     public void logResumed(boolean provisioned, boolean wallpaper) {
-        SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.ONRESUME, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.ONRESUME, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     @Override
     public void logStopped() {
-        SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.ONSTOP, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.ONSTOP, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     @Override
     public void logActionClicked(String collectionId, int actionLabelResId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_EXPLORE, 0, 0, 0, 0, 0,
-                collectionId.hashCode(), 0, 0, 0);
+                collectionId.hashCode(), 0, 0, 0, 0);
     }
 
     @Override
     public void logIndividualWallpaperSelected(String collectionId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_SELECT, 0, 0, 0, 0, 0,
-                collectionId.hashCode(), 0, 0, 0);
+                collectionId.hashCode(), 0, 0, 0, 0);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_OPEN_CATEGORY,
                 0, 0, 0, 0, 0,
                 collectionId.hashCode(),
-                0, 0, 0);
+                0, 0, 0, 0);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
                 0, 0, 0, 0, 0,
                 collectionId.hashCode(),
                 wallpaperId != null ? wallpaperId.hashCode() : 0,
-                0, 0);
+                0, 0, 0);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
                 0, 0, 0, 0, 0,
                 collectionId.hashCode(),
                 wallpaperId != null ? wallpaperId.hashCode() : 0,
-                0, 0);
+                0, 0, 0);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
                 0, 0, 0, 0, 0,
                 collectionId.hashCode(),
                 wallpaperId != null ? wallpaperId.hashCode() : 0,
-                0, 0);
+                0, 0, 0);
     }
 
     @Nullable
@@ -112,7 +112,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
                 Objects.hashCode(getThemePackage(theme, OVERLAY_CATEGORY_COLOR)),
                 Objects.hashCode(getThemePackage(theme,OVERLAY_CATEGORY_FONT)),
                 Objects.hashCode(getThemePackage(theme, OVERLAY_CATEGORY_SHAPE)),
-                0, 0, 0, 0, 0, 0);
+                0, 0, 0, 0, 0, 0, 0);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
                 Objects.hashCode(getThemePackage(theme, OVERLAY_CATEGORY_COLOR)),
                 Objects.hashCode(getThemePackage(theme,OVERLAY_CATEGORY_FONT)),
                 Objects.hashCode(getThemePackage(theme, OVERLAY_CATEGORY_SHAPE)),
-                0, 0, 0, 0, 0, 0);
+                0, 0, 0, 0, 0, 0, 0);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.PICKER_SELECT,
                 0, 0, 0,
                 Objects.hashCode(clock.getId()),
-                0, 0, 0, 0, 0);
+                0, 0, 0, 0, 0, 0);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.PICKER_APPLIED,
                 0, 0, 0,
                 Objects.hashCode(clock.getId()),
-                0, 0, 0, 0, 0);
+                0, 0, 0, 0, 0, 0);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.PICKER_SELECT,
                 0, 0, 0, 0,
                 grid.cols,
-                0, 0, 0, 0);
+                0, 0, 0, 0, 0);
     }
 
     @Override
@@ -153,6 +153,6 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.PICKER_APPLIED,
                 0, 0, 0, 0,
                 grid.cols,
-                0, 0, 0, 0);
+                0, 0, 0, 0, 0);
     }
 }

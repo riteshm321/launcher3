@@ -124,6 +124,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             return;
         }
 
+        mDelegate.getCategoryProvider().resetIfNeeded();
+
         setContentView(R.layout.activity_customization_picker_main);
         setUpBottomNavView();
         mBottomActionBar = findViewById(R.id.bottom_actionbar);

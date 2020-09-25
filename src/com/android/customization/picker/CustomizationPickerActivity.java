@@ -142,8 +142,10 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (fragment == null) {
-            // App launch specific logic: log the "app launched" event and set up daily logging.
-            mUserEventLogger.logAppLaunched();
+            // App launch specific logic: log the "app launch source" event.
+            if (getIntent() != null) {
+                mUserEventLogger.logAppLaunched(getIntent());
+            }
             WallpaperPreferences preferences = injector.getPreferences(this);
             preferences.incrementAppLaunched();
             DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
@@ -199,6 +201,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private void skipToWallpaperPicker() {
         Intent intent = new Intent(this, TopLevelPickerActivity.class);
+
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            intent.putExtras(getIntent().getExtras());
+        }
+
         if (DeepLinkUtils.isDeepLink(getIntent())) {
             intent.setData(getIntent().getData());
         }

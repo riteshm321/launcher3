@@ -39,7 +39,7 @@ public class CustomTheme extends ThemeBundle {
      */
     private final String mId;
 
-    public CustomTheme(@NonNull String id, String title, Map<String, String> overlayPackages,
+    private CustomTheme(@NonNull String id, String title, Map<String, String> overlayPackages,
             @Nullable PreviewInfo previewInfo) {
         super(title, overlayPackages, false, null, null, previewInfo);
         mId = id;
@@ -85,6 +85,11 @@ public class CustomTheme extends ThemeBundle {
         return isDefined() && super.isActive(manager);
     }
 
+    @Override
+    public boolean isEquivalent(ThemeBundle other) {
+        return isDefined() && super.isEquivalent(other);
+    }
+
     public boolean isDefined() {
         return getPreviewInfo() != null;
     }
@@ -94,7 +99,8 @@ public class CustomTheme extends ThemeBundle {
 
         @Override
         public CustomTheme build(Context context) {
-            return new CustomTheme(mId, mTitle, mPackages, createPreviewInfo(context));
+            return new CustomTheme(mId, mTitle, mPackages,
+                    mPackages.isEmpty() ? null : createPreviewInfo(context));
         }
 
         public Builder setId(String id) {

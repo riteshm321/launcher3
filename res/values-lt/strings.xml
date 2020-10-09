@@ -21,14 +21,16 @@
     <string name="theme_title" msgid="2144932106319405101">"Stilius"</string>
     <string name="clock_title" msgid="2126046720254613991">"Laikrodis"</string>
     <string name="grid_title" msgid="2825094404523390773">"Tinklelis"</string>
-    <string name="wallpaper_title" msgid="6952635398953194544">"Ekrano fonas"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Taikyti"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Palieskite ir redaguokite"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Palikti dabartinį ekrano foną"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Taikyti"</string>
-    <string name="accessibility_preview_pager" msgid="3548503287402185430">"<xliff:g id="ID_1">%1$d</xliff:g> psl. iš <xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="next_page_content_description" msgid="5290226604542300962">"Kitas"</string>
-    <string name="previous_page_content_description" msgid="6025726405430262788">"Ankstesnis"</string>
+    <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Stiliaus peržiūra"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Tinklelio peržiūra"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"Šrifto peržiūra"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Piktogramos peržiūra"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Spalvos peržiūra"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Formos peržiūra"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, šiuo metu taikoma"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, šiuo metu taikoma ir peržiūrima"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, šiuo metu peržiūrima"</string>
@@ -41,12 +43,15 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"Ekrano fonas"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"Pridėkite mėgstamiausių šriftų prie kiekvieno ekrano"</string>
+    <string name="grid_options_title" msgid="7071930966989877023">"Pasirinkti tinklelio dydį"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g> x <xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="7348498271552054431">"Stilius pritaikytas"</string>
-    <string name="applied_clock_msg" msgid="1938218786265793285">"Laikrodis pritaikytas"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"Stilius nustatytas sėkmingai"</string>
+    <string name="applied_clock_msg" msgid="1303338016701443767">"Laikrodis nustatytas sėkmingai"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"Tinklelis nustatytas sėkmingai"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"Taikant stilių kilo problema"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"Kitas"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"Ankstesnis"</string>
+    <string name="custom_theme" msgid="1618351922263478163">"Tinkinta"</string>
     <string name="custom_theme_title" msgid="2192300350332693631">"Tinkintas <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"Tinkintas stilius"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"Ištrinti"</string>
@@ -66,4 +71,7 @@
     <string name="no_thanks" msgid="7286616980115687627">"Ne, ačiū"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Ciferblato „<xliff:g id="ID_1">%1$s</xliff:g>“ peržiūra"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Oi, kažkas nepavyko."</string>
+    <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Spalva / piktogramos"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

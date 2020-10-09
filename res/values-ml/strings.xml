@@ -21,14 +21,20 @@
     <string name="theme_title" msgid="2144932106319405101">"സ്‌റ്റൈൽ"</string>
     <string name="clock_title" msgid="2126046720254613991">"ക്ലോക്ക്"</string>
     <string name="grid_title" msgid="2825094404523390773">"ഗ്രിഡ്"</string>
-    <string name="wallpaper_title" msgid="6952635398953194544">"വാൾപേപ്പർ"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"പ്രയോഗിക്കുക"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"എഡിറ്റ് ചെയ്യാൻ ടാപ്പ് ചെയ്യുക"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"നിലവിലെ വാൾപേപ്പർ നിലനിർത്തുക"</string>
     <string name="apply_btn" msgid="7965877231041987336">"പ്രയോഗിക്കുക"</string>
-    <string name="accessibility_preview_pager" msgid="3548503287402185430">"ആകെ <xliff:g id="ID_2">%2$d</xliff:g> പേജുകളിൽ <xliff:g id="ID_1">%1$d</xliff:g>-ാമത്തെ പേജ്"</string>
-    <string name="next_page_content_description" msgid="5290226604542300962">"അടുത്തത്"</string>
-    <string name="previous_page_content_description" msgid="6025726405430262788">"മുൻപത്തേത്"</string>
+    <string name="theme_preview_card_content_description" msgid="5989222908619535533">"സ്‌റ്റൈൽ പ്രിവ്യൂ"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ഗ്രിഡ് പ്രിവ്യൂ"</string>
+    <!-- no translation found for font_preview_content_description (128230439293337891) -->
+    <skip />
+    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
+    <skip />
+    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
+    <skip />
+    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
+    <skip />
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, നിലവിൽ ബാധകമാക്കിയത്"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, നിലവിൽ ബാധകമാക്കി പ്രിവ്യൂ ചെയ്യുന്നു"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, നിലവിൽ പ്രിവ്യൂ ചെയ്യുന്നു"</string>
@@ -41,12 +47,15 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"വാൾപേപ്പർ"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"എല്ലാ സ്‌ക്രീനിലേക്കും നിങ്ങളുടെ പ്രിയപ്പെട്ട ഫോണ്ടുകൾ ചേർക്കുക"</string>
+    <string name="grid_options_title" msgid="7071930966989877023">"ഗ്രിഡ് വലുപ്പം തിരഞ്ഞെടുക്കുക"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="7348498271552054431">"സ്‌റ്റൈൽ പ്രയോഗിച്ചു"</string>
-    <string name="applied_clock_msg" msgid="1938218786265793285">"ക്ലോക്ക് പ്രയോഗിച്ചു"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"സ്‌റ്റൈൽ സജ്ജമാക്കി"</string>
+    <string name="applied_clock_msg" msgid="1303338016701443767">"ക്ലോക്ക് സജ്ജമാക്കി"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"ഗ്രിഡ് സജ്ജമാക്കി"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"സ്‌റ്റൈൽ പ്രയോഗിക്കുന്നതിൽ ഒരു പ്രശ്‌നമുണ്ടായി"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"അടുത്തത്"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"മുമ്പത്തെ"</string>
+    <string name="custom_theme" msgid="1618351922263478163">"ഇഷ്‌ടാനുസൃതം"</string>
     <string name="custom_theme_title" msgid="2192300350332693631">"ഇഷ്‌ടാനുസൃതം <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"ഇഷ്‌ടാനുസൃത സ്‌റ്റൈൽ"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"ഇല്ലാതാക്കുക"</string>
@@ -66,4 +75,7 @@
     <string name="no_thanks" msgid="7286616980115687627">"വേണ്ട"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ക്ലോക്ക് പ്രിവ്യൂ"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ക്ഷമിക്കണം! എന്തോ കുഴപ്പമുണ്ടായി."</string>
+    <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"നിറം / ഐക്കണുകൾ"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

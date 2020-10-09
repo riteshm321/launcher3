@@ -17,18 +17,24 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"ଶୈଳୀ ଏବଂ ୱାଲ୍‍ପେପର୍"</string>
-    <string name="theme_title" msgid="2144932106319405101">"ଶୈଳୀ"</string>
+    <string name="app_name" msgid="6995669566699638946">"ଷ୍ଟାଇଲ୍ ଏବଂ ୱାଲପେପର୍"</string>
+    <string name="theme_title" msgid="2144932106319405101">"ଷ୍ଟାଇଲ୍"</string>
     <string name="clock_title" msgid="2126046720254613991">"ଘଣ୍ଟା"</string>
     <string name="grid_title" msgid="2825094404523390773">"ଗ୍ରିଡ୍"</string>
-    <string name="wallpaper_title" msgid="6952635398953194544">"ୱାଲ୍‌ପେପର୍"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"ପ୍ରୟୋଗ କରନ୍ତୁ"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"ଏଡିଟ୍ କରିବା ପାଇଁ ଟାପ୍ କରନ୍ତୁ"</string>
-    <string name="keep_my_wallpaper" msgid="8012385376769568517">"ବର୍ତ୍ତମାନ ଥିବା ୱାଲ୍‌ପେପର୍‌କୁ ରଖନ୍ତୁ"</string>
+    <string name="keep_my_wallpaper" msgid="8012385376769568517">"ବର୍ତ୍ତମାନର ୱାଲ୍‌ପେପର୍‌କୁ ରଖନ୍ତୁ"</string>
     <string name="apply_btn" msgid="7965877231041987336">"ପ୍ରୟୋଗ କରନ୍ତୁ"</string>
-    <string name="accessibility_preview_pager" msgid="3548503287402185430">"ମୋଟ <xliff:g id="ID_2">%2$d</xliff:g>ର <xliff:g id="ID_1">%1$d</xliff:g> ପୃଷ୍ଠା"</string>
-    <string name="next_page_content_description" msgid="5290226604542300962">"ପରବର୍ତ୍ତୀ"</string>
-    <string name="previous_page_content_description" msgid="6025726405430262788">"ପୂର୍ବବର୍ତ୍ତୀ"</string>
+    <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ଷ୍ଟାଇଲ୍ ପ୍ରିଭ୍ୟୁ"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ଗ୍ରିଡ୍ ପ୍ରିଭ୍ୟୁ"</string>
+    <!-- no translation found for font_preview_content_description (128230439293337891) -->
+    <skip />
+    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
+    <skip />
+    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
+    <skip />
+    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
+    <skip />
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, ବର୍ତ୍ତମାନ ଲାଗୁ ହୋଇଛି"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ବର୍ତ୍ତମାନ ଲାଗୁ ହୋଇଛି ଏବଂ ଏହାର ପ୍ରିଭ୍ୟୁ କରାଯାଇଛି"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>ର, ବର୍ତ୍ତମାନ ପ୍ରିଭ୍ୟୁ କରାଯାଇଛି"</string>
@@ -41,14 +47,17 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"ୱାଲ୍‌ପେପର୍"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"ଆପଣଙ୍କ ପସନ୍ଦର ଫଣ୍ଟକୁ ପ୍ରତ୍ୟେକ ସ୍କ୍ରିନ୍‍‍‍‍‍ରେ ଯୋଗ କରନ୍ତୁ"</string>
+    <string name="grid_options_title" msgid="7071930966989877023">"ଏକ ଗ୍ରିଡ୍ ଆକାର ବାଛନ୍ତୁ"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="7348498271552054431">"ଶୈଳୀ ଲାଗୁ କରାଯାଇଛି"</string>
-    <string name="applied_clock_msg" msgid="1938218786265793285">"ଘଣ୍ଟା ଲାଗୁ କରାଯାଇଛି"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"ଷ୍ଟାଇଲ୍ ସଫଳତାର ସହ ସେଟ୍ ହୋଇଛି"</string>
+    <string name="applied_clock_msg" msgid="1303338016701443767">"ଘଣ୍ଟା ସଫଳତାର ସହ ସେଟ୍ ହୋଇଛି"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"ଗ୍ରିଡ୍ ସଫଳତାର ସହ ସେଟ୍ ହୋଇଛି"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"ଶୈଳୀ ପ୍ରୟୋଗ କରିବାରେ କିଛି ସମସ୍ୟା ହୋଇଛି"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"ପରବର୍ତ୍ତୀ"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"ପୂର୍ବବର୍ତ୍ତୀ"</string>
+    <string name="custom_theme" msgid="1618351922263478163">"କଷ୍ଟମ୍"</string>
     <string name="custom_theme_title" msgid="2192300350332693631">"କଷ୍ଟମ୍ <xliff:g id="ID_1">%1$d</xliff:g>"</string>
-    <string name="custom_theme_fragment_title" msgid="6615547284702040280">"କଷ୍ଟମ୍‌ ଶୈଳୀ"</string>
+    <string name="custom_theme_fragment_title" msgid="6615547284702040280">"କଷ୍ଟମ୍‌ ଷ୍ଟାଇଲ୍"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"ଡିଲିଟ୍‍ କରନ୍ତୁ"</string>
     <string name="font_component_title" msgid="8800340833695292049">"ଫଣ୍ଟ ଚୟନ କରନ୍ତୁ"</string>
     <string name="icon_component_title" msgid="5779787138399083903">"ଆଇକନ୍ ଚୟନ କରନ୍ତୁ"</string>
@@ -66,4 +75,7 @@
     <string name="no_thanks" msgid="7286616980115687627">"ନାହିଁ, ଥାଉ"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ଘଣ୍ଟାର ପୂର୍ବାବଲୋକନ"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ଓହୋଃ, କିଛି ଭୁଲ ହୋଇଗଲା।"</string>
+    <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ରଙ୍ଗ / ଆଇକନଗୁଡ଼ିକ"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

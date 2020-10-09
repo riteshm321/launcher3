@@ -66,6 +66,8 @@ import com.android.wallpaper.module.Injector;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.module.UserEventLogger;
 import com.android.wallpaper.module.WallpaperSetter;
+import com.android.wallpaper.module.WallpaperPreferences;
+import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
 import com.android.wallpaper.picker.MyPhotosStarter;
@@ -116,24 +118,36 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         if (!supportsCustomization()) {
             Log.w(TAG, "Themes not supported, reverting to Wallpaper Picker");
             skipToWallpaperPicker();
-        } else {
-            setContentView(R.layout.activity_customization_picker_main);
-            setUpBottomNavView();
+            return;
+        }
 
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        setContentView(R.layout.activity_customization_picker_main);
+        setUpBottomNavView();
+        mBottomActionBar = findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.addVisibilityChangeListener(
+                isBottomActionBarVisible -> {
+                    boolean isBottomNavVisible = mBottomNav.getVisibility() == View.VISIBLE;
+                    // Switch the visibility of BottomNav if visibility of BottomActionBar and
+                    // BottomNav are same.
+                    if (isBottomActionBarVisible == isBottomNavVisible) {
+                        mBottomNav.setVisibility(isBottomActionBarVisible
+                                ? View.GONE : View.VISIBLE);
+                    }
+                });
 
-            if (fragment == null) {
-                // App launch specific logic: log the "app launched" event and set up daily logging.
-                mUserEventLogger.logAppLaunched();
-                DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            // App launch specific logic: log the "app launched" event and set up daily logging.
+            mUserEventLogger.logAppLaunched();
+            WallpaperPreferences preferences = injector.getPreferences(this);
+            preferences.incrementAppLaunched();
+            DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
 
-                // Navigate to the Wallpaper tab if we started directly from launcher, otherwise
-                // start at the Styles tab
-                navigateToSection(
-                        WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
-                                ? R.id.nav_wallpaper : R.id.nav_theme);
-            }
+            // Navigate to the Wallpaper tab if we started directly from launcher, otherwise
+            // start at the Styles tab
+            navigateToSection(
+                    WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
+                            ? R.id.nav_wallpaper : R.id.nav_theme);
         }
     }
 
@@ -335,8 +349,18 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
-    public void showViewOnlyPreview(WallpaperInfo wallpaperInfo) {
-        mDelegate.showViewOnlyPreview(wallpaperInfo);
+    public void showViewOnlyPreview(WallpaperInfo wallpaperInfo, boolean isViewAsHome) {
+        mDelegate.showViewOnlyPreview(wallpaperInfo, isViewAsHome);
+    }
+
+    @Override
+    public void show(String collectionId) {
+        mDelegate.show(collectionId);
+    }
+
+    @Override
+    public boolean isNavigationTabsContained() {
+        return true;
     }
 
     @Override

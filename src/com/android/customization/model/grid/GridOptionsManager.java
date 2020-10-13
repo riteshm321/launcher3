@@ -57,22 +57,24 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
 
     @Override
     public void fetchOptions(OptionsFetchedListener<GridOption> callback, boolean reload) {
-        new FetchTask(mProvider, callback).execute();
+        new FetchTask(mProvider, callback, reload).execute();
     }
 
     /** Call through content provider API to render preview */
-    public void renderPreview(Bundle bundle, String gridName) {
-        mProvider.renderPreview(gridName, bundle);
+    public Bundle renderPreview(Bundle bundle, String gridName) {
+        return mProvider.renderPreview(gridName, bundle);
     }
 
     private static class FetchTask extends AsyncTask<Void, Void, List<GridOption>> {
         private final LauncherGridOptionsProvider mProvider;
         @Nullable private final OptionsFetchedListener<GridOption> mCallback;
+        private final boolean mReload;
 
         private FetchTask(@NonNull LauncherGridOptionsProvider provider,
-                @Nullable OptionsFetchedListener<GridOption> callback) {
+                @Nullable OptionsFetchedListener<GridOption> callback, boolean reload) {
             mCallback = callback;
             mProvider = provider;
+            mReload = reload;
         }
 
         @Override

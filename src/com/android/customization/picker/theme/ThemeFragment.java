@@ -65,7 +65,7 @@ import java.util.List;
 /**
  * Fragment that contains the main UI for selecting and applying a ThemeBundle.
  */
-public class ThemeFragment extends ToolbarFragment {
+public class ThemeFragment extends AppbarFragment {
 
     private static final String TAG = "ThemeFragment";
     private static final String KEY_SELECTED_THEME = "ThemeFragment.SelectedThemeBundle";
@@ -81,7 +81,7 @@ public class ThemeFragment extends ToolbarFragment {
     }
     public static ThemeFragment newInstance(CharSequence title) {
         ThemeFragment fragment = new ThemeFragment();
-        fragment.setArguments(ToolbarFragment.createArguments(title));
+        fragment.setArguments(AppbarFragment.createArguments(title));
         return fragment;
     }
 

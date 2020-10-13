@@ -27,7 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 
 import com.android.customization.model.ResourceConstants;
-import com.android.systemui.shared.system.SurfaceViewRequestUtils;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.PreviewUtils;
 
@@ -50,6 +49,9 @@ public class LauncherGridOptionsProvider {
     private static final String COL_COLS = "cols";
     private static final String COL_PREVIEW_COUNT = "preview_count";
     private static final String COL_IS_DEFAULT = "is_default";
+
+    // Normal gird size name
+    private static final String GRID_NAME_NORMAL = "normal";
 
     private static final String METADATA_KEY_PREVIEW_VERSION = "preview_version";
 
@@ -91,7 +93,9 @@ public class LauncherGridOptionsProvider {
                 int cols = c.getInt(c.getColumnIndex(COL_COLS));
                 int previewCount = c.getInt(c.getColumnIndex(COL_PREVIEW_COUNT));
                 boolean isSet = Boolean.valueOf(c.getString(c.getColumnIndex(COL_IS_DEFAULT)));
-                String title = mContext.getString(R.string.grid_title_pattern, cols, rows);
+                String title = GRID_NAME_NORMAL.equals(name)
+                        ? mContext.getString(R.string.default_theme_title)
+                        : mContext.getString(R.string.grid_title_pattern, cols, rows);
                 mOptions.add(new GridOption(title, name, isSet, rows, cols,
                         mPreviewUtils.getUri(PREVIEW), previewCount, iconPath));
             }
@@ -106,11 +110,11 @@ public class LauncherGridOptionsProvider {
      * Request rendering of home screen preview via Launcher to Wallpaper using SurfaceView
      * @param name      the grid option name
      * @param bundle    surface view request bundle generated from
-     *                  {@link SurfaceViewRequestUtils#createSurfaceBundle(SurfaceView)}.
+     *    {@link com.android.wallpaper.util.SurfaceViewUtils#createSurfaceViewRequest(SurfaceView)}.
      */
-    void renderPreview(String name, Bundle bundle) {
+    Bundle renderPreview(String name, Bundle bundle) {
         bundle.putString("name", name);
-        mPreviewUtils.renderPreview(bundle);
+        return mPreviewUtils.renderPreview(bundle);
     }
 
     int applyGrid(String name) {

@@ -53,7 +53,6 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.theme.CustomThemeStepFragment.CustomThemeComponentStepHost;
 import com.android.wallpaper.R;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.module.WallpaperSetter;
 
 import org.json.JSONException;
 
@@ -106,8 +105,6 @@ public class CustomThemeActivity extends FragmentActivity implements
         mThemeManager = injector.getThemeManager(
                 new DefaultThemeProvider(this, injector.getCustomizationPreferences(this)),
                 this,
-                new WallpaperSetter(injector.getWallpaperPersister(this),
-                        injector.getPreferences(this), mUserEventLogger, false),
                 new OverlayManagerCompat(this),
                 mUserEventLogger);
         mThemeManager.fetchOptions(null, false);

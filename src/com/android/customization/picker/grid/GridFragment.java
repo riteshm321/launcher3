@@ -50,7 +50,7 @@ import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +60,7 @@ import java.util.List;
 /**
  * Fragment that contains the UI for selecting and applying a GridOption.
  */
-public class GridFragment extends ToolbarFragment {
+public class GridFragment extends AppbarFragment {
 
     private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
     private static final String KEY_STATE_SELECTED_OPTION = "GridFragment.selectedOption";
@@ -78,7 +78,7 @@ public class GridFragment extends ToolbarFragment {
 
     public static GridFragment newInstance(CharSequence title) {
         GridFragment fragment = new GridFragment();
-        fragment.setArguments(ToolbarFragment.createArguments(title));
+        fragment.setArguments(AppbarFragment.createArguments(title));
         return fragment;
     }
 

@@ -43,7 +43,7 @@ import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.picker.ToolbarFragment;
+import com.android.wallpaper.picker.AppbarFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,7 +56,7 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
     public static CustomThemeNameFragment newInstance(CharSequence toolbarTitle, int position,
             int titleResId) {
         CustomThemeNameFragment fragment = new CustomThemeNameFragment();
-        Bundle arguments = ToolbarFragment.createArguments(toolbarTitle);
+        Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
         fragment.setArguments(arguments);

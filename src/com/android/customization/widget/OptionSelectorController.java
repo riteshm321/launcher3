@@ -26,12 +26,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
 
 import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.CustomizationOption;
@@ -72,14 +74,14 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
     private CustomizationOption mAppliedOption;
 
     public OptionSelectorController(RecyclerView container, List<T> options) {
-        this(container, options, false, true);
+        this(container, options, true, true);
     }
 
     public OptionSelectorController(RecyclerView container, List<T> options,
             boolean useGrid, boolean showCheckmark) {
         mContainer = container;
         mOptions = options;
-        mUseGrid = container.getResources().getBoolean(R.bool.use_grid_for_options) || useGrid;
+        mUseGrid = useGrid;
         mShowCheckmark = showCheckmark;
     }
 
@@ -154,6 +156,9 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
      * Initializes the UI for the options passed in the constructor of this class.
      */
     public void initOptions(final CustomizationManager<T> manager) {
+        mContainer.setAccessibilityDelegateCompat(
+                new OptionSelectorAccessibilityDelegate(mContainer));
+
         mAdapter = new RecyclerView.Adapter<TileViewHolder>() {
             @Override
             public int getItemViewType(int position) {
@@ -185,7 +190,8 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
                 if (mShowCheckmark && option.equals(mAppliedOption)) {
                     Resources res = mContainer.getContext().getResources();
-                    Drawable checkmark = res.getDrawable(R.drawable.ic_check_circle_filled_24px);
+                    Drawable checkmark = res.getDrawable(R.drawable.check_circle_accent_24dp,
+                            mContainer.getContext().getTheme());
                     Drawable frame = holder.tileView.getForeground();
                     Drawable[] layers = {frame, checkmark};
                     if (frame == null) {
@@ -222,9 +228,15 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
             }
         };
 
-        mContainer.setLayoutManager(new LinearLayoutManager(mContainer.getContext(),
-                LinearLayoutManager.HORIZONTAL, false));
         Resources res = mContainer.getContext().getResources();
+        if (mUseGrid) {
+            mContainer.setLayoutManager(new GridLayoutManager(mContainer.getContext(),
+                    res.getInteger(R.integer.options_grid_num_columns)));
+        } else {
+            mContainer.setLayoutManager(new LinearLayoutManager(mContainer.getContext(),
+                    LinearLayoutManager.HORIZONTAL, false));
+        }
+
         mContainer.setAdapter(mAdapter);
 
         // Measure RecyclerView to get to the total amount of space used by all options.
@@ -243,10 +255,18 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
         if (mUseGrid) {
             int numColumns = res.getInteger(R.integer.options_grid_num_columns);
-            int widthPerItem = totalWidth / mAdapter.getItemCount();
+            int widthPerItem = res.getDimensionPixelOffset(R.dimen.option_tile_width);
             int extraSpace = availableWidth - widthPerItem * numColumns;
-            int containerSidePadding = extraSpace / (numColumns + 1);
-            mContainer.setLayoutManager(new GridLayoutManager(mContainer.getContext(), numColumns));
+            while (extraSpace < 0) {
+                numColumns -= 1;
+                extraSpace = availableWidth - widthPerItem * numColumns;
+            }
+
+            if (mContainer.getLayoutManager() != null) {
+                ((GridLayoutManager) mContainer.getLayoutManager()).setSpanCount(numColumns);
+            }
+
+            int containerSidePadding = (extraSpace / (numColumns + 1)) / 2;
             mContainer.setPaddingRelative(containerSidePadding, 0, containerSidePadding, 0);
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
             return;
@@ -309,6 +329,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
             CharSequence cd = context.getString(id, title);
             if (labelView != null && !TextUtils.isEmpty(labelView.getText())) {
+                labelView.setAccessibilityPaneTitle(cd);
                 labelView.setContentDescription(cd);
             } else if (tileView != null) {
                 tileView.setAccessibilityPaneTitle(cd);
@@ -318,11 +339,48 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
         public void resetContentDescription() {
             if (labelView != null && !TextUtils.isEmpty(labelView.getText())) {
+                labelView.setAccessibilityPaneTitle(title);
                 labelView.setContentDescription(title);
             } else if (tileView != null) {
                 tileView.setAccessibilityPaneTitle(title);
                 tileView.setContentDescription(title);
             }
+        }
+    }
+
+    private class OptionSelectorAccessibilityDelegate extends RecyclerViewAccessibilityDelegate {
+
+        OptionSelectorAccessibilityDelegate(RecyclerView recyclerView) {
+            super(recyclerView);
+        }
+
+        @Override
+        public boolean onRequestSendAccessibilityEvent(
+                ViewGroup host, View child, AccessibilityEvent event) {
+
+            // Apply this workaround to horizontal recyclerview only,
+            // since the symptom is TalkBack will lose focus when navigating horizontal list items.
+            if (mContainer.getLayoutManager() != null
+                    && mContainer.getLayoutManager().canScrollHorizontally()
+                    && event.getEventType() == AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
+                int itemPos = mContainer.getChildLayoutPosition(child);
+                int itemWidth = mContainer.getContext().getResources()
+                        .getDimensionPixelOffset(R.dimen.option_tile_width);
+                int itemMarginHorizontal = mContainer.getContext().getResources()
+                        .getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal) * 2;
+                int scrollOffset = itemWidth + itemMarginHorizontal;
+
+                // Make focusing item's previous/next item totally visible when changing focus,
+                // ensure TalkBack won't lose focus when recyclerview scrolling.
+                if (itemPos >= ((LinearLayoutManager) mContainer.getLayoutManager())
+                        .findLastCompletelyVisibleItemPosition()) {
+                    mContainer.scrollBy(scrollOffset, 0);
+                } else if (itemPos <= ((LinearLayoutManager) mContainer.getLayoutManager())
+                        .findFirstCompletelyVisibleItemPosition() && itemPos != 0) {
+                    mContainer.scrollBy(-scrollOffset, 0);
+                }
+            }
+            return super.onRequestSendAccessibilityEvent(host, child, event);
         }
     }
 }

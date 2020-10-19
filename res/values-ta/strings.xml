@@ -21,14 +21,20 @@
     <string name="theme_title" msgid="2144932106319405101">"ஸ்டைல்"</string>
     <string name="clock_title" msgid="2126046720254613991">"கடிகாரம்"</string>
     <string name="grid_title" msgid="2825094404523390773">"கட்டம்"</string>
-    <string name="wallpaper_title" msgid="6952635398953194544">"வால்பேப்பர்"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"பயன்படுத்து"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"\'தீமைத்\' திருத்த தட்டவும்"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"தற்போதைய வால்பேப்பரே இருக்கட்டும்"</string>
     <string name="apply_btn" msgid="7965877231041987336">"பயன்படுத்து"</string>
-    <string name="accessibility_preview_pager" msgid="3548503287402185430">"பக்கம் <xliff:g id="ID_1">%1$d</xliff:g> / <xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="next_page_content_description" msgid="5290226604542300962">"அடுத்த பக்கத்திற்குச் செல்வதற்கான பட்டன்"</string>
-    <string name="previous_page_content_description" msgid="6025726405430262788">"முந்தைய பக்கத்திற்குச் செல்வதற்கான பட்டன்"</string>
+    <string name="theme_preview_card_content_description" msgid="5989222908619535533">"ஸ்டைல் மாதிரிக்காட்சி"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"கட்ட மாதிரிக்காட்சி"</string>
+    <!-- no translation found for font_preview_content_description (128230439293337891) -->
+    <skip />
+    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
+    <skip />
+    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
+    <skip />
+    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
+    <skip />
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> தற்போது பயன்படுத்தப்பட்டது"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, தற்போது பயன்படுத்தப்பட்டு மாதிரிக்காட்சி காண்பிக்கப்படுகிறது"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, மாதிரிக்காட்சி தற்போது காண்பிக்கப்படுகிறது"</string>
@@ -41,13 +47,16 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"வால்பேப்பர்"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"ஒவ்வொரு திரையிலும் உங்களுக்குப் பிடித்த எழுத்துருக்களைச் சேருங்கள்"</string>
+    <string name="grid_options_title" msgid="7071930966989877023">"கட்ட அளவைத் தேர்வுசெய்தல்"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="7348498271552054431">"ஸ்டைல் பயன்படுத்தப்பட்டது"</string>
-    <string name="applied_clock_msg" msgid="1938218786265793285">"கடிகாரம் பயன்படுத்தப்பட்டது"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"ஸ்டைல் அமைக்கப்பட்டது"</string>
+    <string name="applied_clock_msg" msgid="1303338016701443767">"கடிகாரம் அமைக்கப்பட்டது"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"கட்டம் அமைக்கப்பட்டது"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"இந்த ஸ்டைலைப் பயன்படுத்துவதில் சிக்கல் உள்ளது"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"அடுத்து"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"முந்தையது"</string>
-    <string name="custom_theme_title" msgid="2192300350332693631">"தனிப்பயன் <xliff:g id="ID_1">%1$d</xliff:g>"</string>
+    <string name="custom_theme" msgid="1618351922263478163">"பிரத்தியேகம்"</string>
+    <string name="custom_theme_title" msgid="2192300350332693631">"பிரத்தியேக <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"பிரத்தியேக ஸ்டைல்"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"நீக்கு"</string>
     <string name="font_component_title" msgid="8800340833695292049">"எழுத்துருவைத் தேர்ந்தெடுத்தல்"</string>
@@ -66,4 +75,7 @@
     <string name="no_thanks" msgid="7286616980115687627">"வேண்டாம்"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> கடிகார மாதிரிக்காட்சி"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"அச்சச்சோ! ஏதோ தவறாகிவிட்டது."</string>
+    <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"வண்ணம் / ஐகான்கள்"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

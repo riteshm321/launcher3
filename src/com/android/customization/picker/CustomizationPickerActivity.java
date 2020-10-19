@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -65,7 +66,8 @@ import com.android.wallpaper.module.FormFactorChecker;
 import com.android.wallpaper.module.Injector;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.module.UserEventLogger;
-import com.android.wallpaper.module.WallpaperSetter;
+import com.android.wallpaper.module.WallpaperPreferences;
+import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
 import com.android.wallpaper.picker.MyPhotosStarter;
@@ -73,6 +75,8 @@ import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
 import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
+import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -84,7 +88,8 @@ import java.util.Map;
  *  Fragments providing customization options.
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
-        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost {
+        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
+        BottomActionBarHost {
 
     private static final String TAG = "CustomizationPickerActivity";
     @VisibleForTesting static final String WALLPAPER_FLAVOR_EXTRA =
@@ -98,7 +103,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private static final Map<Integer, CustomizationSection> mSections = new HashMap<>();
     private CategoryFragment mWallpaperCategoryFragment;
-    private WallpaperSetter mWallpaperSetter;
+    private BottomActionBar mBottomActionBar;
 
     private boolean mWallpaperCategoryInitialized;
 
@@ -116,24 +121,36 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         if (!supportsCustomization()) {
             Log.w(TAG, "Themes not supported, reverting to Wallpaper Picker");
             skipToWallpaperPicker();
-        } else {
-            setContentView(R.layout.activity_customization_picker_main);
-            setUpBottomNavView();
+            return;
+        }
 
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        setContentView(R.layout.activity_customization_picker_main);
+        setUpBottomNavView();
+        mBottomActionBar = findViewById(R.id.bottom_actionbar);
+        mBottomActionBar.addVisibilityChangeListener(
+                isBottomActionBarVisible -> {
+                    boolean isBottomNavVisible = mBottomNav.getVisibility() == View.VISIBLE;
+                    // Switch the visibility of BottomNav if visibility of BottomActionBar and
+                    // BottomNav are same.
+                    if (isBottomActionBarVisible == isBottomNavVisible) {
+                        mBottomNav.setVisibility(isBottomActionBarVisible
+                                ? View.GONE : View.VISIBLE);
+                    }
+                });
 
-            if (fragment == null) {
-                // App launch specific logic: log the "app launched" event and set up daily logging.
-                mUserEventLogger.logAppLaunched();
-                DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment == null) {
+            // App launch specific logic: log the "app launched" event and set up daily logging.
+            mUserEventLogger.logAppLaunched();
+            WallpaperPreferences preferences = injector.getPreferences(this);
+            preferences.incrementAppLaunched();
+            DailyLoggingAlarmScheduler.setAlarm(getApplicationContext());
 
-                // Navigate to the Wallpaper tab if we started directly from launcher, otherwise
-                // start at the Styles tab
-                navigateToSection(
-                        WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
-                                ? R.id.nav_wallpaper : R.id.nav_theme);
-            }
+            // Navigate to the Wallpaper tab if we started directly from launcher, otherwise
+            // start at the Styles tab
+            navigateToSection(
+                    WALLPAPER_FOCUS.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA))
+                            ? R.id.nav_wallpaper : R.id.nav_theme);
         }
     }
 
@@ -194,14 +211,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
         //Theme
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
-        mWallpaperSetter = new WallpaperSetter(injector.getWallpaperPersister(this),
-                injector.getPreferences(this), mUserEventLogger, false);
         ThemesUserEventLogger eventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(
                 this);
         ThemeManager themeManager = injector.getThemeManager(
                 new DefaultThemeProvider(this, injector.getCustomizationPreferences(this)),
-                this,
-                mWallpaperSetter, new OverlayManagerCompat(this), eventLogger);
+                this, new OverlayManagerCompat(this), eventLogger);
         if (themeManager.isAvailable()) {
             mSections.put(R.id.nav_theme, new ThemeSection(R.id.nav_theme, themeManager));
         } else {
@@ -292,9 +306,17 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment instanceof BottomActionBarFragment
+                && ((BottomActionBarFragment) fragment).onBackPressed()) {
+            return;
+        }
+
+        // For wallpaper tab, since it had child fragment.
         if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
             return;
         }
+
         if (getSupportFragmentManager().popBackStackImmediate()) {
             return;
         }
@@ -335,8 +357,18 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
-    public void showViewOnlyPreview(WallpaperInfo wallpaperInfo) {
-        mDelegate.showViewOnlyPreview(wallpaperInfo);
+    public void showViewOnlyPreview(WallpaperInfo wallpaperInfo, boolean isViewAsHome) {
+        mDelegate.showViewOnlyPreview(wallpaperInfo, isViewAsHome);
+    }
+
+    @Override
+    public void show(String collectionId) {
+        mDelegate.show(collectionId);
+    }
+
+    @Override
+    public boolean isNavigationTabsContained() {
+        return true;
     }
 
     @Override
@@ -391,14 +423,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mWallpaperSetter != null) {
-            mWallpaperSetter.cleanUp();
-        }
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (mDelegate.handleActivityResult(requestCode, resultCode, data)) {
@@ -410,6 +434,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         setResult(Activity.RESULT_OK);
         finish();
+    }
+
+    @Override
+    public BottomActionBar getBottomActionBar() {
+        return mBottomActionBar;
     }
 
     /**

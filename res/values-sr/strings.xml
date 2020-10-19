@@ -21,14 +21,16 @@
     <string name="theme_title" msgid="2144932106319405101">"Стил"</string>
     <string name="clock_title" msgid="2126046720254613991">"Сат"</string>
     <string name="grid_title" msgid="2825094404523390773">"Мрежа"</string>
-    <string name="wallpaper_title" msgid="6952635398953194544">"Позадина"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Примени"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Додирните да бисте изменили"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Задржи актуелну позадину"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Примени"</string>
-    <string name="accessibility_preview_pager" msgid="3548503287402185430">"<xliff:g id="ID_1">%1$d</xliff:g>. страница од <xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="next_page_content_description" msgid="5290226604542300962">"Следећа"</string>
-    <string name="previous_page_content_description" msgid="6025726405430262788">"Претходна"</string>
+    <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Преглед стила"</string>
+    <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Преглед мреже"</string>
+    <string name="font_preview_content_description" msgid="128230439293337891">"Преглед фонта"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Преглед иконе"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Преглед боје"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Преглед облика"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, тренутно је примењено"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, тренутно је примењено и прегледа се"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, тренутно се прегледа"</string>
@@ -41,12 +43,15 @@
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"Позадина"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"Додајте омиљене фонтове на сваки екран"</string>
+    <string name="grid_options_title" msgid="7071930966989877023">"Одаберите величину мреже"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="7348498271552054431">"Стил је примењен"</string>
-    <string name="applied_clock_msg" msgid="1938218786265793285">"Сат је примењен"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"Подешавање стила је успело"</string>
+    <string name="applied_clock_msg" msgid="1303338016701443767">"Подешавање сата је успело"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"Подешавање мреже је успело"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"Дошло је до проблема при примени стила"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"Даље"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"Претходно"</string>
+    <string name="custom_theme" msgid="1618351922263478163">"Прилагођено"</string>
     <string name="custom_theme_title" msgid="2192300350332693631">"Прилагођено <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"Прилагођени стил"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"Избриши"</string>
@@ -66,4 +71,7 @@
     <string name="no_thanks" msgid="7286616980115687627">"Не, хвала"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Преглед сата <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Упс! Дошло је до грешке."</string>
+    <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Боја/иконе"</string>
+    <!-- no translation found for style_info_description (2612473574431003251) -->
+    <skip />
 </resources>

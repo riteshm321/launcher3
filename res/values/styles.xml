@@ -51,7 +51,7 @@
         <item name="itemTextAppearanceActive">@style/BottomNavTextAppearanceActive</item>
         <item name="itemTextAppearanceInactive">@style/BottomNavTextAppearance</item>
         <item name="itemBackground">?android:attr/selectableItemBackgroundBorderless</item>
-        <item name="android:background">?android:colorPrimary</item>
+        <item name="android:background">@color/bottom_bar_background_color</item>
     </style>
 
     <style name="BottomNavTextAppearance" parent="TitleTextAppearance">
@@ -103,6 +103,7 @@
         <item name="android:paddingBottom">16dp</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
+        <item name="android:textAlignment">viewStart</item>
         <item name="android:textColor">@color/edittext_text_color</item>
         <item name="android:inputType">text</item>
         <item name="android:maxLength">100</item>

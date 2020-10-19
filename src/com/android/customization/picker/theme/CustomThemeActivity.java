@@ -53,7 +53,6 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.theme.CustomThemeStepFragment.CustomThemeComponentStepHost;
 import com.android.wallpaper.R;
 import com.android.wallpaper.module.InjectorProvider;
-import com.android.wallpaper.module.WallpaperSetter;
 
 import org.json.JSONException;
 
@@ -84,12 +83,12 @@ public class CustomThemeActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
         mUserEventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(this);
+        ThemeBundleProvider themeProvider =
+                new DefaultThemeProvider(this, injector.getCustomizationPreferences(this));
         Intent intent = getIntent();
         CustomTheme customTheme = null;
         if (intent != null && intent.hasExtra(EXTRA_THEME_PACKAGES)
                 && intent.hasExtra(EXTRA_THEME_TITLE) && intent.hasExtra(EXTRA_THEME_ID)) {
-            ThemeBundleProvider themeProvider =
-                    new DefaultThemeProvider(this, injector.getCustomizationPreferences(this));
             try {
                 CustomTheme.Builder themeBuilder = themeProvider.parseCustomTheme(
                         intent.getStringExtra(EXTRA_THEME_PACKAGES));
@@ -106,12 +105,13 @@ public class CustomThemeActivity extends FragmentActivity implements
         mThemeManager = injector.getThemeManager(
                 new DefaultThemeProvider(this, injector.getCustomizationPreferences(this)),
                 this,
-                new WallpaperSetter(injector.getWallpaperPersister(this),
-                        injector.getPreferences(this), mUserEventLogger, false),
                 new OverlayManagerCompat(this),
                 mUserEventLogger);
         mThemeManager.fetchOptions(null, false);
         mCustomThemeManager = CustomThemeManager.create(customTheme, mThemeManager);
+        if (savedInstanceState != null) {
+            mCustomThemeManager.readCustomTheme(themeProvider, savedInstanceState);
+        }
 
         int currentStep = 0;
         if (savedInstanceState != null) {
@@ -138,6 +138,9 @@ public class CustomThemeActivity extends FragmentActivity implements
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_STATE_CURRENT_STEP, mCurrentStep);
+        if (mCustomThemeManager != null) {
+            mCustomThemeManager.saveCustomTheme(this, outState);
+        }
     }
 
     private void navigateToStep(int i) {
@@ -223,7 +226,8 @@ public class CustomThemeActivity extends FragmentActivity implements
         mThemeManager.apply(themeToApply, new Callback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(CustomThemeActivity.this, R.string.applied_theme_msg,
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Toast.makeText(getApplicationContext(), R.string.applied_theme_msg,
                         Toast.LENGTH_LONG).show();
                 setResult(RESULT_THEME_APPLIED);
                 finish();
@@ -354,8 +358,7 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId,
-                    true);
+                    titleResId);
         }
     }
 

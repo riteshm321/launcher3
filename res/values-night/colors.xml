@@ -20,6 +20,9 @@
 
     <color name="icon_thumbnail_color">@color/white_88_alpha</color>
 
+    <color name="theme_preview_color_icons_background">@color/material_black_100</color>
+    <color name="theme_preview_color_icons_title_color">@color/material_white_100</color>
+
     <color name="control_grey">#b3b3b3</color>
     <color name="switch_track_tint">#171717</color>
     <color name="switch_thumb_tint">#bdbdbd</color>
@@ -32,9 +35,6 @@
 
     <color name="tip_dot_color">#81C995</color>
     <color name="tip_dot_line_color">#000000</color>
-
-    <color name="selected_check_color">#000000</color>
-    <color name="selected_check_background_color">#81C995</color>
 
     <color name="toolbar_icon_color">@color/text_color_light</color>
 

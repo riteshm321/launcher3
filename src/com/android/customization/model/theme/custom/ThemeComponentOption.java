@@ -23,11 +23,14 @@ import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_ICON_SYSUI;
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_ICON_THEMEPICKER;
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_SHAPE;
+import static com.android.customization.model.ResourceConstants.getLauncherPackage;
 
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
 import android.content.res.Resources.Theme;
 import android.content.res.TypedArray;
 import android.graphics.Path;
@@ -36,6 +39,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,7 +145,7 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.font_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_font, R.drawable.ic_font);
+            bindPreviewHeader(container, R.string.preview_name_font, R.drawable.ic_font, null);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {
@@ -165,12 +169,24 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
     }
 
     void bindPreviewHeader(ViewGroup container, @StringRes int headerTextResId,
-            @DrawableRes int headerIcon) {
+            @DrawableRes int headerIcon, String drawableName) {
         TextView header = container.findViewById(R.id.theme_preview_card_header);
         header.setText(headerTextResId);
 
         Context context = container.getContext();
-        Drawable icon = context.getResources().getDrawable(headerIcon, context.getTheme());
+        Drawable icon;
+        if (!TextUtils.isEmpty(drawableName)) {
+            try {
+                Resources resources = context.getPackageManager()
+                        .getResourcesForApplication(getLauncherPackage(context));
+                icon = resources.getDrawable(resources.getIdentifier(
+                        drawableName, "drawable", getLauncherPackage(context)), null);
+            } catch (NameNotFoundException | NotFoundException e) {
+                icon = context.getResources().getDrawable(headerIcon, context.getTheme());
+            }
+        } else {
+            icon = context.getResources().getDrawable(headerIcon, context.getTheme());
+        }
         int size = context.getResources().getDimensionPixelSize(R.dimen.card_header_icon_size);
         icon.setBounds(0, 0, size, size);
 
@@ -231,7 +247,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.icon_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_icon, R.drawable.ic_wifi_24px);
+            bindPreviewHeader(container, R.string.preview_name_icon, R.drawable.ic_widget,
+                    "ic_widget");
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {
@@ -364,7 +381,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.color_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_color, R.drawable.ic_colorize_24px);
+            bindPreviewHeader(container, R.string.preview_name_color, R.drawable.ic_colorize_24px,
+                    null);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {
@@ -507,7 +525,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.shape_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_shape, R.drawable.ic_shapes_24px);
+            bindPreviewHeader(container, R.string.preview_name_shape, R.drawable.ic_shapes_24px,
+                    null);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {

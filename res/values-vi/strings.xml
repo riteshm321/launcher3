@@ -65,9 +65,9 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Xóa"</string>
     <string name="cancel" msgid="4651030493668562067">"Hủy"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Nơi để đặt hình nền"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"Sử dụng <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Các thành phần bạn chọn phù hợp với kiểu <xliff:g id="ID_1">%1$s</xliff:g>. Bạn có muốn sử dụng <xliff:g id="ID_2">%1$s</xliff:g> không?"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"Sử dụng <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"Sử dụng kiểu <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Các thành phần bạn chọn phù hợp với kiểu <xliff:g id="ID_1">%1$s</xliff:g>. Thay vào đó, bạn có muốn sử dụng kiểu <xliff:g id="ID_2">%1$s</xliff:g> không?"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"Sử dụng kiểu <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Không, cảm ơn"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Bản xem trước đồng hồ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Rất tiếc! Đã xảy ra lỗi."</string>

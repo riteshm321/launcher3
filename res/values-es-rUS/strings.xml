@@ -72,5 +72,5 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Vista previa del reloj <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Se produjo un error."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Color/íconos"</string>
-    <string name="style_info_description" msgid="2612473574431003251">"Obtener vista previa de fuentes, íconos, colores y forma de la app"</string>
+    <string name="style_info_description" msgid="2612473574431003251">"Vista previa de fuentes, íconos, colores y forma de la app"</string>
 </resources>

@@ -66,7 +66,7 @@
     <string name="cancel" msgid="4651030493668562067">"Annuler"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Définir le fond d\'écran du style"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"Utiliser <xliff:g id="ID_1">%1$s</xliff:g> à la place ?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Les composants que vous choisissez correspondent au style <xliff:g id="ID_1">%1$s</xliff:g>. Voulez-vous utiliser <xliff:g id="ID_2">%1$s</xliff:g> à la place ?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Les composants que vous avez choisi correspondent au style <xliff:g id="ID_1">%1$s</xliff:g>. Voulez-vous utiliser le style <xliff:g id="ID_2">%1$s</xliff:g> à la place ?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"Utiliser <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Non, merci"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> aperçu d\'horloge"</string>

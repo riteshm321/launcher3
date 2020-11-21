@@ -65,8 +65,8 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"刪除"</string>
     <string name="cancel" msgid="4651030493668562067">"取消"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"設定樣式桌布"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"要改為使用「<xliff:g id="ID_1">%1$s</xliff:g>」嗎？"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"您所選取的組件與「<xliff:g id="ID_1">%1$s</xliff:g>」樣式相符。您想改為使用「<xliff:g id="ID_2">%1$s</xliff:g>」嗎？"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"要改用「<xliff:g id="ID_1">%1$s</xliff:g>」嗎？"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"所選組合與「<xliff:g id="ID_1">%1$s</xliff:g>」樣式相符，要改用「<xliff:g id="ID_2">%1$s</xliff:g>」嗎？"</string>
     <string name="use_style_button" msgid="1754493078383627019">"使用「<xliff:g id="ID_1">%1$s</xliff:g>」"</string>
     <string name="no_thanks" msgid="7286616980115687627">"不用了，謝謝"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"「<xliff:g id="ID_1">%1$s</xliff:g>」時鐘預覽"</string>

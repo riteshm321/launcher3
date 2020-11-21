@@ -47,7 +47,7 @@
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
     <string name="applied_theme_msg" msgid="3749018706366796244">"Стилот е успешно поставен"</string>
     <string name="applied_clock_msg" msgid="1303338016701443767">"Часовникот е успешно поставен"</string>
-    <string name="applied_grid_msg" msgid="3250499654436933034">"Решетката е успешно поставена"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"Мрежата е успешно поставена"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"Настана проблем со применување на стилот"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"Следно"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"Претходно"</string>

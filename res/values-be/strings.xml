@@ -65,9 +65,9 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Выдаліць"</string>
     <string name="cancel" msgid="4651030493668562067">"Скасаваць"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Задаць шпалеры"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"Выкарыстоўваць <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Выбраныя кампаненты супадаюць са стылем пад назвай <xliff:g id="ID_1">%1$s</xliff:g>. Ці хочаце вы выкарыстоўваць <xliff:g id="ID_2">%1$s</xliff:g>?"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"Выкарыстоўваць <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"Выкарыстоўваць стыль \"<xliff:g id="ID_1">%1$s</xliff:g>\"?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Выбраныя кампаненты адпавядаюць стылю \"<xliff:g id="ID_1">%1$s</xliff:g>\". Выкарыстоўваць стыль \"<xliff:g id="ID_2">%1$s</xliff:g>\"?"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"Выкарыстоўваць \"<xliff:g id="ID_1">%1$s</xliff:g>\""</string>
     <string name="no_thanks" msgid="7286616980115687627">"Не, дзякуй"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Папярэдні прагляд гадзінніка <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Памылка! Нешта пайшло не так."</string>

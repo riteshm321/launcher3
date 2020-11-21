@@ -45,9 +45,9 @@
     <string name="font_card_body" msgid="6790525594503904468">"എല്ലാ സ്‌ക്രീനിലേക്കും നിങ്ങളുടെ പ്രിയപ്പെട്ട ഫോണ്ടുകൾ ചേർക്കുക"</string>
     <string name="grid_options_title" msgid="7071930966989877023">"ഗ്രിഡ് വലുപ്പം തിരഞ്ഞെടുക്കുക"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
-    <string name="applied_theme_msg" msgid="3749018706366796244">"സ്‌റ്റൈൽ സജ്ജമാക്കി"</string>
+    <string name="applied_theme_msg" msgid="3749018706366796244">"സ്‌റ്റൈൽ സജ്ജീകരിച്ചു"</string>
     <string name="applied_clock_msg" msgid="1303338016701443767">"ക്ലോക്ക് സജ്ജമാക്കി"</string>
-    <string name="applied_grid_msg" msgid="3250499654436933034">"ഗ്രിഡ് സജ്ജമാക്കി"</string>
+    <string name="applied_grid_msg" msgid="3250499654436933034">"ഗ്രിഡ് സജ്ജീകരിച്ചു"</string>
     <string name="apply_theme_error_msg" msgid="791364062636538317">"സ്‌റ്റൈൽ പ്രയോഗിക്കുന്നതിൽ ഒരു പ്രശ്‌നമുണ്ടായി"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"അടുത്തത്"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"മുമ്പത്തെ"</string>
@@ -66,7 +66,7 @@
     <string name="cancel" msgid="4651030493668562067">"റദ്ദാക്കുക"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"സ്‌റ്റൈൽ വാൾപേപ്പർ സജ്ജീകരിക്കുക"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"പകരം <xliff:g id="ID_1">%1$s</xliff:g> ഉപയോഗിക്കണോ?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"നിങ്ങൾ തിരഞ്ഞെടുത്ത ഘടകങ്ങൾ <xliff:g id="ID_1">%1$s</xliff:g>-ന്റെ സ്‌റ്റൈലുമായി യോജിക്കുന്നു. പകരം <xliff:g id="ID_2">%1$s</xliff:g> ഉപയോഗിക്കാൻ നിങ്ങൾക്ക് ആഗ്രഹമുണ്ടോ?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"നിങ്ങൾ തിരഞ്ഞെടുത്ത ഘടകങ്ങൾ <xliff:g id="ID_1">%1$s</xliff:g> സ്‌റ്റൈലുമായി യോജിക്കുന്നു. പകരം <xliff:g id="ID_2">%1$s</xliff:g> ഉപയോഗിക്കാൻ നിങ്ങൾക്ക് ആഗ്രഹമുണ്ടോ?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"<xliff:g id="ID_1">%1$s</xliff:g> ഉപയോഗിക്കുക"</string>
     <string name="no_thanks" msgid="7286616980115687627">"വേണ്ട"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ക്ലോക്ക് പ്രിവ്യൂ"</string>

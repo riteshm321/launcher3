@@ -20,7 +20,7 @@
     <string name="app_name" msgid="6995669566699638946">"Mavzu va fon rasmlari"</string>
     <string name="theme_title" msgid="2144932106319405101">"Uslub"</string>
     <string name="clock_title" msgid="2126046720254613991">"Soat"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Jadval"</string>
+    <string name="grid_title" msgid="2825094404523390773">"Katak"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Tatbiq etish"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Tahrirlash uchun tegining"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Joriy fon rasmini saqlab qolish"</string>
@@ -66,7 +66,7 @@
     <string name="cancel" msgid="4651030493668562067">"Bekor qilish"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Fon rasmi uslubini sozlash"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"Oʻrniga <xliff:g id="ID_1">%1$s</xliff:g> ishlatilsinmi?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Siz tanlagan komponentlar <xliff:g id="ID_1">%1$s</xliff:g> stiliga mos. Oʻrniga <xliff:g id="ID_2">%1$s</xliff:g> ishlatilsinmi?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Siz tanlagan komponentlar <xliff:g id="ID_1">%1$s</xliff:g> uslubiga mos. Oʻrniga <xliff:g id="ID_2">%1$s</xliff:g> ishlatilsinmi?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"<xliff:g id="ID_1">%1$s</xliff:g> ishlatish"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Kerak emas"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> soatiga razm solish"</string>

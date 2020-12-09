@@ -70,11 +70,13 @@ import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
+import com.android.wallpaper.picker.FragmentTransactionChecker;
 import com.android.wallpaper.picker.MyPhotosStarter;
 import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
 import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
+import com.android.wallpaper.util.DeepLinkUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
 
@@ -89,12 +91,12 @@ import java.util.Map;
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
         CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
-        BottomActionBarHost {
+        BottomActionBarHost, FragmentTransactionChecker {
 
-    private static final String TAG = "CustomizationPickerActivity";
-    @VisibleForTesting static final String WALLPAPER_FLAVOR_EXTRA =
+    public static final String WALLPAPER_FLAVOR_EXTRA =
             "com.android.launcher3.WALLPAPER_FLAVOR";
-    @VisibleForTesting static final String WALLPAPER_FOCUS = "focus_wallpaper";
+    public static final String WALLPAPER_FOCUS = "focus_wallpaper";
+    private static final String TAG = "CustomizationPickerActivity";
     @VisibleForTesting static final String WALLPAPER_ONLY = "wallpaper_only";
 
     private WallpaperPickerDelegate mDelegate;
@@ -104,8 +106,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     private static final Map<Integer, CustomizationSection> mSections = new HashMap<>();
     private CategoryFragment mWallpaperCategoryFragment;
     private BottomActionBar mBottomActionBar;
-
-    private boolean mWallpaperCategoryInitialized;
+    private boolean mIsSafeToCommitFragmentTransaction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -113,7 +114,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         mDelegate = new WallpaperPickerDelegate(this, this, injector);
         mUserEventLogger = injector.getUserEventLogger(this);
         initSections();
-        mWallpaperCategoryInitialized = false;
 
         // Restore this Activity's state before restoring contained Fragments state.
         super.onCreate(savedInstanceState);
@@ -123,6 +123,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             skipToWallpaperPicker();
             return;
         }
+
+        mDelegate.getCategoryProvider().resetIfNeeded();
 
         setContentView(R.layout.activity_customization_picker_main);
         setUpBottomNavView();
@@ -157,6 +159,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     @Override
     protected void onResume() {
         super.onResume();
+        mIsSafeToCommitFragmentTransaction = true;
         boolean wallpaperOnly =
                 WALLPAPER_ONLY.equals(getIntent().getStringExtra(WALLPAPER_FLAVOR_EXTRA));
         boolean provisioned = Settings.Global.getInt(getContentResolver(),
@@ -180,6 +183,12 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        mIsSafeToCommitFragmentTransaction = false;
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (WALLPAPER_ONLY.equals(intent.getStringExtra(WALLPAPER_FLAVOR_EXTRA))) {
@@ -190,6 +199,9 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private void skipToWallpaperPicker() {
         Intent intent = new Intent(this, TopLevelPickerActivity.class);
+        if (DeepLinkUtils.isDeepLink(getIntent())) {
+            intent.setData(getIntent().getData());
+        }
         startActivity(intent);
         finish();
     }
@@ -372,6 +384,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    public void fetchCategories() {
+        mDelegate.initialize(!mDelegate.getCategoryProvider().isCategoriesFetched());
+    }
+
+    @Override
     public void onWallpapersReady() {
 
     }
@@ -441,6 +458,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         return mBottomActionBar;
     }
 
+    @Override
+    public boolean isSafeToCommitFragmentTransaction() {
+        return mIsSafeToCommitFragmentTransaction;
+    }
+
     /**
      * Represents a section of the Picker (eg "ThemeBundle", "Clock", etc).
      * There should be a concrete subclass per available section, providing the corresponding
@@ -471,7 +493,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
      * {@link CustomizationSection} corresponding to the "Wallpaper" section of the Picker.
      */
     private class WallpaperSection extends CustomizationSection {
-        private boolean mForceCategoryRefresh;
 
         private WallpaperSection(int id) {
             super(id, null);
@@ -482,17 +503,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             if (mWallpaperCategoryFragment == null) {
                 mWallpaperCategoryFragment = CategoryFragment.newInstance(
                         getString(R.string.wallpaper_title));
-                mForceCategoryRefresh = true;
             }
             return mWallpaperCategoryFragment;
-        }
-
-        @Override
-        void onVisible() {
-            if (!mWallpaperCategoryInitialized) {
-                mDelegate.initialize(mForceCategoryRefresh);
-            }
-            mWallpaperCategoryInitialized = true;
         }
     }
 

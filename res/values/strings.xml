@@ -212,4 +212,19 @@
 
     <!-- Bottom sheet dialog which displaying different theme's info. [CHAR_LIMIT=80] -->
     <string name="style_info_description">Preview of font, icons, app shape, and color</string>
+
+    <!-- Accessibility for custom style font page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_font_title">Custom font</string>
+
+    <!-- Accessibility for custom style icon page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_icon_title">Custom icon</string>
+
+    <!-- Accessibility for custom style color page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_color_title">Custom color</string>
+
+    <!-- Accessibility for custom style shape page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_shape_title">Custom shape</string>
+
+    <!-- Accessibility for custom style name page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_name_title">Custom style name</string>
 </resources>

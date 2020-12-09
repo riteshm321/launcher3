@@ -23,6 +23,8 @@ import com.android.wallpaper.picker.AppbarFragment;
 abstract class CustomThemeStepFragment extends AppbarFragment {
     protected static final String ARG_KEY_POSITION = "CustomThemeStepFragment.position";
     protected static final String ARG_KEY_TITLE_RES_ID = "CustomThemeStepFragment.title_res";
+    protected static final String ARG_KEY_ACCESSIBILITY_RES_ID =
+            "CustomThemeStepFragment.accessibility_res";
     protected CustomThemeComponentStepHost mHost;
     protected CustomThemeManager mCustomThemeManager;
     protected int mPosition;
@@ -30,6 +32,8 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
     protected TextView mTitle;
     @StringRes
     protected int mTitleResId;
+    @StringRes
+    protected int mAccessibilityResId;
 
     @Override
     public void onAttach(Context context) {
@@ -48,6 +52,7 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_KEY_POSITION);
         mTitleResId = getArguments().getInt(ARG_KEY_TITLE_RES_ID);
+        mAccessibilityResId = getArguments().getInt(ARG_KEY_ACCESSIBILITY_RES_ID);
         mCustomThemeManager = mHost.getCustomThemeManager();
     }
 
@@ -74,6 +79,11 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
 
         mPreviewContainer = view.findViewById(R.id.component_preview_content);
         return view;
+    }
+
+    @Override
+    protected String getAccessibilityTitle() {
+        return getString(mAccessibilityResId);
     }
 
     @Override

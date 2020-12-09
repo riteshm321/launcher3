@@ -290,13 +290,15 @@ public class CustomThemeActivity extends FragmentActivity implements
      */
     private static abstract class ComponentStep<T extends ThemeComponentOption> {
         @StringRes final int titleResId;
+        @StringRes final int accessibilityResId;
         final ThemeComponentOptionProvider<T> provider;
         final int position;
         private CustomThemeStepFragment mFragment;
 
-        protected ComponentStep(@StringRes int titleResId, ThemeComponentOptionProvider<T> provider,
-                                int position) {
+        protected ComponentStep(@StringRes int titleResId, @StringRes int accessibilityResId,
+                ThemeComponentOptionProvider<T> provider, int position) {
             this.titleResId = titleResId;
+            this.accessibilityResId = accessibilityResId;
             this.provider = provider;
             this.position = position;
         }
@@ -318,7 +320,8 @@ public class CustomThemeActivity extends FragmentActivity implements
 
         protected FontStep(ThemeComponentOptionProvider<FontOption> provider,
                 int position) {
-            super(R.string.font_component_title, provider, position);
+            super(R.string.font_component_title, R.string.accessibility_custom_font_title, provider,
+                    position);
         }
 
         @Override
@@ -326,7 +329,8 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId);
+                    titleResId,
+                    accessibilityResId);
         }
     }
 
@@ -334,7 +338,8 @@ public class CustomThemeActivity extends FragmentActivity implements
 
         protected IconStep(ThemeComponentOptionProvider<IconOption> provider,
                 int position) {
-            super(R.string.icon_component_title, provider, position);
+            super(R.string.icon_component_title, R.string.accessibility_custom_icon_title, provider,
+                    position);
         }
 
         @Override
@@ -342,7 +347,8 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId);
+                    titleResId,
+                    accessibilityResId);
         }
     }
 
@@ -350,7 +356,8 @@ public class CustomThemeActivity extends FragmentActivity implements
 
         protected ColorStep(ThemeComponentOptionProvider<ColorOption> provider,
                 int position) {
-            super(R.string.color_component_title, provider, position);
+            super(R.string.color_component_title, R.string.accessibility_custom_color_title,
+                    provider, position);
         }
 
         @Override
@@ -358,7 +365,8 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId);
+                    titleResId,
+                    accessibilityResId);
         }
     }
 
@@ -366,7 +374,8 @@ public class CustomThemeActivity extends FragmentActivity implements
 
         protected ShapeStep(ThemeComponentOptionProvider<ShapeOption> provider,
                 int position) {
-            super(R.string.shape_component_title, provider, position);
+            super(R.string.shape_component_title, R.string.accessibility_custom_shape_title,
+                    provider, position);
         }
 
         @Override
@@ -374,14 +383,16 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeComponentFragment.newInstance(
                     title,
                     position,
-                    titleResId);
+                    titleResId,
+                    accessibilityResId);
         }
     }
 
     private class NameStep extends ComponentStep {
 
         protected NameStep(int position) {
-            super(R.string.name_component_title, null, position);
+            super(R.string.name_component_title, R.string.accessibility_custom_name_title, null,
+                    position);
         }
 
         @Override
@@ -389,7 +400,8 @@ public class CustomThemeActivity extends FragmentActivity implements
             return CustomThemeNameFragment.newInstance(
                     title,
                     position,
-                    titleResId);
+                    titleResId,
+                    accessibilityResId);
         }
     }
 }

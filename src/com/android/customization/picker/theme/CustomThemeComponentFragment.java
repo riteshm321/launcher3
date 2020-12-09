@@ -34,16 +34,17 @@ public class CustomThemeComponentFragment extends CustomThemeStepFragment {
     private static final String ARG_USE_GRID_LAYOUT = "CustomThemeComponentFragment.use_grid";;
 
     public static CustomThemeComponentFragment newInstance(CharSequence toolbarTitle, int position,
-            int titleResId) {
-        return newInstance(toolbarTitle, position, titleResId, false);
+            int titleResId, int accessibilityResId) {
+        return newInstance(toolbarTitle, position, titleResId, accessibilityResId, false);
     }
 
     public static CustomThemeComponentFragment newInstance(CharSequence toolbarTitle, int position,
-            int titleResId, boolean allowGridLayout) {
+            int titleResId, int accessibilityResId, boolean allowGridLayout) {
         CustomThemeComponentFragment fragment = new CustomThemeComponentFragment();
         Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
+        arguments.putInt(ARG_KEY_ACCESSIBILITY_RES_ID, accessibilityResId);
         arguments.putBoolean(ARG_USE_GRID_LAYOUT, allowGridLayout);
         fragment.setArguments(arguments);
         return fragment;

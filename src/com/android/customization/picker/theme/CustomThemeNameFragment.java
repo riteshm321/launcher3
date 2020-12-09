@@ -54,11 +54,12 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
     private static final String TAG = "CustomThemeNameFragment";
 
     public static CustomThemeNameFragment newInstance(CharSequence toolbarTitle, int position,
-            int titleResId) {
+            int titleResId, int accessibilityResId) {
         CustomThemeNameFragment fragment = new CustomThemeNameFragment();
         Bundle arguments = AppbarFragment.createArguments(toolbarTitle);
         arguments.putInt(ARG_KEY_POSITION, position);
         arguments.putInt(ARG_KEY_TITLE_RES_ID, titleResId);
+        arguments.putInt(ARG_KEY_ACCESSIBILITY_RES_ID, accessibilityResId);
         fragment.setArguments(arguments);
         return fragment;
     }

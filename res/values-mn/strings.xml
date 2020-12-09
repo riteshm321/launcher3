@@ -17,13 +17,13 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Загвар ба ханын зураг"</string>
+    <string name="app_name" msgid="6995669566699638946">"Загвар ба дэлгэцийн зураг"</string>
     <string name="theme_title" msgid="2144932106319405101">"Загвар"</string>
     <string name="clock_title" msgid="2126046720254613991">"Цаг"</string>
     <string name="grid_title" msgid="2825094404523390773">"Эгнээ"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Ашиглах"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Засахын тулд товшино уу"</string>
-    <string name="keep_my_wallpaper" msgid="8012385376769568517">"Одоогийн ханын зургийг хадгалах"</string>
+    <string name="keep_my_wallpaper" msgid="8012385376769568517">"Одоогийн дэлгэцийн зургийг хадгалах"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Ашиглах"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Загварыг урьдчилан үзэх"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Торыг урьдчилан үзэх"</string>
@@ -40,7 +40,7 @@
     <string name="preview_name_icon" msgid="6818927315316316440">"Дүрс тэмдэг"</string>
     <string name="preview_name_color" msgid="8776203144994416172">"Өнгө"</string>
     <string name="preview_name_shape" msgid="5676971146080968721">"Дүрс"</string>
-    <string name="preview_name_wallpaper" msgid="1738652462949531828">"Ханын зураг"</string>
+    <string name="preview_name_wallpaper" msgid="1738652462949531828">"Дэлгэцийн зураг"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"Дэлгэц бүрд дуртай фонтоо нэмэх"</string>
     <string name="grid_options_title" msgid="7071930966989877023">"Торын хэмжээг сонгох"</string>
@@ -64,7 +64,7 @@
     <string name="delete_custom_theme_confirmation" msgid="4452137183628769394">"Захиалгат загварыг устгах уу?"</string>
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Устгах"</string>
     <string name="cancel" msgid="4651030493668562067">"Цуцлах"</string>
-    <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Загварын ханын зураг тохируулах"</string>
+    <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Загварын дэлгэцийн зураг тохируулах"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"Оронд нь <xliff:g id="ID_1">%1$s</xliff:g>-г ашиглах уу?"</string>
     <string name="use_style_instead_body" msgid="3051937045807471496">"Таны сонгосон бүрэлдэхүүн хэсэг <xliff:g id="ID_1">%1$s</xliff:g>-н загвартай тохирч байна. Та оронд нь <xliff:g id="ID_2">%1$s</xliff:g>-г ашиглах уу?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"<xliff:g id="ID_1">%1$s</xliff:g>-г ашиглах"</string>

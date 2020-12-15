@@ -77,20 +77,20 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
     @Override
     public void logActionClicked(String collectionId, int actionLabelResId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_EXPLORE, 0, 0, 0, 0, 0,
-                collectionId.hashCode(), 0, 0, 0, 0, 0);
+                getCollectionIdHashCode(collectionId), 0, 0, 0, 0, 0);
     }
 
     @Override
     public void logIndividualWallpaperSelected(String collectionId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_SELECT, 0, 0, 0, 0, 0,
-                collectionId.hashCode(), 0, 0, 0, 0, 0);
+                getCollectionIdHashCode(collectionId), 0, 0, 0, 0, 0);
     }
 
     @Override
     public void logCategorySelected(String collectionId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_OPEN_CATEGORY,
                 0, 0, 0, 0, 0,
-                collectionId.hashCode(),
+                getCollectionIdHashCode(collectionId),
                 0, 0, 0, 0, 0);
     }
 
@@ -98,7 +98,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
     public void logLiveWallpaperInfoSelected(String collectionId, @Nullable String wallpaperId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.LIVE_WALLPAPER_INFO_SELECT,
                 0, 0, 0, 0, 0,
-                collectionId.hashCode(),
+                getCollectionIdHashCode(collectionId),
                 wallpaperId != null ? wallpaperId.hashCode() : 0,
                 0, 0, 0, 0);
     }
@@ -108,7 +108,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
             @Nullable String wallpaperId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.LIVE_WALLPAPER_CUSTOMIZE_SELECT,
                 0, 0, 0, 0, 0,
-                collectionId.hashCode(),
+                getCollectionIdHashCode(collectionId),
                 wallpaperId != null ? wallpaperId.hashCode() : 0,
                 0, 0, 0, 0);
     }
@@ -117,7 +117,7 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
     public void logWallpaperSet(String collectionId, @Nullable String wallpaperId) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.WALLPAPER_APPLIED,
                 0, 0, 0, 0, 0,
-                collectionId.hashCode(),
+                getCollectionIdHashCode(collectionId),
                 wallpaperId != null ? wallpaperId.hashCode() : 0,
                 0, 0, 0, 0);
     }
@@ -203,5 +203,9 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
         } else {
             return STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_PREFERENCE_UNSPECIFIED;
         }
+    }
+
+    private int getCollectionIdHashCode(String collectionId) {
+        return collectionId != null ? collectionId.hashCode() : 0;
     }
 }

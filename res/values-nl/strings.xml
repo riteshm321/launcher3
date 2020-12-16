@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"Er is iets misgegaan."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Kleuren/iconen"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Voorbeeld van lettertypen, iconen, app-vormen en kleuren"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Aangepast lettertype"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Aangepast icoon"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Aangepaste kleur"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Aangepaste vorm"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Naam van aangepaste stijl"</string>
 </resources>

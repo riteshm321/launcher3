@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"අපොයි! යමක් වැරදී ගියේය."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"වර්ණය / අයිකන"</string>
     <string name="style_info_description" msgid="2612473574431003251">"ෆොන්ට, නිරූපක, යෙදුම් හැඩය සහ වර්ණය පෙරදසුන් කරන්න"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"අභිරුචි ෆොන්ට"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"අභිරුචි නිරූපකය"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"අභිරුචි වර්ණය"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"අභිරුචි හැඩය"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"අභිරුචි මෝස්තර නම"</string>
 </resources>

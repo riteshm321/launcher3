@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"Petit problème… Une erreur s\'est produite."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Couleur/Icônes"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Aperçu de la police, des icônes, de la forme de l\'application et de la couleur"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Police personnalisée"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Icône personnalisée"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Couleur personnalisée"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Forme personnalisée"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Nom du style personnalisé"</string>
 </resources>

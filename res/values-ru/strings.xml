@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"Произошла ошибка."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Цвета и значки"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Используйте предпросмотр шрифтов, значков, форм и цветов."</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Пользовательский шрифт"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Пользовательский значок"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Пользовательский цвет"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Пользовательская форма"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Название пользовательского стиля"</string>
 </resources>

@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"អូ៎! មានអ្វីមួយខុសប្រក្រតី។"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ពណ៌ / រូបតំណាង"</string>
     <string name="style_info_description" msgid="2612473574431003251">"ការមើលសាកល្បង​នៃពុម្ពអក្សរ រូបតំណាង រូបរាងកម្មវិធី និងពណ៌"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"ពុម្ពអក្សរ​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"រូបតំណាង​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ពណ៌​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"រូបរាង​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ឈ្មោះ​រចនាប័ទ្ម​ផ្ទាល់ខ្លួន"</string>
 </resources>

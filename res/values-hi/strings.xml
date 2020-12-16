@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"ओह हो! कुछ गड़बड़ी हुई."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"रंग / आइकॉन"</string>
     <string name="style_info_description" msgid="2612473574431003251">"फ़ॉन्ट, आइकॉन, ऐप्लिकेशन के आकार, और रंग की झलक देखें"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"पसंद के मुताबिक फ़ॉन्ट"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"पसंद के मुताबिक आइकॉन"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"पसंद के मुताबिक रंग"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"पसंद के मुताबिक आकार"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"पसंद के मुताबिक बनाई गई स्टाइल का नाम"</string>
 </resources>

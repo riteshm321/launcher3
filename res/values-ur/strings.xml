@@ -73,4 +73,14 @@
     <string name="something_went_wrong" msgid="529840112449799117">"افوہ! کچھ غلط ہوگیا۔"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"رنگ / آئیکنز"</string>
     <string name="style_info_description" msgid="2612473574431003251">"فونٹ، آئیکنز، ایپ کی شکل اور رنگ کا پیش منظر"</string>
+    <!-- no translation found for accessibility_custom_font_title (966867359157303705) -->
+    <skip />
+    <!-- no translation found for accessibility_custom_icon_title (5753297905849062296) -->
+    <skip />
+    <!-- no translation found for accessibility_custom_color_title (4124246598886320663) -->
+    <skip />
+    <!-- no translation found for accessibility_custom_shape_title (7708408259374643129) -->
+    <skip />
+    <!-- no translation found for accessibility_custom_name_title (5494460518085463262) -->
+    <skip />
 </resources>

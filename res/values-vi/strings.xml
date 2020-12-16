@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"Rất tiếc! Đã xảy ra lỗi."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Màu/Biểu tượng"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Bản xem trước phông chữ, biểu tượng, hình dạng của ứng dụng và màu sắc"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Phông chữ tùy chỉnh"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Biểu tượng tùy chỉnh"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Màu tùy chỉnh"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Hình dạng tùy chỉnh"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Tên kiểu tùy chỉnh"</string>
 </resources>

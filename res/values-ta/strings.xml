@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"அச்சச்சோ! ஏதோ தவறாகிவிட்டது."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"வண்ணம் / ஐகான்கள்"</string>
     <string name="style_info_description" msgid="2612473574431003251">"எழுத்துரு, ஐகான்கள், ஆப்ஸ் வடிவம், வண்ணம் ஆகியவற்றின் மாதிரிக்காட்சி"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"பிரத்தியேக எழுத்துரு"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"பிரத்தியேக ஐகான்"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"பிரத்தியேக வண்ணம்"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"பிரத்தியேக வடிவம்"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"பிரத்தியேகத் தோற்றத்தின் பெயர்"</string>
 </resources>

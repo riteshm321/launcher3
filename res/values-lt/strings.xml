@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"Oi, kažkas nepavyko."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Spalva / piktogramos"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Šriftų, piktogramų, programų formos ir spalvos peržiūra"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Tinkintas šriftas"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Pasirinkta piktograma"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Tinkinta spalva"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Tinkinta forma"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Tinkinto stiliaus pavadinimas"</string>
 </resources>

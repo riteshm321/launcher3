@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"Vaja! S\'ha produït un error."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Color/Icones"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Previsualització de tipus de lletra, icones, forma d\'aplicacions i color"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Tipus de lletra personalitzat"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Icona personalitzada"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Color personalitzat"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Forma personalitzada"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Nom d\'estil personalitzat"</string>
 </resources>

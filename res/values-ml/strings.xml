@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"ക്ഷമിക്കണം! എന്തോ കുഴപ്പമുണ്ടായി."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"നിറം / ഐക്കണുകൾ"</string>
     <string name="style_info_description" msgid="2612473574431003251">"ഫോണ്ട്, ഐക്കണുകൾ, ആപ്പിന്റെ ആകൃതി, നിറം എന്നിവയുടെ പ്രിവ്യു"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"ഇഷ്‌ടാനുസൃത ഫോണ്ട്"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"ഇഷ്‌ടാനുസൃത ഐക്കൺ"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ഇഷ്‌ടാനുസൃത നിറം"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"ഇഷ്‌ടാനുസൃത രൂപം"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ഇഷ്‌ടാനുസൃത സ്‌റ്റൈലിന്റെ പേര്"</string>
 </resources>

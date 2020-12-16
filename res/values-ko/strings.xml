@@ -73,4 +73,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"죄송합니다. 문제가 발생했습니다."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"색상/아이콘"</string>
     <string name="style_info_description" msgid="2612473574431003251">"글꼴, 아이콘, 앱 모양, 색상 미리보기"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"맞춤 글꼴"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"맞춤 아이콘"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"맞춤 색상"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"맞춤 모양"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"맞춤 스타일 이름"</string>
 </resources>

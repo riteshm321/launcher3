@@ -396,6 +396,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
+    public void cleanUp() {
+        mDelegate.cleanUp();
+    }
+
+    @Override
     public void onWallpapersReady() {
 
     }

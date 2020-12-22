@@ -111,6 +111,11 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
     }
 
     @Override
+    public String getDownloadableIntentAction() {
+        return null;
+    }
+
+    @Override
     public synchronized PerformanceMonitor getPerformanceMonitor() {
         if (mPerformanceMonitor == null) {
             mPerformanceMonitor = new PerformanceMonitor() {

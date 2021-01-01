@@ -77,5 +77,5 @@
     <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Ikona e personalizuar"</string>
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Ngjyra e personalizuar"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Forma e personalizuar"</string>
-    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Emri i hartës së personalizuar"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Emri i stilit të personalizuar"</string>
 </resources>

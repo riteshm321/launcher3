@@ -19,6 +19,7 @@ import android.content.Context;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.model.theme.ThemeManager;
@@ -30,4 +31,12 @@ public interface CustomizationInjector extends Injector {
 
     ThemeManager getThemeManager(ThemeBundleProvider provider, FragmentActivity activity,
             OverlayManagerCompat overlayManagerCompat, ThemesUserEventLogger logger);
+
+    /**
+     * Obtain an extra CustomizationManager to add to the bottom nav
+     */
+    default CustomizationManager<?> getExtraManager(FragmentActivity activity,
+            OverlayManagerCompat overlayManagerCompat, ThemesUserEventLogger eventLogger) {
+        return null;
+    }
 }

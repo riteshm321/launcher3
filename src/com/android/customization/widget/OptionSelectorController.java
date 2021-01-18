@@ -153,6 +153,17 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
     }
 
     /**
+     * Notify that a given option has changed.
+     * @param option the option that changed
+     */
+    public void optionChanged(T option) {
+        if (!mOptions.contains(option)) {
+            throw new IllegalArgumentException("Invalid option");
+        }
+        mAdapter.notifyItemChanged(mOptions.indexOf(option));
+    }
+
+    /**
      * Initializes the UI for the options passed in the constructor of this class.
      */
     public void initOptions(final CustomizationManager<T> manager) {

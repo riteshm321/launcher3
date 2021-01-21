@@ -149,6 +149,9 @@ public class WallpaperPreviewer implements LifecycleObserver {
         ImageView homeImageWallpaper = mWallpaperSurfaceCallback.getHomeImageWallpaper();
         if (mWallpaper != null && homeImageWallpaper != null) {
             homeImageWallpaper.post(() -> {
+                if (mActivity == null || mActivity.isDestroyed()) {
+                    return;
+                }
                 boolean renderInImageWallpaperSurface = !(mWallpaper instanceof LiveWallpaperInfo);
                 mWallpaper.getThumbAsset(mActivity.getApplicationContext())
                         .loadPreviewImage(mActivity,

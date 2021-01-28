@@ -37,7 +37,7 @@ import static com.android.wallpaper.util.LaunchSourceUtils.WALLPAPER_LAUNCH_SOUR
 
 import android.app.WallpaperManager;
 import android.content.Intent;
-import android.stats.style.nano.StyleEnums;
+import android.stats.style.StyleEnums;
 
 import androidx.annotation.Nullable;
 

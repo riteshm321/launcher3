@@ -44,7 +44,7 @@
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
     <string name="font_card_body" msgid="6790525594503904468">"Gehitu gogoko dituzun letrak pantaila guztietan"</string>
     <string name="grid_options_title" msgid="7071930966989877023">"Aukeratu saretaren tamaina"</string>
-    <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
+    <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g> × <xliff:g id="ID_2">%2$d</xliff:g>"</string>
     <string name="applied_theme_msg" msgid="3749018706366796244">"Ezarri da estiloa"</string>
     <string name="applied_clock_msg" msgid="1303338016701443767">"Ezarri da erlojua"</string>
     <string name="applied_grid_msg" msgid="3250499654436933034">"Ezarri da sareta"</string>

@@ -84,7 +84,6 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
 
         // Set theme option.
         ViewGroup previewContainer = view.findViewById(R.id.theme_preview_container);
-        previewContainer.setOnClickListener(v -> showFullPreview());
         mThemeOptionPreviewer = new ThemeOptionPreviewer(getLifecycle(), getContext(),
                 previewContainer);
         PreviewInfo previewInfo = mCustomThemeManager.buildCustomThemePreviewInfo(getContext());
@@ -107,6 +106,8 @@ public class CustomThemeNameFragment extends CustomThemeStepFragment {
         // Set theme default name.
         mNameEditor = view.findViewById(R.id.custom_theme_name);
         mNameEditor.setText(getOriginalThemeName());
+
+        view.findViewById(R.id.theme_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 

@@ -16,7 +16,6 @@
 package com.android.customization.model;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -27,6 +26,20 @@ import java.util.List;
  * @param <T> the type of {@link CustomizationOption} that this Manager class provides.
  */
 public interface CustomizationManager<T extends CustomizationOption> {
+
+    /**
+     * Create a new {@link CustomizationSection} corresponding to this Manager
+     */
+    default CustomizationSection<T> createSection() {
+        return null;
+    }
+
+    /**
+     * @return the id in the navigation menu for the section this Manager manages.
+     */
+    default int getNavId() {
+        return 0;
+    };
 
     /**
      * Callback for applying a customization option.

@@ -16,6 +16,7 @@
 package com.android.customization.picker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -37,7 +38,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.customization.model.CustomizationManager;
-import com.android.customization.model.CustomizationOption;
+import com.android.customization.model.CustomizationSection;
 import com.android.customization.model.clock.ClockManager;
 import com.android.customization.model.clock.Clockface;
 import com.android.customization.model.clock.ContentProviderClockProvider;
@@ -90,8 +91,9 @@ import java.util.Map;
  *  Fragments providing customization options.
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
-        CategoryFragmentHost, ThemeFragmentHost, GridFragmentHost, ClockFragmentHost,
-        BottomActionBarHost, FragmentTransactionChecker {
+        CategoryFragmentHost, CustomizationFragmentHost,
+        ThemeFragmentHost, GridFragmentHost,
+        ClockFragmentHost, BottomActionBarHost, FragmentTransactionChecker {
 
     public static final String WALLPAPER_FLAVOR_EXTRA =
             "com.android.launcher3.WALLPAPER_FLAVOR";
@@ -180,7 +182,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         // Keep CategoryFragment's design to load category within its fragment
         if (section instanceof WallpaperSection) {
             switchFragment(section);
-            section.onVisible();
         }
     }
 
@@ -232,6 +233,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
         ThemesUserEventLogger eventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(
                 this);
+        CustomizationManager<?> extraManager = injector.getExtraManager(
+                this, new OverlayManagerCompat(this), eventLogger);
+        if (extraManager != null && extraManager.isAvailable()) {
+            mSections.put(extraManager.getNavId(), extraManager.createSection());
+        }
         ThemeManager themeManager = injector.getThemeManager(
                 new DefaultThemeProvider(this, injector.getCustomizationPreferences(this)),
                 this, new OverlayManagerCompat(this), eventLogger);
@@ -280,7 +286,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             int id = item.getItemId();
             CustomizationSection section = mSections.get(id);
             switchFragment(section);
-            section.onVisible();
             String name = getResources().getResourceName(id);
             if (!prefs.getTabVisited(name)) {
                 prefs.setTabVisited(name);
@@ -357,7 +362,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     private void switchFragment(CustomizationSection section) {
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
-        Fragment fragment = section.getFragment();
+        Fragment fragment = section.getFragment(this);
 
         final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -427,22 +432,29 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         return mDelegate;
     }
 
+
+    @Override
+    public CustomizationManager<?> getCustomizationManager(int id) {
+        CustomizationSection<?> section = mSections.get(id);
+        return section == null ? null : section.getCustomizationManager();
+    }
+
     @Override
     public ClockManager getClockManager() {
         CustomizationSection section = mSections.get(R.id.nav_clock);
-        return section == null ? null : (ClockManager) section.customizationManager;
+        return section == null ? null : (ClockManager) section.getCustomizationManager();
     }
 
     @Override
     public GridOptionsManager getGridOptionsManager() {
         CustomizationSection section = mSections.get(R.id.nav_grid);
-        return section == null ? null : (GridOptionsManager) section.customizationManager;
+        return section == null ? null : (GridOptionsManager) section.getCustomizationManager();
     }
 
     @Override
     public ThemeManager getThemeManager() {
         CustomizationSection section = mSections.get(R.id.nav_theme);
-        return section == null ? null : (ThemeManager) section.customizationManager;
+        return section == null ? null : (ThemeManager) section.getCustomizationManager();
     }
 
     @Override
@@ -476,32 +488,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     /**
-     * Represents a section of the Picker (eg "ThemeBundle", "Clock", etc).
-     * There should be a concrete subclass per available section, providing the corresponding
-     * Fragment to be displayed when switching to each section.
-     */
-    static abstract class CustomizationSection<T extends CustomizationOption> {
-
-        /**
-         * IdRes used to identify this section in the BottomNavigationView menu.
-         */
-        @IdRes final int id;
-        protected final CustomizationManager<T> customizationManager;
-
-        private CustomizationSection(@IdRes int id, CustomizationManager<T> manager) {
-            this.id = id;
-            this.customizationManager = manager;
-        }
-
-        /**
-         * @return the Fragment corresponding to this section.
-         */
-        abstract Fragment getFragment();
-
-        void onVisible() {}
-    }
-
-    /**
      * {@link CustomizationSection} corresponding to the "Wallpaper" section of the Picker.
      */
     private class WallpaperSection extends CustomizationSection {
@@ -511,7 +497,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
 
         @Override
-        Fragment getFragment() {
+        public Fragment getFragment(Context c) {
             if (mWallpaperCategoryFragment == null) {
                 mWallpaperCategoryFragment = CategoryFragment.newInstance(
                         getString(R.string.wallpaper_title));
@@ -529,7 +515,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
 
         @Override
-        Fragment getFragment() {
+        public Fragment getFragment(Context c) {
             if (mFragment == null) {
                 mFragment = ThemeFragment.newInstance(getString(R.string.theme_title));
             }
@@ -546,7 +532,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
 
         @Override
-        Fragment getFragment() {
+        public Fragment getFragment(Context c) {
             if (mFragment == null) {
                 mFragment = GridFragment.newInstance(getString(R.string.grid_title));
             }
@@ -563,7 +549,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         }
 
         @Override
-        Fragment getFragment() {
+        public Fragment getFragment(Context c) {
             if (mFragment == null) {
                 mFragment = ClockFragment.newInstance(getString(R.string.clock_title));
             }

@@ -28,7 +28,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.preference.PreferenceDataStore;
-import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.SwitchPreference;
 
@@ -42,7 +42,7 @@ public final class FlagTogglerPrefUi {
 
     private static final String TAG = "FlagTogglerPrefFrag";
 
-    private final PreferenceFragmentCompat mFragment;
+    private final PreferenceFragment mFragment;
     private final Context mContext;
     private final SharedPreferences mSharedPreferences;
 
@@ -76,7 +76,7 @@ public final class FlagTogglerPrefUi {
         }
     };
 
-    public FlagTogglerPrefUi(PreferenceFragmentCompat fragment) {
+    public FlagTogglerPrefUi(PreferenceFragment fragment) {
         mFragment = fragment;
         mContext = fragment.getActivity();
         mSharedPreferences = mContext.getSharedPreferences(

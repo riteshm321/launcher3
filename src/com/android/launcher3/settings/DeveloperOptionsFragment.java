@@ -53,7 +53,7 @@ import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDataStore;
-import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceViewHolder;
@@ -77,7 +77,7 @@ import java.util.stream.Collectors;
  * See {@link FeatureFlags}.
  */
 @TargetApi(Build.VERSION_CODES.O)
-public class DeveloperOptionsFragment extends PreferenceFragmentCompat {
+public class DeveloperOptionsFragment extends PreferenceFragment {
 
     private static final String ACTION_PLUGIN_SETTINGS = "com.android.systemui.action.PLUGIN_SETTINGS";
     private static final String PLUGIN_PERMISSION = "com.android.systemui.permission.PLUGIN";

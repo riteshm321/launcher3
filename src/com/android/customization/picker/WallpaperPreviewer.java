@@ -148,34 +148,36 @@ public class WallpaperPreviewer implements LifecycleObserver {
     private void setUpWallpaperPreview() {
         ImageView homeImageWallpaper = mWallpaperSurfaceCallback.getHomeImageWallpaper();
         if (mWallpaper != null && homeImageWallpaper != null) {
-            boolean renderInImageWallpaperSurface = !(mWallpaper instanceof LiveWallpaperInfo);
-            mWallpaper.getThumbAsset(mActivity.getApplicationContext())
-                    .loadPreviewImage(mActivity,
-                            renderInImageWallpaperSurface ? homeImageWallpaper : mHomePreview,
-                            mActivity.getResources().getColor(R.color.secondary_color));
-            LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
-            if (mWallpaper instanceof LiveWallpaperInfo) {
+            homeImageWallpaper.post(() -> {
+                boolean renderInImageWallpaperSurface = !(mWallpaper instanceof LiveWallpaperInfo);
                 mWallpaper.getThumbAsset(mActivity.getApplicationContext())
-                        .loadPreviewImage(
-                                mActivity,
-                                homeImageWallpaper,
-                                mActivity.getColor(R.color.secondary_color));
-                setUpLiveWallpaperPreview(mWallpaper);
-            } else {
-                // Ensure live wallpaper connection is disconnected.
-                if (mWallpaperConnection != null) {
-                    mWallpaperConnection.disconnect();
-                    mWallpaperConnection = null;
-                }
+                        .loadPreviewImage(mActivity,
+                                renderInImageWallpaperSurface ? homeImageWallpaper : mHomePreview,
+                                mActivity.getResources().getColor(R.color.secondary_color));
+                LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
+                if (mWallpaper instanceof LiveWallpaperInfo) {
+                    mWallpaper.getThumbAsset(mActivity.getApplicationContext())
+                            .loadPreviewImage(
+                                    mActivity,
+                                    homeImageWallpaper,
+                                    mActivity.getColor(R.color.secondary_color));
+                    setUpLiveWallpaperPreview(mWallpaper);
+                } else {
+                    // Ensure live wallpaper connection is disconnected.
+                    if (mWallpaperConnection != null) {
+                        mWallpaperConnection.disconnect();
+                        mWallpaperConnection = null;
+                    }
 
-                // Load wallpaper color for static wallpaper.
-                if (mWallpaperColorsListener != null) {
-                    WallpaperColorsLoader.getWallpaperColors(
-                            mActivity,
-                            mWallpaper.getThumbAsset(mActivity),
-                            mWallpaperColorsListener::onWallpaperColorsChanged);
+                    // Load wallpaper color for static wallpaper.
+                    if (mWallpaperColorsListener != null) {
+                        WallpaperColorsLoader.getWallpaperColors(
+                                mActivity,
+                                mWallpaper.getThumbAsset(mActivity),
+                                mWallpaperColorsListener::onWallpaperColorsChanged);
+                    }
                 }
-            }
+            });
         }
     }
 

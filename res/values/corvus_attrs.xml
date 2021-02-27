@@ -15,10 +15,13 @@
      limitations under the License.
 -->
 <resources>
-    <color name="qsb_primary">@*android:color/system_accent3_500</color>
-    <color name="qsb_secondary">@*android:color/system_neutral1_800</color>
-    <color name="qsb_tertiary">@*android:color/system_neutral1_500</color>
-    <color name="qsb_quaternary">@*android:color/system_neutral1_800</color>
 
-    <color name="disabled_text_color">#66000000</color> <!-- 38% black -->
+    <!-- Base attributes available to CustomSeekBarPreference. -->
+    <declare-styleable name="CustomSeekBarPreference">
+        <attr name="defaultValueText" format="string" />
+        <attr name="interval" format="integer" />
+        <attr name="showSign" format="boolean" />
+        <attr name="units" format="string|reference" />
+        <attr name="continuousUpdates" format="boolean" />
+    </declare-styleable>
 </resources>

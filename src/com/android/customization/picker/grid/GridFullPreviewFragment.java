@@ -124,6 +124,7 @@ public class GridFullPreviewFragment extends AppbarFragment {
 
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
+        super.onBottomActionBarReady(bottomActionBar);
         bottomActionBar.showActionsOnly(APPLY);
         bottomActionBar.setActionClickListener(APPLY, v -> finishActivityWithResultOk());
         bottomActionBar.show();

@@ -125,6 +125,7 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
 
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
+        super.onBottomActionBarReady(bottomActionBar);
         if (mCanApplyFromFullPreview) {
             bottomActionBar.showActionsOnly(INFORMATION, APPLY);
             bottomActionBar.setActionClickListener(APPLY, v -> finishActivityWithResultOk());

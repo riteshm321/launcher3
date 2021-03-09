@@ -16,6 +16,7 @@
 package com.android.customization.module;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -38,5 +39,24 @@ public interface CustomizationInjector extends Injector {
     default CustomizationManager<?> getExtraManager(FragmentActivity activity,
             OverlayManagerCompat overlayManagerCompat, ThemesUserEventLogger eventLogger) {
         return null;
+    }
+
+    /**
+     * Obtain an extra Customization intent to start Activity if any.
+     *
+     * @param context The {@link Context} of the application
+     * @return intent The {@link Intent} to start Activity
+     */
+    default Intent getCustomizeExtIntent(Context context) {
+        return null;
+    }
+
+    /**
+     * Check if the system supporting customization extension.
+     *
+     * @return {@code true} if the system supports customization extension, {@code false} otherwise.
+     */
+    default boolean supportsCustomizationExtended() {
+        return false;
     }
 }

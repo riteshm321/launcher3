@@ -120,6 +120,11 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         // Restore this Activity's state before restoring contained Fragments state.
         super.onCreate(savedInstanceState);
 
+        if (supportsCustomizationExtended()) {
+            Log.d(TAG, "Customization picker extended");
+            skipToCustomizationExtPicker();
+            return;
+        }
         if (!supportsCustomization()) {
             Log.w(TAG, "Themes not supported, reverting to Wallpaper Picker");
             skipToWallpaperPicker();
@@ -214,9 +219,27 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         finish();
     }
 
+    private void skipToCustomizationExtPicker() {
+        CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
+        Intent intent = injector.getCustomizeExtIntent(getApplicationContext());
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            intent.putExtras(getIntent().getExtras());
+        }
+        if (DeepLinkUtils.isDeepLink(getIntent())) {
+            intent.setData(getIntent().getData());
+        }
+        startActivity(intent);
+        finish();
+    }
+
     private boolean supportsCustomization() {
         return mDelegate.getFormFactor() == FormFactorChecker.FORM_FACTOR_MOBILE
                 && mSections.size() > 1;
+    }
+
+    private boolean supportsCustomizationExtended() {
+        CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
+        return injector.supportsCustomizationExtended();
     }
 
     private void initSections() {

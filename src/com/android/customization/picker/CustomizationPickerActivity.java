@@ -71,6 +71,7 @@ import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.picker.BottomActionBarFragment;
 import com.android.wallpaper.picker.CategoryFragment;
 import com.android.wallpaper.picker.CategoryFragment.CategoryFragmentHost;
+import com.android.wallpaper.picker.CategorySelectorFragment;
 import com.android.wallpaper.picker.FragmentTransactionChecker;
 import com.android.wallpaper.picker.MyPhotosStarter;
 import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
@@ -435,8 +436,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Nullable
     @Override
-    public CategoryFragment getCategoryFragment() {
-        return mWallpaperCategoryFragment;
+    public CategorySelectorFragment getCategorySelectorFragment() {
+        return mWallpaperCategoryFragment.getCategorySelectorFragment();
     }
 
     @Override

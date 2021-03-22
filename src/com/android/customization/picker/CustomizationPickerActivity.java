@@ -437,6 +437,9 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     @Nullable
     @Override
     public CategorySelectorFragment getCategorySelectorFragment() {
+        if (mWallpaperCategoryFragment == null) {
+            return null;
+        }
         return mWallpaperCategoryFragment.getCategorySelectorFragment();
     }
 

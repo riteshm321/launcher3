@@ -53,6 +53,7 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.theme.CustomThemeStepFragment.CustomThemeComponentStepHost;
 import com.android.wallpaper.R;
 import com.android.wallpaper.module.InjectorProvider;
+import com.android.wallpaper.picker.AppbarFragment.AppbarFragmentHost;
 
 import org.json.JSONException;
 
@@ -60,7 +61,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomThemeActivity extends FragmentActivity implements
-        CustomThemeComponentStepHost {
+        AppbarFragmentHost, CustomThemeComponentStepHost {
     public static final String EXTRA_THEME_ID = "CustomThemeActivity.ThemeId";
     public static final String EXTRA_THEME_TITLE = "CustomThemeActivity.ThemeTitle";
     public static final String EXTRA_THEME_PACKAGES = "CustomThemeActivity.ThemePackages";
@@ -281,6 +282,19 @@ public class CustomThemeActivity extends FragmentActivity implements
     @Override
     public CustomThemeManager getCustomThemeManager() {
         return mCustomThemeManager;
+    }
+
+    @Override
+    public void onUpArrowPressed() {
+        // Skip it because CustomThemeStepFragment will implement cancel button
+        // (instead of up arrow) on action bar.
+    }
+
+    @Override
+    public boolean isUpArrowSupported() {
+        // Skip it because CustomThemeStepFragment will implement cancel button
+        // (instead of up arrow) on action bar.
+        return false;
     }
 
     /**

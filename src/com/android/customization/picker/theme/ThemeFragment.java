@@ -57,7 +57,6 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
-import com.android.wallpaper.util.ActivityUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.AccessibilityCallback;
 
@@ -116,7 +115,7 @@ public class ThemeFragment extends AppbarFragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.fragment_theme_picker, container, /* attachToRoot */ false);
-        setUpToolbar(view, ActivityUtils.isLaunchedFromSettings(getActivity().getIntent()));
+        setUpToolbar(view);
 
         mContent = view.findViewById(R.id.content_section);
         mLoading = view.findViewById(R.id.loading_indicator);

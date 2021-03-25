@@ -50,7 +50,6 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
-import com.android.wallpaper.util.ActivityUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 
 import com.bumptech.glide.Glide;
@@ -111,7 +110,7 @@ public class GridFragment extends AppbarFragment {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(
                 R.layout.fragment_grid_picker, container, /* attachToRoot */ false);
-        setUpToolbar(view, ActivityUtils.isLaunchedFromSettings(getActivity().getIntent()));
+        setUpToolbar(view);
         mContent = view.findViewById(R.id.content_section);
         mOptionsContainer = view.findViewById(R.id.options_container);
         mLoading = view.findViewById(R.id.loading_indicator);

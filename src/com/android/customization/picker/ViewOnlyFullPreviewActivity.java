@@ -30,6 +30,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.android.customization.picker.grid.GridFullPreviewFragment;
 import com.android.customization.picker.theme.ThemeFullPreviewFragment;
 import com.android.wallpaper.R;
+import com.android.wallpaper.picker.AppbarFragment.AppbarFragmentHost;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
 
@@ -37,7 +38,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /** Activity for full preview. */
-public class ViewOnlyFullPreviewActivity extends FragmentActivity implements BottomActionBarHost {
+public class ViewOnlyFullPreviewActivity extends FragmentActivity implements AppbarFragmentHost,
+        BottomActionBarHost {
 
     private static final String EXTRA_PREVIEW_SECTION = "preview_section";
     private static final String EXTRA_PREVIEW_BUNDLE = "preview_bundle";
@@ -45,6 +47,16 @@ public class ViewOnlyFullPreviewActivity extends FragmentActivity implements Bot
     public static final int SECTION_STYLE = 0;
     public static final int SECTION_GRID = 1;
     public static final int SECTION_CLOCK = 2;
+
+    @Override
+    public void onUpArrowPressed() {
+        onBackPressed();
+    }
+
+    @Override
+    public boolean isUpArrowSupported() {
+        return true;
+    }
 
     @IntDef({SECTION_STYLE, SECTION_GRID, SECTION_CLOCK})
     @Retention(RetentionPolicy.SOURCE)

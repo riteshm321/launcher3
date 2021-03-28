@@ -241,7 +241,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private boolean supportsCustomizationExtended() {
         CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
-        return injector.supportsCustomizationExtended();
+        return injector.supportsCustomizationExtended(this);
     }
 
     private void initSections() {

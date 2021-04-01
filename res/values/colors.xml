@@ -52,4 +52,6 @@
     <color name="divider_color">@color/black_14_alpha</color>
 
     <color name="cover_title_color">@color/black_87_alpha</color>
+
+    <color name="center_check_color">#EDF2EB</color>
 </resources>

@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.customization.model.theme.custom.ThemeComponentOption;
 import com.android.customization.model.theme.custom.ThemeComponentOptionProvider;
 import com.android.customization.widget.OptionSelectorController;
+import com.android.customization.widget.OptionSelectorController.CheckmarkStyle;
 import com.android.wallpaper.R;
 import com.android.wallpaper.picker.AppbarFragment;
 
@@ -94,7 +95,7 @@ public class CustomThemeComponentFragment extends CustomThemeStepFragment {
     private void setUpOptions() {
         mProvider.fetch(options -> {
             mOptionsController = new OptionSelectorController(
-                    mOptionsContainer, options, mUseGridLayout, false);
+                    mOptionsContainer, options, mUseGridLayout, CheckmarkStyle.NONE);
 
             mOptionsController.addListener(selected -> {
                 mSelectedOption = (ThemeComponentOption) selected;

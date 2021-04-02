@@ -56,7 +56,7 @@ public interface CustomizationInjector extends Injector {
      *
      * @return {@code true} if the system supports customization extension, {@code false} otherwise.
      */
-    default boolean supportsCustomizationExtended() {
+    default boolean supportsCustomizationExtended(Context context) {
         return false;
     }
 }

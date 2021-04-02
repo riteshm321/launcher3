@@ -25,9 +25,11 @@ import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__
 import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_LAUNCH_ICON;
 import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_PREFERENCE_UNSPECIFIED;
 import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_SETTINGS;
+import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_SETTINGS_SEARCH;
 import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_SUW;
 import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_TIPS;
 import static com.android.systemui.shared.system.SysUiStatsLog.STYLE_UI_CHANGED;
+import static com.android.wallpaper.util.LaunchSourceUtils.LAUNCH_SETTINGS_SEARCH;
 import static com.android.wallpaper.util.LaunchSourceUtils.LAUNCH_SOURCE_DEEP_LINK;
 import static com.android.wallpaper.util.LaunchSourceUtils.LAUNCH_SOURCE_LAUNCHER;
 import static com.android.wallpaper.util.LaunchSourceUtils.LAUNCH_SOURCE_SETTINGS;
@@ -194,6 +196,8 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
                 default:
                     return STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_PREFERENCE_UNSPECIFIED;
             }
+        } else if (launchSource.hasExtra(LAUNCH_SETTINGS_SEARCH)) {
+            return STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_SETTINGS_SEARCH;
         } else if (launchSource.getAction() != null && launchSource.getAction().equals(
                 WallpaperManager.ACTION_CROP_AND_SET_WALLPAPER)) {
             return STYLE_UICHANGED__LAUNCHED_PREFERENCE__LAUNCHED_CROP_AND_SET_ACTION;

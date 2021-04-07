@@ -28,7 +28,7 @@
 
     <!-- Title of a section of the customization picker where the user can select a Grid size for
         the home screen. [CHAR LIMIT=15] -->
-    <string name="grid_title">Grid</string>
+    <string name="grid_title">App grid</string>
 
     <!-- Label for a button that allows the user to apply the currently selected Theme.
         [CHAR LIMIT=20] -->

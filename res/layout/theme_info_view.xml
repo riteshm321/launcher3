@@ -20,9 +20,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/wallpaper_info_pane_horizontal_padding"
-    android:paddingTop="@dimen/wallpaper_info_pane_top_padding"
-    android:paddingBottom="@dimen/wallpaper_info_pane_bottom_padding"
+    android:padding="@dimen/wallpaper_info_pane_padding"
     android:theme="@style/WallpaperPicker.BottomPaneStyle">
 
     <TextView

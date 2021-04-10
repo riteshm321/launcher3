@@ -20,7 +20,7 @@
     <string name="app_name" msgid="6995669566699638946">"Stílusok és háttérképek"</string>
     <string name="theme_title" msgid="2144932106319405101">"Stílus"</string>
     <string name="clock_title" msgid="2126046720254613991">"Óra"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Rács"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Alkalmazásrács"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Alkalmaz"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Koppintson a szerkesztéshez"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Jelenlegi háttérkép megtartása"</string>

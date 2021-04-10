@@ -33,13 +33,9 @@ import androidx.annotation.Nullable;
 
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.grid.GridOptionsManager;
-import com.android.customization.model.grid.LauncherGridOptionsProvider;
-import com.android.customization.module.CustomizationInjector;
-import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
-import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
 
@@ -93,16 +89,7 @@ public class GridFullPreviewFragment extends AppbarFragment {
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
         mWallpaperPreviewer = new WallpaperPreviewer(
                 getLifecycle(), getActivity(), wallpaperPreviewImage, wallpaperSurface);
-
-        CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
-        ThemesUserEventLogger eventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(
-                getContext());
-        final GridOptionsManager gridManager = new GridOptionsManager(
-                new LauncherGridOptionsProvider(getContext(),
-                        getString(R.string.grid_control_metadata_name)),
-                eventLogger);
-
-        mGridOptionPreviewer = new GridOptionPreviewer(gridManager,
+        mGridOptionPreviewer = new GridOptionPreviewer(GridOptionsManager.get(getContext()),
                 view.findViewById(R.id.grid_preview_container));
         return view;
     }

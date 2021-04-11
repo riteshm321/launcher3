@@ -44,7 +44,6 @@ import com.android.customization.model.clock.Clockface;
 import com.android.customization.model.clock.ContentProviderClockProvider;
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.grid.GridOptionsManager;
-import com.android.customization.model.grid.LauncherGridOptionsProvider;
 import com.android.customization.model.theme.DefaultThemeProvider;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundle;
@@ -55,7 +54,6 @@ import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.clock.ClockFragment;
 import com.android.customization.picker.clock.ClockFragment.ClockFragmentHost;
 import com.android.customization.picker.grid.GridFragment;
-import com.android.customization.picker.grid.GridFragment.GridFragmentHost;
 import com.android.customization.picker.theme.ThemeFragment;
 import com.android.customization.picker.theme.ThemeFragment.ThemeFragmentHost;
 import com.android.customization.widget.NoTintDrawableWrapper;
@@ -93,8 +91,7 @@ import java.util.Map;
  *  Fragments providing customization options.
  */
 public class CustomizationPickerActivity extends FragmentActivity implements WallpapersUiContainer,
-        AppbarFragmentHost, CategoryFragmentHost, CustomizationFragmentHost,
-        ThemeFragmentHost, GridFragmentHost,
+        AppbarFragmentHost, CategoryFragmentHost, CustomizationFragmentHost, ThemeFragmentHost,
         ClockFragmentHost, BottomActionBarHost, FragmentTransactionChecker {
 
     public static final String WALLPAPER_FLAVOR_EXTRA =
@@ -280,10 +277,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             Log.d(TAG, "ClockManager not available, removing Clock section");
         }
         //Grid
-        GridOptionsManager gridManager = new GridOptionsManager(
-                new LauncherGridOptionsProvider(this,
-                        getString(R.string.grid_control_metadata_name)),
-                eventLogger);
+        GridOptionsManager gridManager = GridOptionsManager.get(this);
         if (gridManager.isAvailable()) {
             mSections.put(R.id.nav_grid, new GridSection(R.id.nav_grid, gridManager));
         } else {
@@ -422,7 +416,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void fetchCategories() {
-        mDelegate.initialize(!mDelegate.getCategoryProvider().isCategoriesFetched());
+        mDelegate.initialize(false);
     }
 
     @Override
@@ -471,12 +465,6 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     public ClockManager getClockManager() {
         CustomizationSection section = mSections.get(R.id.nav_clock);
         return section == null ? null : (ClockManager) section.getCustomizationManager();
-    }
-
-    @Override
-    public GridOptionsManager getGridOptionsManager() {
-        CustomizationSection section = mSections.get(R.id.nav_grid);
-        return section == null ? null : (GridOptionsManager) section.getCustomizationManager();
     }
 
     @Override

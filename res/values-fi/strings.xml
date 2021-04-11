@@ -20,7 +20,7 @@
     <string name="app_name" msgid="6995669566699638946">"Tyylit ja taustakuvat"</string>
     <string name="theme_title" msgid="2144932106319405101">"Tyyli"</string>
     <string name="clock_title" msgid="2126046720254613991">"Kello"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Ruudukko"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Ruudukko"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Käytä"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Muokkaa napauttamalla"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Säilytä nykyinen taustakuva"</string>
@@ -63,7 +63,7 @@
     <string name="icon_component_label" msgid="2625784884001407944">"Kuvakkeet <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="delete_custom_theme_confirmation" msgid="4452137183628769394">"Poistetaanko oma tyyli?"</string>
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Poista"</string>
-    <string name="cancel" msgid="4651030493668562067">"Peruuta"</string>
+    <string name="cancel" msgid="4651030493668562067">"Peru"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Aseta tyylin taustakuva"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"Valitaanko sittenkin <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
     <string name="use_style_instead_body" msgid="3051937045807471496">"<xliff:g id="ID_1">%1$s</xliff:g> on tyyliltään sama kuin valitsemasi osat. Haluatko mieluummin, että <xliff:g id="ID_2">%1$s</xliff:g> valitaan?"</string>

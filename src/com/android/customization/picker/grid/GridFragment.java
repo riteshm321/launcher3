@@ -22,7 +22,6 @@ import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTR
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,13 +69,6 @@ public class GridFragment extends AppbarFragment {
 
     private static final String TAG = "GridFragment";
 
-    /**
-     * Interface to be implemented by an Activity hosting a {@link GridFragment}
-     */
-    public interface GridFragmentHost {
-        GridOptionsManager getGridOptionsManager();
-    }
-
     public static GridFragment newInstance(CharSequence title) {
         GridFragment fragment = new GridFragment();
         fragment.setArguments(AppbarFragment.createArguments(title));
@@ -113,14 +105,6 @@ public class GridFragment extends AppbarFragment {
         }
     };
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mGridManager = ((GridFragmentHost) context).getGridOptionsManager();
-        mEventLogger = (ThemesUserEventLogger)
-                InjectorProvider.getInjector().getUserEventLogger(context);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -135,6 +119,10 @@ public class GridFragment extends AppbarFragment {
 
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
+
+        mGridManager = GridOptionsManager.get(getContext());
+        mEventLogger = (ThemesUserEventLogger) InjectorProvider.getInjector()
+                .getUserEventLogger(getContext());
         setUpOptions(savedInstanceState);
 
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
@@ -233,7 +221,7 @@ public class GridFragment extends AppbarFragment {
                 }
                 showError();
             }
-        }, false);
+        }, /*reload= */ true);
     }
 
     private GridOption getActiveOption(List<GridOption> options) {

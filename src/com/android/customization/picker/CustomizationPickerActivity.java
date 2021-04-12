@@ -77,6 +77,7 @@ import com.android.wallpaper.picker.MyPhotosStarter.PermissionChangedListener;
 import com.android.wallpaper.picker.TopLevelPickerActivity;
 import com.android.wallpaper.picker.WallpaperPickerDelegate;
 import com.android.wallpaper.picker.WallpapersUiContainer;
+import com.android.wallpaper.util.ActivityUtils;
 import com.android.wallpaper.util.DeepLinkUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.BottomActionBarHost;
@@ -505,7 +506,27 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void onUpArrowPressed() {
-        onBackPressed();
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (fragment instanceof BottomActionBarFragment
+                && ((BottomActionBarFragment) fragment).onBackPressed()) {
+            return;
+        }
+
+        // For wallpaper tab, since it had child fragment.
+        if (mWallpaperCategoryFragment != null && mWallpaperCategoryFragment.popChildFragment()) {
+            return;
+        }
+
+        if (getSupportFragmentManager().popBackStackImmediate()) {
+            return;
+        }
+
+        if (!ActivityUtils.isLaunchedFromSettings(getIntent())) {
+            Intent intent = new Intent(Settings.ACTION_SETTINGS);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        finish();
     }
 
     @Override

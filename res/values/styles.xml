@@ -20,8 +20,6 @@
     <style name="CustomizationTheme" parent="@android:style/Theme.DeviceDefault.Settings">
         <item name="colorPrimary">?android:colorPrimary</item>
 
-        <item name="android:statusBarColor">?android:colorPrimary</item>
-
         <item name="android:navigationBarColor">?android:colorPrimaryDark</item>
         <item name="android:navigationBarDividerColor">@android:color/transparent</item>
 

@@ -34,47 +34,27 @@
             <FrameLayout
                 android:id="@+id/preview_card_container"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:paddingTop="@dimen/preview_content_padding_top"
-                android:paddingBottom="@dimen/preview_content_padding_bottom"
-                android:clipToPadding="false"
-                app:layout_constrainedHeight="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/options_title"
-                app:layout_constraintHeight_max="@dimen/preview_pager_max_height"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintHeight_percent="@dimen/preview_pager_maximum_height_ratio">
-                <include layout="@layout/grid_preview_card"/>
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/options_title"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:colorPrimary"
-                android:gravity="center"
-                android:paddingVertical="18dp"
-                android:lineHeight="24dp"
-                android:singleLine="true"
-                android:text="@string/grid_options_title"
-                android:textAppearance="@style/TitleTextAppearance"
-                app:layout_constraintStart_toStartOf="parent"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/preview_page_top_margin"
+                android:paddingBottom="@dimen/preview_page_bottom_margin"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toTopOf="@+id/options_container"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/preview_card_container"
-                app:layout_constraintBottom_toTopOf="@id/options_container" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include layout="@layout/grid_preview_card" />
+            </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/options_container"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="?android:colorPrimary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/options_title"
+                android:layout_height="@dimen/options_container_height"
+
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.ContentLoadingProgressBar

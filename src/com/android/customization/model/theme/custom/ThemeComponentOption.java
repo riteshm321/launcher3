@@ -63,6 +63,7 @@ import com.android.customization.model.ResourceConstants;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.customization.model.theme.custom.CustomTheme.Builder;
 import com.android.wallpaper.R;
+import com.android.wallpaper.util.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -211,7 +212,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             Resources res = view.getContext().getResources();
             Drawable icon = mIcons.get(THUMBNAIL_ICON_POSITION)
                     .getConstantState().newDrawable().mutate();
-            icon.setTint(res.getColor(R.color.icon_thumbnail_color, null));
+            icon.setTint(ResourceUtils.getColorAttr(
+                    view.getContext(), android.R.attr.textColorSecondary));
             ((ImageView) view.findViewById(R.id.option_icon)).setImageDrawable(
                     icon);
             view.setContentDescription(mLabel);
@@ -391,7 +393,9 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             }
             Resources res = container.getResources();
             @ColorInt int accentColor = resolveColor(res);
-            @ColorInt int controlGreyColor = res.getColor(R.color.control_grey);
+            @ColorInt int controlGreyColor = ResourceUtils.getColorAttr(
+                    container.getContext(),
+                    android.R.attr.textColorTertiary);
             ColorStateList tintList = new ColorStateList(
                     new int[][]{
                             new int[]{android.R.attr.state_selected},
@@ -422,7 +426,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             // Disable seekbar
             seekbar.setOnTouchListener((view, motionEvent) -> true);
 
-            int iconFgColor = res.getColor(R.color.tile_enabled_icon_color, null);
+            int iconFgColor = ResourceUtils.getColorAttr(container.getContext(),
+                    android.R.attr.colorBackground);
             if (!mIcons.isEmpty() && mShapeDrawable != null) {
                 for (int i = 0; i < COLOR_TILE_IDS.length; i++) {
                     Drawable icon = mIcons.get(COLOR_TILES_ICON_IDS[i][1]).getConstantState()
@@ -500,7 +505,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
                     new int[]{android.R.attr.colorPrimary});
             int primaryColor = ta.getColor(0, 0);
             ta.recycle();
-            int foregroundColor = res.getColor(R.color.shape_option_tile_foreground_color, theme);
+            int foregroundColor =
+                    ResourceUtils.getColorAttr(view.getContext(), android.R.attr.textColorPrimary);
 
             foreground.setTint(ColorUtils.blendARGB(primaryColor, foregroundColor, .05f));
 

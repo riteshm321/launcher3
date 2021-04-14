@@ -29,7 +29,7 @@
     <dimen name="component_preview_page_bottom_margin">16dp</dimen>
 
     <!-- Dimensions for the customization option tiles -->
-    <dimen name="options_container_height">120dp</dimen>
+    <dimen name="options_container_height">124dp</dimen>
     <dimen name="options_container_width">0dp</dimen>
     <dimen name="option_tile_width">88dp</dimen>
     <dimen name="option_icon_size">16dp</dimen>
@@ -41,8 +41,8 @@
     <dimen name="theme_option_font_sample_width">52dp</dimen>
     <dimen name="theme_option_sample_margin">10dp</dimen>
     <!-- Note, using dp instead of sp as this is just the "+" symbol, not text -->
-    <dimen name="option_tile_padding_vertical">18dp</dimen>
-    <dimen name="option_tile_padding_horizontal">18dp</dimen>
+    <dimen name="option_tile_padding_vertical">12dp</dimen>
+    <dimen name="option_tile_padding_horizontal">12dp</dimen>
 
     <dimen name="option_bottom_margin">8dp</dimen>
     <dimen name="option_padding_horizontal">2dp</dimen>

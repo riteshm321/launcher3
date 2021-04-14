@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 
 import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.CustomizationOption;
+import com.android.customization.util.ResourceUtils;
 import com.android.customization.widget.GridTileDrawable;
 import com.android.wallpaper.R;
 
@@ -91,8 +92,10 @@ public class GridOption implements CustomizationOption<GridOption>, Parcelable {
     public void bindThumbnailTile(View view) {
         Context context = view.getContext();
 
-        mTileDrawable.setColorFilter(context.getResources().getColor(
-                R.color.material_grey500, null), Mode.ADD);
+        int colorFilter = ResourceUtils.getColorAttr(context,
+                mIsCurrent ? android.R.attr.textColorPrimary :
+                android.R.attr.textColorTertiary);
+        mTileDrawable.setColorFilter(colorFilter, Mode.SRC_ATOP);
         ((ImageView) view.findViewById(R.id.grid_option_thumbnail))
                 .setImageDrawable(mTileDrawable);
     }
@@ -137,5 +140,14 @@ public class GridOption implements CustomizationOption<GridOption>, Parcelable {
         parcel.writeInt(cols);
         parcel.writeParcelable(previewImageUri, i);
         parcel.writeInt(previewPagesCount);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "GridOption{mTitle='%s', mIsCurrent=%s, mTileDrawable=%s, name='%s', rows=%d, "
+                        + "cols=%d, previewImageUri=%s, previewPagesCount=%d}\n",
+                mTitle, mIsCurrent, mTileDrawable, name, rows, cols, previewImageUri,
+                previewPagesCount);
     }
 }

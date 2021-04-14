@@ -417,7 +417,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     @Override
     public void fetchCategories() {
-        mDelegate.initialize(false);
+        mDelegate.initialize(!mDelegate.getCategoryProvider().isCategoriesFetched());
     }
 
     @Override

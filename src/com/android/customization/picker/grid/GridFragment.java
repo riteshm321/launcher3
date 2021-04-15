@@ -116,6 +116,16 @@ public class GridFragment extends AppbarFragment {
         mLoading = view.findViewById(R.id.loading_indicator);
         mError = view.findViewById(R.id.error_section);
 
+        // For nav bar edge-to-edge effect.
+        view.setOnApplyWindowInsetsListener((v, windowInsets) -> {
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    v.getPaddingTop(),
+                    v.getPaddingRight(),
+                    windowInsets.getSystemWindowInsetBottom());
+            return windowInsets.consumeSystemWindowInsets();
+        });
+
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
 

@@ -314,8 +314,6 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                 ((GridLayoutManager) mContainer.getLayoutManager()).setSpanCount(numColumns);
             }
 
-            int containerSidePadding = (extraSpace / (numColumns + 1)) / 2;
-            mContainer.setPaddingRelative(containerSidePadding, 0, containerSidePadding, 0);
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
             return;
         }
@@ -324,7 +322,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         if (extraSpace >= 0) {
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
-        int itemSideMargin =  res.getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal);
+        int itemSideMargin = res.getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal);
         int defaultTotalPadding = itemSideMargin * (mAdapter.getItemCount() * 2 + 2);
         if (extraSpace > defaultTotalPadding) {
             int spaceBetweenItems = extraSpace / (mAdapter.getItemCount() + 1);

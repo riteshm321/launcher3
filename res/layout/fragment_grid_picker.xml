@@ -51,7 +51,7 @@
                 android:id="@+id/options_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/options_container_height"
-
+                android:layout_marginBottom="@dimen/options_container_bottom_margin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

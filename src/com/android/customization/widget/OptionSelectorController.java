@@ -80,8 +80,8 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
     private final Set<OptionSelectedListener> mListeners = new HashSet<>();
     private RecyclerView.Adapter<TileViewHolder> mAdapter;
-    private CustomizationOption mSelectedOption;
-    private CustomizationOption mAppliedOption;
+    private T mSelectedOption;
+    private T mAppliedOption;
 
     public OptionSelectorController(RecyclerView container, List<T> options) {
         this(container, options, true, CheckmarkStyle.CORNER);
@@ -103,7 +103,10 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         mListeners.remove(listener);
     }
 
-    public void setSelectedOption(CustomizationOption option) {
+    /**
+     * Mark the given option as selected
+     */
+    public void setSelectedOption(T option) {
         if (!mOptions.contains(option)) {
             throw new IllegalArgumentException("Invalid option");
         }
@@ -114,15 +117,22 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
     }
 
     /**
+     * @return whether this controller contains the given option
+     */
+    public boolean containsOption(T option) {
+        return mOptions.contains(option);
+    }
+
+    /**
      * Mark an option as the one which is currently applied on the device. This will result in a
      * check being displayed in the lower-right corner of the corresponding ViewHolder.
      * @param option
      */
-    public void setAppliedOption(CustomizationOption option) {
+    public void setAppliedOption(T option) {
         if (!mOptions.contains(option)) {
             throw new IllegalArgumentException("Invalid option");
         }
-        CustomizationOption lastAppliedOption = mAppliedOption;
+        T lastAppliedOption = mAppliedOption;
         mAppliedOption = option;
         mAdapter.notifyItemChanged(mOptions.indexOf(option));
         if (lastAppliedOption != null) {
@@ -130,7 +140,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         }
     }
 
-    private void updateActivatedStatus(CustomizationOption option, boolean isActivated) {
+    private void updateActivatedStatus(T option, boolean isActivated) {
         int index = mOptions.indexOf(option);
         if (index < 0) {
             return;
@@ -195,7 +205,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
             @Override
             public void onBindViewHolder(@NonNull TileViewHolder holder, int position) {
-                CustomizationOption option = mOptions.get(position);
+                T option = mOptions.get(position);
                 if (option.isActive(manager)) {
                     mAppliedOption = option;
                     if (mSelectedOption == null) {
@@ -304,8 +314,6 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                 ((GridLayoutManager) mContainer.getLayoutManager()).setSpanCount(numColumns);
             }
 
-            int containerSidePadding = (extraSpace / (numColumns + 1)) / 2;
-            mContainer.setPaddingRelative(containerSidePadding, 0, containerSidePadding, 0);
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
             return;
         }
@@ -314,7 +322,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         if (extraSpace >= 0) {
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
-        int itemSideMargin =  res.getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal);
+        int itemSideMargin = res.getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal);
         int defaultTotalPadding = itemSideMargin * (mAdapter.getItemCount() * 2 + 2);
         if (extraSpace > defaultTotalPadding) {
             int spaceBetweenItems = extraSpace / (mAdapter.getItemCount() + 1);
@@ -333,7 +341,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         if (mListeners.isEmpty()) {
             return;
         }
-        CustomizationOption option = mSelectedOption;
+        T option = mSelectedOption;
         Set<OptionSelectedListener> iterableListeners = new HashSet<>(mListeners);
         for (OptionSelectedListener listener : iterableListeners) {
             listener.onOptionSelected(option);
@@ -359,7 +367,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
          * @param option The customization option
          * @param id Resource ID of the string to use for the content description
          */
-        public void setContentDescription(Context context, CustomizationOption option, int id) {
+        public void setContentDescription(Context context, CustomizationOption<?> option, int id) {
             title = option.getTitle();
             if (TextUtils.isEmpty(title) && tileView != null) {
                 title = tileView.getContentDescription();

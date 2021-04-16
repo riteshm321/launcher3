@@ -411,13 +411,8 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
     }
 
     @Override
-    public boolean isNavigationTabsContained() {
-        return true;
-    }
-
-    @Override
     public void fetchCategories() {
-        mDelegate.initialize(false);
+        mDelegate.initialize(!mDelegate.getCategoryProvider().isCategoriesFetched());
     }
 
     @Override

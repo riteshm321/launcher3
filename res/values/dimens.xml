@@ -32,7 +32,8 @@
     <dimen name="options_container_height">124dp</dimen>
     <dimen name="options_container_width">0dp</dimen>
     <dimen name="options_container_bottom_margin">12dp</dimen>
-    <dimen name="option_tile_width">88dp</dimen>
+    <dimen name="options_container_horizontal_margin">24dp</dimen>
+    <dimen name="option_tile_width">82dp</dimen>
     <dimen name="option_icon_size">16dp</dimen>
     <dimen name="theme_option_icon_sample_height">22dp</dimen>
     <dimen name="theme_option_icon_sample_width">22dp</dimen>

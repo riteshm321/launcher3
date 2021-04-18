@@ -20,7 +20,7 @@
     <string name="app_name" msgid="6995669566699638946">"शैली तथा वालपेपरहरू"</string>
     <string name="theme_title" msgid="2144932106319405101">"शैली"</string>
     <string name="clock_title" msgid="2126046720254613991">"घडी"</string>
-    <string name="grid_title" msgid="2825094404523390773">"ग्रिड"</string>
+    <string name="grid_title" msgid="1688173478777254123">"एप ग्रिड"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"लागू गर्नुहोस्"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"सम्पादन गर्न ट्याप गर्नुहोस्"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"अहिले कै वालपेपर राख्नुहोस्"</string>
@@ -35,7 +35,7 @@
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, हालसालै लागू तथा पूर्वावलोकन गरिएको"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, हालसालै पूर्वलोकन गरिएको"</string>
     <string name="theme_description" msgid="3697012391785254635">"फन्ट: <xliff:g id="ID_1">%1$s</xliff:g>, आइकनहरू: <xliff:g id="ID_2">%2$s</xliff:g>, आकार: <xliff:g id="ID_3">%3$s</xliff:g>, रङ्ग: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
-    <string name="default_theme_title" msgid="2555741736622366797">"पूर्वनिर्धारित"</string>
+    <string name="default_theme_title" msgid="2555741736622366797">"डिफल्ट"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"फन्ट"</string>
     <string name="preview_name_icon" msgid="6818927315316316440">"आइकन"</string>
     <string name="preview_name_color" msgid="8776203144994416172">"रङ्ग"</string>

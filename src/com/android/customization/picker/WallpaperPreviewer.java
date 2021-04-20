@@ -33,9 +33,9 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.android.wallpaper.R;
 import com.android.wallpaper.model.LiveWallpaperInfo;
 import com.android.wallpaper.model.WallpaperInfo;
+import com.android.wallpaper.util.ResourceUtils;
 import com.android.wallpaper.util.ScreenSizeCalculator;
 import com.android.wallpaper.util.SizeCalculator;
 import com.android.wallpaper.util.WallpaperConnection;
@@ -153,13 +153,15 @@ public class WallpaperPreviewer implements LifecycleObserver {
                 mWallpaper.getThumbAsset(mActivity.getApplicationContext())
                         .loadPreviewImage(mActivity,
                                 renderInImageWallpaperSurface ? homeImageWallpaper : mHomePreview,
-                                mActivity.getResources().getColor(R.color.secondary_color));
+                                ResourceUtils.getColorAttr(
+                                        mActivity, android.R.attr.colorSecondary));
                 if (mWallpaper instanceof LiveWallpaperInfo) {
                     mWallpaper.getThumbAsset(mActivity.getApplicationContext())
                             .loadPreviewImage(
                                     mActivity,
                                     homeImageWallpaper,
-                                    mActivity.getColor(R.color.secondary_color));
+                                    ResourceUtils.getColorAttr(
+                                            mActivity, android.R.attr.colorSecondary));
                     setUpLiveWallpaperPreview(mWallpaper);
                 } else {
                     // Ensure live wallpaper connection is disconnected.

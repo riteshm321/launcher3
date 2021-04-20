@@ -30,6 +30,8 @@ LOCAL_STATIC_JAVA_LIBRARIES := styleprotosnano SystemUI-statsd SystemUISharedLib
 LOCAL_PROGUARD_ENABLED := disabled
 
 LOCAL_PACKAGE_NAME := ThemePicker
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_PRIVILEGED_MODULE := true
 LOCAL_SYSTEM_EXT_MODULE := true
 LOCAL_OVERRIDES_PACKAGES := WallpaperPicker2

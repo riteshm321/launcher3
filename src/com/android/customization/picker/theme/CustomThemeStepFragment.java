@@ -68,10 +68,10 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
         } else {
             setUpToolbar(view, R.menu.custom_theme_editor_menu);
             mToolbar.getMenu().getItem(0).setIconTintList(
-                    getContext().getColorStateList(R.color.toolbar_icon_color));
+                    getContext().getColorStateList(R.color.toolbar_icon_tint));
         }
         Drawable closeIcon = getResources().getDrawable(R.drawable.ic_close_24px, null).mutate();
-        closeIcon.setTintList(getResources().getColorStateList(R.color.toolbar_icon_color, null));
+        closeIcon.setTintList(getResources().getColorStateList(R.color.toolbar_icon_tint, null));
         mToolbar.setNavigationIcon(closeIcon);
 
         mToolbar.setNavigationContentDescription(R.string.cancel);

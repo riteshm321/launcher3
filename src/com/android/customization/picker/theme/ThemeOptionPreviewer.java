@@ -49,6 +49,7 @@ import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.wallpaper.R;
+import com.android.wallpaper.util.ResourceUtils;
 import com.android.wallpaper.util.ScreenSizeCalculator;
 import com.android.wallpaper.util.TimeUtils;
 import com.android.wallpaper.util.TimeUtils.TimeTicker;
@@ -184,11 +185,11 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         boolean useLightTextColor = colors == null
                 || (colors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) == 0;
         int textColor = mContext.getColor(useLightTextColor
-                ? R.color.text_color_light
-                : R.color.text_color_dark);
+                ? android.R.color.white
+                : android.R.color.black);
         int textShadowColor = mContext.getColor(useLightTextColor
-                ? R.color.smartspace_preview_shadow_color_dark
-                : R.color.smartspace_preview_shadow_color_transparent);
+                ? android.R.color.tertiary_text_dark
+                : android.R.color.transparent);
         // Update the top status bar clock text color.
         mStatusBarClock.setTextColor(textColor);
         // Update the top status bar icon color.
@@ -358,7 +359,8 @@ class ThemeOptionPreviewer implements LifecycleObserver {
     }
 
     private ColorStateList getColorStateList(int accentColor) {
-        int controlGreyColor = mContext.getColor(R.color.control_grey);
+        int controlGreyColor =
+                ResourceUtils.getColorAttr(mContext, android.R.attr.textColorTertiary);
         return new ColorStateList(
                 new int[][]{
                         new int[]{android.R.attr.state_selected},

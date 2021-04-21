@@ -29,7 +29,6 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.Dimension;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
@@ -226,14 +225,14 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                                     mContainer.getContext().getTheme()),
                             Gravity.BOTTOM | Gravity.RIGHT,
                             res.getDimensionPixelSize(R.dimen.check_size),
-                            res.getDimensionPixelOffset(R.dimen.check_offset), 0);
+                            res.getDimensionPixelOffset(R.dimen.check_offset));
                 } else if (mCheckmarkStyle == CheckmarkStyle.CENTER
                         && option.equals(mAppliedOption)) {
                     drawCheckmark(option, holder,
                             res.getDrawable(R.drawable.check_circle_grey_large,
                                     mContainer.getContext().getTheme()),
                             Gravity.CENTER, res.getDimensionPixelSize(R.dimen.center_check_size),
-                            0, res.getColor(android.R.color.black));
+                            0);
                 } else if (option.equals(mAppliedOption)) {
                     // Initialize with "previewed" description if we don't show checkmark
                     holder.setContentDescription(mContainer.getContext(), option,
@@ -250,10 +249,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
 
             private void drawCheckmark(CustomizationOption<?> option, TileViewHolder holder,
                     Drawable checkmark, int gravity, @Dimension int checkSize,
-                    @Dimension int checkOffset, @ColorInt int checkColor) {
-                if (checkColor != 0 && checkmark instanceof LayerDrawable) {
-                    ((LayerDrawable) checkmark).getDrawable(1).setTint(checkColor);
-                }
+                    @Dimension int checkOffset) {
                 Drawable frame = holder.tileView.getForeground();
                 Drawable[] layers = {frame, checkmark};
                 if (frame == null) {

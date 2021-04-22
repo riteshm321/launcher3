@@ -55,10 +55,7 @@
     <dimen name="option_tile_margin_horizontal">6dp</dimen>
     <dimen name="theme_option_label_margin">4dp</dimen>
 
-    <dimen name="preview_card_top_padding">@dimen/preview_card_padding</dimen>
-
     <dimen name="card_title_text_size">16sp</dimen>
-    <dimen name="card_cover_title_text_size">24sp</dimen>
     <dimen name="card_header_icon_size">32dp</dimen>
     <dimen name="preview_theme_max_height">400dp</dimen>
     <dimen name="preview_theme_min_height">180dp</dimen>
@@ -72,7 +69,6 @@
     <dimen name="preview_theme_shape_size">36dp</dimen>
     <dimen name="preview_theme_cover_topbar_clock_size">12sp</dimen>
     <dimen name="preview_theme_cover_topbar_icon_size">16dp</dimen>
-    <dimen name="preview_theme_content_bottom">@dimen/min_taptarget_height</dimen>
 
     <!--  For the new preview of theme picker.  -->
     <dimen name="preview_theme_content_padding_top">16dp</dimen>
@@ -97,7 +93,6 @@
     <dimen name="preview_content_padding_bottom">@dimen/indicator_container_height</dimen>
 
     <dimen name="font_preview_body_width">220dp</dimen>
-    <dimen name="font_preview_divider_gap">24dp</dimen>
 
     <dimen name="custom_theme_nav_height">56dp</dimen>
 

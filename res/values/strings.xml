@@ -16,7 +16,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The name of this application, a theme picker. [CHAR LIMIT=50] -->
-    <string name="app_name">Styles &amp; wallpapers</string>
+    <string name="app_name">Wallpaper &amp; style</string>
 
     <!-- Title of a section of the customization picker where the user can select a Theme for the
         device. [CHAR LIMIT=15] -->

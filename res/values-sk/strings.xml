@@ -17,7 +17,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Štýly a tapety"</string>
+    <!-- no translation found for app_name (1647136562008520313) -->
+    <skip />
     <string name="theme_title" msgid="2144932106319405101">"Štýl"</string>
     <string name="clock_title" msgid="2126046720254613991">"Hodiny"</string>
     <string name="grid_title" msgid="1688173478777254123">"Mriežka aplik."</string>

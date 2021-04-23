@@ -17,7 +17,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"스타일 및 배경화면"</string>
+    <!-- no translation found for app_name (1647136562008520313) -->
+    <skip />
     <string name="theme_title" msgid="2144932106319405101">"스타일"</string>
     <string name="clock_title" msgid="2126046720254613991">"시계"</string>
     <string name="grid_title" msgid="1688173478777254123">"앱 그리드"</string>

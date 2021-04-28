@@ -120,7 +120,7 @@ public class GridFragment extends AppbarFragment {
         view.setOnApplyWindowInsetsListener((v, windowInsets) -> {
             v.setPadding(
                     v.getPaddingLeft(),
-                    v.getPaddingTop(),
+                    windowInsets.getSystemWindowInsetTop(),
                     v.getPaddingRight(),
                     windowInsets.getSystemWindowInsetBottom());
             return windowInsets.consumeSystemWindowInsets();

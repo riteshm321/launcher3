@@ -89,7 +89,7 @@ class GridOptionPreviewer {
         }
 
         @Override
-        protected Bundle renderPreview(SurfaceView workspaceSurface) {
+        protected Bundle requestPreview(SurfaceView workspaceSurface) {
             return mGridManager.renderPreview(
                     SurfaceViewUtils.createSurfaceViewRequest(workspaceSurface),
                     mGridOption.name);

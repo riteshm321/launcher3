@@ -398,7 +398,7 @@ class ThemeOptionPreviewer implements LifecycleObserver {
         final Resources res = mContext.getResources();
         return getDisplayHeight()
                 - getTopToolBarHeight()
-                - res.getDimensionPixelSize(R.dimen.bottom_navbar_height)
+                - res.getDimensionPixelSize(R.dimen.bottom_actions_height)
                 - res.getDimensionPixelSize(R.dimen.full_preview_page_default_padding_top)
                 - res.getDimensionPixelSize(R.dimen.full_preview_page_default_padding_bottom);
     }

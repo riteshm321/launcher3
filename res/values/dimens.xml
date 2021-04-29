@@ -29,11 +29,15 @@
     <dimen name="component_preview_page_bottom_margin">16dp</dimen>
 
     <!-- Dimensions for the customization option tiles -->
-    <dimen name="options_container_height">124dp</dimen>
+    <dimen name="options_container_height">112dp</dimen>
     <dimen name="options_container_width">0dp</dimen>
-    <dimen name="options_container_bottom_margin">12dp</dimen>
-    <dimen name="options_container_horizontal_margin">24dp</dimen>
+    <dimen name="option_bottom_margin">8dp</dimen>
+    <dimen name="option_padding_horizontal">2dp</dimen>
     <dimen name="option_tile_width">82dp</dimen>
+    <dimen name="option_tile_radius">20dp</dimen>
+    <dimen name="option_tile_margin_horizontal">6dp</dimen>
+    <dimen name="option_tile_padding_vertical">12dp</dimen>
+    <dimen name="option_tile_padding_horizontal">12dp</dimen>
     <dimen name="option_icon_size">16dp</dimen>
     <dimen name="theme_option_icon_sample_height">22dp</dimen>
     <dimen name="theme_option_icon_sample_width">22dp</dimen>
@@ -42,18 +46,15 @@
     <dimen name="theme_option_font_sample_height">20dp</dimen>
     <dimen name="theme_option_font_sample_width">52dp</dimen>
     <dimen name="theme_option_sample_margin">10dp</dimen>
-    <!-- Note, using dp instead of sp as this is just the "+" symbol, not text -->
-    <dimen name="option_tile_padding_vertical">12dp</dimen>
-    <dimen name="option_tile_padding_horizontal">12dp</dimen>
 
-    <dimen name="option_bottom_margin">8dp</dimen>
-    <dimen name="option_padding_horizontal">2dp</dimen>
     <!-- Note, using dp instead of sp as this text is more like a "snapshot" of the font -->
     <dimen name="theme_option_font_text_size">20dp</dimen>
     <dimen name="theme_option_font_min_text_size">15dp</dimen>
-
-    <dimen name="option_tile_margin_horizontal">6dp</dimen>
     <dimen name="theme_option_label_margin">4dp</dimen>
+
+    <!-- Dimensions for the grid options -->
+    <dimen name="grid_options_container_bottom_margin">@dimen/bottom_actions_height</dimen>
+    <dimen name="grid_options_container_horizontal_margin">24dp</dimen>
 
     <dimen name="card_title_text_size">16sp</dimen>
     <dimen name="card_header_icon_size">32dp</dimen>

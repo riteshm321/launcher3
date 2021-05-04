@@ -291,7 +291,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
         mBottomNav = findViewById(R.id.main_bottom_nav);
         Menu menu = mBottomNav.getMenu();
         DefaultCustomizationPreferences prefs =
-            new DefaultCustomizationPreferences(getApplicationContext());
+                new DefaultCustomizationPreferences(getApplicationContext());
         for (int i = menu.size() - 1; i >= 0; i--) {
             MenuItem item = menu.getItem(i);
             int id = item.getItemId();
@@ -327,7 +327,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
         // Position dot in the upper-right corner
         int dotSize = (int) getResources().getDimension(R.dimen.tip_dot_size)
-            + (int) getResources().getDimension(R.dimen.tip_dot_line_width) * 2;
+                + (int) getResources().getDimension(R.dimen.tip_dot_line_width) * 2;
         int linewidth = (int) getResources().getDimension(R.dimen.tip_dot_line_width);
         iconWithDot.setLayerGravity(1, Gravity.TOP | Gravity.RIGHT);
         iconWithDot.setLayerWidth(1, dotSize);

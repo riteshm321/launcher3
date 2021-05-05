@@ -149,6 +149,14 @@ public class StatsLogUserEventLogger extends NoOpUserEventLogger implements Them
     }
 
     @Override
+    public void logColorApplied(int action, int colorIndex) {
+        SysUiStatsLog.write(STYLE_UI_CHANGED, action,
+                0, 0, 0, 0, 0, 0, 0,
+                colorIndex,
+                0, 0, 0);
+    }
+
+    @Override
     public void logClockSelected(Clockface clock) {
         SysUiStatsLog.write(STYLE_UI_CHANGED, StyleEnums.PICKER_SELECT,
                 0, 0, 0,

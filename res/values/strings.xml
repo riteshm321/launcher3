@@ -227,4 +227,8 @@
 
     <!-- Accessibility for custom style name page [CHAR_LIMIT=50] -->
     <string name="accessibility_custom_name_title">Custom style name</string>
+
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to query or change themed icon option  -->
+    <string name="themed_icon_metadata_key" translatable="false">com.android.launcher3.themedicon.option</string>
 </resources>

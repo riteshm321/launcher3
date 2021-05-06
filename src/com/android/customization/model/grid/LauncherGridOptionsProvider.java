@@ -92,7 +92,7 @@ public class LauncherGridOptionsProvider {
                 int rows = c.getInt(c.getColumnIndex(COL_ROWS));
                 int cols = c.getInt(c.getColumnIndex(COL_COLS));
                 int previewCount = c.getInt(c.getColumnIndex(COL_PREVIEW_COUNT));
-                boolean isSet = Boolean.valueOf(c.getString(c.getColumnIndex(COL_IS_DEFAULT)));
+                boolean isSet = Boolean.parseBoolean(c.getString(c.getColumnIndex(COL_IS_DEFAULT)));
                 String title = GRID_NAME_NORMAL.equals(name)
                         ? mContext.getString(R.string.default_theme_title)
                         : mContext.getString(R.string.grid_title_pattern, cols, rows);

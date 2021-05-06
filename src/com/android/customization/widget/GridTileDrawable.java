@@ -40,7 +40,8 @@ public class GridTileDrawable extends Drawable {
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
-        mCellSize = (float) bounds.height() / mRows;
+        int longestSide = Math.max(mRows, mCols);
+        mCellSize = (float) bounds.width() / longestSide;
 
         float scaleFactor = (mCellSize - 2 * SPACE_BETWEEN_ICONS) / PATH_SIZE;
         mScaleMatrix.setScale(scaleFactor, scaleFactor);
@@ -49,11 +50,13 @@ public class GridTileDrawable extends Drawable {
 
     @Override
     public void draw(Canvas canvas) {
+        double size = getBounds().width();
+
         for (int r = 0; r < mRows; r++) {
             for (int c = 0; c < mCols; c++) {
                 int saveCount = canvas.save();
-                float x = (c * mCellSize) + SPACE_BETWEEN_ICONS;
-                float y = (r * mCellSize) + SPACE_BETWEEN_ICONS;
+                float x = (float) ((r * size / mRows) + SPACE_BETWEEN_ICONS);
+                float y = (float) ((c * size / mCols) + SPACE_BETWEEN_ICONS);
                 canvas.translate(x, y);
                 canvas.drawPath(mTransformedPath, mPaint);
                 canvas.restoreToCount(saveCount);

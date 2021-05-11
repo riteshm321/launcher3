@@ -309,8 +309,6 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
             if (mContainer.getLayoutManager() != null) {
                 ((GridLayoutManager) mContainer.getLayoutManager()).setSpanCount(numColumns);
             }
-
-            mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
             return;
         }
 

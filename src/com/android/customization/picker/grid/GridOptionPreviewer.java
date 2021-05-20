@@ -62,6 +62,7 @@ class GridOptionPreviewer {
         // Reattach SurfaceView to trigger #surfaceCreated to update preview for different option.
         mPreviewContainer.removeAllViews();
         if (mSurfaceCallback != null) {
+            mSurfaceCallback.cleanUp();
             mSurfaceCallback.resetLastSurface();
         }
         if (mGridOptionSurface == null) {

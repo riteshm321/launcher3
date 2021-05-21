@@ -44,6 +44,7 @@ import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
+import com.android.customization.util.LaunchUtils;
 import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
@@ -93,6 +94,9 @@ public class GridFragment extends AppbarFragment {
             Toast.makeText(getContext(), R.string.applied_grid_msg, Toast.LENGTH_SHORT).show();
             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             getActivity().finish();
+
+            // Go back to launcher home
+            LaunchUtils.launchHome(getContext());
         }
 
         @Override

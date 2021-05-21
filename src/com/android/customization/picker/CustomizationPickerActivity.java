@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -59,7 +60,6 @@ import com.android.customization.picker.theme.ThemeFragment;
 import com.android.customization.picker.theme.ThemeFragment.ThemeFragmentHost;
 import com.android.customization.widget.NoTintDrawableWrapper;
 import com.android.wallpaper.R;
-import com.android.wallpaper.compat.BuildCompat;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.DailyLoggingAlarmScheduler;
 import com.android.wallpaper.module.FormFactorChecker;
@@ -213,7 +213,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
 
     private void initSections() {
         mSections.clear();
-        if (!BuildCompat.isAtLeastQ()) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
             Log.d(TAG, "Build version < Q detected");
             return;
         }

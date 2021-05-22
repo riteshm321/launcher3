@@ -36,7 +36,7 @@ public class ThemedIconUtils {
 
     public ThemedIconUtils(Context context, String authorityMetaKey) {
         mContext = context;
-        Intent homeIntent = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER);
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME);
         ResolveInfo resolveInfo = mContext.getPackageManager().resolveActivity(homeIntent,
                 PackageManager.MATCH_DEFAULT_ONLY | PackageManager.GET_META_DATA);
 

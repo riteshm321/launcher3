@@ -23,12 +23,11 @@ import android.database.Cursor;
 import androidx.annotation.WorkerThread;
 
 /**
- * Retrieves the themed icon switch by {@link ContentResolver}
+ * Retrieves the themed icon switch by {@link ContentResolver} from the current launcher
  */
 public class ThemedIconSwitchProvider {
 
-    private static final String GET_ICON_THEMED = "get_icon_themed";
-    private static final String SET_ICON_THEMED = "set_icon_themed";
+    private static final String ICON_THEMED = "icon_themed";
     private static final int ENABLED = 1;
     private static final String COL_ICON_THEMED_VALUE = "boolean_value";
 
@@ -48,7 +47,7 @@ public class ThemedIconSwitchProvider {
     protected boolean fetchThemedIconEnabled() {
         ContentResolver contentResolver = mContext.getContentResolver();
         try (Cursor cursor = contentResolver.query(
-                mThemedIconUtils.getUriForPath(GET_ICON_THEMED), /* projection= */
+                mThemedIconUtils.getUriForPath(ICON_THEMED), /* projection= */
                 null, /* selection= */ null, /* selectionArgs= */ null, /* sortOrder= */ null)) {
             if (cursor != null && cursor.moveToNext()) {
                 int themedIconEnabled = cursor.getInt(cursor.getColumnIndex(COL_ICON_THEMED_VALUE));
@@ -61,7 +60,8 @@ public class ThemedIconSwitchProvider {
     protected int setThemedIconEnabled(boolean enabled) {
         ContentValues values = new ContentValues();
         values.put(COL_ICON_THEMED_VALUE, enabled);
-        return mContext.getContentResolver().update(mThemedIconUtils.getUriForPath(SET_ICON_THEMED),
-                values, /* where= */ null, /* selectionArgs= */ null);
+        return mContext.getContentResolver().update(
+                mThemedIconUtils.getUriForPath(ICON_THEMED), values,
+                /* where= */ null, /* selectionArgs= */ null);
     }
 }

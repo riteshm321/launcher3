@@ -99,4 +99,18 @@
         <item name="android:inputType">text</item>
         <item name="android:maxLength">100</item>
     </style>
+
+    <style name="SectionTitleTextStyle" parent="@android:style/TextAppearance.Material">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textDirection">locale</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineHeight">24dp</item>
+    </style>
+
+    <style name="SectionSubtitleTextStyle" parent="SectionTitleTextStyle">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20dp</item>
+    </style>
+
 </resources>

@@ -46,6 +46,7 @@ import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.util.LaunchUtils;
 import com.android.customization.widget.OptionSelectorController;
+import com.android.customization.widget.OptionSelectorController.CheckmarkStyle;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
@@ -205,8 +206,7 @@ public class GridFragment extends AppbarFragment {
             public void onOptionsLoaded(List<GridOption> options) {
                 mLoading.hide();
                 mOptionsController = new OptionSelectorController<>(
-                        mOptionsContainer, options, true,
-                        OptionSelectorController.CheckmarkStyle.CENTER);
+                        mOptionsContainer, options, /* useGrid= */ false, CheckmarkStyle.CENTER);
                 mOptionsController.initOptions(mGridManager);
 
                 // Find the selected Grid option.

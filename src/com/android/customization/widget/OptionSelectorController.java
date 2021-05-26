@@ -15,8 +15,11 @@
  */
 package com.android.customization.widget;
 
+import static com.android.internal.util.Preconditions.checkNotNull;
+
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.text.TextUtils;
@@ -71,6 +74,8 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         int CORNER = 1;
         int CENTER = 2;
     }
+
+    private static final float LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX = 4.35f;
 
     private final RecyclerView mContainer;
     private final List<T> mOptions;
@@ -296,10 +301,10 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
             availableWidth = fixWidth;
         }
         int totalWidth = mContainer.getMeasuredWidth();
+        int widthPerItem = res.getDimensionPixelOffset(R.dimen.option_tile_width);
 
         if (mUseGrid) {
             int numColumns = res.getInteger(R.integer.options_grid_num_columns);
-            int widthPerItem = res.getDimensionPixelOffset(R.dimen.option_tile_width);
             int extraSpace = availableWidth - widthPerItem * numColumns;
             while (extraSpace < 0) {
                 numColumns -= 1;
@@ -316,12 +321,19 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         if (extraSpace >= 0) {
             mContainer.setOverScrollMode(View.OVER_SCROLL_NEVER);
         }
-        int itemSideMargin = res.getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal);
-        int defaultTotalPadding = itemSideMargin * (mAdapter.getItemCount() * 2 + 2);
-        if (extraSpace > defaultTotalPadding) {
-            int spaceBetweenItems = extraSpace / (mAdapter.getItemCount() + 1);
-            itemSideMargin = spaceBetweenItems / 2;
+
+        if (mAdapter.getItemCount() >= LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX) {
+            int spaceBetweenItems = availableWidth
+                    - Math.round(widthPerItem * LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX)
+                    - mContainer.getPaddingLeft();
+            mContainer.addItemDecoration(new HorizontalBehindSpaceItemDecoration(
+                    mContainer.getContext(),
+                    spaceBetweenItems / (int) LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX));
+            return;
         }
+
+        int spaceBetweenItems = extraSpace / (mAdapter.getItemCount() + 1);
+        int itemSideMargin = spaceBetweenItems / 2;
         mContainer.addItemDecoration(new HorizontalSpacerItemDecoration(itemSideMargin));
     }
 
@@ -421,6 +433,37 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                 }
             }
             return super.onRequestSendAccessibilityEvent(host, child, event);
+        }
+    }
+
+    /** Custom ItemDecorator to add specific spacing between items in the list. */
+    private static final class HorizontalBehindSpaceItemDecoration
+            extends RecyclerView.ItemDecoration {
+        private final int mHorizontalSpacePx;
+        private final boolean mDirectionLTR;
+
+        private HorizontalBehindSpaceItemDecoration(Context context, int horizontalSpacePx) {
+            mDirectionLTR = context.getResources().getConfiguration().getLayoutDirection()
+                    == View.LAYOUT_DIRECTION_LTR;
+            mHorizontalSpacePx = horizontalSpacePx;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView recyclerView,
+                RecyclerView.State state) {
+            if (recyclerView.getAdapter() == null) {
+                return;
+            }
+
+            if (recyclerView.getChildAdapterPosition(view)
+                    != checkNotNull(recyclerView.getAdapter()).getItemCount() - 1) {
+                // Don't add spacing behind the last item
+                if (mDirectionLTR) {
+                    outRect.right = mHorizontalSpacePx;
+                } else {
+                    outRect.left = mHorizontalSpacePx;
+                }
+            }
         }
     }
 }

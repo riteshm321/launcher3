@@ -516,7 +516,7 @@ public class CustomizationPickerActivity extends FragmentActivity implements Wal
             return;
         }
 
-        if (!ActivityUtils.isLaunchedFromSettings(getIntent())) {
+        if (!ActivityUtils.isLaunchedFromSettingsRelated(getIntent())) {
             Intent intent = new Intent(Settings.ACTION_SETTINGS);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

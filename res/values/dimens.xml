@@ -22,7 +22,7 @@
     <dimen name="tip_dot_line_width">2dp</dimen>
 
     <dimen name="check_size">16dp</dimen>
-    <dimen name="center_check_size">34dp</dimen>
+    <dimen name="center_check_size">32dp</dimen>
     <dimen name="center_check_padding">9dp</dimen>
     <dimen name="check_offset">4dp</dimen>
 

@@ -111,10 +111,12 @@ public class LauncherGridOptionsProvider {
      * @param name      the grid option name
      * @param bundle    surface view request bundle generated from
      *    {@link com.android.wallpaper.util.SurfaceViewUtils#createSurfaceViewRequest(SurfaceView)}.
+     * @param callback To receive the result (will be called on the main thread)
      */
-    Bundle renderPreview(String name, Bundle bundle) {
+    void renderPreview(String name, Bundle bundle,
+            PreviewUtils.WorkspacePreviewCallback callback) {
         bundle.putString("name", name);
-        return mPreviewUtils.renderPreview(bundle);
+        mPreviewUtils.renderPreview(bundle, callback);
     }
 
     int applyGrid(String name) {

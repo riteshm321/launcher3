@@ -326,9 +326,13 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
             int spaceBetweenItems = availableWidth
                     - Math.round(widthPerItem * LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX)
                     - mContainer.getPaddingLeft();
-            mContainer.addItemDecoration(new HorizontalBehindSpaceItemDecoration(
-                    mContainer.getContext(),
-                    spaceBetweenItems / (int) LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX));
+            int itemEndMargin =
+                    spaceBetweenItems / (int) LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX;
+            if (itemEndMargin <= 0) {
+                itemEndMargin = res.getDimensionPixelOffset(R.dimen.option_tile_margin_horizontal);
+            }
+            mContainer.addItemDecoration(new ItemEndHorizontalSpaceItemDecoration(
+                    mContainer.getContext(), itemEndMargin));
             return;
         }
 
@@ -437,12 +441,12 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
     }
 
     /** Custom ItemDecorator to add specific spacing between items in the list. */
-    private static final class HorizontalBehindSpaceItemDecoration
+    private static final class ItemEndHorizontalSpaceItemDecoration
             extends RecyclerView.ItemDecoration {
         private final int mHorizontalSpacePx;
         private final boolean mDirectionLTR;
 
-        private HorizontalBehindSpaceItemDecoration(Context context, int horizontalSpacePx) {
+        private ItemEndHorizontalSpaceItemDecoration(Context context, int horizontalSpacePx) {
             mDirectionLTR = context.getResources().getConfiguration().getLayoutDirection()
                     == View.LAYOUT_DIRECTION_LTR;
             mHorizontalSpacePx = horizontalSpacePx;

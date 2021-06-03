@@ -16,7 +16,6 @@
 package com.android.customization.picker.grid;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import android.view.ViewGroup;
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.grid.GridOptionsManager;
 import com.android.wallpaper.picker.WorkspaceSurfaceHolderCallback;
+import com.android.wallpaper.util.PreviewUtils;
 import com.android.wallpaper.util.SurfaceViewUtils;
 
 /** A class to load the {@link GridOption} preview to the view. */
@@ -90,10 +90,11 @@ class GridOptionPreviewer {
         }
 
         @Override
-        protected Bundle requestPreview(SurfaceView workspaceSurface) {
-            return mGridManager.renderPreview(
+        protected void requestPreview(SurfaceView workspaceSurface,
+                PreviewUtils.WorkspacePreviewCallback callback) {
+            mGridManager.renderPreview(
                     SurfaceViewUtils.createSurfaceViewRequest(workspaceSurface),
-                    mGridOption.name);
+                    mGridOption.name, callback);
         }
     }
 }

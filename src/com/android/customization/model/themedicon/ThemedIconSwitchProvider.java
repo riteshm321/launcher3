@@ -44,7 +44,7 @@ public class ThemedIconSwitchProvider {
     }
 
     @WorkerThread
-    protected boolean fetchThemedIconEnabled() {
+    public boolean fetchThemedIconEnabled() {
         ContentResolver contentResolver = mContext.getContentResolver();
         try (Cursor cursor = contentResolver.query(
                 mThemedIconUtils.getUriForPath(ICON_THEMED), /* projection= */

@@ -23,7 +23,7 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.text.TextUtils;
 
-import com.android.customization.model.HubSectionController.HubSectionBatterySaverListener;
+import com.android.wallpaper.model.HubSectionController.HubSectionBatterySaverListener;
 
 /**
  * Broadcast receiver for getting battery saver state and callback to

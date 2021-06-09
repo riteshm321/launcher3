@@ -34,10 +34,10 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.android.customization.model.HubSectionController;
-import com.android.customization.model.HubSectionController.HubSectionBatterySaverListener;
 import com.android.customization.picker.mode.ModeSectionView;
 import com.android.wallpaper.R;
+import com.android.wallpaper.model.HubSectionController;
+import com.android.wallpaper.model.HubSectionController.HubSectionBatterySaverListener;
 
 /**
  * Section for dark theme toggle that controls if this section will be shown visually

@@ -22,8 +22,8 @@ import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 
-import com.android.customization.picker.SectionView;
 import com.android.wallpaper.R;
+import com.android.wallpaper.picker.SectionView;
 
 /**
  * The view of section in the Customization Hub fragment.

@@ -24,10 +24,10 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.android.customization.model.CustomizationManager.OptionsFetchedListener;
-import com.android.customization.model.HubSectionController;
 import com.android.customization.picker.grid.GridFragment;
 import com.android.customization.picker.grid.GridSectionView;
 import com.android.wallpaper.R;
+import com.android.wallpaper.model.HubSectionController;
 
 import java.util.List;
 

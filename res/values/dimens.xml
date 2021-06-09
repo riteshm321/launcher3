@@ -121,4 +121,11 @@
     <dimen name="theme_info_app_preview_icon_elevation">2dp</dimen>
     <dimen name="theme_info_text_size">28sp</dimen>
 
+    <!-- Common dimensions for option sections -->
+    <dimen name="section_container_vertical_margin">24dp</dimen>
+    <dimen name="section_horizontal_padding">24dp</dimen>
+    <dimen name="section_vertical_padding">24dp</dimen>
+    <dimen name="section_top_padding">16dp</dimen>
+    <dimen name="section_bottom_padding">16dp</dimen>
+
 </resources>

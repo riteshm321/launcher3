@@ -231,4 +231,16 @@
     <!--Name of metadata in the main launcher Activity which values contains the authority
     corresponding to a ContentProvider in launcher to query or change themed icon option  -->
     <string name="themed_icon_metadata_key" translatable="false">com.android.launcher3.themedicon.option</string>
+
+    <!--  Strings for new customization UI.  -->
+
+    <!-- The title of mode section view. [CHAR_LIMIT=20] -->
+    <string name="mode_title" msgid="1000319159005403986">Dark theme</string>
+    <string name="mode_disabled_msg" msgid="1926077857799715086">Temporarily disabled due to Battery Saver</string>
+
+    <!-- Title of a section of the customization where the user can select color override for icon. [CHAR LIMIT=30] -->
+    <string name="themed_icon_title" msgid="4305612684940220645">Themed icons</string>
+
+    <!-- The content description of grid picker entry. [CHAR LIMIT=NONE] -->
+    <string name="gird_picker_entry_content_description" msgid="7538418512525897691">Change app grid</string>
 </resources>

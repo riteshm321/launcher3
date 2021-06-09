@@ -30,8 +30,6 @@ import com.android.customization.model.ResourceConstants;
 import com.android.wallpaper.R;
 import com.android.wallpaper.util.PreviewUtils;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +97,6 @@ public class LauncherGridOptionsProvider {
                 mOptions.add(new GridOption(title, name, isSet, rows, cols,
                         mPreviewUtils.getUri(PREVIEW), previewCount, iconPath));
             }
-            Glide.get(mContext).clearDiskCache();
         } catch (Exception e) {
             mOptions = null;
         }

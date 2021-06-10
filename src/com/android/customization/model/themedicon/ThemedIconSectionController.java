@@ -25,11 +25,16 @@ import com.android.wallpaper.R;
 import com.android.wallpaper.model.HubSectionController;
 import com.android.wallpaper.model.WorkspaceViewModel;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /** The {@link HubSectionController} for themed icon section. */
 public class ThemedIconSectionController implements HubSectionController<ThemedIconSectionView> {
 
     private final ThemedIconSwitchProvider mThemedIconOptionsProvider;
     private final WorkspaceViewModel mWorkspaceViewModel;
+
+    private static ExecutorService sExecutorService = Executors.newSingleThreadExecutor();
 
     public ThemedIconSectionController(ThemedIconSwitchProvider themedIconOptionsProvider,
             WorkspaceViewModel workspaceViewModel) {
@@ -48,8 +53,11 @@ public class ThemedIconSectionController implements HubSectionController<ThemedI
                 (ThemedIconSectionView) LayoutInflater.from(context).inflate(
                         R.layout.themed_icon_section_view, /* root= */ null);
         themedIconColorSectionView.setViewListener(this::onViewActivated);
-        themedIconColorSectionView.getSwitch()
-                .setChecked(mThemedIconOptionsProvider.fetchThemedIconEnabled());
+        sExecutorService.submit(() -> {
+            boolean themedIconEnabled = mThemedIconOptionsProvider.fetchThemedIconEnabled();
+            themedIconColorSectionView.post(() ->
+                    themedIconColorSectionView.getSwitch().setChecked(themedIconEnabled));
+        });
         return themedIconColorSectionView;
     }
 

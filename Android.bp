@@ -54,8 +54,9 @@ android_app {
 
     static_libs: [
         "wallpaper-common-deps",
-        "styleprotoslite",
+        "SettingsLibSettingsTheme",
         "SystemUI-statsd",
+        "styleprotoslite",
     ],
 
     srcs: [

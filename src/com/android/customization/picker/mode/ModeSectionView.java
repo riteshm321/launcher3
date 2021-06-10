@@ -47,7 +47,8 @@ public final class ModeSectionView extends SectionView {
         switchView.setOnCheckedChangeListener((buttonView, isChecked) ->
                 switchView.setChecked(mIsDarkModeActivated)
         );
-        setOnClickListener(view -> modeToggleClicked());
+        setOnClickListener(
+                view -> switchView.postDelayed(() -> modeToggleClicked(), /* delayMillis= */ 100));
     }
 
     private void modeToggleClicked() {

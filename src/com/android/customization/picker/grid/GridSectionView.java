@@ -20,7 +20,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.Nullable;
 
-import com.android.customization.picker.SectionView;
+import com.android.wallpaper.picker.SectionView;
 
 /** The {@link SectionView} for app grid. */
 public final class GridSectionView extends SectionView {

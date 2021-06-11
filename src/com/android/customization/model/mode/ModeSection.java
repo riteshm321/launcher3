@@ -34,10 +34,13 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.android.customization.model.HubSectionController;
-import com.android.customization.model.HubSectionController.HubSectionBatterySaverListener;
 import com.android.customization.picker.mode.ModeSectionView;
 import com.android.wallpaper.R;
+import com.android.wallpaper.model.HubSectionController;
+import com.android.wallpaper.model.HubSectionController.HubSectionBatterySaverListener;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Section for dark theme toggle that controls if this section will be shown visually
@@ -45,9 +48,12 @@ import com.android.wallpaper.R;
 public class ModeSection implements HubSectionController<ModeSectionView>, LifecycleObserver,
         HubSectionBatterySaverListener {
 
+    private final Lifecycle mLifecycle;
+    private final BatterySaverStateReceiver mBatterySaverStateReceiver;
+
+    private static ExecutorService sExecutorService = Executors.newSingleThreadExecutor();
+
     private Context mContext;
-    private Lifecycle mLifecycle;
-    private BatterySaverStateReceiver mBatterySaverStateReceiver;
     private ModeSectionView mModeSectionView;
 
     public ModeSection(Context context, Lifecycle lifecycle) {
@@ -60,18 +66,23 @@ public class ModeSection implements HubSectionController<ModeSectionView>, Lifec
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     @MainThread
     public void onStart() {
-        if (mContext != null) {
-            mContext.registerReceiver(mBatterySaverStateReceiver,
-                    new IntentFilter(ACTION_POWER_SAVE_MODE_CHANGED));
-        }
+        sExecutorService.submit(() -> {
+            if (mContext != null && mLifecycle.getCurrentState().isAtLeast(
+                    Lifecycle.State.STARTED)) {
+                mContext.registerReceiver(mBatterySaverStateReceiver,
+                        new IntentFilter(ACTION_POWER_SAVE_MODE_CHANGED));
+            }
+        });
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     @MainThread
     public void onStop() {
-        if (mContext != null && mBatterySaverStateReceiver != null) {
-            mContext.unregisterReceiver(mBatterySaverStateReceiver);
-        }
+        sExecutorService.submit(() -> {
+            if (mContext != null && mBatterySaverStateReceiver != null) {
+                mContext.unregisterReceiver(mBatterySaverStateReceiver);
+            }
+        });
     }
 
     @Override

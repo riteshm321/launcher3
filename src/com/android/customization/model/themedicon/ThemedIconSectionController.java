@@ -20,20 +20,26 @@ import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
 
-import com.android.customization.model.HubSectionController;
 import com.android.customization.picker.themedicon.ThemedIconSectionView;
 import com.android.wallpaper.R;
+import com.android.wallpaper.model.HubSectionController;
+import com.android.wallpaper.model.WorkspaceViewModel;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /** The {@link HubSectionController} for themed icon section. */
 public class ThemedIconSectionController implements HubSectionController<ThemedIconSectionView> {
 
     private final ThemedIconSwitchProvider mThemedIconOptionsProvider;
-    private final ThemedIconViewModel mThemedIconViewModel;
+    private final WorkspaceViewModel mWorkspaceViewModel;
+
+    private static ExecutorService sExecutorService = Executors.newSingleThreadExecutor();
 
     public ThemedIconSectionController(ThemedIconSwitchProvider themedIconOptionsProvider,
-            ThemedIconViewModel themedIconViewModel) {
+            WorkspaceViewModel workspaceViewModel) {
         mThemedIconOptionsProvider = themedIconOptionsProvider;
-        mThemedIconViewModel = themedIconViewModel;
+        mWorkspaceViewModel = workspaceViewModel;
     }
 
     @Override
@@ -47,8 +53,11 @@ public class ThemedIconSectionController implements HubSectionController<ThemedI
                 (ThemedIconSectionView) LayoutInflater.from(context).inflate(
                         R.layout.themed_icon_section_view, /* root= */ null);
         themedIconColorSectionView.setViewListener(this::onViewActivated);
-        themedIconColorSectionView.getSwitch()
-                .setChecked(mThemedIconOptionsProvider.fetchThemedIconEnabled());
+        sExecutorService.submit(() -> {
+            boolean themedIconEnabled = mThemedIconOptionsProvider.fetchThemedIconEnabled();
+            themedIconColorSectionView.post(() ->
+                    themedIconColorSectionView.getSwitch().setChecked(themedIconEnabled));
+        });
         return themedIconColorSectionView;
     }
 
@@ -57,6 +66,6 @@ public class ThemedIconSectionController implements HubSectionController<ThemedI
             return;
         }
         mThemedIconOptionsProvider.setThemedIconEnabled(viewActivated);
-        mThemedIconViewModel.getThemedIconEnabled().setValue(viewActivated);
+        mWorkspaceViewModel.getUpdateWorkspace().setValue(viewActivated);
     }
 }

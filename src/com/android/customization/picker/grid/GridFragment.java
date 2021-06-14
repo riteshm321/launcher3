@@ -20,7 +20,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
-import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY_TEXT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -189,8 +189,8 @@ public class GridFragment extends AppbarFragment {
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         super.onBottomActionBarReady(bottomActionBar);
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(APPLY);
-        mBottomActionBar.setActionClickListener(APPLY, unused -> applyGridOption(mSelectedOption));
+        mBottomActionBar.showActionsOnly(APPLY_TEXT);
+        mBottomActionBar.setActionClickListener(APPLY_TEXT, v -> applyGridOption(mSelectedOption));
     }
 
     private void applyGridOption(GridOption gridOption) {

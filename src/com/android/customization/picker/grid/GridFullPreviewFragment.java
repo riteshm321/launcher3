@@ -17,7 +17,7 @@ package com.android.customization.picker.grid;
 
 import static android.app.Activity.RESULT_OK;
 
-import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY_TEXT;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -112,8 +112,8 @@ public class GridFullPreviewFragment extends AppbarFragment {
     @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         super.onBottomActionBarReady(bottomActionBar);
-        bottomActionBar.showActionsOnly(APPLY);
-        bottomActionBar.setActionClickListener(APPLY, v -> finishActivityWithResultOk());
+        bottomActionBar.showActionsOnly(APPLY_TEXT);
+        bottomActionBar.setActionClickListener(APPLY_TEXT, v -> finishActivityWithResultOk());
         bottomActionBar.show();
     }
 

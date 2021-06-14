@@ -44,7 +44,6 @@ import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
-import com.android.customization.util.LaunchUtils;
 import com.android.customization.widget.OptionSelectorController;
 import com.android.customization.widget.OptionSelectorController.CheckmarkStyle;
 import com.android.wallpaper.R;
@@ -52,6 +51,7 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.util.LaunchUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 
 import com.bumptech.glide.Glide;

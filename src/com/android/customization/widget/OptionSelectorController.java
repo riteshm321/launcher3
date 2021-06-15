@@ -116,7 +116,12 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         }
         updateActivatedStatus(mSelectedOption, false);
         updateActivatedStatus(option, true);
+        T lastSelectedOption = mSelectedOption;
         mSelectedOption = option;
+        mAdapter.notifyItemChanged(mOptions.indexOf(option));
+        if (lastSelectedOption != null) {
+            mAdapter.notifyItemChanged(mOptions.indexOf(lastSelectedOption));
+        }
         notifyListeners();
     }
 

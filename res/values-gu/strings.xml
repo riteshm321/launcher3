@@ -78,4 +78,16 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"કસ્ટમ રંગ"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"કસ્ટમ આકાર"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"કસ્ટમ શૈલી નામ"</string>
+    <!-- no translation found for mode_title (2394873501427436055) -->
+    <!-- no translation found for mode_title (1000319159005403986) -->
+    <skip />
+    <!-- no translation found for mode_disabled_msg (9196245518435936512) -->
+    <!-- no translation found for mode_disabled_msg (1926077857799715086) -->
+    <skip />
+    <!-- no translation found for themed_icon_title (7312460430471956558) -->
+    <!-- no translation found for themed_icon_title (4305612684940220645) -->
+    <skip />
+    <!-- no translation found for gird_picker_entry_content_description (9087651470212293439) -->
+    <!-- no translation found for gird_picker_entry_content_description (7538418512525897691) -->
+    <skip />
 </resources>

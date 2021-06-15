@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Custom na kulay"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Custom na hugis"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Custom na pangalan ng istilo"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Madilim na tema"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Pansamantalang na-disable dahil sa Pantipid ng Baterya"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Mga may temang icon"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Baguhin ang grid ng app"</string>
 </resources>

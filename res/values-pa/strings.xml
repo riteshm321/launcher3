@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ਵਿਉਂਤਿਆ ਰੰਗ"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"ਵਿਉਂਤੀ ਆਕ੍ਰਿਤੀ"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ਸ਼ੈਲੀ ਦਾ ਵਿਉਂਤਿਆ ਨਾਮ"</string>
+    <string name="mode_title" msgid="2394873501427436055">"ਗੂੜ੍ਹਾ ਥੀਮ"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"ਬੈਟਰੀ ਸੇਵਰ ਕਰਕੇ ਕੁਝ ਸਮੇਂ ਲਈ ਬੰਦ ਕੀਤਾ ਗਿਆ"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"ਥੀਮ ਵਾਲੇ ਪ੍ਰਤੀਕ"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ਐਪ ਗ੍ਰਿਡ ਬਦਲੋ"</string>
 </resources>

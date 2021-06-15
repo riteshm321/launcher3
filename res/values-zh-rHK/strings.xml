@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"自訂顏色"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"自訂形狀"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"自訂樣式嘅名"</string>
+    <string name="mode_title" msgid="2394873501427436055">"深色主題背景"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"因「省電模式」而暫時停用"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"主題圖示"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"變更應用程式網格"</string>
 </resources>

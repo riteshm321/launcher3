@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ពណ៌​ផ្ទាល់ខ្លួន"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"រូបរាង​ផ្ទាល់ខ្លួន"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ឈ្មោះ​រចនាប័ទ្ម​ផ្ទាល់ខ្លួន"</string>
+    <string name="mode_title" msgid="2394873501427436055">"​រចនាប័ទ្ម​ងងឹត"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"បានបិទ​ជា​បណ្តោះអាសន្ន ដោយសារ​មុខងារ​សន្សំ​ថ្ម"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"រូបកំណត់រចនាប័ទ្ម"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ប្ដូរ​ក្រឡា​កម្មវិធី"</string>
 </resources>

@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"მორგებული ფერი"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"მორგებული ფიგურა"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"მორგებული სტილის სახელი"</string>
+    <string name="mode_title" msgid="2394873501427436055">"მუქი თემა"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"ბატარეის დამზოგის გამო დროებით გათიშულია"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"თემატური ხატულები"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"აპების ბადის შეცვლა"</string>
 </resources>

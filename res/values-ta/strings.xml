@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"பிரத்தியேக வண்ணம்"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"பிரத்தியேக வடிவம்"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"பிரத்தியேகத் தோற்றத்தின் பெயர்"</string>
+    <string name="mode_title" msgid="2394873501427436055">"டார்க் தீம்"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"பேட்டரிச் சேமிப்பான் காரணமாகத் தற்காலிகமாக முடக்கப்பட்டுள்ளது"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"தீம் செய்யப்பட்ட ஐகான்கள்"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ஆப்ஸ் கட்டக் காட்சியை மாற்றும்"</string>
 </resources>

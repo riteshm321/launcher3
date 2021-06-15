@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Жеке түс"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Жеке форма"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Жеке стилдин аталышы"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Караңгы тема"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Батареяны үнөмдөгүч режиминде убактылуу өчүрүлдү"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Тематикалык сүрөтчөлөр"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Колдонмонун торчосун өзгөртүү"</string>
 </resources>

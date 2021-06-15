@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Kolor niestandardowy"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Kształt niestandardowy"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Nazwa stylu niestandardowego"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Ciemny motyw"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Tymczasowo wyłączono z powodu oszczędzania baterii"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Ikony z motywem"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Zmień siatkę aplikacji"</string>
 </resources>

@@ -27,22 +27,22 @@ import com.android.customization.model.CustomizationManager.OptionsFetchedListen
 import com.android.customization.picker.grid.GridFragment;
 import com.android.customization.picker.grid.GridSectionView;
 import com.android.wallpaper.R;
-import com.android.wallpaper.model.HubSectionController;
+import com.android.wallpaper.model.CustomizationSectionController;
 
 import java.util.List;
 
-/** A {@link HubSectionController} for app grid. */
-public class GridSectionController implements HubSectionController<GridSectionView> {
+/** A {@link CustomizationSectionController} for app grid. */
+public class GridSectionController implements CustomizationSectionController<GridSectionView> {
 
     private static final String TAG = "GridSectionController";
 
     private final GridOptionsManager mGridOptionsManager;
-    private final HubSectionNavigationController mHubSectionNavigationController;
+    private final CustomizationSectionNavigationController mSectionNavigationController;
 
     public GridSectionController(GridOptionsManager gridOptionsManager,
-            HubSectionNavigationController hubSectionNavigationController) {
+            CustomizationSectionNavigationController sectionNavigationController) {
         mGridOptionsManager = gridOptionsManager;
-        mHubSectionNavigationController = hubSectionNavigationController;
+        mSectionNavigationController = sectionNavigationController;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class GridSectionController implements HubSectionController<GridSectionVi
             }
         }, /* reload= */ true);
 
-        gridSectionView.setOnClickListener(v -> mHubSectionNavigationController.navigateTo(
+        gridSectionView.setOnClickListener(v -> mSectionNavigationController.navigateTo(
                 GridFragment.newInstance(context.getString(R.string.grid_title))));
 
         return gridSectionView;

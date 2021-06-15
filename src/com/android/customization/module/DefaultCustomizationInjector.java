@@ -15,8 +15,8 @@
  */
 package com.android.customization.module;
 
-import static com.android.customization.picker.CustomizationPickerActivity.WALLPAPER_FLAVOR_EXTRA;
-import static com.android.customization.picker.CustomizationPickerActivity.WALLPAPER_FOCUS;
+import static com.android.wallpaper.picker.CustomizationPickerActivity.WALLPAPER_FLAVOR_EXTRA;
+import static com.android.wallpaper.picker.CustomizationPickerActivity.WALLPAPER_FOCUS;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +28,6 @@ import androidx.fragment.app.FragmentActivity;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.model.theme.ThemeManager;
-import com.android.customization.picker.CustomizationPickerActivity;
 import com.android.wallpaper.model.CategoryProvider;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.BaseWallpaperInjector;
@@ -38,6 +37,7 @@ import com.android.wallpaper.module.LoggingOptInStatusProvider;
 import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.module.WallpaperRotationRefresher;
 import com.android.wallpaper.monitor.PerformanceMonitor;
+import com.android.wallpaper.picker.CustomizationPickerActivity;
 import com.android.wallpaper.picker.PreviewFragment;
 
 public class DefaultCustomizationInjector extends BaseWallpaperInjector

@@ -64,8 +64,6 @@ android_app {
         ":ThemePicker_srcs",
         "src_override/**/*.java",
         "src_override/**/*.kt",
-        "src_overridecustom/**/*.java",
-        "src_overridecustom/**/*.kt",
     ],
 
     use_embedded_native_libs: true,

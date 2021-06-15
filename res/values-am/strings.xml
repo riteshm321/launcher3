@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ብጁ ቀለም"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"ብጁ ቅርጽ"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ብጁ የቅጥ ስም"</string>
+    <string name="mode_title" msgid="2394873501427436055">"ጠቆር ያለ ገጽታ"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"በባትሪ ኃይል ቆጣቢ ምክንያት ለጊዜው ተሰናክሏል"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"ገጽታ ያላቸው አዶዎች"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"የመተግበሪያ ፍርግርግን ይቀይሩ"</string>
 </resources>

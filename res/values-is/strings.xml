@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Sérsniðinn litur"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Sérsniðið form"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Sérsniðið stílheiti"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Dökkt þema"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Slökkt tímabundið vegna rafhlöðusparnaðar"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Þematákn"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Breyta forritatöflu"</string>
 </resources>

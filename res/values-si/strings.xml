@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"අභිරුචි වර්ණය"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"අභිරුචි හැඩය"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"අභිරුචි මෝස්තර නම"</string>
+    <string name="mode_title" msgid="2394873501427436055">"අඳුරු තේමාව"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"බැටරි සුරැකුම හේතුවෙන් තාවකාලිකව අබල කරන ලදි"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"තේමාගත නිරූපක"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"යෙදුම් ජාලකය වෙනස් කරන්න"</string>
 </resources>

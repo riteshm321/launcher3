@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"କଷ୍ଟମ୍ ରଙ୍ଗ"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"କଷ୍ଟମ୍ ଆକାର"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"କଷ୍ଟମ୍ ଷ୍ଟାଇଲ୍ ନାମ"</string>
+    <string name="mode_title" msgid="2394873501427436055">"ଗାଢ଼ା ଥିମ୍"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"ବ୍ୟାଟେରୀ ସେଭର୍ ଯୋଗୁଁ ଅସ୍ଥାୟୀ ଭାବେ ଅକ୍ଷମ କରାଯାଇଛି"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"ଥିମ୍ ଯୁକ୍ତ ଆଇକନ୍"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ଆପ୍ ଗ୍ରିଡ୍ ପରିବର୍ତ୍ତନ କରନ୍ତୁ"</string>
 </resources>

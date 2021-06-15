@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Warna tersuai"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Bentuk tersuai"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Nama gaya tersuai"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Tema gelap"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Dilumpuhkan sementara disebabkan Penjimat Bateri"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Ikon bertema"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Tukar grid apl"</string>
 </resources>

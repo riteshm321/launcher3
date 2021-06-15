@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"لون مخصص"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"شكل مخصص"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"اسم نمط مخصص"</string>
+    <string name="mode_title" msgid="2394873501427436055">"المظهر الداكن"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"تم الإيقاف مؤقتًا بسبب تفعيل ميزة \"توفير شحن البطارية\"."</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"رموز مستوحاة من موضوع معيّن"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"تغيير شبكة التطبيقات"</string>
 </resources>

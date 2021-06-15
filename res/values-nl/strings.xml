@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Aangepaste kleur"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Aangepaste vorm"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Naam van aangepaste stijl"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Donker thema"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Tijdelijk uit vanwege Batterijbesparing"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Thema-iconen"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"App-raster wijzigen"</string>
 </resources>

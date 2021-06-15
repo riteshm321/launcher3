@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"কাস্টম রঙ"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"কাস্টম আকৃতি"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"কাস্টম স্টাইলের নাম"</string>
+    <string name="mode_title" msgid="2394873501427436055">"ডার্ক থিম"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"ব্যাটারি সেভারের কারণে সাময়িকভাবে বন্ধ করা আছে"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"থিমযুক্ত আইকন"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"অ্যাপ গ্রিড পরিবর্তন করুন"</string>
 </resources>

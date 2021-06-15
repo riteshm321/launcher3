@@ -20,7 +20,7 @@
     <string name="app_name" msgid="1647136562008520313">"טפט וסגנון"</string>
     <string name="theme_title" msgid="2144932106319405101">"סגנון"</string>
     <string name="clock_title" msgid="2126046720254613991">"שעון"</string>
-    <string name="grid_title" msgid="1688173478777254123">"רשת האפליקציות"</string>
+    <string name="grid_title" msgid="1688173478777254123">"תצוגת האפליקציות"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"אישור"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"יש להקיש כדי לערוך"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"שמירת הטפט הנוכחי"</string>
@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"צבע מותאם אישית"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"צורה מותאמת אישית"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"שם סגנון מותאם אישית"</string>
+    <string name="mode_title" msgid="2394873501427436055">"עיצוב כהה"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"מושבת זמנית כי הופעל מצב \'חיסכון בסוללה\'"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"סמלים מעוצבים"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"שינוי רשת האפליקציות"</string>
 </resources>

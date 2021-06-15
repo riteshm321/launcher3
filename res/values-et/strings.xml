@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Kohandatud värv"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Kohandatud kuju"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Kohandatud stiili nimi"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Tume teema"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Akusäästja tõttu ajutiselt keelatud"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Temaatilised ikoonid"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Rakenduste ruudustiku muutmine"</string>
 </resources>

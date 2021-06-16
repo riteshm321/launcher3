@@ -8,42 +8,44 @@ import androidx.lifecycle.LifecycleOwner;
 
 import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.model.grid.GridSectionController;
-import com.android.customization.model.mode.ModeSection;
+import com.android.customization.model.mode.DarkModeSectionController;
 import com.android.customization.model.themedicon.ThemedIconSectionController;
 import com.android.customization.model.themedicon.ThemedIconSwitchProvider;
 import com.android.customization.model.themedicon.ThemedIconUtils;
 import com.android.wallpaper.R;
-import com.android.wallpaper.model.HubSectionController;
+import com.android.wallpaper.model.CustomizationSectionController;
+import com.android.wallpaper.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.android.wallpaper.model.PermissionRequester;
 import com.android.wallpaper.model.WallpaperColorsViewModel;
 import com.android.wallpaper.model.WallpaperPreviewNavigator;
 import com.android.wallpaper.model.WallpaperSectionController;
 import com.android.wallpaper.model.WorkspaceViewModel;
-import com.android.wallpaper.module.HubSections;
+import com.android.wallpaper.module.CustomizationSections;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/** {@link HubSections} for the customization picker. */
-public final class DefaultCustomizationSections implements HubSections {
+/** {@link CustomizationSections} for the customization picker. */
+public final class DefaultCustomizationSections implements CustomizationSections {
 
     @Override
-    public List<HubSectionController<?>> getAllSectionControllers(Activity activity,
+    public List<CustomizationSectionController<?>> getAllSectionControllers(Activity activity,
             LifecycleOwner lifecycleOwner, WallpaperColorsViewModel wallpaperColorsViewModel,
             WorkspaceViewModel workspaceViewModel, PermissionRequester permissionRequester,
             WallpaperPreviewNavigator wallpaperPreviewNavigator,
-            HubSectionController.HubSectionNavigationController hubSectionNavigationController,
+            CustomizationSectionNavigationController sectionNavigationController,
             @Nullable Bundle savedInstanceState) {
-        List<HubSectionController<?>> sectionControllers = new ArrayList<>();
+        List<CustomizationSectionController<?>> sectionControllers = new ArrayList<>();
 
         // Wallpaper section.
         sectionControllers.add(new WallpaperSectionController(
                 activity, lifecycleOwner, permissionRequester, wallpaperColorsViewModel,
-                workspaceViewModel, hubSectionNavigationController, wallpaperPreviewNavigator,
+                workspaceViewModel, sectionNavigationController, wallpaperPreviewNavigator,
                 savedInstanceState));
 
         // Dark/Light theme section.
-        sectionControllers.add(new ModeSection(activity, lifecycleOwner.getLifecycle()));
+        sectionControllers.add(new DarkModeSectionController(activity,
+                lifecycleOwner.getLifecycle()));
 
         // Themed app icon section.
         sectionControllers.add(new ThemedIconSectionController(
@@ -53,7 +55,7 @@ public final class DefaultCustomizationSections implements HubSections {
 
         // App grid section.
         sectionControllers.add(new GridSectionController(
-                GridOptionsManager.get(activity), hubSectionNavigationController));
+                GridOptionsManager.getInstance(activity), sectionNavigationController));
 
         return sectionControllers;
     }

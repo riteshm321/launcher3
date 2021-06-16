@@ -25,14 +25,12 @@ import androidx.annotation.Nullable;
 import com.android.wallpaper.R;
 import com.android.wallpaper.picker.SectionView;
 
-/**
- * The view of section in the Customization Hub fragment.
- */
-public final class ModeSectionView extends SectionView {
+/** The view of section in the customization picker fragment. */
+public final class DarkModeSectionView extends SectionView {
 
     private boolean mIsDarkModeActivated;
 
-    public ModeSectionView(Context context, @Nullable AttributeSet attrs) {
+    public DarkModeSectionView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setTitle(context.getString(R.string.mode_title));
         mIsDarkModeActivated = (context.getResources().getConfiguration().uiMode

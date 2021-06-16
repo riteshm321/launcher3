@@ -89,7 +89,7 @@ public class GridFullPreviewFragment extends AppbarFragment {
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
         mWallpaperPreviewer = new WallpaperPreviewer(
                 getLifecycle(), getActivity(), wallpaperPreviewImage, wallpaperSurface);
-        mGridOptionPreviewer = new GridOptionPreviewer(GridOptionsManager.get(getContext()),
+        mGridOptionPreviewer = new GridOptionPreviewer(GridOptionsManager.getInstance(getContext()),
                 view.findViewById(R.id.grid_preview_container));
         return view;
     }

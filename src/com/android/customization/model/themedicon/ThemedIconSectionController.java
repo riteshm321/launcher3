@@ -22,14 +22,15 @@ import androidx.annotation.Nullable;
 
 import com.android.customization.picker.themedicon.ThemedIconSectionView;
 import com.android.wallpaper.R;
-import com.android.wallpaper.model.HubSectionController;
+import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.WorkspaceViewModel;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/** The {@link HubSectionController} for themed icon section. */
-public class ThemedIconSectionController implements HubSectionController<ThemedIconSectionView> {
+/** The {@link CustomizationSectionController} for themed icon section. */
+public class ThemedIconSectionController implements
+        CustomizationSectionController<ThemedIconSectionView> {
 
     private final ThemedIconSwitchProvider mThemedIconOptionsProvider;
     private final WorkspaceViewModel mWorkspaceViewModel;

@@ -14,7 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.android.customization.picker.mode.ModeSectionView
+<com.android.customization.picker.mode.DarkModeSectionView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,4 +41,4 @@
         android:focusable="false"
         style="@style/Switch.SettingsLib" />
 
-</com.android.customization.picker.mode.ModeSectionView>
+</com.android.customization.picker.mode.DarkModeSectionView>

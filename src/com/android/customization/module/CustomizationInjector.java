@@ -16,11 +16,9 @@
 package com.android.customization.module;
 
 import android.content.Context;
-import android.content.Intent;
 
 import androidx.fragment.app.FragmentActivity;
 
-import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.model.theme.ThemeManager;
@@ -32,31 +30,4 @@ public interface CustomizationInjector extends Injector {
 
     ThemeManager getThemeManager(ThemeBundleProvider provider, FragmentActivity activity,
             OverlayManagerCompat overlayManagerCompat, ThemesUserEventLogger logger);
-
-    /**
-     * Obtain an extra CustomizationManager to add to the bottom nav
-     */
-    default CustomizationManager<?> getExtraManager(FragmentActivity activity,
-            OverlayManagerCompat overlayManagerCompat, ThemesUserEventLogger eventLogger) {
-        return null;
-    }
-
-    /**
-     * Obtain an extra Customization intent to start Activity if any.
-     *
-     * @param context The {@link Context} of the application
-     * @return intent The {@link Intent} to start Activity
-     */
-    default Intent getCustomizeExtIntent(Context context) {
-        return null;
-    }
-
-    /**
-     * Check if the system supporting customization extension.
-     *
-     * @return {@code true} if the system supports customization extension, {@code false} otherwise.
-     */
-    default boolean supportsCustomizationExtended(Context context) {
-        return false;
-    }
 }

@@ -43,7 +43,7 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
     private final ThemesUserEventLogger mEventLogger;
 
     /** Returns the {@link GridOptionsManager} instance. */
-    public static GridOptionsManager get(Context context) {
+    public static GridOptionsManager getInstance(Context context) {
         if (sGridOptionsManager == null) {
             Context appContext = context.getApplicationContext();
             CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();

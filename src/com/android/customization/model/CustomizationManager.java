@@ -28,20 +28,6 @@ import java.util.List;
 public interface CustomizationManager<T extends CustomizationOption> {
 
     /**
-     * Create a new {@link CustomizationSection} corresponding to this Manager
-     */
-    default CustomizationSection<T> createSection() {
-        return null;
-    }
-
-    /**
-     * @return the id in the navigation menu for the section this Manager manages.
-     */
-    default int getNavId() {
-        return 0;
-    };
-
-    /**
      * Callback for applying a customization option.
      */
     interface Callback {

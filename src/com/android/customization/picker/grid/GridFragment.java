@@ -134,7 +134,7 @@ public class GridFragment extends AppbarFragment {
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
 
-        mGridManager = GridOptionsManager.get(getContext());
+        mGridManager = GridOptionsManager.getInstance(getContext());
         mEventLogger = (ThemesUserEventLogger) InjectorProvider.getInjector()
                 .getUserEventLogger(getContext());
         setUpOptions(savedInstanceState);

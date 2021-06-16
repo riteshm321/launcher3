@@ -48,9 +48,6 @@ public class LauncherGridOptionsProvider {
     private static final String COL_PREVIEW_COUNT = "preview_count";
     private static final String COL_IS_DEFAULT = "is_default";
 
-    // Normal gird size name
-    private static final String GRID_NAME_NORMAL = "normal";
-
     private static final String METADATA_KEY_PREVIEW_VERSION = "preview_version";
 
     private final Context mContext;
@@ -91,9 +88,7 @@ public class LauncherGridOptionsProvider {
                 int cols = c.getInt(c.getColumnIndex(COL_COLS));
                 int previewCount = c.getInt(c.getColumnIndex(COL_PREVIEW_COUNT));
                 boolean isSet = Boolean.parseBoolean(c.getString(c.getColumnIndex(COL_IS_DEFAULT)));
-                String title = GRID_NAME_NORMAL.equals(name)
-                        ? mContext.getString(R.string.default_theme_title)
-                        : mContext.getString(R.string.grid_title_pattern, cols, rows);
+                String title = mContext.getString(R.string.grid_title_pattern, cols, rows);
                 mOptions.add(new GridOption(title, name, isSet, rows, cols,
                         mPreviewUtils.getUri(PREVIEW), previewCount, iconPath));
             }

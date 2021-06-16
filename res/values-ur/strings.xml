@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"حسب ضرورت رنگ"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"حسب ضرورت شکل"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"حسب ضرورت طرز کا نام"</string>
+    <string name="mode_title" msgid="2394873501427436055">"گہری تھیم"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"بیٹری سیور کی وجہ سے عارضی طور پر غیر فعال ہے"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"تھیم کردہ آئیکنز"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ایپ گرڈ تبدیل کریں"</string>
 </resources>

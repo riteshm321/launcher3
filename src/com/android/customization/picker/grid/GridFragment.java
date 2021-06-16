@@ -20,7 +20,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
 import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
-import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY_TEXT;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,7 +44,6 @@ import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
-import com.android.customization.util.LaunchUtils;
 import com.android.customization.widget.OptionSelectorController;
 import com.android.customization.widget.OptionSelectorController.CheckmarkStyle;
 import com.android.wallpaper.R;
@@ -52,6 +51,7 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.util.LaunchUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 
 import com.bumptech.glide.Glide;
@@ -189,8 +189,8 @@ public class GridFragment extends AppbarFragment {
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
         super.onBottomActionBarReady(bottomActionBar);
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(APPLY);
-        mBottomActionBar.setActionClickListener(APPLY, unused -> applyGridOption(mSelectedOption));
+        mBottomActionBar.showActionsOnly(APPLY_TEXT);
+        mBottomActionBar.setActionClickListener(APPLY_TEXT, v -> applyGridOption(mSelectedOption));
     }
 
     private void applyGridOption(GridOption gridOption) {

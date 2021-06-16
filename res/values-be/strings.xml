@@ -78,4 +78,8 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Карыстальніцкі колер"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Карыстальніцкая форма"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Назва карыстальніцкага стылю"</string>
+    <string name="mode_title" msgid="2394873501427436055">"Цёмная тэма"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"Часова выключана ў рэжыме эканоміі зараду"</string>
+    <string name="themed_icon_title" msgid="7312460430471956558">"Тэматычныя значкі"</string>
+    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Змяніць сетку праграм"</string>
 </resources>

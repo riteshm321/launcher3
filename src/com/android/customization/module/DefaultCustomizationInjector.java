@@ -31,8 +31,8 @@ import com.android.customization.model.theme.ThemeManager;
 import com.android.wallpaper.model.CategoryProvider;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.BaseWallpaperInjector;
+import com.android.wallpaper.module.CustomizationSections;
 import com.android.wallpaper.module.DefaultCategoryProvider;
-import com.android.wallpaper.module.HubSections;
 import com.android.wallpaper.module.LoggingOptInStatusProvider;
 import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.module.WallpaperRotationRefresher;
@@ -47,7 +47,7 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
     private WallpaperRotationRefresher mWallpaperRotationRefresher;
     private PerformanceMonitor mPerformanceMonitor;
     private WallpaperPreferences mPrefs;
-    private HubSections mHubSections;
+    private CustomizationSections mCustomizationSections;
 
     @Override
     public synchronized WallpaperPreferences getPreferences(Context context) {
@@ -142,10 +142,10 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
     }
 
     @Override
-    public HubSections getHubSections() {
-        if (mHubSections == null) {
-            mHubSections = new DefaultCustomizationSections();
+    public CustomizationSections getCustomizationSections() {
+        if (mCustomizationSections == null) {
+            mCustomizationSections = new DefaultCustomizationSections();
         }
-        return mHubSections;
+        return mCustomizationSections;
     }
 }

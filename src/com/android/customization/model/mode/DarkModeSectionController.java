@@ -21,9 +21,12 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.os.PowerManager.ACTION_POWER_SAVE_MODE_CHANGED;
 
 import android.app.UiModeManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.PowerManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -34,32 +37,31 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.android.customization.picker.mode.ModeSectionView;
+import com.android.customization.picker.mode.DarkModeSectionView;
 import com.android.wallpaper.R;
-import com.android.wallpaper.model.HubSectionController;
-import com.android.wallpaper.model.HubSectionController.HubSectionBatterySaverListener;
+import com.android.wallpaper.model.CustomizationSectionController;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Section for dark theme toggle that controls if this section will be shown visually
- */
-public class ModeSection implements HubSectionController<ModeSectionView>, LifecycleObserver,
-        HubSectionBatterySaverListener {
+/** Section for dark theme toggle that controls if this section will be shown visually. */
+public class DarkModeSectionController implements
+        CustomizationSectionController<DarkModeSectionView>, LifecycleObserver {
+
+    private static final ExecutorService sExecutorService = Executors.newSingleThreadExecutor();
 
     private final Lifecycle mLifecycle;
-    private final BatterySaverStateReceiver mBatterySaverStateReceiver;
-
-    private static ExecutorService sExecutorService = Executors.newSingleThreadExecutor();
+    private final PowerManager mPowerManager;
+    private final BatterySaverStateReceiver mBatterySaverStateReceiver =
+            new BatterySaverStateReceiver();
 
     private Context mContext;
-    private ModeSectionView mModeSectionView;
+    private DarkModeSectionView mDarkModeSectionView;
 
-    public ModeSection(Context context, Lifecycle lifecycle) {
+    public DarkModeSectionController(Context context, Lifecycle lifecycle) {
         mContext = context;
         mLifecycle = lifecycle;
-        mBatterySaverStateReceiver = new BatterySaverStateReceiver(this);
+        mPowerManager = context.getSystemService(PowerManager.class);
         mLifecycle.addObserver(this);
     }
 
@@ -101,20 +103,20 @@ public class ModeSection implements HubSectionController<ModeSectionView>, Lifec
     }
 
     @Override
-    public ModeSectionView createView(Context context) {
-        mModeSectionView = (ModeSectionView) LayoutInflater.from(
-                context).inflate(R.layout.mode_section_view, /* root= */ null);
-        mModeSectionView.setViewListener(this::onViewActivated);
+    public DarkModeSectionView createView(Context context) {
+        mDarkModeSectionView = (DarkModeSectionView) LayoutInflater.from(
+                context).inflate(R.layout.dark_mode_section_view, /* root= */ null);
+        mDarkModeSectionView.setViewListener(this::onViewActivated);
         PowerManager pm = context.getSystemService(PowerManager.class);
-        mModeSectionView.setEnabled(!pm.isPowerSaveMode());
-        return mModeSectionView;
+        mDarkModeSectionView.setEnabled(!pm.isPowerSaveMode());
+        return mDarkModeSectionView;
     }
 
     private void onViewActivated(Context context, boolean viewActivated) {
         if (context == null) {
             return;
         }
-        Switch switchView = mModeSectionView.findViewById(R.id.dark_mode_toggle);
+        Switch switchView = mDarkModeSectionView.findViewById(R.id.dark_mode_toggle);
         if (!switchView.isEnabled()) {
             Toast disableToast = Toast.makeText(mContext,
                     mContext.getString(R.string.mode_disabled_msg), Toast.LENGTH_SHORT);
@@ -125,8 +127,13 @@ public class ModeSection implements HubSectionController<ModeSectionView>, Lifec
         uiModeManager.setNightModeActivated(viewActivated);
     }
 
-    @Override
-    public void onBatterySaverStateChanged(boolean isEnabled) {
-        mModeSectionView.setEnabled(!isEnabled);
+    private class BatterySaverStateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (TextUtils.equals(intent.getAction(), ACTION_POWER_SAVE_MODE_CHANGED)
+                    && mDarkModeSectionView != null) {
+                mDarkModeSectionView.setEnabled(!mPowerManager.isPowerSaveMode());
+            }
+        }
     }
 }

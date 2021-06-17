@@ -14,7 +14,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<com.android.customization.widget.ThemeInfoView
+<com.android.customization.picker.theme.ThemeInfoView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -73,4 +73,4 @@
             android:layout_height="@dimen/theme_info_icon_size"
             android:layout_marginHorizontal="@dimen/theme_info_margin"/>
     </LinearLayout>
-</com.android.customization.widget.ThemeInfoView>
+</com.android.customization.picker.theme.ThemeInfoView>

@@ -37,7 +37,6 @@ import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.module.CustomizationInjector;
 import com.android.customization.picker.WallpaperPreviewer;
-import com.android.customization.widget.ThemeInfoView;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;

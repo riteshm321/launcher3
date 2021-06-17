@@ -15,8 +15,6 @@
  */
 package com.android.customization.picker;
 
-import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +26,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.android.customization.picker.grid.GridFullPreviewFragment;
-import com.android.customization.picker.theme.ThemeFullPreviewFragment;
 import com.android.wallpaper.R;
 import com.android.wallpaper.picker.AppbarFragment.AppbarFragmentHost;
 import com.android.wallpaper.widget.BottomActionBar;
@@ -81,13 +78,6 @@ public class ViewOnlyFullPreviewActivity extends FragmentActivity implements App
         if (section == SECTION_GRID) {
             showFragment(GridFullPreviewFragment.newInstance(
                     getString(R.string.grid_title), bundle));
-        } else if (section == SECTION_STYLE) {
-            final String themeTitle = bundle.getString(EXTRA_THEME_OPTION_TITLE);
-            showFragment(ThemeFullPreviewFragment.newInstance(
-                    TextUtils.isEmpty(themeTitle)
-                            ? getString(R.string.theme_title)
-                            : themeTitle,
-                    bundle));
         }
     }
 

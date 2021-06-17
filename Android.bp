@@ -24,6 +24,22 @@ filegroup {
     srcs: [
         "src/**/*.java",
         "src/**/*.kt",
+        // Min requirement for CustomizationInjector and StatsLogUserEventLogger to build without Clock and Theme feature.
+        "src/com/android/customization/model/clock/BaseClockManager.java",
+        "src/com/android/customization/model/clock/Clockface.java",
+        "src/com/android/customization/model/clock/ClockManager.java",
+        "src/com/android/customization/model/clock/ClockProvider.java",
+        "src/com/android/customization/model/theme/OverlayManagerCompat.java",
+        "src/com/android/customization/model/theme/ThemeBundleProvider.java",
+        "src/com/android/customization/model/theme/ThemeManager.java",
+        "src/com/android/customization/model/theme/ThemeBundle.java",
+        "src/com/android/customization/model/theme/custom/CustomTheme.java",
+    ],
+    exclude_srcs: [
+        "src/com/android/customization/model/clock/**/*.java",
+        "src/com/android/customization/model/theme/**/*.java",
+        "src/com/android/customization/picker/clock/**/*.java",
+        "src/com/android/customization/picker/theme/**/*.java",
     ],
 }
 
@@ -80,5 +96,6 @@ android_app {
     system_ext_specific: true,
     platform_apis: true,
     manifest: "AndroidManifest.xml",
+    additional_manifests: [":WallpaperPicker2_Manifest"],
     overrides: ["WallpaperPicker2"],
 }

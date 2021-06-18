@@ -287,9 +287,10 @@ public class ThemeFragment extends AppbarFragment {
                 mSelectedTheme = previouslySelectedTheme != null
                         ? previouslySelectedTheme
                         : activeTheme;
-                // 3. Select the default theme if there is no matching custom enabled theme.
+                // 3. Select the first system theme(default theme currently)
+                //    if there is no matching custom enabled theme.
                 if (mSelectedTheme == null) {
-                    mSelectedTheme = findDefaultThemeBundle(options);
+                    mSelectedTheme = findFirstSystemThemeBundle(options);
                 }
 
                 mOptionsController.setSelectedOption(mSelectedTheme);
@@ -324,8 +325,7 @@ public class ThemeFragment extends AppbarFragment {
                 }
             }
             if (mSelectedTheme == null) {
-                // Select the default theme if there is no matching custom enabled theme
-                mSelectedTheme = findDefaultThemeBundle(options);
+                mSelectedTheme = findFirstSystemThemeBundle(options);
             }
             mOptionsController.setSelectedOption(mSelectedTheme);
             // Set selected option above will show BottomActionBar,
@@ -334,11 +334,9 @@ public class ThemeFragment extends AppbarFragment {
         }, true);
     }
 
-    private ThemeBundle findDefaultThemeBundle(List<ThemeBundle> options) {
-        String defaultThemeTitle =
-                getActivity().getResources().getString(R.string.default_theme_title);
+    private ThemeBundle findFirstSystemThemeBundle(List<ThemeBundle> options) {
         for (ThemeBundle bundle : options) {
-            if (bundle.getTitle().equals(defaultThemeTitle)) {
+            if (!(bundle instanceof CustomTheme)) {
                 return bundle;
             }
         }

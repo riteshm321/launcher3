@@ -52,6 +52,7 @@ import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
 import com.android.wallpaper.widget.BottomActionBar.AccessibilityCallback;
+import com.android.wallpaper.widget.BottomActionBar.BottomSheetContent;
 
 import java.util.List;
 
@@ -147,9 +148,9 @@ public class ThemeFragment extends AppbarFragment {
             mBottomActionBar.disableActions();
             applyTheme();
         });
-        mThemeInfoView = (ThemeInfoView) LayoutInflater.from(getContext()).inflate(
-                R.layout.theme_info_view, /* root= */ null);
-        mBottomActionBar.attachViewToBottomSheetAndBindAction(mThemeInfoView, INFORMATION);
+
+        mBottomActionBar.bindBottomSheetContentWithAction(
+                new ThemeInfoContent(getContext()), INFORMATION);
         mBottomActionBar.setActionClickListener(CUSTOMIZE, this::onCustomizeClicked);
 
         // Update target view's accessibility param since it will be blocked by the bottom sheet
@@ -377,5 +378,25 @@ public class ThemeFragment extends AppbarFragment {
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_PACKAGES,
                 themeToEdit.getSerializedPackages());
         startActivityForResult(intent, CustomThemeActivity.REQUEST_CODE_CUSTOM_THEME);
+    }
+
+    private final class ThemeInfoContent extends BottomSheetContent<ThemeInfoView> {
+
+        private ThemeInfoContent(Context context) {
+            super(context);
+        }
+
+        @Override
+        public int getViewId() {
+            return R.layout.theme_info_view;
+        }
+
+        @Override
+        public void onViewCreated(ThemeInfoView view) {
+            mThemeInfoView = view;
+            if (mSelectedTheme != null) {
+                mThemeInfoView.populateThemeInfo(mSelectedTheme);
+            }
+        }
     }
 }

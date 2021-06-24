@@ -15,9 +15,6 @@
  */
 package com.android.customization.module;
 
-import static com.android.wallpaper.picker.CustomizationPickerActivity.WALLPAPER_FLAVOR_EXTRA;
-import static com.android.wallpaper.picker.CustomizationPickerActivity.WALLPAPER_FOCUS;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -107,7 +104,6 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
         Intent intent = new Intent();
         intent.setClass(context, CustomizationPickerActivity.class);
         intent.setData(uri);
-        intent.putExtra(WALLPAPER_FLAVOR_EXTRA, WALLPAPER_FOCUS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;
     }

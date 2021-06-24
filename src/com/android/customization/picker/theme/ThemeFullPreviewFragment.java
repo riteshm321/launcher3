@@ -21,6 +21,7 @@ import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.INFORMATION;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,6 +43,7 @@ import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
 import com.android.wallpaper.widget.BottomActionBar;
+import com.android.wallpaper.widget.BottomActionBar.BottomSheetContent;
 
 import com.bumptech.glide.Glide;
 
@@ -131,10 +133,8 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
         } else {
             bottomActionBar.showActionsOnly(INFORMATION);
         }
-        ThemeInfoView themeInfoView = (ThemeInfoView) LayoutInflater.from(getContext()).inflate(
-                R.layout.theme_info_view, /* root= */ null);
-        themeInfoView.populateThemeInfo(mThemeBundle);
-        bottomActionBar.attachViewToBottomSheetAndBindAction(themeInfoView, INFORMATION);
+        bottomActionBar.bindBottomSheetContentWithAction(
+                new ThemeInfoContent(getContext()), INFORMATION);
         bottomActionBar.show();
     }
 
@@ -144,5 +144,22 @@ public class ThemeFullPreviewFragment extends AppbarFragment {
         Intent intent = new Intent();
         activity.setResult(RESULT_OK, intent);
         activity.finish();
+    }
+
+    private final class ThemeInfoContent extends BottomSheetContent<ThemeInfoView> {
+
+        private ThemeInfoContent(Context context) {
+            super(context);
+        }
+
+        @Override
+        public int getViewId() {
+            return R.layout.theme_info_view;
+        }
+
+        @Override
+        public void onViewCreated(ThemeInfoView view) {
+            view.populateThemeInfo(mThemeBundle);
+        }
     }
 }

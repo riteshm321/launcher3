@@ -17,11 +17,6 @@ package com.android.customization.picker.theme;
 
 import static android.app.Activity.RESULT_OK;
 
-import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_STYLE;
-import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_CAN_APPLY_FROM_FULL_PREVIEW;
-import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION;
-import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_THEME_OPTION_TITLE;
-import static com.android.customization.picker.theme.ThemeFullPreviewFragment.EXTRA_WALLPAPER_INFO;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.CUSTOMIZE;
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.INFORMATION;
@@ -48,7 +43,6 @@ import com.android.customization.model.theme.ThemeBundle;
 import com.android.customization.model.theme.ThemeManager;
 import com.android.customization.model.theme.custom.CustomTheme;
 import com.android.customization.module.ThemesUserEventLogger;
-import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.widget.OptionSelectorController;
 import com.android.wallpaper.R;
@@ -141,8 +135,6 @@ public class ThemeFragment extends AppbarFragment {
                     mWallpaperPreviewer.setWallpaper(mCurrentHomeWallpaper,
                             mThemeOptionPreviewer::updateColorForLauncherWidgets);
                 }, false);
-
-        view.findViewById(R.id.theme_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 
@@ -385,15 +377,5 @@ public class ThemeFragment extends AppbarFragment {
         intent.putExtra(CustomThemeActivity.EXTRA_THEME_PACKAGES,
                 themeToEdit.getSerializedPackages());
         startActivityForResult(intent, CustomThemeActivity.REQUEST_CODE_CUSTOM_THEME);
-    }
-
-    private void showFullPreview() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(EXTRA_WALLPAPER_INFO, mCurrentHomeWallpaper);
-        bundle.putString(EXTRA_THEME_OPTION, mSelectedTheme.getSerializedPackages());
-        bundle.putString(EXTRA_THEME_OPTION_TITLE, mSelectedTheme.getTitle());
-        bundle.putBoolean(EXTRA_CAN_APPLY_FROM_FULL_PREVIEW, true);
-        Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_STYLE, bundle);
-        startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }
 }

@@ -11,8 +11,6 @@ import com.android.customization.model.grid.GridSectionController;
 import com.android.customization.model.mode.DarkModeSectionController;
 import com.android.customization.model.themedicon.ThemedIconSectionController;
 import com.android.customization.model.themedicon.ThemedIconSwitchProvider;
-import com.android.customization.model.themedicon.ThemedIconUtils;
-import com.android.wallpaper.R;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.android.wallpaper.model.PermissionRequester;
@@ -49,9 +47,7 @@ public final class DefaultCustomizationSections implements CustomizationSections
 
         // Themed app icon section.
         sectionControllers.add(new ThemedIconSectionController(
-                new ThemedIconSwitchProvider(activity, new ThemedIconUtils(activity,
-                        activity.getString(R.string.themed_icon_metadata_key))),
-                workspaceViewModel));
+                ThemedIconSwitchProvider.getInstance(activity), workspaceViewModel));
 
         // App grid section.
         sectionControllers.add(new GridSectionController(

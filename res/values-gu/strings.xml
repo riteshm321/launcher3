@@ -79,7 +79,7 @@
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"કસ્ટમ આકાર"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"કસ્ટમ શૈલી નામ"</string>
     <string name="mode_title" msgid="2394873501427436055">"ઘેરી થીમ"</string>
-    <string name="mode_disabled_msg" msgid="9196245518435936512">"બૅટરી સેવરના લીધે હંગામી રૂપે બંધ કર્યું"</string>
+    <string name="mode_disabled_msg" msgid="9196245518435936512">"બૅટરી સેવરના લીધે હંગામીરૂપે બંધ કર્યું"</string>
     <string name="themed_icon_title" msgid="7312460430471956558">"થીમવાળા આઇકન"</string>
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ઍપ ગ્રિડ બદલો"</string>
 </resources>

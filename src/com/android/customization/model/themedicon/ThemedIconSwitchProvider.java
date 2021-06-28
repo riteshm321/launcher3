@@ -19,49 +19,118 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.Looper;
 
-import androidx.annotation.WorkerThread;
+import androidx.annotation.Nullable;
+
+import com.android.customization.module.CustomizationPreferences;
+import com.android.wallpaper.R;
+import com.android.wallpaper.module.InjectorProvider;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Retrieves the themed icon switch by {@link ContentResolver} from the current launcher
  */
 public class ThemedIconSwitchProvider {
 
+    private static ThemedIconSwitchProvider sThemedIconSwitchProvider;
+
     private static final String ICON_THEMED = "icon_themed";
-    private static final int ENABLED = 1;
     private static final String COL_ICON_THEMED_VALUE = "boolean_value";
+    private static final int ENABLED = 1;
+    private static final int RESULT_SUCCESS = 1;
 
-    private final Context mContext;
+    private final ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
+    private final ContentResolver mContentResolver;
     private final ThemedIconUtils mThemedIconUtils;
+    private final CustomizationPreferences mCustomizationPreferences;
 
-    public ThemedIconSwitchProvider(Context context, ThemedIconUtils themedIconUtils) {
-        mContext = context;
-        mThemedIconUtils = themedIconUtils;
+    /** Callback for the themed icon enabled state fetching result. */
+    public interface FetchThemedIconEnabledCallback {
+        /** Gets called when the result is available. */
+        void onResult(boolean isEnabled);
     }
 
+    /** Returns the {@link ThemedIconSwitchProvider} instance. */
+    public static ThemedIconSwitchProvider getInstance(Context context) {
+        if (sThemedIconSwitchProvider == null) {
+            Context appContext = context.getApplicationContext();
+            sThemedIconSwitchProvider = new ThemedIconSwitchProvider(
+                    appContext.getContentResolver(),
+                    new ThemedIconUtils(appContext,
+                            appContext.getString(R.string.themed_icon_metadata_key)),
+                    (CustomizationPreferences) InjectorProvider.getInjector()
+                            .getPreferences(appContext));
+        }
+        return sThemedIconSwitchProvider;
+    }
+
+    private ThemedIconSwitchProvider(ContentResolver contentResolver,
+            ThemedIconUtils themedIconUtils, CustomizationPreferences customizationPreferences) {
+        mContentResolver = contentResolver;
+        mThemedIconUtils = themedIconUtils;
+        mCustomizationPreferences = customizationPreferences;
+    }
+
+    /** Returns {@code true} if themed icon feature is available. */
     public boolean isThemedIconAvailable() {
         return mThemedIconUtils.isThemedIconAvailable();
     }
 
-    @WorkerThread
-    public boolean fetchThemedIconEnabled() {
-        ContentResolver contentResolver = mContext.getContentResolver();
-        try (Cursor cursor = contentResolver.query(
-                mThemedIconUtils.getUriForPath(ICON_THEMED), /* projection= */
-                null, /* selection= */ null, /* selectionArgs= */ null, /* sortOrder= */ null)) {
-            if (cursor != null && cursor.moveToNext()) {
-                int themedIconEnabled = cursor.getInt(cursor.getColumnIndex(COL_ICON_THEMED_VALUE));
-                return themedIconEnabled == ENABLED;
-            }
-        }
-        return false;
+    /** Gets the themed icon feature enabled state from SharedPreferences. */
+    public boolean isThemedIconEnabled() {
+        return mCustomizationPreferences.getThemedIconEnabled();
     }
 
-    protected int setThemedIconEnabled(boolean enabled) {
-        ContentValues values = new ContentValues();
-        values.put(COL_ICON_THEMED_VALUE, enabled);
-        return mContext.getContentResolver().update(
-                mThemedIconUtils.getUriForPath(ICON_THEMED), values,
-                /* where= */ null, /* selectionArgs= */ null);
+    /**
+     * Fetches the themed icon feature enabled state and stores in SharedPreferences, or returns the
+     * SharedPreferences result if the fetching failed.
+     */
+    public void fetchThemedIconEnabled(@Nullable FetchThemedIconEnabledCallback callback) {
+        mExecutorService.submit(() -> {
+            try (Cursor cursor = mContentResolver.query(
+                    mThemedIconUtils.getUriForPath(ICON_THEMED), /* projection= */ null,
+                    /* selection= */ null, /* selectionArgs= */ null, /* sortOrder= */ null)) {
+                if (cursor != null && cursor.moveToNext()) {
+                    boolean isEnabled = cursor.getInt(cursor.getColumnIndex(COL_ICON_THEMED_VALUE))
+                            == ENABLED;
+                    if (mCustomizationPreferences.getThemedIconEnabled() != isEnabled) {
+                        mCustomizationPreferences.setThemedIconEnabled(isEnabled);
+                    }
+                    if (callback != null) {
+                        postMainThread(() -> callback.onResult(isEnabled));
+                    }
+                    return;
+                }
+            }
+            if (callback != null) {
+                postMainThread(
+                        () -> callback.onResult(mCustomizationPreferences.getThemedIconEnabled()));
+            }
+        });
+    }
+
+    /**
+     * Enables themed icon feature or not.
+     *
+     * <p>The value would also be stored in SharedPreferences.
+     */
+    protected void setThemedIconEnabled(boolean enabled) {
+        mExecutorService.submit(() -> {
+            ContentValues values = new ContentValues();
+            values.put(COL_ICON_THEMED_VALUE, enabled);
+            int result = mContentResolver.update(mThemedIconUtils.getUriForPath(ICON_THEMED),
+                    values, /* where= */ null, /* selectionArgs= */ null);
+            if (result == RESULT_SUCCESS) {
+                mCustomizationPreferences.setThemedIconEnabled(enabled);
+            }
+        });
+    }
+
+    private void postMainThread(Runnable runnable) {
+        new Handler(Looper.getMainLooper()).post(runnable);
     }
 }

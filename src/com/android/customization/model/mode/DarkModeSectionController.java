@@ -25,6 +25,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -124,7 +126,10 @@ public class DarkModeSectionController implements
             return;
         }
         UiModeManager uiModeManager = context.getSystemService(UiModeManager.class);
-        uiModeManager.setNightModeActivated(viewActivated);
+        int shortDelay = context.getResources().getInteger(android.R.integer.config_shortAnimTime);
+        new Handler(Looper.getMainLooper()).postDelayed(
+                () -> uiModeManager.setNightModeActivated(viewActivated),
+                /* delayMillis= */ shortDelay);
     }
 
     private class BatterySaverStateReceiver extends BroadcastReceiver {

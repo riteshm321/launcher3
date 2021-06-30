@@ -16,6 +16,7 @@
 package com.android.customization.model.themedicon;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import androidx.annotation.Nullable;
@@ -29,14 +30,24 @@ import com.android.wallpaper.model.WorkspaceViewModel;
 public class ThemedIconSectionController implements
         CustomizationSectionController<ThemedIconSectionView> {
 
+    private static final String KEY_THEMED_ICON_ENABLED = "SAVED_THEMED_ICON_ENABLED";
+
     private final ThemedIconSwitchProvider mThemedIconOptionsProvider;
     private final WorkspaceViewModel mWorkspaceViewModel;
 
+    private ThemedIconSectionView mThemedIconSectionView;
+    private boolean mSavedThemedIconEnabled = false;
+
 
     public ThemedIconSectionController(ThemedIconSwitchProvider themedIconOptionsProvider,
-            WorkspaceViewModel workspaceViewModel) {
+            WorkspaceViewModel workspaceViewModel, @Nullable Bundle savedInstanceState) {
         mThemedIconOptionsProvider = themedIconOptionsProvider;
         mWorkspaceViewModel = workspaceViewModel;
+
+        if (savedInstanceState != null) {
+            mSavedThemedIconEnabled = savedInstanceState.getBoolean(
+                    KEY_THEMED_ICON_ENABLED, /* defaultValue= */ false);
+        }
     }
 
     @Override
@@ -46,13 +57,14 @@ public class ThemedIconSectionController implements
 
     @Override
     public ThemedIconSectionView createView(Context context) {
-        ThemedIconSectionView themedIconColorSectionView =
+        mThemedIconSectionView =
                 (ThemedIconSectionView) LayoutInflater.from(context).inflate(
                         R.layout.themed_icon_section_view, /* root= */ null);
-        themedIconColorSectionView.setViewListener(this::onViewActivated);
+        mThemedIconSectionView.setViewListener(this::onViewActivated);
+        mThemedIconSectionView.getSwitch().setChecked(mSavedThemedIconEnabled);
         mThemedIconOptionsProvider.fetchThemedIconEnabled(
-                enabled -> themedIconColorSectionView.getSwitch().setChecked(enabled));
-        return themedIconColorSectionView;
+                enabled -> mThemedIconSectionView.getSwitch().setChecked(enabled));
+        return mThemedIconSectionView;
     }
 
     private void onViewActivated(Context context, boolean viewActivated) {
@@ -61,5 +73,13 @@ public class ThemedIconSectionController implements
         }
         mThemedIconOptionsProvider.setThemedIconEnabled(viewActivated);
         mWorkspaceViewModel.getUpdateWorkspace().setValue(viewActivated);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        if (mThemedIconSectionView != null) {
+            savedInstanceState.putBoolean(KEY_THEMED_ICON_ENABLED,
+                    mThemedIconSectionView.getSwitch().isChecked());
+        }
     }
 }

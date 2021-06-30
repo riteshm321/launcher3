@@ -47,7 +47,8 @@ public final class DefaultCustomizationSections implements CustomizationSections
 
         // Themed app icon section.
         sectionControllers.add(new ThemedIconSectionController(
-                ThemedIconSwitchProvider.getInstance(activity), workspaceViewModel));
+                ThemedIconSwitchProvider.getInstance(activity), workspaceViewModel,
+                savedInstanceState));
 
         // App grid section.
         sectionControllers.add(new GridSectionController(

@@ -120,4 +120,7 @@
     <dimen name="theme_info_app_preview_icon_margin">2dp</dimen>
     <dimen name="theme_info_app_preview_icon_elevation">2dp</dimen>
     <dimen name="theme_info_text_size">28sp</dimen>
+
+    <dimen name="beta_tag_background_width">46dp</dimen>
+    <dimen name="beta_tag_background_height">24dp</dimen>
 </resources>

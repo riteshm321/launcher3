@@ -115,4 +115,12 @@
         <item name="android:lineHeight">20dp</item>
     </style>
 
+    <style name="BetaTagTextStyle" parent="SectionTitleTextStyle">
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">15dp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:background">@drawable/beta_tag_background</item>
+        <item name="android:gravity">center</item>
+    </style>
+
 </resources>

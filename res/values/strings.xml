@@ -241,6 +241,9 @@
     <!-- Title of a section of the customization where the user can select color override for icon. [CHAR LIMIT=30] -->
     <string name="themed_icon_title" msgid="4305612684940220645">Themed icons</string>
 
+    <!-- Title of the tag to indicate beta version. [CHAR LIMIT=6] -->
+    <string name="beta_title">Beta</string>
+
     <!-- The content description of grid picker entry. [CHAR LIMIT=NONE] -->
     <string name="gird_picker_entry_content_description" msgid="7538418512525897691">Change app grid</string>
 </resources>

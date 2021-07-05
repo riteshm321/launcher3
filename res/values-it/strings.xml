@@ -81,5 +81,7 @@
     <string name="mode_title" msgid="2394873501427436055">"Tema scuro"</string>
     <string name="mode_disabled_msg" msgid="9196245518435936512">"Opzione disattivata temporaneamente per risparmio energetico"</string>
     <string name="themed_icon_title" msgid="7312460430471956558">"Icone a tema"</string>
+    <!-- no translation found for beta_title (8703819523760746458) -->
+    <skip />
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"Cambia griglia di app"</string>
 </resources>

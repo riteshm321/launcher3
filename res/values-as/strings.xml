@@ -81,5 +81,7 @@
     <string name="mode_title" msgid="2394873501427436055">"গাঢ় ৰঙৰ থীম"</string>
     <string name="mode_disabled_msg" msgid="9196245518435936512">"বেটাৰী সঞ্চয়কাৰীৰ বাবে অস্থায়ীভাৱে অক্ষম কৰা হৈছে"</string>
     <string name="themed_icon_title" msgid="7312460430471956558">"থীমযুক্ত চিহ্ন"</string>
+    <!-- no translation found for beta_title (8703819523760746458) -->
+    <skip />
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"এপৰ গ্ৰিড সলনি কৰক"</string>
 </resources>

@@ -81,5 +81,6 @@
     <string name="mode_title" msgid="2394873501427436055">"မှောင်သည့် အပြင်အဆင်"</string>
     <string name="mode_disabled_msg" msgid="9196245518435936512">"‘ဘက်ထရီ အားထိန်း’ ကြောင့် ယာယီပိတ်ထားသည်"</string>
     <string name="themed_icon_title" msgid="7312460430471956558">"အပြင်အဆင်သုံး သင်္ကေတများ"</string>
+    <string name="beta_title" msgid="8703819523760746458">"စမ်းသပ်ဆော့ဖ်ဝဲ"</string>
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"အက်ပ်ဇယား ပြောင်းရန်"</string>
 </resources>

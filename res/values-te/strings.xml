@@ -81,5 +81,7 @@
     <string name="mode_title" msgid="2394873501427436055">"ముదురు రంగు రూపం"</string>
     <string name="mode_disabled_msg" msgid="9196245518435936512">"బ్యాటరీ సేవర్ కారణంగా తాత్కాలికంగా డిజేబుల్‌ చేయబడింది"</string>
     <string name="themed_icon_title" msgid="7312460430471956558">"రూపానికి తగిన చిహ్నాలు"</string>
+    <!-- no translation found for beta_title (8703819523760746458) -->
+    <skip />
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"యాప్ గ్రిడ్‌ను మార్చండి"</string>
 </resources>

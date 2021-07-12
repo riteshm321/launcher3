@@ -81,7 +81,6 @@
     <string name="mode_title" msgid="2394873501427436055">"Donker thema"</string>
     <string name="mode_disabled_msg" msgid="9196245518435936512">"Tijdelijk uit vanwege Batterijbesparing"</string>
     <string name="themed_icon_title" msgid="7312460430471956558">"Thema-iconen"</string>
-    <!-- no translation found for beta_title (8703819523760746458) -->
-    <skip />
+    <string name="beta_title" msgid="8703819523760746458">"Bèta"</string>
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"App-raster wijzigen"</string>
 </resources>

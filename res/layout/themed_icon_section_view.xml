@@ -21,44 +21,48 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:clickable="true"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingHorizontal="@dimen/section_horizontal_padding"
     android:paddingVertical="@dimen/section_vertical_padding">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/themed_icon_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingEnd="12dp"
             android:text="@string/themed_icon_title"
             style="@style/SectionTitleTextStyle" />
 
-        <Space
-            android:layout_width="12dp"
-            android:layout_height="0dp" />
-
-        <TextView
-            android:id="@+id/beta_tag"
+        <Switch
+            android:id="@+id/themed_icon_toggle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/beta_title"
-            android:textColor="?androidprv:attr/textColorOnAccent"
-            style="@style/BetaTagTextStyle" />
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:clickable="false"
+            android:focusable="false"
+            android:minHeight="0dp"
+            style="@style/Switch.SettingsLib"/>
+
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/themed_icon_toggle"
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="8dp" />
+
+    <TextView
+        android:id="@+id/beta_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:clickable="false"
-        android:focusable="false"
-        style="@style/Switch.SettingsLib"/>
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        android:text="@string/beta_title"
+        android:textColor="?androidprv:attr/textColorOnAccent"
+        style="@style/BetaTagTextStyle" />
 
 </com.android.customization.picker.themedicon.ThemedIconSectionView>

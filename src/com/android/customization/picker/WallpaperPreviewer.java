@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.app.WallpaperColors;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.service.wallpaper.WallpaperService;
 import android.view.Surface;
 import android.view.SurfaceView;
@@ -34,15 +33,14 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.android.wallpaper.R;
 import com.android.wallpaper.model.LiveWallpaperInfo;
 import com.android.wallpaper.model.WallpaperInfo;
+import com.android.wallpaper.util.ResourceUtils;
 import com.android.wallpaper.util.ScreenSizeCalculator;
 import com.android.wallpaper.util.SizeCalculator;
 import com.android.wallpaper.util.WallpaperConnection;
 import com.android.wallpaper.util.WallpaperConnection.WallpaperConnectionListener;
 import com.android.wallpaper.util.WallpaperSurfaceCallback;
-import com.android.wallpaper.widget.LiveTileOverlay;
 import com.android.wallpaper.widget.WallpaperColorsLoader;
 
 /** A class to load the wallpaper to the view. */
@@ -76,7 +74,7 @@ public class WallpaperPreviewer implements LifecycleObserver {
         mWallpaperSurface = wallpaperSurface;
         mWallpaperSurfaceCallback = new WallpaperSurfaceCallback(activity, mHomePreview,
                 mWallpaperSurface, this::setUpWallpaperPreview);
-        mWallpaperSurface.setZOrderMediaOverlay(false);
+        mWallpaperSurface.setZOrderMediaOverlay(true);
         mWallpaperSurface.getHolder().addCallback(mWallpaperSurfaceCallback);
 
         View rootView = homePreview.getRootView();
@@ -118,7 +116,6 @@ public class WallpaperPreviewer implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     @MainThread
     public void onDestroy() {
-        LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
         if (mWallpaperConnection != null) {
             mWallpaperConnection.disconnect();
             mWallpaperConnection = null;
@@ -149,18 +146,22 @@ public class WallpaperPreviewer implements LifecycleObserver {
         ImageView homeImageWallpaper = mWallpaperSurfaceCallback.getHomeImageWallpaper();
         if (mWallpaper != null && homeImageWallpaper != null) {
             homeImageWallpaper.post(() -> {
+                if (mActivity == null || mActivity.isDestroyed()) {
+                    return;
+                }
                 boolean renderInImageWallpaperSurface = !(mWallpaper instanceof LiveWallpaperInfo);
                 mWallpaper.getThumbAsset(mActivity.getApplicationContext())
                         .loadPreviewImage(mActivity,
                                 renderInImageWallpaperSurface ? homeImageWallpaper : mHomePreview,
-                                mActivity.getResources().getColor(R.color.secondary_color));
-                LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
+                                ResourceUtils.getColorAttr(
+                                        mActivity, android.R.attr.colorSecondary));
                 if (mWallpaper instanceof LiveWallpaperInfo) {
                     mWallpaper.getThumbAsset(mActivity.getApplicationContext())
                             .loadPreviewImage(
                                     mActivity,
                                     homeImageWallpaper,
-                                    mActivity.getColor(R.color.secondary_color));
+                                    ResourceUtils.getColorAttr(
+                                            mActivity, android.R.attr.colorSecondary));
                     setUpLiveWallpaperPreview(mWallpaper);
                 } else {
                     // Ensure live wallpaper connection is disconnected.
@@ -206,16 +207,12 @@ public class WallpaperPreviewer implements LifecycleObserver {
                                 mWallpaperColorsListener.onWallpaperColorsChanged(colors);
                             }
                         }
-                    }, mPreviewGlobalRect);
-
-            LiveTileOverlay.INSTANCE.update(new RectF(mPreviewLocalRect),
-                    ((CardView) mHomePreview.getParent()).getRadius());
+                    }, mWallpaperSurface);
 
             mWallpaperConnection.setVisibility(true);
             mHomePreview.post(() -> {
                 if (mWallpaperConnection != null && !mWallpaperConnection.connect()) {
                     mWallpaperConnection = null;
-                    LiveTileOverlay.INSTANCE.detach(mHomePreview.getOverlay());
                 }
             });
         } else {

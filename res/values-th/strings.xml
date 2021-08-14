@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"รูปแบบและวอลเปเปอร์"</string>
+    <string name="app_name" msgid="1647136562008520313">"วอลเปเปอร์และรูปแบบ"</string>
     <string name="theme_title" msgid="2144932106319405101">"รูปแบบ"</string>
     <string name="clock_title" msgid="2126046720254613991">"นาฬิกา"</string>
-    <string name="grid_title" msgid="2825094404523390773">"ตารางกริด"</string>
+    <string name="grid_title" msgid="1688173478777254123">"ตารางกริดแอป"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"ใช้"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"แตะเพื่อแก้ไข"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"ใช้วอลเปเปอร์ปัจจุบัน"</string>
@@ -35,7 +35,7 @@
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>แสดงตัวอย่างและใช้อยู่"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>แสดงตัวอย่างอยู่"</string>
     <string name="theme_description" msgid="3697012391785254635">"แบบอักษร: <xliff:g id="ID_1">%1$s</xliff:g>, ไอคอน: <xliff:g id="ID_2">%2$s</xliff:g>, รูปร่าง: <xliff:g id="ID_3">%3$s</xliff:g>, สี: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
-    <string name="default_theme_title" msgid="2555741736622366797">"เริ่มต้น"</string>
+    <string name="default_theme_title" msgid="2555741736622366797">"ค่าเริ่มต้น"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"แบบอักษร"</string>
     <string name="preview_name_icon" msgid="6818927315316316440">"ไอคอน"</string>
     <string name="preview_name_color" msgid="8776203144994416172">"สี"</string>
@@ -65,13 +65,17 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"ลบ"</string>
     <string name="cancel" msgid="4651030493668562067">"ยกเลิก"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"ตั้งค่าวอลเปเปอร์รูปแบบ"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"ใช้ <xliff:g id="ID_1">%1$s</xliff:g> แทนไหม"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"ส่วนประกอบที่คุณเลือกตรงกับรูปแบบ <xliff:g id="ID_1">%1$s</xliff:g> ต้องการใช้ <xliff:g id="ID_2">%1$s</xliff:g> แทนไหม"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"ใช้ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"ใช้<xliff:g id="ID_1">%1$s</xliff:g>แทนไหม"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"ส่วนประกอบที่คุณเลือกตรงกับรูปแบบ<xliff:g id="ID_1">%1$s</xliff:g> ต้องการใช้<xliff:g id="ID_2">%1$s</xliff:g>แทนไหม"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"ใช้<xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"ไม่เป็นไร"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ตัวอย่างนาฬิกา <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"อ๊ะ! มีบางอย่างผิดปกติ"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"สี/ไอคอน"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"ตัวอย่างของแบบอักษร ไอคอน รูปร่างของแอป และสี"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"แบบอักษรที่กำหนดเอง"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"ไอคอนที่กำหนดเอง"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"สีที่กำหนดเอง"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"รูปร่างที่กำหนดเอง"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ชื่อรูปแบบที่กำหนดเอง"</string>
 </resources>

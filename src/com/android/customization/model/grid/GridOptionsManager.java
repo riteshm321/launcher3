@@ -15,14 +15,20 @@
  */
 package com.android.customization.model.grid;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 
 import com.android.customization.model.CustomizationManager;
+import com.android.customization.module.CustomizationInjector;
 import com.android.customization.module.ThemesUserEventLogger;
+import com.android.wallpaper.R;
+import com.android.wallpaper.module.InjectorProvider;
+import com.android.wallpaper.util.PreviewUtils;
 
 import java.util.List;
 
@@ -31,10 +37,28 @@ import java.util.List;
  */
 public class GridOptionsManager implements CustomizationManager<GridOption> {
 
+    private static GridOptionsManager sGridOptionsManager;
+
     private final LauncherGridOptionsProvider mProvider;
     private final ThemesUserEventLogger mEventLogger;
 
-    public GridOptionsManager(LauncherGridOptionsProvider provider, ThemesUserEventLogger logger) {
+    /** Returns the {@link GridOptionsManager} instance. */
+    public static GridOptionsManager getInstance(Context context) {
+        if (sGridOptionsManager == null) {
+            Context appContext = context.getApplicationContext();
+            CustomizationInjector injector = (CustomizationInjector) InjectorProvider.getInjector();
+            ThemesUserEventLogger eventLogger = (ThemesUserEventLogger) injector.getUserEventLogger(
+                    appContext);
+            sGridOptionsManager = new GridOptionsManager(
+                    new LauncherGridOptionsProvider(appContext,
+                            appContext.getString(R.string.grid_control_metadata_name)),
+                    eventLogger);
+        }
+        return sGridOptionsManager;
+    }
+
+    @VisibleForTesting
+    GridOptionsManager(LauncherGridOptionsProvider provider, ThemesUserEventLogger logger) {
         mProvider = provider;
         mEventLogger = logger;
     }
@@ -61,8 +85,9 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
     }
 
     /** Call through content provider API to render preview */
-    public Bundle renderPreview(Bundle bundle, String gridName) {
-        return mProvider.renderPreview(gridName, bundle);
+    public void renderPreview(Bundle bundle, String gridName,
+            PreviewUtils.WorkspacePreviewCallback callback) {
+        mProvider.renderPreview(gridName, bundle, callback);
     }
 
     private static class FetchTask extends AsyncTask<Void, Void, List<GridOption>> {

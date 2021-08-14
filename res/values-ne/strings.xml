@@ -17,29 +17,26 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"शैली तथा वालपेपरहरू"</string>
+    <!-- no translation found for app_name (1647136562008520313) -->
+    <skip />
     <string name="theme_title" msgid="2144932106319405101">"शैली"</string>
     <string name="clock_title" msgid="2126046720254613991">"घडी"</string>
-    <string name="grid_title" msgid="2825094404523390773">"ग्रिड"</string>
+    <string name="grid_title" msgid="1688173478777254123">"एप ग्रिड"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"लागू गर्नुहोस्"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"सम्पादन गर्न ट्याप गर्नुहोस्"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"अहिले कै वालपेपर राख्नुहोस्"</string>
     <string name="apply_btn" msgid="7965877231041987336">"लागू गर्नुहोस्"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"शैलीको प्रिभ्यु"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"ग्रिडको प्रिभ्यु"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"फन्टको प्रिभ्यू"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"आइकनको प्रिभ्यू"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"रङको प्रिभ्यू"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"आकारको प्रिभ्यू"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, हालसालै लागू गरिएको"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, हालसालै लागू तथा पूर्वावलोकन गरिएको"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, हालसालै पूर्वलोकन गरिएको"</string>
     <string name="theme_description" msgid="3697012391785254635">"फन्ट: <xliff:g id="ID_1">%1$s</xliff:g>, आइकनहरू: <xliff:g id="ID_2">%2$s</xliff:g>, आकार: <xliff:g id="ID_3">%3$s</xliff:g>, रङ्ग: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
-    <string name="default_theme_title" msgid="2555741736622366797">"पूर्वनिर्धारित"</string>
+    <string name="default_theme_title" msgid="2555741736622366797">"डिफल्ट"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"फन्ट"</string>
     <string name="preview_name_icon" msgid="6818927315316316440">"आइकन"</string>
     <string name="preview_name_color" msgid="8776203144994416172">"रङ्ग"</string>
@@ -77,4 +74,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"हत्तेरिका! केही चिज गडबड भयो।"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"रङ / आइकनहरू"</string>
     <string name="style_info_description" msgid="2612473574431003251">"फन्ट, आइकन, एपको आकृति र रङको प्रिभ्यू"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"आफूले रोजेको फन्ट"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"आफूले रोजेको आइकन"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"आफूले रोजेको रङ"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"आफूले रोजेको आकार"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"शैलीको आफूले रोजेको नाम"</string>
 </resources>

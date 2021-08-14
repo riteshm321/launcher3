@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"រចនាប័ទ្ម និង​ផ្ទាំងរូបភាព"</string>
+    <string name="app_name" msgid="1647136562008520313">"ផ្ទាំងរូបភាព និងរចនាប័ទ្ម"</string>
     <string name="theme_title" msgid="2144932106319405101">"រចនាប័ទ្ម"</string>
     <string name="clock_title" msgid="2126046720254613991">"នាឡិកា"</string>
-    <string name="grid_title" msgid="2825094404523390773">"ក្រឡា"</string>
+    <string name="grid_title" msgid="1688173478777254123">"ក្រឡា​កម្មវិធី"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"ប្រើ"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"ចុច ដើម្បី​កែ"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"រក្សាទុក​ផ្ទាំងរូបភាព​បច្ចុប្បន្ន"</string>
@@ -65,13 +65,17 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"លុប"</string>
     <string name="cancel" msgid="4651030493668562067">"បោះបង់"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"កំណត់​ផ្ទាំងរូបភាព​រចនាប័ទ្ម​"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"ប្រើ <xliff:g id="ID_1">%1$s</xliff:g> ជំនួសវិញ?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"សមាសធាតុ​ដែលអ្នកបាន​ជ្រើសរើសត្រូវ​នឹងរចនាប័ទ្ម <xliff:g id="ID_1">%1$s</xliff:g> ។ តើអ្នកចង់ប្រើ <xliff:g id="ID_2">%1$s</xliff:g> ជំនួសវិញដែរទេ?"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"ប្រើ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"ប្រើ​<xliff:g id="ID_1">%1$s</xliff:g>​ជំនួសវិញ?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"សមាសធាតុ​ដែលអ្នកបាន​ជ្រើសរើសត្រូវ​នឹងរចនាប័ទ្ម​<xliff:g id="ID_1">%1$s</xliff:g>។ តើអ្នកចង់ប្រើ​<xliff:g id="ID_2">%1$s</xliff:g>​ជំនួសវិញដែរទេ?"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"ប្រើ<xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"ទេ អរគុណ"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ការមើល​នាឡិកា <xliff:g id="ID_1">%1$s</xliff:g> សាកល្បង"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"អូ៎! មានអ្វីមួយខុសប្រក្រតី។"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ពណ៌ / រូបតំណាង"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"ការមើលសាកល្បង​នៃពុម្ពអក្សរ រូបតំណាង រូបរាងកម្មវិធី និងពណ៌"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"ពុម្ពអក្សរ​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"រូបតំណាង​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ពណ៌​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"រូបរាង​ផ្ទាល់ខ្លួន"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ឈ្មោះ​រចនាប័ទ្ម​ផ្ទាល់ខ្លួន"</string>
 </resources>

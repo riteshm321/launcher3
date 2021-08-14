@@ -38,7 +38,7 @@
             android:clipToPadding="false"
             android:paddingTop="@dimen/preview_content_padding_top"
             android:paddingBottom="@dimen/preview_content_padding_bottom"
-            android:background="@color/fullscreen_preview_background">
+            android:background="?android:colorSecondary">
             <include layout="@layout/grid_preview_card"/>
         </FrameLayout>
 

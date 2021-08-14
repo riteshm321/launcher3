@@ -17,10 +17,11 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"స్ట‌యిల్స్‌ &amp; వాల్‌పేపర్‌లు"</string>
+    <!-- no translation found for app_name (1647136562008520313) -->
+    <skip />
     <string name="theme_title" msgid="2144932106319405101">"శైలి"</string>
     <string name="clock_title" msgid="2126046720254613991">"గడియారం"</string>
-    <string name="grid_title" msgid="2825094404523390773">"గ్రిడ్"</string>
+    <string name="grid_title" msgid="1688173478777254123">"యాప్ గ్రిడ్"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"వర్తింపజేయి"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"సవరించడానికి నొక్కండి"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"ప్రస్తుత వాల్‌పేపర్‌ను అలాగే ఉంచండి"</string>
@@ -73,4 +74,9 @@
     <string name="something_went_wrong" msgid="529840112449799117">"అయ్యో, ఏదో తప్పు జరిగింది."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"రంగు / చిహ్నాలు"</string>
     <string name="style_info_description" msgid="2612473574431003251">"ఫాంట్, చిహ్నాలు, యాప్ ఆకారం, రంగుల ప్రివ్యూ"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"అనుకూల ఫాంట్"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"అనుకూల చిహ్నం"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"అనుకూల రంగు"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"అనుకూల ఆకారం"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"అనుకూల స్టయిల్ పేరు"</string>
 </resources>

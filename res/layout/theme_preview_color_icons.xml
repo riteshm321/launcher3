@@ -28,7 +28,7 @@
         android:paddingTop="@dimen/preview_theme_color_icons_padding_top"
         android:paddingBottom="@dimen/preview_theme_color_icons_padding_bottom"
         android:orientation="vertical"
-        android:background="@color/theme_preview_color_icons_background">
+        android:background="?android:colorBackground">
 
         <!-- Title -->
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="@string/theme_preview_icons_section_title"
             android:textSize="@dimen/preview_theme_color_icons_title_text_size"
-            android:textColor="@color/theme_preview_color_icons_title_color"
+            android:textColor="?android:textColorSecondary"
             android:lineHeight="16dp"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                     android:id="@+id/preview_color_qs_0_icon"
                     android:layout_width="@dimen/preview_theme_color_icons_tile_size"
                     android:layout_height="@dimen/preview_theme_color_icons_tile_size"
-                    android:tint="@color/tile_enabled_icon_color"
+                    android:tint="?android:textColorPrimary"
                     android:layout_gravity="center"/>
             </FrameLayout>
             <Space
@@ -87,7 +87,7 @@
                     android:id="@+id/preview_color_qs_1_icon"
                     android:layout_width="@dimen/preview_theme_color_icons_tile_size"
                     android:layout_height="@dimen/preview_theme_color_icons_tile_size"
-                    android:tint="@color/tile_enabled_icon_color"
+                    android:tint="?android:textColorPrimary"
                     android:layout_gravity="center"/>
             </FrameLayout>
             <Space
@@ -105,7 +105,7 @@
                     android:id="@+id/preview_color_qs_2_icon"
                     android:layout_width="@dimen/preview_theme_color_icons_tile_size"
                     android:layout_height="@dimen/preview_theme_color_icons_tile_size"
-                    android:tint="@color/tile_enabled_icon_color"
+                    android:tint="?android:textColorPrimary"
                     android:layout_gravity="center"/>
             </FrameLayout>
             <Space
@@ -123,7 +123,7 @@
                     android:id="@+id/preview_color_qs_3_icon"
                     android:layout_width="@dimen/preview_theme_color_icons_tile_size"
                     android:layout_height="@dimen/preview_theme_color_icons_tile_size"
-                    android:tint="@color/tile_enabled_icon_color"
+                    android:tint="?android:textColorPrimary"
                     android:layout_gravity="center"/>
             </FrameLayout>
         </LinearLayout>

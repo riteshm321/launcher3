@@ -17,24 +17,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Styles et fonds d\'écran"</string>
+    <string name="app_name" msgid="1647136562008520313">"Fond d\'écran et style"</string>
     <string name="theme_title" msgid="2144932106319405101">"Style"</string>
     <string name="clock_title" msgid="2126046720254613991">"Horloge"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Grille"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Grille appli"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Appliquer"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Appuyer pour modifier"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Conserver le fond d\'écran actuel"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Appliquer"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Aperçu du style"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Aperçu de la grille"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"Aperçu de la police"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Aperçu de l\'icône"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Aperçu de la couleur"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Aperçu de la forme"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, option appliquée actuellement"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g> (option actuellement appliquée et prévisualisée)"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g> (option actuellement prévisualisée)"</string>
@@ -70,11 +66,16 @@
     <string name="cancel" msgid="4651030493668562067">"Annuler"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Définir le fond d\'écran du style"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"Utiliser <xliff:g id="ID_1">%1$s</xliff:g> à la place ?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Les composants que vous choisissez correspondent au style <xliff:g id="ID_1">%1$s</xliff:g>. Voulez-vous utiliser <xliff:g id="ID_2">%1$s</xliff:g> à la place ?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Les composants que vous avez choisi correspondent au style <xliff:g id="ID_1">%1$s</xliff:g>. Voulez-vous utiliser le style <xliff:g id="ID_2">%1$s</xliff:g> à la place ?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"Utiliser <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Non, merci"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> aperçu d\'horloge"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Petit problème… Une erreur s\'est produite."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Couleur/Icônes"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Aperçu de la police, des icônes, de la forme de l\'application et de la couleur"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Police personnalisée"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Icône personnalisée"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Couleur personnalisée"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Forme personnalisée"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Nom du style personnalisé"</string>
 </resources>

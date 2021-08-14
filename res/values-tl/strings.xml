@@ -17,24 +17,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Mga istilo at wallpaper"</string>
+    <string name="app_name" msgid="1647136562008520313">"Wallpaper &amp; istilo"</string>
     <string name="theme_title" msgid="2144932106319405101">"Istilo"</string>
     <string name="clock_title" msgid="2126046720254613991">"Orasan"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Grid"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Grid ng app"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Ilapat"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"I-tap para ma-edit"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Gamitin ang kasalukuyang wallpaper"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Ilapat"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Preview ng istilo"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Preview ng grid"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"Preview ng font"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Preview ng icon"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Preview ng kulay"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Preview ng hugis"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, kasalukuyang nakalapat"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, kasalukuyang nakalapat at pini-preview"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, kasalukuyang pini-preview"</string>
@@ -76,6 +72,10 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> preview ng orasan"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Oops! May maling nangyari."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Kulay / Mga Icon"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"Preview ng font, mga icon, hugis ng app, at kulay"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Custom na font"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Custom icon"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Custom na kulay"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Custom na hugis"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Custom na pangalan ng istilo"</string>
 </resources>

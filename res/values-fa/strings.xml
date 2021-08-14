@@ -17,24 +17,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"سبک و کاغذدیواری"</string>
+    <string name="app_name" msgid="1647136562008520313">"کاغذدیواری و سبک"</string>
     <string name="theme_title" msgid="2144932106319405101">"سبک"</string>
     <string name="clock_title" msgid="2126046720254613991">"ساعت"</string>
-    <string name="grid_title" msgid="2825094404523390773">"جدول"</string>
+    <string name="grid_title" msgid="1688173478777254123">"جدول برنامه"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"اعمال"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"برای ویرایش ضربه بزنید"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"حفظ کاغذدیواری فعلی"</string>
     <string name="apply_btn" msgid="7965877231041987336">"اعمال"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"پیش‌نمایش سبک"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"پیش‌نمایش جدول"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"پیش‌نمایش قلم"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"پیش‌نمایش نماد"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"پیش‌نمایش رنگ"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"پیش‌نمایش شکل"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>، درحال‌حاضر اعمال شده است"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>، درحال‌حاضر اعمال و پیش‌نمایش شده است"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>، درحال‌حاضر پیش‌نمایش شده است"</string>
@@ -70,12 +66,16 @@
     <string name="cancel" msgid="4651030493668562067">"لغو"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"تنظیم کاغذدیواری سبک"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"درعوض از <xliff:g id="ID_1">%1$s</xliff:g> استفاده شود؟"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"مؤلفه‌هایی که انتخاب کردید مطابق با سبک<xliff:g id="ID_1">%1$s</xliff:g> هستند. می‌خواهید درعوض از <xliff:g id="ID_2">%1$s</xliff:g> استفاده کنید؟"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"مؤلفه‌هایی که انتخاب کردید مطابق با سبک <xliff:g id="ID_1">%1$s</xliff:g> هستند. می‌خواهید درعوض از <xliff:g id="ID_2">%1$s</xliff:g> استفاده کنید؟"</string>
     <string name="use_style_button" msgid="1754493078383627019">"استفاده از <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"نه، متشکرم"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> پیش‌نمایش ساعت"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"متأسفم! مشکلی رخ داد."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"رنگ/نمادها"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"پیش‌نمایش قلم، نمادها، شکل و رنگ برنامه"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"قلم سفارشی"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"نماد سفارشی"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"رنگ سفارشی"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"شکل سفارشی"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"نام سبک سفارشی"</string>
 </resources>

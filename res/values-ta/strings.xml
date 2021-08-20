@@ -34,7 +34,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> தற்போது பயன்படுத்தப்பட்டது"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, தற்போது பயன்படுத்தப்பட்டு மாதிரிக்காட்சி காண்பிக்கப்படுகிறது"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, மாதிரிக்காட்சி தற்போது காண்பிக்கப்படுகிறது"</string>
-    <string name="theme_description" msgid="3697012391785254635">"எழுத்துரு: <xliff:g id="ID_1">%1$s</xliff:g>, ஐகான்கள்: <xliff:g id="ID_2">%2$s</xliff:g>, வடிவம்: <xliff:g id="ID_3">%3$s</xliff:g>, நிறம்: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
+    <string name="theme_description" msgid="3697012391785254635">"எழுத்து வடிவம்: <xliff:g id="ID_1">%1$s</xliff:g>, ஐகான்கள்: <xliff:g id="ID_2">%2$s</xliff:g>, வடிவம்: <xliff:g id="ID_3">%3$s</xliff:g>, நிறம்: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"இயல்புநிலை"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"எழுத்துரு"</string>
     <string name="preview_name_icon" msgid="6818927315316316440">"ஐகான்"</string>

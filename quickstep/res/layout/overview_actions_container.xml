@@ -20,6 +20,12 @@
     android:layout_gravity="center_horizontal|bottom">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+    <LinearLayout
         android:id="@+id/action_buttons"
         android:layout_width="match_parent"
         android:layout_height="@dimen/overview_actions_height"
@@ -112,5 +118,13 @@
             android:layout_weight="1"
             android:visibility="gone" />
     </LinearLayout>
+
+    <TextView android:id="@+id/recents_memory_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="?attr/workspaceTextColor"
+        />
 
 </com.android.quickstep.views.OverviewActionsView>

@@ -25,4 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="dock_search_summary">Show search bar in the bottom dock</string>
     <string name="dock_theme_title">Themed icons</string>
     <string name="dock_theme_summary">Use themed icons for search bar</string>
+    
+    <!-- Recents Memory -->
+    <string name="pref_recents_show_memory_title">Show Free RAM in recents</string>
+    <string name="pref_recents_show_memory_summary">Show available free RAM in recents view</string>
 </resources>

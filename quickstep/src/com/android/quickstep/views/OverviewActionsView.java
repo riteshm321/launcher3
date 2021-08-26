@@ -172,13 +172,10 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
     }
 
     public void updateHiddenFlags(@ActionsHiddenFlags int visibilityFlags, boolean enable) {
-        if (enable) {
-            mHiddenFlags |= visibilityFlags;
-        } else {
-            mHiddenFlags &= ~visibilityFlags;
-        }
-        boolean isHidden = mHiddenFlags != 0;
-        mMultiValueAlpha.getProperty(INDEX_HIDDEN_FLAGS_ALPHA).setValue(isHidden ? 0 : 1);
+        if (visibilityFlags == HIDDEN_NO_TASKS)
+            findViewById(R.id.action_buttons).setVisibility(enable ? View.INVISIBLE : View.VISIBLE);
+        if (visibilityFlags == HIDDEN_NON_ZERO_ROTATION)
+            mMultiValueAlpha.getProperty(INDEX_HIDDEN_FLAGS_ALPHA).setValue(enable ? 0 : 1);
     }
 
     /**

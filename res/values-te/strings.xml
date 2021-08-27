@@ -35,7 +35,7 @@
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ప్రస్తుతం వర్తింప చేయబడి ప్రివ్యూ చేయబడింది"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ప్రస్తుతం ప్రివ్యూ చేయబడింది"</string>
     <string name="theme_description" msgid="3697012391785254635">"ఫాంట్: <xliff:g id="ID_1">%1$s</xliff:g>, చిహ్నాలు: <xliff:g id="ID_2">%2$s</xliff:g>, ఆకారం: <xliff:g id="ID_3">%3$s</xliff:g>, రంగు: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
-    <string name="default_theme_title" msgid="2555741736622366797">"డిఫాల్ట్"</string>
+    <string name="default_theme_title" msgid="2555741736622366797">"ఆటోమేటిక్"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"ఫాంట్"</string>
     <string name="preview_name_icon" msgid="6818927315316316440">"చిహ్నం"</string>
     <string name="preview_name_color" msgid="8776203144994416172">"రంగు"</string>

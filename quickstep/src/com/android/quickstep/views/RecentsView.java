@@ -663,6 +663,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
     private float mActionsViewAlphaAnimatorFinalValue;
 
     TextView mMemText;
+    ProgressBar mMemProgress;
     private ActivityManager mAm;
     private int mTotalMem;
 
@@ -886,6 +887,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
         mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, getTaskViewCount() == 0);
         mSplitSelectStateController = splitController;
         mMemText = (TextView) mActionsView.findViewById(R.id.recents_memory_text);
+        mMemProgress = (ProgressBar) mActionsView.findViewById(R.id.recents_memory_bar);
     }
 
     public SplitSelectStateController getSplitPlaceholder() {
@@ -3729,22 +3731,28 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
      private boolean showMemDisplay() {
         if (!Utilities.recentsShowMemory(getContext())) {
             mMemText.setVisibility(View.GONE);
+            mMemProgress.setVisibility(View.GONE);
             return false;
         }
         mMemText.setVisibility(View.VISIBLE);
+        mMemProgress.setVisibility(View.VISIBLE);
 
         updateMemoryStatus();
         return true;
     }
 
     private void updateMemoryStatus() {
-        if (mMemText.getVisibility() == View.GONE) return;
+        if (mMemText.getVisibility() == View.GONE || mMemProgress.getVisibility() == View.GONE)
+        return;
 
         MemoryInfo memInfo = new MemoryInfo();
         mAm.getMemoryInfo(memInfo);
         int available = (int)(memInfo.availMem / 1048576L);
         int max = (int)(memInfo.totalMem / 1048576L);
-        mMemText.setText("Free RAM: " + String.valueOf(available) + "MB");
+        int used = max - available;
+        mMemText.setText("Free RAM: " + String.valueOf(available) + "MB" + "/" + String.valueOf(max) + "MB");
+        mMemProgress.setMax(max);
+        mMemProgress.setProgress(used);
     }
 
     private void updatePivots() {

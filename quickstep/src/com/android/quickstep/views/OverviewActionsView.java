@@ -235,7 +235,7 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
             return;
         }
         LayoutParams actionParams = (LayoutParams) findViewById(
-                R.id.action_buttons).getLayoutParams();
+                R.id.action_buttons_parent).getLayoutParams();
         actionParams.setMargins(
                 actionParams.leftMargin, mDp.overviewActionsTopMarginPx,
                 actionParams.rightMargin, getBottomMargin());

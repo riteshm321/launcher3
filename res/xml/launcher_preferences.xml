@@ -64,6 +64,13 @@
         android:dependency="pref_dock_search" />
 
     <SwitchPreference
+        android:key="show_hotseat_bg"
+        android:title="@string/hotseat_bg_title"
+        android:summary="@string/hotseat_bg_summary"
+        android:defaultValue="true"
+        android:persistent="true"/>
+
+    <SwitchPreference
         android:key="pref_allapps_themed_icons"
         android:title="@string/pref_themed_icons_title"
         android:summary="@string/pref_themed_icons_summary"
@@ -98,7 +105,7 @@
         android:persistent="true"
         android:summary="@string/pref_recents_show_memory_summary"
         android:title="@string/pref_recents_show_memory_title"/>
-        
+
     <Preference
         android:persistent="false"
         android:title="@string/suggestion_pref_screen_title"

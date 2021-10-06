@@ -36,6 +36,11 @@
         <intent>
             <action android:name="com.android.launcher3.action.PARTNER_CUSTOMIZATION" />
         </intent>
+        <!-- Intent filter with action used to discover launcher -->
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.HOME" />
+        </intent>
     </queries>
 
     <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />

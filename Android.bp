@@ -107,6 +107,7 @@ android_app {
     overrides: [
         "WallpaperCropper",
         "WallpaperPicker2",
+        "WallpaperPicker",
     ],
     required: [
         "default_permissions_com.android.wallpaper",

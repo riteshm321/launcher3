@@ -15,15 +15,8 @@
  */
 package com.android.customization.picker.grid;
 
-import static android.app.Activity.RESULT_OK;
+import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY_TEXT;
 
-import static com.android.customization.picker.ViewOnlyFullPreviewActivity.SECTION_GRID;
-import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_GRID_OPTION;
-import static com.android.customization.picker.grid.GridFullPreviewFragment.EXTRA_WALLPAPER_INFO;
-import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,14 +36,15 @@ import com.android.customization.model.CustomizationOption;
 import com.android.customization.model.grid.GridOption;
 import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.module.ThemesUserEventLogger;
-import com.android.customization.picker.ViewOnlyFullPreviewActivity;
 import com.android.customization.picker.WallpaperPreviewer;
 import com.android.customization.widget.OptionSelectorController;
+import com.android.customization.widget.OptionSelectorController.CheckmarkStyle;
 import com.android.wallpaper.R;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.picker.AppbarFragment;
+import com.android.wallpaper.util.LaunchUtils;
 import com.android.wallpaper.widget.BottomActionBar;
 
 import com.bumptech.glide.Glide;
@@ -62,19 +56,10 @@ import java.util.List;
  */
 public class GridFragment extends AppbarFragment {
 
-    private static final int FULL_PREVIEW_REQUEST_CODE = 1000;
+    private static final String TAG = "GridFragment";
     private static final String KEY_STATE_SELECTED_OPTION = "GridFragment.selectedOption";
     private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE =
             "GridFragment.bottomActionBarVisible";
-
-    private static final String TAG = "GridFragment";
-
-    /**
-     * Interface to be implemented by an Activity hosting a {@link GridFragment}
-     */
-    public interface GridFragmentHost {
-        GridOptionsManager getGridOptionsManager();
-    }
 
     public static GridFragment newInstance(CharSequence title) {
         GridFragment fragment = new GridFragment();
@@ -92,7 +77,6 @@ public class GridFragment extends AppbarFragment {
     private View mError;
     private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
-
     private GridOptionPreviewer mGridOptionPreviewer;
 
     private final Callback mApplyGridCallback = new Callback() {
@@ -101,6 +85,9 @@ public class GridFragment extends AppbarFragment {
             Toast.makeText(getContext(), R.string.applied_grid_msg, Toast.LENGTH_SHORT).show();
             getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             getActivity().finish();
+
+            // Go back to launcher home
+            LaunchUtils.launchHome(getContext());
         }
 
         @Override
@@ -111,14 +98,6 @@ public class GridFragment extends AppbarFragment {
             //TODO(chihhangchuang): handle
         }
     };
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mGridManager = ((GridFragmentHost) context).getGridOptionsManager();
-        mEventLogger = (ThemesUserEventLogger)
-                InjectorProvider.getInjector().getUserEventLogger(context);
-    }
 
     @Nullable
     @Override
@@ -132,8 +111,22 @@ public class GridFragment extends AppbarFragment {
         mLoading = view.findViewById(R.id.loading_indicator);
         mError = view.findViewById(R.id.error_section);
 
+        // For nav bar edge-to-edge effect.
+        view.setOnApplyWindowInsetsListener((v, windowInsets) -> {
+            v.setPadding(
+                    v.getPaddingLeft(),
+                    windowInsets.getSystemWindowInsetTop(),
+                    v.getPaddingRight(),
+                    windowInsets.getSystemWindowInsetBottom());
+            return windowInsets.consumeSystemWindowInsets();
+        });
+
         // Clear memory cache whenever grid fragment view is being loaded.
         Glide.get(getContext()).clearMemory();
+
+        mGridManager = GridOptionsManager.getInstance(getContext());
+        mEventLogger = (ThemesUserEventLogger) InjectorProvider.getInjector()
+                .getUserEventLogger(getContext());
         setUpOptions(savedInstanceState);
 
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
@@ -150,7 +143,6 @@ public class GridFragment extends AppbarFragment {
         mGridOptionPreviewer = new GridOptionPreviewer(mGridManager,
                 view.findViewById(R.id.grid_preview_container));
 
-        view.findViewById(R.id.grid_preview_card).setOnClickListener(v -> showFullPreview());
         return view;
     }
 
@@ -174,19 +166,11 @@ public class GridFragment extends AppbarFragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == FULL_PREVIEW_REQUEST_CODE && resultCode == RESULT_OK) {
-            applyGridOption(data.getParcelableExtra(EXTRA_GRID_OPTION));
-        }
-    }
-
-
-    @Override
     protected void onBottomActionBarReady(BottomActionBar bottomActionBar) {
+        super.onBottomActionBarReady(bottomActionBar);
         mBottomActionBar = bottomActionBar;
-        mBottomActionBar.showActionsOnly(APPLY);
-        mBottomActionBar.setActionClickListener(APPLY, unused -> applyGridOption(mSelectedOption));
+        mBottomActionBar.showActionsOnly(APPLY_TEXT);
+        mBottomActionBar.setActionClickListener(APPLY_TEXT, v -> applyGridOption(mSelectedOption));
     }
 
     private void applyGridOption(GridOption gridOption) {
@@ -201,7 +185,8 @@ public class GridFragment extends AppbarFragment {
             @Override
             public void onOptionsLoaded(List<GridOption> options) {
                 mLoading.hide();
-                mOptionsController = new OptionSelectorController<>(mOptionsContainer, options);
+                mOptionsController = new OptionSelectorController<>(
+                        mOptionsContainer, options, /* useGrid= */ false, CheckmarkStyle.CENTER);
                 mOptionsController.initOptions(mGridManager);
 
                 // Find the selected Grid option.
@@ -231,7 +216,7 @@ public class GridFragment extends AppbarFragment {
                 }
                 showError();
             }
-        }, false);
+        }, /*reload= */ true);
     }
 
     private GridOption getActiveOption(List<GridOption> options) {
@@ -275,13 +260,5 @@ public class GridFragment extends AppbarFragment {
         } else {
             mBottomActionBar.hide();
         }
-    }
-
-    private void showFullPreview() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(EXTRA_WALLPAPER_INFO, mHomeWallpaper);
-        bundle.putParcelable(EXTRA_GRID_OPTION, mSelectedOption);
-        Intent intent = ViewOnlyFullPreviewActivity.newIntent(getContext(), SECTION_GRID, bundle);
-        startActivityForResult(intent, FULL_PREVIEW_REQUEST_CODE);
     }
 }

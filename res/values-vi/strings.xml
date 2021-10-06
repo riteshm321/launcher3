@@ -17,24 +17,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Kiểu và hình nền"</string>
+    <string name="app_name" msgid="1647136562008520313">"Hình nền và kiểu"</string>
     <string name="theme_title" msgid="2144932106319405101">"Kiểu"</string>
     <string name="clock_title" msgid="2126046720254613991">"Đồng hồ"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Lưới"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Lưới ứng dụng"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Áp dụng"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Nhấn để chỉnh sửa"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Giữ hình nền hiện tại"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Áp dụng"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Xem trước kiểu"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Xem trước lưới"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"Xem trước phông chữ"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Xem trước biểu tượng"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Xem trước màu"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Xem trước hình dạng"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, đang áp dụng"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, đang áp dụng và xem trước"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, đang xem trước"</string>
@@ -69,12 +65,17 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Xóa"</string>
     <string name="cancel" msgid="4651030493668562067">"Hủy"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Nơi để đặt hình nền"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"Sử dụng <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Các thành phần bạn chọn phù hợp với kiểu <xliff:g id="ID_1">%1$s</xliff:g>. Bạn có muốn sử dụng <xliff:g id="ID_2">%1$s</xliff:g> không?"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"Sử dụng <xliff:g id="ID_1">%1$s</xliff:g>"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"Sử dụng kiểu <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"Các thành phần bạn chọn phù hợp với kiểu <xliff:g id="ID_1">%1$s</xliff:g>. Thay vào đó, bạn có muốn sử dụng kiểu <xliff:g id="ID_2">%1$s</xliff:g> không?"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"Sử dụng kiểu <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Không, cảm ơn"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Bản xem trước đồng hồ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Rất tiếc! Đã xảy ra lỗi."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Màu/Biểu tượng"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Bản xem trước phông chữ, biểu tượng, hình dạng của ứng dụng và màu sắc"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Phông chữ tùy chỉnh"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Biểu tượng tùy chỉnh"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Màu tùy chỉnh"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Hình dạng tùy chỉnh"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Tên kiểu tùy chỉnh"</string>
 </resources>

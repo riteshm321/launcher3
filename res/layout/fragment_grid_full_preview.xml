@@ -28,8 +28,7 @@
         android:layout_weight="1"
         android:paddingTop="@dimen/full_preview_page_default_padding_top"
         android:paddingBottom="@dimen/full_preview_page_default_padding_bottom"
-        android:clipToPadding="false"
-        android:background="@color/fullscreen_preview_background">
+        android:clipToPadding="false">
 
         <include layout="@layout/grid_preview_card"/>
     </FrameLayout>

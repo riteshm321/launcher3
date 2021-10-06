@@ -50,6 +50,7 @@ import com.android.wallpaper.R;
 import com.android.wallpaper.asset.Asset;
 import com.android.wallpaper.asset.BitmapCachingAsset;
 import com.android.wallpaper.model.WallpaperInfo;
+import com.android.wallpaper.util.ResourceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,7 +111,8 @@ public class ThemeBundle implements CustomizationOption<ThemeBundle> {
         }
         if (!mPreviewInfo.icons.isEmpty()) {
             Drawable icon = mPreviewInfo.icons.get(0).getConstantState().newDrawable().mutate();
-            icon.setTint(res.getColor(R.color.icon_thumbnail_color, null));
+            icon.setTint(ResourceUtils.getColorAttr(
+                    view.getContext(), android.R.attr.textColorSecondary));
             ((ImageView) view.findViewById(R.id.theme_option_icon)).setImageDrawable(
                     icon);
         }

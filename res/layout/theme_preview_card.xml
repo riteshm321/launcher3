@@ -27,7 +27,7 @@
         android:id="@+id/wallpaper_preview_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_color" />
+        android:background="?android:colorPrimary" />
 
     <SurfaceView
         android:id="@+id/wallpaper_preview_surface"

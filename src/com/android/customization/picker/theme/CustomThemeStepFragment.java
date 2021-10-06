@@ -23,6 +23,8 @@ import com.android.wallpaper.picker.AppbarFragment;
 abstract class CustomThemeStepFragment extends AppbarFragment {
     protected static final String ARG_KEY_POSITION = "CustomThemeStepFragment.position";
     protected static final String ARG_KEY_TITLE_RES_ID = "CustomThemeStepFragment.title_res";
+    protected static final String ARG_KEY_ACCESSIBILITY_RES_ID =
+            "CustomThemeStepFragment.accessibility_res";
     protected CustomThemeComponentStepHost mHost;
     protected CustomThemeManager mCustomThemeManager;
     protected int mPosition;
@@ -30,6 +32,8 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
     protected TextView mTitle;
     @StringRes
     protected int mTitleResId;
+    @StringRes
+    protected int mAccessibilityResId;
 
     @Override
     public void onAttach(Context context) {
@@ -48,6 +52,7 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
         super.onCreate(savedInstanceState);
         mPosition = getArguments().getInt(ARG_KEY_POSITION);
         mTitleResId = getArguments().getInt(ARG_KEY_TITLE_RES_ID);
+        mAccessibilityResId = getArguments().getInt(ARG_KEY_ACCESSIBILITY_RES_ID);
         mCustomThemeManager = mHost.getCustomThemeManager();
     }
 
@@ -63,10 +68,10 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
         } else {
             setUpToolbar(view, R.menu.custom_theme_editor_menu);
             mToolbar.getMenu().getItem(0).setIconTintList(
-                    getContext().getColorStateList(R.color.toolbar_icon_color));
+                    getContext().getColorStateList(R.color.toolbar_icon_tint));
         }
         Drawable closeIcon = getResources().getDrawable(R.drawable.ic_close_24px, null).mutate();
-        closeIcon.setTintList(getResources().getColorStateList(R.color.toolbar_icon_color, null));
+        closeIcon.setTintList(getResources().getColorStateList(R.color.toolbar_icon_tint, null));
         mToolbar.setNavigationIcon(closeIcon);
 
         mToolbar.setNavigationContentDescription(R.string.cancel);
@@ -74,6 +79,11 @@ abstract class CustomThemeStepFragment extends AppbarFragment {
 
         mPreviewContainer = view.findViewById(R.id.component_preview_content);
         return view;
+    }
+
+    @Override
+    protected String getAccessibilityTitle() {
+        return getString(mAccessibilityResId);
     }
 
     @Override

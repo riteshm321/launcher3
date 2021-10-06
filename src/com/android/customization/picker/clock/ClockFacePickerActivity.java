@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.customization.picker;
+package com.android.customization.picker.clock;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.customization.model.clock.BaseClockManager;
 import com.android.customization.model.clock.Clockface;
 import com.android.customization.model.clock.ContentProviderClockProvider;
-import com.android.customization.picker.clock.ClockFragment;
 import com.android.customization.picker.clock.ClockFragment.ClockFragmentHost;
 import com.android.wallpaper.R;
 

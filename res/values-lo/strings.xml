@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"ຮູບແບບ ແລະ ຮູບພື້ນຫຼັງ"</string>
+    <string name="app_name" msgid="1647136562008520313">"ຮູບພື້ນຫຼັງ ແລະ ຮູບແບບ"</string>
     <string name="theme_title" msgid="2144932106319405101">"ຮູບແບບ"</string>
     <string name="clock_title" msgid="2126046720254613991">"ໂມງ"</string>
-    <string name="grid_title" msgid="2825094404523390773">"ເສັ້ນ"</string>
+    <string name="grid_title" msgid="1688173478777254123">"ຕາຕະລາງແອັບ"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"ນຳໃຊ້"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"ແຕະເພື່ອແກ້ໄຂ"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"ໃຊ້ຮູບພື້ນຫຼັງປັດຈຸບັນ"</string>
@@ -72,6 +72,10 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"ຕົວຢ່າງໂມງ <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ຂໍອະໄພ! ເກີດບາງຢ່າງຜິດພາດຂຶ້ນ."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ສີ / ໄອຄອນ"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"ຕົວຢ່າງຟອນ, ໄອຄອນ, ຮູບຮ່າງ ແລະ ສີແອັບ"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"ຟອນກຳນົດເອງ"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"ໄອຄອນກຳນົດເອງ"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"ສີກຳນົດເອງ"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"ຮູບຮ່າງກຳນົດເອງ"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"ຊື່ຮູບແບບສີສັນກຳນົດເອງ"</string>
 </resources>

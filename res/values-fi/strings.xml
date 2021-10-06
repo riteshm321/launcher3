@@ -17,24 +17,20 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Tyylit ja taustakuvat"</string>
+    <string name="app_name" msgid="1647136562008520313">"Taustakuva ja tyyli"</string>
     <string name="theme_title" msgid="2144932106319405101">"Tyyli"</string>
     <string name="clock_title" msgid="2126046720254613991">"Kello"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Ruudukko"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Ruudukko"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Käytä"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Muokkaa napauttamalla"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Säilytä nykyinen taustakuva"</string>
     <string name="apply_btn" msgid="7965877231041987336">"Käytä"</string>
     <string name="theme_preview_card_content_description" msgid="5989222908619535533">"Tyylin esikatselu"</string>
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Ruudukon esikatselu"</string>
-    <!-- no translation found for font_preview_content_description (128230439293337891) -->
-    <skip />
-    <!-- no translation found for icon_preview_content_description (7761101284351952890) -->
-    <skip />
-    <!-- no translation found for color_preview_content_description (4879120462082058124) -->
-    <skip />
-    <!-- no translation found for shape_preview_content_description (6479487796176550432) -->
-    <skip />
+    <string name="font_preview_content_description" msgid="128230439293337891">"Fontin esikatselu"</string>
+    <string name="icon_preview_content_description" msgid="7761101284351952890">"Kuvakkeen esikatselu"</string>
+    <string name="color_preview_content_description" msgid="4879120462082058124">"Värin esikatselu"</string>
+    <string name="shape_preview_content_description" msgid="6479487796176550432">"Muodon esikatselu"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, käytössä tällä hetkellä"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, käytössä ja esikatselussa tällä hetkellä"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, esikatselussa tällä hetkellä"</string>
@@ -67,14 +63,19 @@
     <string name="icon_component_label" msgid="2625784884001407944">"Kuvakkeet <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="delete_custom_theme_confirmation" msgid="4452137183628769394">"Poistetaanko oma tyyli?"</string>
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Poista"</string>
-    <string name="cancel" msgid="4651030493668562067">"Peruuta"</string>
+    <string name="cancel" msgid="4651030493668562067">"Peru"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Aseta tyylin taustakuva"</string>
     <string name="use_style_instead_title" msgid="1578754995763917502">"Valitaanko sittenkin <xliff:g id="ID_1">%1$s</xliff:g>?"</string>
-    <string name="use_style_instead_body" msgid="3051937045807471496">"Valitsemasi osat vastaavat <xliff:g id="ID_1">%1$s</xliff:g> ‑tyyliä. Haluatko mieluummin, että <xliff:g id="ID_2">%1$s</xliff:g> valitaan?"</string>
+    <string name="use_style_instead_body" msgid="3051937045807471496">"<xliff:g id="ID_1">%1$s</xliff:g> on tyyliltään sama kuin valitsemasi osat. Haluatko mieluummin, että <xliff:g id="ID_2">%1$s</xliff:g> valitaan?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"Valitse <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Ei kiitos"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Kellon esikatselu: <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Hups! Jotain meni pieleen.."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Värit ja kuvakkeet"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Fontin, kuvakkeiden, sovelluksen muodon ja värin esikatselu"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Oma fontti"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Oma kuvake"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Oma väri"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Oma muoto"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Oman tyylin nimi"</string>
 </resources>

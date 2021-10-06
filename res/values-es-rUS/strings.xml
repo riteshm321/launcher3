@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Estilos y fondos de pantalla"</string>
+    <string name="app_name" msgid="1647136562008520313">"Fondo de pantalla y estilo"</string>
     <string name="theme_title" msgid="2144932106319405101">"Estilo"</string>
     <string name="clock_title" msgid="2126046720254613991">"Reloj"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Cuadrícula"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Cuadr. de apps"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Aplicar"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Presiona para editar"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Conservar fondo de pantalla actual"</string>
@@ -72,6 +72,10 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"Vista previa del reloj <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Se produjo un error."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Color/íconos"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"Vista previa de fuentes, íconos, colores y forma de la app"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Fuente personalizada"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Ícono personalizado"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Color personalizado"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Forma personalizada"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Nombre de estilo personalizado"</string>
 </resources>

@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Stiller ve duvar kağıtları"</string>
+    <string name="app_name" msgid="1647136562008520313">"Duvar kağıdı ve stil"</string>
     <string name="theme_title" msgid="2144932106319405101">"Stil"</string>
     <string name="clock_title" msgid="2126046720254613991">"Saat"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Tablo"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Uygulama tablosu"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Uygula"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Düzenlemek için dokunun"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Geçerli duvar kağıdını sakla"</string>
@@ -72,6 +72,10 @@
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> saat önizleme"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Hay aksi! Bir hata oluştu."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Renk/Simgeler"</string>
-    <!-- no translation found for style_info_description (2612473574431003251) -->
-    <skip />
+    <string name="style_info_description" msgid="2612473574431003251">"Yazı tipi, simge, uygulama şekli ve renk önizlemesi"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Özel yazı tipi"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Özel simge"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Özel renk"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Özel şekil"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Özel stil adı"</string>
 </resources>

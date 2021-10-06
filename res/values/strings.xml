@@ -16,7 +16,7 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- The name of this application, a theme picker. [CHAR LIMIT=50] -->
-    <string name="app_name">Styles &amp; wallpapers</string>
+    <string name="app_name">Wallpaper &amp; style</string>
 
     <!-- Title of a section of the customization picker where the user can select a Theme for the
         device. [CHAR LIMIT=15] -->
@@ -28,7 +28,7 @@
 
     <!-- Title of a section of the customization picker where the user can select a Grid size for
         the home screen. [CHAR LIMIT=15] -->
-    <string name="grid_title">Grid</string>
+    <string name="grid_title">App grid</string>
 
     <!-- Label for a button that allows the user to apply the currently selected Theme.
         [CHAR LIMIT=20] -->
@@ -212,4 +212,38 @@
 
     <!-- Bottom sheet dialog which displaying different theme's info. [CHAR_LIMIT=80] -->
     <string name="style_info_description">Preview of font, icons, app shape, and color</string>
+
+    <!-- Accessibility for custom style font page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_font_title">Custom font</string>
+
+    <!-- Accessibility for custom style icon page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_icon_title">Custom icon</string>
+
+    <!-- Accessibility for custom style color page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_color_title">Custom color</string>
+
+    <!-- Accessibility for custom style shape page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_shape_title">Custom shape</string>
+
+    <!-- Accessibility for custom style name page [CHAR_LIMIT=50] -->
+    <string name="accessibility_custom_name_title">Custom style name</string>
+
+    <!--Name of metadata in the main launcher Activity which values contains the authority
+    corresponding to a ContentProvider in launcher to query or change themed icon option  -->
+    <string name="themed_icon_metadata_key" translatable="false">com.android.launcher3.themedicon.option</string>
+
+    <!--  Strings for new customization UI.  -->
+
+    <!-- The title of mode section view. [CHAR_LIMIT=20] -->
+    <string name="mode_title" msgid="1000319159005403986">Dark theme</string>
+    <string name="mode_disabled_msg" msgid="1926077857799715086">Temporarily disabled due to Battery Saver</string>
+
+    <!-- Title of a section of the customization where the user can select color override for icon. [CHAR LIMIT=30] -->
+    <string name="themed_icon_title" msgid="4305612684940220645">Themed icons</string>
+
+    <!-- Title of the tag to indicate beta version. [CHAR LIMIT=6] -->
+    <string name="beta_title">Beta</string>
+
+    <!-- The content description of grid picker entry. [CHAR LIMIT=NONE] -->
+    <string name="gird_picker_entry_content_description" msgid="7538418512525897691">Change app grid</string>
 </resources>

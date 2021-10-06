@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="6995669566699638946">"Стильдер мен тұсқағаздар"</string>
+    <string name="app_name" msgid="1647136562008520313">"Тұсқағаз және стиль"</string>
     <string name="theme_title" msgid="2144932106319405101">"Стиль"</string>
     <string name="clock_title" msgid="2126046720254613991">"Cағат"</string>
-    <string name="grid_title" msgid="2825094404523390773">"Тор"</string>
+    <string name="grid_title" msgid="1688173478777254123">"Қолданба торы"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Қолдану"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Өзгерту үшін түртіңіз"</string>
     <string name="keep_my_wallpaper" msgid="8012385376769568517">"Қазіргі тұсқағазды қалдыру"</string>
@@ -65,12 +65,17 @@
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Жою"</string>
     <string name="cancel" msgid="4651030493668562067">"Бас тарту"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Тұсқағаздың стилін белгілеу"</string>
-    <string name="use_style_instead_title" msgid="1578754995763917502">"<xliff:g id="ID_1">%1$s</xliff:g> пайдаланасыз ба?"</string>
+    <string name="use_style_instead_title" msgid="1578754995763917502">"<xliff:g id="ID_1">%1$s</xliff:g> таңдалсын ба?"</string>
     <string name="use_style_instead_body" msgid="3051937045807471496">"Таңдаған компоненттеріңіз <xliff:g id="ID_1">%1$s</xliff:g> стиліне сәйкес келеді. Орнына <xliff:g id="ID_2">%1$s</xliff:g> стилін пайдаланғыңыз келе ме?"</string>
-    <string name="use_style_button" msgid="1754493078383627019">"<xliff:g id="ID_1">%1$s</xliff:g> пайдалану"</string>
+    <string name="use_style_button" msgid="1754493078383627019">"<xliff:g id="ID_1">%1$s</xliff:g> таңдалсын"</string>
     <string name="no_thanks" msgid="7286616980115687627">"Жоқ, рақмет"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> сағатын алдын ала қарау"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Қап! Бірдеңе дұрыс болмады."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Түс/Белгішелер"</string>
     <string name="style_info_description" msgid="2612473574431003251">"Қаріпті, белгішелерді, қолданба пішінін алдын ала қарау"</string>
+    <string name="accessibility_custom_font_title" msgid="966867359157303705">"Арнаулы қаріп"</string>
+    <string name="accessibility_custom_icon_title" msgid="5753297905849062296">"Арнаулы белгіше"</string>
+    <string name="accessibility_custom_color_title" msgid="4124246598886320663">"Арнаулы түс"</string>
+    <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"Арнаулы пішін"</string>
+    <string name="accessibility_custom_name_title" msgid="5494460518085463262">"Арнаулы стиль атауы"</string>
 </resources>

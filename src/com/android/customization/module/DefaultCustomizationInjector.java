@@ -15,9 +15,6 @@
  */
 package com.android.customization.module;
 
-import static com.android.customization.picker.CustomizationPickerActivity.WALLPAPER_FLAVOR_EXTRA;
-import static com.android.customization.picker.CustomizationPickerActivity.WALLPAPER_FOCUS;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -28,15 +25,16 @@ import androidx.fragment.app.FragmentActivity;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.theme.ThemeBundleProvider;
 import com.android.customization.model.theme.ThemeManager;
-import com.android.customization.picker.CustomizationPickerActivity;
 import com.android.wallpaper.model.CategoryProvider;
 import com.android.wallpaper.model.WallpaperInfo;
 import com.android.wallpaper.module.BaseWallpaperInjector;
+import com.android.wallpaper.module.CustomizationSections;
 import com.android.wallpaper.module.DefaultCategoryProvider;
 import com.android.wallpaper.module.LoggingOptInStatusProvider;
 import com.android.wallpaper.module.WallpaperPreferences;
 import com.android.wallpaper.module.WallpaperRotationRefresher;
 import com.android.wallpaper.monitor.PerformanceMonitor;
+import com.android.wallpaper.picker.CustomizationPickerActivity;
 import com.android.wallpaper.picker.PreviewFragment;
 
 public class DefaultCustomizationInjector extends BaseWallpaperInjector
@@ -46,6 +44,7 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
     private WallpaperRotationRefresher mWallpaperRotationRefresher;
     private PerformanceMonitor mPerformanceMonitor;
     private WallpaperPreferences mPrefs;
+    private CustomizationSections mCustomizationSections;
 
     @Override
     public synchronized WallpaperPreferences getPreferences(Context context) {
@@ -105,9 +104,13 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
         Intent intent = new Intent();
         intent.setClass(context, CustomizationPickerActivity.class);
         intent.setData(uri);
-        intent.putExtra(WALLPAPER_FLAVOR_EXTRA, WALLPAPER_FOCUS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;
+    }
+
+    @Override
+    public String getDownloadableIntentAction() {
+        return null;
     }
 
     @Override
@@ -134,4 +137,11 @@ public class DefaultCustomizationInjector extends BaseWallpaperInjector
         return new ThemeManager(provider, activity, overlayManagerCompat, logger);
     }
 
+    @Override
+    public CustomizationSections getCustomizationSections() {
+        if (mCustomizationSections == null) {
+            mCustomizationSections = new DefaultCustomizationSections();
+        }
+        return mCustomizationSections;
+    }
 }

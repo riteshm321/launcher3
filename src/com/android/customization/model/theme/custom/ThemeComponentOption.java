@@ -23,11 +23,14 @@ import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_ICON_SYSUI;
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_ICON_THEMEPICKER;
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_SHAPE;
+import static com.android.customization.model.ResourceConstants.getLauncherPackage;
 
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
 import android.content.res.Resources.Theme;
 import android.content.res.TypedArray;
 import android.graphics.Path;
@@ -36,6 +39,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +63,7 @@ import com.android.customization.model.ResourceConstants;
 import com.android.customization.model.theme.ThemeBundle.PreviewInfo.ShapeAppIcon;
 import com.android.customization.model.theme.custom.CustomTheme.Builder;
 import com.android.wallpaper.R;
+import com.android.wallpaper.util.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -141,7 +146,7 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.font_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_font, R.drawable.ic_font);
+            bindPreviewHeader(container, R.string.preview_name_font, R.drawable.ic_font, null);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {
@@ -165,12 +170,24 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
     }
 
     void bindPreviewHeader(ViewGroup container, @StringRes int headerTextResId,
-            @DrawableRes int headerIcon) {
+            @DrawableRes int headerIcon, String drawableName) {
         TextView header = container.findViewById(R.id.theme_preview_card_header);
         header.setText(headerTextResId);
 
         Context context = container.getContext();
-        Drawable icon = context.getResources().getDrawable(headerIcon, context.getTheme());
+        Drawable icon;
+        if (!TextUtils.isEmpty(drawableName)) {
+            try {
+                Resources resources = context.getPackageManager()
+                        .getResourcesForApplication(getLauncherPackage(context));
+                icon = resources.getDrawable(resources.getIdentifier(
+                        drawableName, "drawable", getLauncherPackage(context)), null);
+            } catch (NameNotFoundException | NotFoundException e) {
+                icon = context.getResources().getDrawable(headerIcon, context.getTheme());
+            }
+        } else {
+            icon = context.getResources().getDrawable(headerIcon, context.getTheme());
+        }
         int size = context.getResources().getDimensionPixelSize(R.dimen.card_header_icon_size);
         icon.setBounds(0, 0, size, size);
 
@@ -195,7 +212,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             Resources res = view.getContext().getResources();
             Drawable icon = mIcons.get(THUMBNAIL_ICON_POSITION)
                     .getConstantState().newDrawable().mutate();
-            icon.setTint(res.getColor(R.color.icon_thumbnail_color, null));
+            icon.setTint(ResourceUtils.getColorAttr(
+                    view.getContext(), android.R.attr.textColorSecondary));
             ((ImageView) view.findViewById(R.id.option_icon)).setImageDrawable(
                     icon);
             view.setContentDescription(mLabel);
@@ -231,7 +249,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.icon_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_icon, R.drawable.ic_wifi_24px);
+            bindPreviewHeader(container, R.string.preview_name_icon, R.drawable.ic_widget,
+                    "ic_widget");
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {
@@ -364,7 +383,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.color_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_color, R.drawable.ic_colorize_24px);
+            bindPreviewHeader(container, R.string.preview_name_color, R.drawable.ic_colorize_24px,
+                    null);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {
@@ -373,7 +393,9 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             }
             Resources res = container.getResources();
             @ColorInt int accentColor = resolveColor(res);
-            @ColorInt int controlGreyColor = res.getColor(R.color.control_grey);
+            @ColorInt int controlGreyColor = ResourceUtils.getColorAttr(
+                    container.getContext(),
+                    android.R.attr.textColorTertiary);
             ColorStateList tintList = new ColorStateList(
                     new int[][]{
                             new int[]{android.R.attr.state_selected},
@@ -404,7 +426,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             // Disable seekbar
             seekbar.setOnTouchListener((view, motionEvent) -> true);
 
-            int iconFgColor = res.getColor(R.color.tile_enabled_icon_color, null);
+            int iconFgColor = ResourceUtils.getColorAttr(container.getContext(),
+                    android.R.attr.colorBackground);
             if (!mIcons.isEmpty() && mShapeDrawable != null) {
                 for (int i = 0; i < COLOR_TILE_IDS.length; i++) {
                     Drawable icon = mIcons.get(COLOR_TILES_ICON_IDS[i][1]).getConstantState()
@@ -482,7 +505,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
                     new int[]{android.R.attr.colorPrimary});
             int primaryColor = ta.getColor(0, 0);
             ta.recycle();
-            int foregroundColor = res.getColor(R.color.shape_option_tile_foreground_color, theme);
+            int foregroundColor =
+                    ResourceUtils.getColorAttr(view.getContext(), android.R.attr.textColorPrimary);
 
             foreground.setTint(ColorUtils.blendARGB(primaryColor, foregroundColor, .05f));
 
@@ -507,7 +531,8 @@ public abstract class ThemeComponentOption implements CustomizationOption<ThemeC
             container.setContentDescription(
                     container.getContext().getString(R.string.shape_preview_content_description));
 
-            bindPreviewHeader(container, R.string.preview_name_shape, R.drawable.ic_shapes_24px);
+            bindPreviewHeader(container, R.string.preview_name_shape, R.drawable.ic_shapes_24px,
+                    null);
 
             ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
             if (cardBody.getChildCount() == 0) {

@@ -68,11 +68,13 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
         void onOptionSelected(CustomizationOption selected);
     }
 
-    @IntDef({CheckmarkStyle.NONE, CheckmarkStyle.CORNER, CheckmarkStyle.CENTER})
+    @IntDef({CheckmarkStyle.NONE, CheckmarkStyle.CORNER, CheckmarkStyle.CENTER,
+            CheckmarkStyle.CENTER_CHANGE_COLOR_WHEN_NOT_SELECTED})
     public @interface CheckmarkStyle {
         int NONE = 0;
         int CORNER = 1;
         int CENTER = 2;
+        int CENTER_CHANGE_COLOR_WHEN_NOT_SELECTED = 3;
     }
 
     private static final float LINEAR_LAYOUT_HORIZONTAL_DISPLAY_OPTIONS_MAX = 4.35f;
@@ -240,6 +242,16 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                         && option.equals(mAppliedOption)) {
                     drawCheckmark(option, holder,
                             res.getDrawable(R.drawable.check_circle_grey_large,
+                                    mContainer.getContext().getTheme()),
+                            Gravity.CENTER, res.getDimensionPixelSize(R.dimen.center_check_size),
+                            0);
+                }  else if (mCheckmarkStyle == CheckmarkStyle.CENTER_CHANGE_COLOR_WHEN_NOT_SELECTED
+                        && option.equals(mAppliedOption)) {
+                    int drawableRes = option.equals(mSelectedOption)
+                            ? R.drawable.check_circle_grey_large
+                            : R.drawable.check_circle_grey_large_not_select;
+                    drawCheckmark(option, holder,
+                            res.getDrawable(drawableRes,
                                     mContainer.getContext().getTheme()),
                             Gravity.CENTER, res.getDimensionPixelSize(R.dimen.center_check_size),
                             0);

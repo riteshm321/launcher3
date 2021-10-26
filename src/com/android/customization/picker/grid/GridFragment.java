@@ -61,12 +61,6 @@ public class GridFragment extends AppbarFragment {
     private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE =
             "GridFragment.bottomActionBarVisible";
 
-    public static GridFragment newInstance(CharSequence title) {
-        GridFragment fragment = new GridFragment();
-        fragment.setArguments(AppbarFragment.createArguments(title));
-        return fragment;
-    }
-
     private WallpaperInfo mHomeWallpaper;
     private RecyclerView mOptionsContainer;
     private OptionSelectorController<GridOption> mOptionsController;
@@ -163,6 +157,11 @@ public class GridFragment extends AppbarFragment {
         if (mBottomActionBar != null) {
             outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE, mBottomActionBar.isVisible());
         }
+    }
+
+    @Override
+    public CharSequence getDefaultTitle() {
+        return getString(R.string.grid_title);
     }
 
     @Override

@@ -42,10 +42,6 @@
         the one bundled with selected Theme [CHAR LIMIT=35]-->
     <string name="keep_my_wallpaper">Keep current wallpaper</string>
 
-    <!-- Label for a button that allows the user to apply the currently selected customization option.
-        [CHAR LIMIT=20] -->
-    <string name="apply_btn">Apply</string>
-
     <!-- Content description of theme preview card. [CHAR_LIMIT=30]-->
     <string name="theme_preview_card_content_description">Style preview</string>
 

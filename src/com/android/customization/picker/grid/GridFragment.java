@@ -28,12 +28,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.ContentLoadingProgressBar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.customization.model.CustomizationManager.Callback;
 import com.android.customization.model.CustomizationManager.OptionsFetchedListener;
 import com.android.customization.model.CustomizationOption;
 import com.android.customization.model.grid.GridOption;
+import com.android.customization.model.grid.GridOptionViewModel;
 import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.module.ThemesUserEventLogger;
 import com.android.customization.picker.WallpaperPreviewer;
@@ -57,21 +59,18 @@ import java.util.List;
 public class GridFragment extends AppbarFragment {
 
     private static final String TAG = "GridFragment";
-    private static final String KEY_STATE_SELECTED_OPTION = "GridFragment.selectedOption";
-    private static final String KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE =
-            "GridFragment.bottomActionBarVisible";
 
     private WallpaperInfo mHomeWallpaper;
     private RecyclerView mOptionsContainer;
     private OptionSelectorController<GridOption> mOptionsController;
     private GridOptionsManager mGridManager;
-    private GridOption mSelectedOption;
     private ContentLoadingProgressBar mLoading;
     private View mContent;
     private View mError;
     private BottomActionBar mBottomActionBar;
     private ThemesUserEventLogger mEventLogger;
     private GridOptionPreviewer mGridOptionPreviewer;
+    private GridOptionViewModel mGridOptionViewModel;
 
     private final Callback mApplyGridCallback = new Callback() {
         @Override
@@ -89,9 +88,17 @@ public class GridFragment extends AppbarFragment {
             // Since we disabled it when clicked apply button.
             mBottomActionBar.enableActions();
             mBottomActionBar.hide();
+            mGridOptionViewModel.setBottomActionBarVisible(false);
             //TODO(chihhangchuang): handle
         }
     };
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mGridOptionViewModel = new ViewModelProvider(requireActivity()).get(
+                GridOptionViewModel.class);
+    }
 
     @Nullable
     @Override
@@ -121,7 +128,7 @@ public class GridFragment extends AppbarFragment {
         mGridManager = GridOptionsManager.getInstance(getContext());
         mEventLogger = (ThemesUserEventLogger) InjectorProvider.getInjector()
                 .getUserEventLogger(getContext());
-        setUpOptions(savedInstanceState);
+        setUpOptions();
 
         SurfaceView wallpaperSurface = view.findViewById(R.id.wallpaper_preview_surface);
         WallpaperPreviewer wallpaperPreviewer = new WallpaperPreviewer(getLifecycle(),
@@ -141,21 +148,17 @@ public class GridFragment extends AppbarFragment {
     }
 
     @Override
+    public boolean onBackPressed() {
+        mGridOptionViewModel.setSelectedOption(null);
+        mGridOptionViewModel.setBottomActionBarVisible(false);
+        return super.onBackPressed();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mGridOptionPreviewer != null) {
             mGridOptionPreviewer.release();
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mSelectedOption != null) {
-            outState.putParcelable(KEY_STATE_SELECTED_OPTION, mSelectedOption);
-        }
-        if (mBottomActionBar != null) {
-            outState.putBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE, mBottomActionBar.isVisible());
         }
     }
 
@@ -169,7 +172,8 @@ public class GridFragment extends AppbarFragment {
         super.onBottomActionBarReady(bottomActionBar);
         mBottomActionBar = bottomActionBar;
         mBottomActionBar.showActionsOnly(APPLY_TEXT);
-        mBottomActionBar.setActionClickListener(APPLY_TEXT, v -> applyGridOption(mSelectedOption));
+        mBottomActionBar.setActionClickListener(APPLY_TEXT,
+                v -> applyGridOption(mGridOptionViewModel.getSelectedOption()));
     }
 
     private void applyGridOption(GridOption gridOption) {
@@ -177,7 +181,7 @@ public class GridFragment extends AppbarFragment {
         mGridManager.apply(gridOption, mApplyGridCallback);
     }
 
-    private void setUpOptions(@Nullable Bundle savedInstanceState) {
+    private void setUpOptions() {
         hideError();
         mLoading.show();
         mGridManager.fetchOptions(new OptionsFetchedListener<GridOption>() {
@@ -188,24 +192,21 @@ public class GridFragment extends AppbarFragment {
                         mOptionsContainer, options, /* useGrid= */ false,
                         CheckmarkStyle.CENTER_CHANGE_COLOR_WHEN_NOT_SELECTED);
                 mOptionsController.initOptions(mGridManager);
+                GridOption previouslySelectedOption = findEquivalent(options,
+                        mGridOptionViewModel.getSelectedOption());
+                mGridOptionViewModel.setSelectedOption(
+                        previouslySelectedOption != null
+                                ? previouslySelectedOption
+                                : getActiveOption(options));
 
-                // Find the selected Grid option.
-                GridOption previouslySelectedOption = null;
-                if (savedInstanceState != null) {
-                    previouslySelectedOption = findEquivalent(
-                            options, savedInstanceState.getParcelable(KEY_STATE_SELECTED_OPTION));
-                }
-                mSelectedOption = previouslySelectedOption != null
-                        ? previouslySelectedOption
-                        : getActiveOption(options);
-
-                mOptionsController.setSelectedOption(mSelectedOption);
-                onOptionSelected(mSelectedOption);
-                restoreBottomActionBarVisibility(savedInstanceState);
+                mOptionsController.setSelectedOption(mGridOptionViewModel.getSelectedOption());
+                onOptionSelected(mGridOptionViewModel.getSelectedOption());
+                restoreBottomActionBarVisibility();
 
                 mOptionsController.addListener(selectedOption -> {
                     onOptionSelected(selectedOption);
                     mBottomActionBar.show();
+                    mGridOptionViewModel.setBottomActionBarVisible(true);
                 });
             }
 
@@ -247,15 +248,13 @@ public class GridFragment extends AppbarFragment {
     }
 
     private void onOptionSelected(CustomizationOption selectedOption) {
-        mSelectedOption = (GridOption) selectedOption;
-        mEventLogger.logGridSelected(mSelectedOption);
-        mGridOptionPreviewer.setGridOption(mSelectedOption);
+        mGridOptionViewModel.setSelectedOption((GridOption) selectedOption);
+        mEventLogger.logGridSelected(mGridOptionViewModel.getSelectedOption());
+        mGridOptionPreviewer.setGridOption(mGridOptionViewModel.getSelectedOption());
     }
 
-    private void restoreBottomActionBarVisibility(@Nullable Bundle savedInstanceState) {
-        boolean isBottomActionBarVisible = savedInstanceState != null
-                && savedInstanceState.getBoolean(KEY_STATE_BOTTOM_ACTION_BAR_VISIBLE);
-        if (isBottomActionBarVisible) {
+    private void restoreBottomActionBarVisibility() {
+        if (mGridOptionViewModel.getBottomActionBarVisible()) {
             mBottomActionBar.show();
         } else {
             mBottomActionBar.hide();

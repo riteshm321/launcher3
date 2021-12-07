@@ -233,6 +233,8 @@
     <!-- The title of mode section view. [CHAR_LIMIT=20] -->
     <string name="mode_title" msgid="1000319159005403986">Dark theme</string>
     <string name="mode_disabled_msg" msgid="1926077857799715086">Temporarily disabled due to Battery Saver</string>
+    <!-- The text for A11y announcement when theme changes. -->
+    <string name="mode_changed">Theme changed</string>
 
     <!-- Title of a section of the customization where the user can select color override for icon. [CHAR LIMIT=30] -->
     <string name="themed_icon_title" msgid="4305612684940220645">Themed icons</string>

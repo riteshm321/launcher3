@@ -17,12 +17,14 @@ package com.android.customization.picker.grid;
 
 import static com.android.wallpaper.widget.BottomActionBar.BottomAction.APPLY_TEXT;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -109,6 +111,12 @@ public class GridFragment extends AppbarFragment {
         setUpToolbar(view);
         mContent = view.findViewById(R.id.content_section);
         mOptionsContainer = view.findViewById(R.id.options_container);
+        AccessibilityManager accessibilityManager =
+                (AccessibilityManager) getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
+        if (accessibilityManager.isEnabled()) {
+            // Make Talkback focus won't reset when notifyDataSetChange
+            mOptionsContainer.setItemAnimator(null);
+        }
         mLoading = view.findViewById(R.id.loading_indicator);
         mError = view.findViewById(R.id.error_section);
 

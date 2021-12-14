@@ -25,6 +25,7 @@
         <!-- Intent filter with action VIEW -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
         </intent>
         <!-- Intent filter with action WallpaperService (live wallpaper interface) -->
         <intent>

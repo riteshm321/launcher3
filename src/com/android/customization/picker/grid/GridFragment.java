@@ -182,6 +182,8 @@ public class GridFragment extends AppbarFragment {
         mBottomActionBar.showActionsOnly(APPLY_TEXT);
         mBottomActionBar.setActionClickListener(APPLY_TEXT,
                 v -> applyGridOption(mGridOptionViewModel.getSelectedOption()));
+        mBottomActionBar.setActionAccessibilityTraversalAfter(APPLY_TEXT,
+                mOptionsContainer.getId());
     }
 
     private void applyGridOption(GridOption gridOption) {

@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, इस समय लागू है"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g> को लागू कर दिया गया है और इसकी झलक देखी जा रही है"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g> की झलक अभी देखी जा रही है"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g> में बदलाव करें, जिसे चुना गया है और जिसकी झलक देखी गई है"</string>
     <string name="theme_description" msgid="3697012391785254635">"फ़ॉन्ट: <xliff:g id="ID_1">%1$s</xliff:g>, आइकॉन: <xliff:g id="ID_2">%2$s</xliff:g>, बनावट: <xliff:g id="ID_3">%3$s</xliff:g>, रंग: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"डिफ़ॉल्ट"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"फ़ॉन्ट"</string>

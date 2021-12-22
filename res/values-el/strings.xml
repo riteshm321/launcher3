@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"Αυτήν τη στιγμή εφαρμόζεται το θέμα <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"Αυτήν τη στιγμή εφαρμόζεται και εμφανίζεται σε προεπισκόπηση η επιλογή <xliff:g id="ID_1">%1$s</xliff:g>"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"Αυτήν τη στιγμή εμφανίζεται σε προεπισκόπηση η επιλογή <xliff:g id="ID_1">%1$s</xliff:g>"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>, η αλλαγή επιλέχθηκε και προβλήθηκε σε προεπισκόπηση"</string>
     <string name="theme_description" msgid="3697012391785254635">"Γραμματοσειρά: <xliff:g id="ID_1">%1$s</xliff:g>, εικονίδια: <xliff:g id="ID_2">%2$s</xliff:g>, σχήμα: <xliff:g id="ID_3">%3$s</xliff:g>, χρώμα: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"Προεπιλογή"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"Γραμματοσειρά"</string>

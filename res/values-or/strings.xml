@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, ବର୍ତ୍ତମାନ ଲାଗୁ ହୋଇଛି"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ବର୍ତ୍ତମାନ ଲାଗୁ ହୋଇଛି ଏବଂ ଏହାର ପ୍ରିଭ୍ୟୁ କରାଯାଇଛି"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>ର, ବର୍ତ୍ତମାନ ପ୍ରିଭ୍ୟୁ କରାଯାଇଛି"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>, ପରିବର୍ତ୍ତନକୁ ଚୟନ କରାଯାଇଛି ଏବଂ ପ୍ରିଭ୍ୟୁ କରାଯାଇଛି"</string>
     <string name="theme_description" msgid="3697012391785254635">"ଫଣ୍ଟ: <xliff:g id="ID_1">%1$s</xliff:g>, ଆଇକନ୍‌ଗୁଡ଼ିକ: <xliff:g id="ID_2">%2$s</xliff:g>, ଆକାର: <xliff:g id="ID_3">%3$s</xliff:g>, ରଙ୍ଗ: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"ଡିଫଲ୍ଟ"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"ଫଣ୍ଟ"</string>

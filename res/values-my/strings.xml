@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> ကို လက်ရှိအသုံးပြုထားသည်"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>၊ လက်ရှိ အသုံးပြုပြီး အစမ်းကြည့်ထားသည်"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>၊ လက်ရှိ အစမ်းကြည့်ထားသည်"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>၊ ပြောင်းလဲမှုကို ရွေးချယ်ပြီး အစမ်းကြည့်ရှုပြီးပါပြီ"</string>
     <string name="theme_description" msgid="3697012391785254635">"ဖောင့်- <xliff:g id="ID_1">%1$s</xliff:g>၊ သင်္ကေတများ- <xliff:g id="ID_2">%2$s</xliff:g>၊ ပုံသဏ္ဌာန်- <xliff:g id="ID_3">%3$s</xliff:g>၊ အရောင်- <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"မူရင်း"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"ဖောင့်"</string>

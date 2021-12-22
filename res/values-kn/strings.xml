@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"ಪ್ರಸ್ತುತ <xliff:g id="ID_1">%1$s</xliff:g> ಅನ್ನು ಅನ್ವಯಿಸಲಾಗಿದೆ"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ಪ್ರಸ್ತುತ ಸಲ್ಲಿಸಲಾಗಿದೆ ಮತ್ತು ಪೂರ್ವವೀಕ್ಷಿಸಲಾಗಿದೆ"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ಪ್ರಸ್ತುತ ಪೂರ್ವವೀಕ್ಷಿಸಲಾಗಿದೆ"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>, ಬದಲಾವಣೆ ಆಯ್ಕೆಮಾಡಲಾಗಿದೆ ಮತ್ತು ಪೂರ್ವವೀಕ್ಷಣೆ ಮಾಡಲಾಗಿದೆ"</string>
     <string name="theme_description" msgid="3697012391785254635">"ಫಾಂಟ್: <xliff:g id="ID_1">%1$s</xliff:g>, ಐಕಾನ್‌ಗಳು: <xliff:g id="ID_2">%2$s</xliff:g>, ಆಕಾರ: <xliff:g id="ID_3">%3$s</xliff:g>, ಬಣ್ಣ: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"ಡೀಫಾಲ್ಟ್"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"ಫಾಂಟ್"</string>

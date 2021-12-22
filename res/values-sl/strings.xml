@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> – trenutno uporabljeno"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g> – trenutno uporabljeno in v predogledu"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g> – trenutno v predogledu"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>, sprememba je bila izbrana in predogledana"</string>
     <string name="theme_description" msgid="3697012391785254635">"Pisava: <xliff:g id="ID_1">%1$s</xliff:g>, ikone: <xliff:g id="ID_2">%2$s</xliff:g>, oblika: <xliff:g id="ID_3">%3$s</xliff:g>, barva: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"Privzeto"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"Pisava"</string>

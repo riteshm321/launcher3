@@ -214,6 +214,13 @@ public class GridFragment extends AppbarFragment {
                 restoreBottomActionBarVisibility();
 
                 mOptionsController.addListener(selectedOption -> {
+                    String title = selectedOption.getTitle();
+                    int stringId = R.string.option_previewed_description;
+                    if (selectedOption.isActive(mGridManager)) {
+                        stringId = R.string.option_applied_previewed_description;
+                    }
+                    CharSequence cd = getContext().getString(stringId, title);
+                    mOptionsContainer.announceForAccessibility(cd);
                     onOptionSelected(selectedOption);
                     mBottomActionBar.show();
                     mGridOptionViewModel.setBottomActionBarVisible(true);

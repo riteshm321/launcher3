@@ -194,16 +194,7 @@ public class OptionSelectorController<T extends CustomizationOption<T>> {
                 }
                 holder.itemView.setActivated(option.equals(mSelectedOption));
                 option.bindThumbnailTile(holder.tileView);
-                holder.itemView.setOnClickListener(view -> {
-                    setSelectedOption(option);
-                    String title = option.getTitle();
-                    int stringId = R.string.option_previewed_description;
-                    if (mSelectedOption.equals(mAppliedOption)) {
-                        stringId = R.string.option_applied_previewed_description;
-                    }
-                    CharSequence cd = holder.itemView.getContext().getString(stringId, title);
-                    view.announceForAccessibility(cd);
-                });
+                holder.itemView.setOnClickListener(view -> setSelectedOption(option));
 
                 Resources res = mContainer.getContext().getResources();
                 if (mCheckmarkStyle == CheckmarkStyle.CORNER && option.equals(mAppliedOption)) {

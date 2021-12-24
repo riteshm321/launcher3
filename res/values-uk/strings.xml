@@ -33,8 +33,7 @@
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g> (зараз застосовано)"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g> (застосовано й відображається зараз)"</string>
     <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g> (відображається зараз)"</string>
-    <!-- no translation found for option_change_applied_previewed_description (9197311327728570816) -->
-    <skip />
+    <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>, змінити елемент, який ви вибрали й переглядаєте"</string>
     <string name="theme_description" msgid="3697012391785254635">"Шрифт: <xliff:g id="ID_1">%1$s</xliff:g>; значки: <xliff:g id="ID_2">%2$s</xliff:g>; форма: <xliff:g id="ID_3">%3$s</xliff:g>; колір: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"За умовчанням"</string>
     <string name="preview_name_font" msgid="4465423899630037038">"Шрифт"</string>

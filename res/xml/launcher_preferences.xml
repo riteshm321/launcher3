@@ -64,6 +64,13 @@
         android:summary="@string/pref_show_google_now_summary"
         android:title="@string/title_show_google_app"/>
 
+    <SwitchPreference
+        android:key="pref_dt_gesture"
+        android:title="@string/pref_dt_gesture_title"
+        android:summary="@string/pref_dt_gesture_summary"
+        android:defaultValue="true"
+        android:persistent="true"/>
+        
     <Preference
         android:persistent="false"
         android:title="@string/suggestion_pref_screen_title"
@@ -71,13 +78,6 @@
         android:summary="@string/suggestion_pref_screen_desc">
         <intent android:action="android.settings.ACTION_CONTENT_SUGGESTIONS_SETTINGS" />
     </Preference>
-
-    <SwitchPreference
-        android:key="pref_dt_gesture"
-        android:title="@string/pref_dt_gesture_title"
-        android:summary="@string/pref_dt_gesture_summary"
-        android:defaultValue="true"
-        android:persistent="true"/>
 
     <Preference
         android:key="pref_developer_options"

@@ -72,6 +72,8 @@ android_app {
         "guava",
         "monet",
 	"renderscript_toolkit",
+        "colorkt",
+        "themelib",
         "wallpaper-common-deps",
         "SettingsLibSettingsTheme",
         "SystemUI-statsd",

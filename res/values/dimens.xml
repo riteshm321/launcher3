@@ -38,6 +38,7 @@
     <dimen name="option_tile_margin_horizontal">6dp</dimen>
     <dimen name="option_tile_padding_vertical">12dp</dimen>
     <dimen name="option_tile_padding_horizontal">12dp</dimen>
+    <dimen name="option_tile_grid_padding_horizontal">4dp</dimen>
     <dimen name="option_icon_size">16dp</dimen>
     <dimen name="theme_option_icon_sample_height">22dp</dimen>
     <dimen name="theme_option_icon_sample_width">22dp</dimen>

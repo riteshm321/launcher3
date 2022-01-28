@@ -48,7 +48,7 @@ public class LiveWallpaperColorThemePreviewFragment extends LivePreviewFragment 
         } else if (!wallpaperColors.equals(mWallpaperColors) && shouldApplyWallpaperColors()) {
             mWallpaperColors = wallpaperColors;
             Context context = getContext();
-            RemoteViews.ColorResources.create(context, new WallpaperColorResources(wallpaperColors).getColorOverlay()).apply(context);
+            RemoteViews.ColorResources.create(context, new WallpaperColorResources(wallpaperColors, context).getColorOverlay()).apply(context);
             updateSystemBarColor(context);
             getView().setBackgroundColor(MaterialAttributes.resolveOrThrow(context, android.R.attr.colorPrimary, "android.R.attr.colorPrimary is not set in the current theme"));
             LayoutInflater from = LayoutInflater.from(context);

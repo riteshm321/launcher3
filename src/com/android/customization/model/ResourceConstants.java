@@ -58,6 +58,8 @@ public interface ResourceConstants {
      * Overlay Categories that theme picker handles.
      */
     String OVERLAY_CATEGORY_COLOR = "android.theme.customization.accent_color";
+    String OVERLAY_CATEGORY_SYSTEM_PALETTE = "android.theme.customization.system_palette";
+    String OVERLAY_CATEGORY_THEME_STYLE = "android.theme.customization.theme_style";
     String OVERLAY_CATEGORY_FONT = "android.theme.customization.font";
     String OVERLAY_CATEGORY_SHAPE = "android.theme.customization.adaptive_icon_shape";
     String OVERLAY_CATEGORY_ICON_ANDROID = "android.theme.customization.icon_pack.android";

@@ -49,6 +49,13 @@
       LAUNCHER_HOME_SCREEN_ROTATION_ENABLED(615)
       LAUNCHER_HOME_SCREEN_ROTATION_DISABLED(616)
     -->
+    
+    <SwitchPreference
+        android:key="pref_dock_search"
+        android:title="@string/dock_search_title"
+        android:summary="@string/dock_search_summary"
+        android:defaultValue="true" />
+
     <SwitchPreference
         android:key="pref_allowRotation"
         android:title="@string/allow_rotation_title"

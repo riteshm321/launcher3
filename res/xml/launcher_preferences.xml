@@ -57,6 +57,12 @@
         android:defaultValue="true" />
 
     <SwitchPreference
+        android:key="pref_dock_theme"
+        android:title="@string/dock_theme_title"
+        android:summary="@string/dock_theme_summary"
+        android:dependency="pref_dock_search" />
+
+    <SwitchPreference
         android:key="pref_allowRotation"
         android:title="@string/allow_rotation_title"
         android:summary="@string/allow_rotation_desc"

@@ -144,7 +144,9 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                 Utilities.restart(this);
         } else if (Utilities.KEY_DOCK_SEARCH.equals(key)) {
                 Utilities.restart(this);
-        }
+        } else if (Utilities.KEY_DOCK_THEME.equals(key)) {
+                Utilities.restart(this);
+        } 
     }
 
     private boolean startPreference(String fragment, Bundle args, String key) {

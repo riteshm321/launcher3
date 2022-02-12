@@ -69,6 +69,8 @@ android_app {
     name: "ThemePicker",
 
     static_libs: [
+        "guava",
+        "monet",
         "wallpaper-common-deps",
         "SettingsLibSettingsTheme",
         "SystemUI-statsd",

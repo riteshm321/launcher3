@@ -15,6 +15,7 @@
      limitations under the License.
 -->
 <com.android.quickstep.views.OverviewActionsView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal|bottom">
@@ -22,17 +23,15 @@
     <LinearLayout
         android:id="@+id/action_buttons_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/overview_actions_height"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/action_buttons"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/overview_actions_height"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <Space
@@ -40,42 +39,39 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <Button
+        <ImageButton
             android:id="@+id/action_screenshot"
-            style="@style/OverviewActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_screenshot"
-            android:text="@string/action_screenshot"
-            android:theme="@style/ThemeControlHighlightWorkspaceColor" />
+            android:tint="?androidprv:attr/colorAccent"
+            android:background="@drawable/rounded_bg"
+            android:src="@drawable/ic_screenshot" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <Button
+        <ImageButton
             android:id="@+id/action_clear_all"
-            style="@style/OverviewActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_clear_all"
-            android:text="@string/recents_clear_all"
-            android:theme="@style/ThemeControlHighlightWorkspaceColor" />
+            android:tint="?androidprv:attr/colorAccent"
+            android:background="@drawable/rounded_bg"
+            android:src="@drawable/ic_clear_all" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <Button
+        <ImageButton
             android:id="@+id/kill_app"
-            style="@style/OverviewActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_kill_app_recents"
-            android:text="@string/recents_kill_app"
-            android:theme="@style/ThemeControlHighlightWorkspaceColor" />
+            android:tint="?androidprv:attr/colorAccent"
+            android:background="@drawable/rounded_bg"
+            android:src="@drawable/ic_kill_app_recents" />
 
         <Space
             android:id="@+id/action_split_space"
@@ -85,7 +81,6 @@
 
         <Button
             android:id="@+id/action_split"
-            style="@style/OverviewActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/action_split"
@@ -97,14 +92,13 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <Button
-            android:drawableStart="@drawable/ic_lens"
-            style="@style/OverviewActionButton"
+        <ImageButton
             android:id="@+id/action_lens"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/action_lens"
-            android:theme="@style/ThemeControlHighlightWorkspaceColor"
+            android:tint="?androidprv:attr/colorAccent"
+            android:background="@drawable/rounded_bg"
+            android:src="@drawable/ic_lens"
             android:visibility="gone" />
 
         <Space
@@ -127,7 +121,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
         android:gravity="center"
         android:drawableStart="@drawable/ic_memory"
         android:drawablePadding="2dp"
@@ -143,8 +136,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:scaleY="2"
-        android:progressBackgroundTint="?android:attr/colorAccent"
-        android:progressTint="?android:attr/colorAccent"
+        android:progressBackgroundTint="@*android:color/accent_device_default"
+        android:progressTint="@*android:color/accent_device_default"
         style="?android:attr/progressBarStyleHorizontal" />
 
 </LinearLayout>

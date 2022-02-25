@@ -19,13 +19,13 @@ package com.android.quickstep.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.FloatProperty;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.statemanager.StatefulActivity;
 import com.android.launcher3.touch.PagedOrientationHandler;
 
-public class ClearAllButton extends Button {
+public class ClearAllButton extends ImageButton {
 
     public static final FloatProperty<ClearAllButton> VISIBILITY_ALPHA =
             new FloatProperty<ClearAllButton>("visibilityAlpha") {

@@ -90,6 +90,14 @@ public interface ResourceConstants {
             "ic_battery_80_24dp"
     };
 
+    /**
+     * Color bundle strings used to reference system resources.
+     */
+    String COLOR_BUNDLES_ARRAY_NAME = "color_bundles";
+    String COLOR_BUNDLE_NAME_PREFIX = "bundle_name_";
+    String COLOR_BUNDLE_MAIN_COLOR_PREFIX = "color_secondary_";
+    String COLOR_BUNDLE_STYLE_PREFIX = "color_style_";
+
     ArrayList<String> sTargetPackages = new ArrayList<>();
     String ACCENT_COLOR_LIGHT_NAME = "accent_device_default_light";
     String ACCENT_COLOR_DARK_NAME = "accent_device_default_dark";

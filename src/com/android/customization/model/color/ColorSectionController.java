@@ -15,6 +15,7 @@
  */
 package com.android.customization.model.color;
 
+import static android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO;
 import static android.view.View.VISIBLE;
 
 import static com.android.customization.model.color.ColorOptionsProvider.COLOR_SOURCE_HOME;
@@ -123,6 +124,9 @@ public class ColorSectionController implements CustomizationSectionController<Co
         mColorSectionViewPager = mColorSectionView.findViewById(R.id.color_section_view_pager);
         mColorSectionViewPager.setAdapter(mColorSectionAdapter);
         mColorSectionViewPager.setUserInputEnabled(false);
+        if (ColorProvider.themeStyleEnabled) {
+            mColorSectionViewPager.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+        }
         mTabLayout = mColorSectionView.findViewById(R.id.separated_tabs);
         mColorSectionAdapter.setNumColors(context.getResources().getInteger(
                 R.integer.options_grid_num_columns));

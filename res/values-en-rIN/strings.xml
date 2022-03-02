@@ -68,7 +68,7 @@
     <string name="use_style_instead_title" msgid="1578754995763917502">"Use <xliff:g id="ID_1">%1$s</xliff:g> instead?"</string>
     <string name="use_style_instead_body" msgid="3051937045807471496">"The components you chose match the <xliff:g id="ID_1">%1$s</xliff:g> style. Do you want to use <xliff:g id="ID_2">%1$s</xliff:g> instead?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"Use <xliff:g id="ID_1">%1$s</xliff:g>"</string>
-    <string name="no_thanks" msgid="7286616980115687627">"No thanks"</string>
+    <string name="no_thanks" msgid="7286616980115687627">"No, thanks"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> clock preview"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"Oops! Something went wrong."</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"Colour/Icons"</string>

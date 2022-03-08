@@ -17,7 +17,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" msgid="1647136562008520313">"वालपेपर तथा शैली"</string>
+    <!-- no translation found for app_name (1647136562008520313) -->
+    <skip />
     <string name="theme_title" msgid="2144932106319405101">"शैली"</string>
     <string name="clock_title" msgid="2126046720254613991">"घडी"</string>
     <string name="grid_title" msgid="1688173478777254123">"एप ग्रिड"</string>
@@ -78,9 +79,4 @@
     <string name="accessibility_custom_color_title" msgid="4124246598886320663">"आफूले रोजेको रङ"</string>
     <string name="accessibility_custom_shape_title" msgid="7708408259374643129">"आफूले रोजेको आकार"</string>
     <string name="accessibility_custom_name_title" msgid="5494460518085463262">"शैलीको आफूले रोजेको नाम"</string>
-    <string name="mode_title" msgid="2394873501427436055">"अँध्यारो थिम"</string>
-    <string name="mode_disabled_msg" msgid="9196245518435936512">"ब्याट्री सेभर अन भएकाले केही समयका लागि अफ गरिएको छ"</string>
-    <string name="themed_icon_title" msgid="7312460430471956558">"थिम भएका आइकन"</string>
-    <string name="beta_title" msgid="8703819523760746458">"बिटा"</string>
-    <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"एप ग्रिड बदल्नुहोस्"</string>
 </resources>

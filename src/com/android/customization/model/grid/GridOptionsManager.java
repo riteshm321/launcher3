@@ -19,6 +19,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -30,6 +31,7 @@ import com.android.wallpaper.module.InjectorProvider;
 import com.android.wallpaper.util.PreviewUtils;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -39,6 +41,7 @@ import java.util.concurrent.Executors;
 public class GridOptionsManager implements CustomizationManager<GridOption> {
 
     private static final ExecutorService sExecutorService = Executors.newSingleThreadExecutor();
+    private static final String TAG = "GridOptionsManager";
 
     private static GridOptionsManager sGridOptionsManager;
 
@@ -68,7 +71,16 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
 
     @Override
     public boolean isAvailable() {
-        return mProvider.areGridsAvailable();
+        int gridOptionSize = 0;
+        try {
+            gridOptionSize = sExecutorService.submit(() -> {
+                List<GridOption> gridOptions = mProvider.fetch(/* reload= */true);
+                return gridOptions;
+            }).get().size();
+        } catch (InterruptedException | ExecutionException e) {
+            Log.w(TAG, "could not get gridOptionSize", e);
+        }
+        return gridOptionSize > 1 && mProvider.areGridsAvailable();
     }
 
     @Override

@@ -298,6 +298,9 @@ public class DeviceProfile {
         if (isTaskbarPresent) {
             taskbarSize = res.getDimensionPixelSize(R.dimen.taskbar_size);
             stashedTaskbarSize = res.getDimensionPixelSize(R.dimen.taskbar_stashed_size);
+            if (taskbarSize == 0) {
+                isTaskbarPresent = false;
+            }
         }
 
         edgeMarginPx = res.getDimensionPixelSize(R.dimen.dynamic_grid_edge_margin);

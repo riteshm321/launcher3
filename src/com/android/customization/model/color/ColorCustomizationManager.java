@@ -106,8 +106,11 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
                 super.onChange(selfChange, uri);
                 // Resets current overlays when system's theme setting is changed.
                 if (TextUtils.equals(uri.getLastPathSegment(), ResourceConstants.THEME_SETTING)) {
-                    Log.i(TAG, "Resetting " + mCurrentOverlays + " to null");
+                    Log.i(TAG, "Resetting " + mCurrentOverlays + ", " + mCurrentStyle + ", "
+                            + mCurrentSource + " to null");
                     mCurrentOverlays = null;
+                    mCurrentStyle = null;
+                    mCurrentSource = null;
                 }
             }
         };

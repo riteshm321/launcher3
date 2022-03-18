@@ -268,7 +268,7 @@ class ColorProvider(context: Context, stubPackageName: String) :
                 val lightColors = ColorScheme(colorFromStub, false, style)
                         .getPresetColorPreview(colorFromStub)
                 builder.setColorPrimaryDark(darkColors[0]).setColorSecondaryDark(darkColors[1])
-                builder.setColorPrimaryLight(lightColors[0]).setColorPrimaryLight(lightColors[1])
+                builder.setColorPrimaryLight(lightColors[0]).setColorSecondaryLight(lightColors[1])
             }
 
             extractor.addAndroidIconOverlay(builder)

@@ -48,5 +48,6 @@
     
     <!-- Recents -->
     <string name="action_lens">Lens</string>
+    <string name="recents_kill_app">Kill app</string>
 
 </resources>

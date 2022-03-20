@@ -55,6 +55,20 @@
             android:theme="@style/ThemeControlHighlightWorkspaceColor" />
 
         <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/kill_app"
+            style="@style/OverviewActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_kill_app_recents"
+            android:text="@string/recents_kill_app"
+            android:theme="@style/ThemeControlHighlightWorkspaceColor" />
+
+        <Space
             android:id="@+id/action_split_space"
             android:layout_width="@dimen/overview_actions_button_spacing"
             android:layout_height="1dp"

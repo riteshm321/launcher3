@@ -696,6 +696,7 @@
     <icon drawable="@drawable/zoom" package="us.zoom.videomeetings" />
     <icon drawable="@drawable/pubg" package="com.tencent.ig" />
     <icon drawable="@drawable/cod" package="com.activision.callofduty.shooter" />
+    <icon drawable="@drawable/themed_icon_cod" package="com.tencent.tmgp.cod" />
     <icon drawable="@drawable/mobile_legends" package="com.mobile.legends" />
     <icon drawable="@drawable/root_explorer" package="com.speedsoftware.rootexplorer" />
     <icon drawable="@drawable/meo_remote" package="pt.ptinovacao.iad.meoremote" />
@@ -868,4 +869,12 @@
     <icon drawable="@drawable/parsec" package="tv.parsec.client" />
     <icon drawable="@drawable/pedulilindungi" package="com.telkom.tracencare" />
     <icon drawable="@drawable/privacy_dashboard" package="rk.android.app.privacydashboard" />
+    <icon drawable="@drawable/themed_icon_bilibili" package="tv.danmaku.bili" />
+    <icon drawable="@drawable/themed_icon_alipay" package="com.eg.android.AlipayGphone" />
+    <icon drawable="@drawable/themed_icon_jingdong" package="com.jingdong.app.mall" />
+    <icon drawable="@drawable/themed_icon_coolapk" package="com.coolapk.market" />
+    <icon drawable="@drawable/themed_icon_zhihu" package="com.zhihu.android" />
+    <icon drawable="@drawable/themed_icon_ic_com_bilibili_comic" package="com.bilibili.comic" />
+    <icon drawable="@drawable/themed_icon_island" package="com.oasisfeng.island" />
+    <icon drawable="@drawable/themed_icon_geometricweather" package="wangdaye.com.geometricweather" />
 </icons>

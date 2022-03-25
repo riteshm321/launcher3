@@ -256,14 +256,19 @@ public class ColorSectionController implements CustomizationSectionController<Co
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                pageIndicator.setLocation(position);
+                pageIndicator.setLocation(getPagePosition(pageIndicator, position));
             }
 
             @Override
             public void onPageScrolled(int position, float positionOffset,
                     int positionOffsetPixels) {
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-                pageIndicator.setLocation(position);
+                pageIndicator.setLocation(getPagePosition(pageIndicator, position));
+            }
+
+            private int getPagePosition(PageIndicator pageIndicator, int position) {
+                return pageIndicator.isLayoutRtl() ? pageIndicator.getChildCount() - 1 - position
+                        : position;
             }
         });
     }

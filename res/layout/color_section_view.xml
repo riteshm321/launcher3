@@ -33,7 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/color_options_container_top_margin"
-        android:paddingHorizontal="@dimen/section_horizontal_padding"
         android:clipChildren="false"
         android:clipToPadding="false"/>
 </com.android.customization.picker.color.ColorSectionView>

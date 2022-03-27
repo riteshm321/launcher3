@@ -75,8 +75,8 @@ public class GridOptionsManager implements CustomizationManager<GridOption> {
         try {
             gridOptionSize = sExecutorService.submit(() -> {
                 List<GridOption> gridOptions = mProvider.fetch(/* reload= */true);
-                return gridOptions;
-            }).get().size();
+                return gridOptions == null ? 0 : gridOptions.size();
+            }).get();
         } catch (InterruptedException | ExecutionException e) {
             Log.w(TAG, "could not get gridOptionSize", e);
         }

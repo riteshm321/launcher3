@@ -35,10 +35,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.customization.model.CustomizationManager;
@@ -51,6 +53,7 @@ import com.android.wallpaper.R;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.WallpaperColorsViewModel;
 import com.android.wallpaper.module.InjectorProvider;
+import com.android.wallpaper.module.LargeScreenMultiPanesChecker;
 import com.android.wallpaper.widget.PageIndicator;
 import com.android.wallpaper.widget.SeparatedTabLayout;
 
@@ -93,6 +96,7 @@ public class ColorSectionController implements CustomizationSectionController<Co
     private Optional<Integer> mTabPositionToRestore = Optional.empty();
     private long mLastColorApplyingTime = 0L;
     private ColorSectionView mColorSectionView;
+    private boolean mIsMultiPane;
 
     private static int getNumPages(int optionsPerPage, int totalOptions) {
         return (int) Math.ceil((float) totalOptions / optionsPerPage);
@@ -106,6 +110,7 @@ public class ColorSectionController implements CustomizationSectionController<Co
                 new OverlayManagerCompat(activity));
         mWallpaperColorsViewModel = viewModel;
         mLifecycleOwner = lifecycleOwner;
+        mIsMultiPane = new LargeScreenMultiPanesChecker().isMultiPanesEnabled(activity);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_COLOR_TAB_POSITION)) {
             mTabPositionToRestore = Optional.of(savedInstanceState.getInt(KEY_COLOR_TAB_POSITION));
@@ -422,6 +427,16 @@ public class ColorSectionController implements CustomizationSectionController<Co
             ColorPageViewHolder(View itemView) {
                 super(itemView);
                 mContainer = itemView.findViewById(R.id.color_page_container);
+                /**
+                 * Sets page transformer with margin to separate color pages and
+                 * sets color pages' padding to not scroll to window boundary if multi-pane case
+                 */
+                if (mIsMultiPane) {
+                    final int padding = itemView.getContext().getResources().getDimensionPixelSize(
+                            R.dimen.section_horizontal_padding);
+                    mContainer.setPageTransformer(new MarginPageTransformer(padding * 2));
+                    mContainer.setPadding(padding, /* top= */ 0, padding, /* bottom= */ 0);
+                }
                 mPageIndicator = itemView.findViewById(R.id.color_page_indicator);
                 if (ColorProvider.themeStyleEnabled) {
                     mPageIndicator.setVisibility(VISIBLE);
@@ -477,6 +492,15 @@ public class ColorSectionController implements CustomizationSectionController<Co
             ColorOptionViewHolder(View itemView) {
                 super(itemView);
                 mContainer = itemView.findViewById(R.id.color_option_container);
+                // Sets layout with margins for non multi-pane case to separate color options.
+                if (!mIsMultiPane) {
+                    final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                            mContainer.getLayoutParams());
+                    final int margin = itemView.getContext().getResources().getDimensionPixelSize(
+                            R.dimen.section_horizontal_padding);
+                    layoutParams.setMargins(margin, /* top= */ 0, margin, /* bottom= */ 0);
+                    mContainer.setLayoutParams(layoutParams);
+                }
             }
         }
     }

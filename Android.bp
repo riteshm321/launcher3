@@ -71,10 +71,15 @@ android_app {
     static_libs: [
         "guava",
         "monet",
+	"renderscript_toolkit",
         "wallpaper-common-deps",
         "SettingsLibSettingsTheme",
         "SystemUI-statsd",
         "styleprotoslite",
+    ],
+
+    jni_libs: [
+        "librenderscript-toolkit",
     ],
 
     srcs: [

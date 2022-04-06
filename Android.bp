@@ -104,7 +104,10 @@ android_app {
     platform_apis: true,
     manifest: "AndroidManifest.xml",
     additional_manifests: [":WallpaperPicker2_Manifest"],
-    overrides: ["WallpaperPicker2"],
+    overrides: [
+        "WallpaperCropper",
+        "WallpaperPicker2",
+    ],
     required: [
         "default_permissions_com.android.wallpaper",
         "privapp_whitelist_com.android.wallpaper"

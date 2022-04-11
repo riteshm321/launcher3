@@ -65,4 +65,7 @@
     <!-- Preference default value -->
     <string name="pref_value_default" translatable="false">Default</string>
 
+    <string name="pref_allow_phone_taskbar">Use taskbar</string>
+    <string name="pref_allow_phone_taskbar_desc">For opening and switching apps anywhere</string>
+
 </resources>

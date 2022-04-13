@@ -61,7 +61,7 @@
     <string name="shape_component_title" msgid="8366847436022025538">"Escolha a forma"</string>
     <string name="name_component_title" msgid="532425087968663437">"Atribua um nome ao seu estilo"</string>
     <string name="icon_component_label" msgid="2625784884001407944">"Ícones <xliff:g id="ID_1">%1$d</xliff:g>"</string>
-    <string name="delete_custom_theme_confirmation" msgid="4452137183628769394">"Pretende eliminar o estilo personalizado?"</string>
+    <string name="delete_custom_theme_confirmation" msgid="4452137183628769394">"Eliminar o estilo personalizado?"</string>
     <string name="delete_custom_theme_button" msgid="5102462988130208824">"Eliminar"</string>
     <string name="cancel" msgid="4651030493668562067">"Cancelar"</string>
     <string name="set_theme_wallpaper_dialog_message" msgid="2179661027350908003">"Defina a imagem de fundo do estilo"</string>

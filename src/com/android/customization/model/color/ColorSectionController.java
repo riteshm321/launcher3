@@ -346,7 +346,7 @@ public class ColorSectionController implements CustomizationSectionController<Co
             public void onSuccess() {
                 mColorSectionView.announceForAccessibility(
                         mColorSectionView.getContext().getString(R.string.color_changed));
-                mEventLogger.logColorApplied(getColorAction(colorOption), colorOption.getIndex());
+                mEventLogger.logColorApplied(getColorAction(colorOption), colorOption);
             }
 
             @Override

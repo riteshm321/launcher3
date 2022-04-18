@@ -427,6 +427,8 @@ public class ColorSectionController implements CustomizationSectionController<Co
             ColorPageViewHolder(View itemView) {
                 super(itemView);
                 mContainer = itemView.findViewById(R.id.color_page_container);
+                // Correct scrolling goes under collapsing toolbar while scrolling oclor options.
+                mContainer.getChildAt(0).setNestedScrollingEnabled(false);
                 /**
                  * Sets page transformer with margin to separate color pages and
                  * sets color pages' padding to not scroll to window boundary if multi-pane case

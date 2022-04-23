@@ -45,6 +45,7 @@
             android:gravity="center"
             android:visibility="gone"
             android:textSize="18sp"
+            android:fontFamily="@*android:string/config_bodyFontFamilyMedium"
             android:layout_below="@id/search_and_recommendations_container"
             tools:text="No widgets available" />
 

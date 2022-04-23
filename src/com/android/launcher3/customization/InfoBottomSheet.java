@@ -190,4 +190,9 @@ public class InfoBottomSheet extends WidgetsBottomSheet {
             return true;
         }
     }
+
+    @Override
+    protected boolean hasSeenEducationTip() {
+        return true;
+    }
 }

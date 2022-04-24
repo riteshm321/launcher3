@@ -31,7 +31,8 @@ public abstract class MonetPreviewFragment extends PreviewFragment {
         args.putBoolean(ARG_TESTING_MODE_ENABLED, testingModeEnabled);
 
         PreviewFragment fragment = wallpaperInfo instanceof LiveWallpaperInfo
-                ? new LiveWallpaperColorThemePreviewFragment() : new ImageWallpaperColorThemePreviewFragment();
+                ? new LiveWallpaperColorThemePreviewFragment()
+                : new ImageWallpaperColorThemePreviewFragment();
         fragment.setArguments(args);
         return fragment;
     }

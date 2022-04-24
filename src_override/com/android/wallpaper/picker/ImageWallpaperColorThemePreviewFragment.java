@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.RemoteViews;
 
 import com.android.customization.model.color.WallpaperColorResources;
-
 import com.android.wallpaper.R;
 import com.android.wallpaper.widget.LockScreenPreviewer;
 
 import com.google.android.material.resources.MaterialAttributes;
 import com.google.android.material.tabs.TabLayout;
 
-public class ImageWallpaperColorThemePreviewFragment extends ImagePreviewFragment implements WallpaperColorThemePreview {
+public class ImageWallpaperColorThemePreviewFragment extends ImagePreviewFragment implements
+        WallpaperColorThemePreview {
     private boolean mIgnoreInitialColorChange;
     private boolean mThemedIconSupported;
     private WallpaperColors mWallpaperColors;
@@ -35,8 +35,8 @@ public class ImageWallpaperColorThemePreviewFragment extends ImagePreviewFragmen
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        Bundle bundle2 = getArguments();
-        if (bundle2 != null && bundle2.getInt("preview_mode") == 0) {
+        Bundle arguments = getArguments();
+        if (arguments != null && arguments.getInt("preview_mode") == 0) {
             mIgnoreInitialColorChange = true;
         }
     }
@@ -48,28 +48,38 @@ public class ImageWallpaperColorThemePreviewFragment extends ImagePreviewFragmen
         } else if (!wallpaperColors.equals(mWallpaperColors) && shouldApplyWallpaperColors()) {
             mWallpaperColors = wallpaperColors;
             Context context = getContext();
-            RemoteViews.ColorResources.create(context, new WallpaperColorResources(wallpaperColors, context).getColorOverlay()).apply(context);
+            RemoteViews.ColorResources.create(context,
+                    new WallpaperColorResources(wallpaperColors, context).getColorOverlay()).apply(context);
             updateSystemBarColor(context);
-            getView().setBackgroundColor(MaterialAttributes.resolveOrThrow(context, android.R.attr.colorPrimary, "android.R.attr.colorPrimary is not set in the current theme"));
-            LayoutInflater from = LayoutInflater.from(context);
-            ViewGroup viewGroup = (ViewGroup) getView().findViewById(R.id.section_header_container);
-            viewGroup.removeAllViews();
-            setUpToolbar(from.inflate(R.layout.section_header, viewGroup), true);
+            getView().setBackgroundColor(
+                    MaterialAttributes.resolveOrThrow(context, android.R.attr.colorPrimary,
+                            "android.R.attr.colorPrimary is not set in the current theme"));
+            LayoutInflater inflater = LayoutInflater.from(context);
+            ViewGroup sectionHeaderContainer = (ViewGroup) getView().findViewById(
+                    R.id.section_header_container);
+            sectionHeaderContainer.removeAllViews();
+            setUpToolbar(inflater.inflate(R.layout.section_header, sectionHeaderContainer), true);
             mFullScreenAnimation.ensureToolbarIsCorrectlyLocated();
             mFullScreenAnimation.ensureToolbarIsCorrectlyColored();
-            ViewGroup viewGroup2 = (ViewGroup) getView().findViewById(R.id.fullscreen_buttons_container);
-            viewGroup2.removeAllViews();
-            setFullScreenActions(from.inflate(R.layout.fullscreen_buttons, viewGroup2));
-            ((PreviewFragment) this).mBottomActionBar.setColor(from.getContext());
+
+            ViewGroup fullscreenButtonsContainer = (ViewGroup) getView().findViewById(
+                    R.id.fullscreen_buttons_container);
+            fullscreenButtonsContainer.removeAllViews();
+            setFullScreenActions(
+                    inflater.inflate(R.layout.fullscreen_buttons, fullscreenButtonsContainer));
+            ((PreviewFragment) this).mBottomActionBar.setColor(inflater.getContext());
             updateWorkspacePreview(mWorkspaceSurface, mWorkspaceSurfaceCallback, wallpaperColors);
-            ViewGroup viewGroup3 = (ViewGroup) getView().findViewById(R.id.separated_tabs_container);
-            viewGroup3.removeAllViews();
-            setUpTabs((TabLayout) from.inflate(R.layout.separated_tabs, viewGroup3).findViewById(R.id.separated_tabs));
+
+            ViewGroup separatedTabsContainer = (ViewGroup) getView().findViewById(
+                    R.id.separated_tabs_container);
+            separatedTabsContainer.removeAllViews();
+            setUpTabs((TabLayout) inflater.inflate(R.layout.separated_tabs,
+                    separatedTabsContainer).findViewById(R.id.separated_tabs));
             mLockScreenPreviewer.release();
             mLockPreviewContainer.removeAllViews();
-            LockScreenPreviewer lockScreenPreviewer = new LockScreenPreviewer(getLifecycle(), context, mLockPreviewContainer);
-            mLockScreenPreviewer = lockScreenPreviewer;
-            lockScreenPreviewer.setDateViewVisibility(!mFullScreenAnimation.isFullScreen());
+            mLockScreenPreviewer = new LockScreenPreviewer(getLifecycle(),
+                    context, mLockPreviewContainer);
+            mLockScreenPreviewer.setDateViewVisibility(!mFullScreenAnimation.isFullScreen());
         }
         mIgnoreInitialColorChange = false;
         super.onWallpaperColorsChanged(wallpaperColors);

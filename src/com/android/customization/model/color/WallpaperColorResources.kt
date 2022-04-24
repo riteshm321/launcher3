@@ -16,7 +16,7 @@ import dev.kdrag0n.colorkt.ucs.lab.CieLab
 import dev.kdrag0n.monet.theme.DynamicColorScheme
 import dev.kdrag0n.monet.theme.MaterialYouTargets
 
-class WallpaperColorResources {
+class WallpaperColorResources(wallpaperColors: WallpaperColors, context: Context) {
     val colorOverlay = SparseIntArray()
 
     private val cond = Zcam.ViewingConditions(
@@ -38,14 +38,26 @@ class WallpaperColorResources {
         cond = cond,
     )
 
-    constructor(wallpaperColors: WallpaperColors, context: Context) {
+    init {
         // Generate color scheme
-        val custom_color = Settings.Secure.getInt(context.contentResolver, "monet_engine_custom_color", 0)
-        val color_override = Settings.Secure.getInt(context.contentResolver, "monet_engine_color_override", -1)
-        val seed_color = if (color_override != -1 && custom_color != 0) color_override else wallpaperColors.primaryColor.toArgb()
+        val custom_color = Settings.Secure.getInt(
+            context.contentResolver,
+            "monet_engine_custom_color",
+            0)
+
+        val colorOverride = Settings.Secure.getInt(
+            context.contentResolver,
+            "monet_engine_color_override",
+            -1
+        )
+        val seedColor = if (colorOverride != -1 && custom_color != 0) {
+            colorOverride
+        } else {
+            wallpaperColors.primaryColor.toArgb()
+        }
         val colorScheme = DynamicColorScheme(
             targets = targets,
-            seedColor = Srgb(seed_color),
+            seedColor = Srgb(seedColor),
             chromaFactor = 1.0,
             cond = cond,
             accurateShades = true,
@@ -58,10 +70,10 @@ class WallpaperColorResources {
     }
 
     private fun addOverlayColor(swatch: Map<Int, Color>, @ColorInt color: Int) {
-        var i = color
+        var key = color
         SHADES.forEach { shade ->
-            colorOverlay.append(i, swatch[shade]!!.convert<Srgb>().toRgb8() or (0xff shl 24))
-            i++
+            colorOverlay.append(key, swatch[shade]!!.convert<Srgb>().toRgb8() or (0xff shl 24))
+            key++
         }
     }
 

@@ -16,7 +16,6 @@
 package com.android.launcher3.lineage.trust;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -41,12 +40,11 @@ import com.android.launcher3.lineage.LineageUtils;
 import com.android.launcher3.lineage.trust.db.TrustComponent;
 import com.android.launcher3.lineage.trust.db.TrustDatabaseHelper;
 
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+
 import java.util.List;
 
-import static com.android.launcher3.lineage.trust.db.TrustComponent.Kind.HIDDEN;
-import static com.android.launcher3.lineage.trust.db.TrustComponent.Kind.PROTECTED;
-
-public class TrustAppsActivity extends Activity implements
+public class TrustAppsActivity extends CollapsingToolbarBaseActivity implements
         TrustAppsAdapter.Listener,
         LoadTrustComponentsTask.Callback,
         UpdateItemTask.UpdateCallback {
@@ -111,12 +109,7 @@ public class TrustAppsActivity extends Activity implements
 
     @Override
     public void onHiddenItemChanged(@NonNull TrustComponent component) {
-        new UpdateItemTask(mDbHelper, this, HIDDEN).execute(component);
-    }
-
-    @Override
-    public void onProtectedItemChanged(@NonNull TrustComponent component) {
-        new UpdateItemTask(mDbHelper, this, PROTECTED).execute(component);
+        new UpdateItemTask(mDbHelper, this).execute(component);
     }
 
     @Override

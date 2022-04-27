@@ -15,6 +15,10 @@
  */
 package com.android.launcher3.lineage.trust;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+
 import android.graphics.drawable.Animatable2;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
@@ -34,6 +38,7 @@ import com.android.launcher3.lineage.trust.db.TrustComponent;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 class TrustAppsAdapter extends RecyclerView.Adapter<TrustAppsAdapter.ViewHolder> {
     private List<TrustComponent> mList = new ArrayList<>();
@@ -70,15 +75,12 @@ class TrustAppsAdapter extends RecyclerView.Adapter<TrustAppsAdapter.ViewHolder>
 
     public interface Listener {
         void onHiddenItemChanged(@NonNull TrustComponent component);
-
-        void onProtectedItemChanged(@NonNull TrustComponent component);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView mIconView;
         private TextView mLabelView;
         private ImageView mHiddenView;
-        private ImageView mProtectedView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,19 +88,20 @@ class TrustAppsAdapter extends RecyclerView.Adapter<TrustAppsAdapter.ViewHolder>
             mIconView = itemView.findViewById(R.id.item_hidden_app_icon);
             mLabelView = itemView.findViewById(R.id.item_hidden_app_title);
             mHiddenView = itemView.findViewById(R.id.item_hidden_app_switch);
-            mProtectedView = itemView.findViewById(R.id.item_protected_app_switch);
         }
 
         void bind(TrustComponent component, boolean hasSecureKeyguard) {
             mIconView.setImageDrawable(component.getIcon());
+
+            mIconView.setOnClickListener(v -> {
+                Intent launchIntent = v.getContext().getPackageManager().getLaunchIntentForPackage(component.getPackageName());
+                v.getContext().startActivity(launchIntent);
+            });
+
             mLabelView.setText(component.getLabel());
 
             mHiddenView.setImageResource(component.isHidden() ?
                     R.drawable.ic_hidden_locked : R.drawable.ic_hidden_unlocked);
-            mProtectedView.setImageResource(component.isProtected() ?
-                    R.drawable.ic_protected_locked : R.drawable.ic_protected_unlocked);
-
-            mProtectedView.setVisibility(hasSecureKeyguard ? View.VISIBLE : View.GONE);
 
             mHiddenView.setOnClickListener(v -> {
                 component.invertVisibility();
@@ -121,37 +124,10 @@ class TrustAppsAdapter extends RecyclerView.Adapter<TrustAppsAdapter.ViewHolder>
                     updateHiddenList(position, component);
                 }
             });
-
-            mProtectedView.setOnClickListener(v -> {
-                component.invertProtection();
-
-                mProtectedView.setImageResource(component.isProtected() ?
-                        R.drawable.avd_protected_lock : R.drawable.avd_protected_unlock);
-                AnimatedVectorDrawable avd = (AnimatedVectorDrawable) mProtectedView.getDrawable();
-
-                int position = getAdapterPosition();
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-                    avd.registerAnimationCallback(new Animatable2.AnimationCallback() {
-                        @Override
-                        public void onAnimationEnd(Drawable drawable) {
-                            updateProtectedList(position, component);
-                        }
-                    });
-                    avd.start();
-                } else {
-                    avd.start();
-                    updateProtectedList(position, component);
-                }
-            });
         }
 
         private void updateHiddenList(int position, TrustComponent component) {
             mListener.onHiddenItemChanged(component);
-            updateList(position, component);
-        }
-
-        private void updateProtectedList(int position, TrustComponent component) {
-            mListener.onProtectedItemChanged(component);
             updateList(position, component);
         }
 

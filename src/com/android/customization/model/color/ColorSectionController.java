@@ -83,9 +83,9 @@ public class ColorSectionController implements CustomizationSectionController<Co
     private final WallpaperColorsViewModel mWallpaperColorsViewModel;
     private final LifecycleOwner mLifecycleOwner;
     private final ColorSectionAdapter mColorSectionAdapter = new ColorSectionAdapter();
-    private final List<ColorOption> mWallpaperColorOptions = new ArrayList<>();
-    private final List<ColorOption> mPresetColorOptions = new ArrayList<>();
 
+    private List<ColorOption> mWallpaperColorOptions = new ArrayList<>();
+    private List<ColorOption> mPresetColorOptions = new ArrayList<>();
     private ViewPager2 mColorSectionViewPager;
     private ColorOption mSelectedColor;
     private SeparatedTabLayout mTabLayout;
@@ -207,16 +207,17 @@ public class ColorSectionController implements CustomizationSectionController<Co
         mColorManager.fetchOptions(new CustomizationManager.OptionsFetchedListener<ColorOption>() {
             @Override
             public void onOptionsLoaded(List<ColorOption> options) {
-                mWallpaperColorOptions.clear();
-                mPresetColorOptions.clear();
-
+                List<ColorOption> wallpaperColorOptions = new ArrayList<>();
+                List<ColorOption> presetColorOptions = new ArrayList<>();
                 for (ColorOption option : options) {
                     if (option instanceof ColorSeedOption) {
-                        mWallpaperColorOptions.add(option);
+                        wallpaperColorOptions.add(option);
                     } else if (option instanceof ColorBundle) {
-                        mPresetColorOptions.add(option);
+                        presetColorOptions.add(option);
                     }
                 }
+                mWallpaperColorOptions = wallpaperColorOptions;
+                mPresetColorOptions = presetColorOptions;
                 mSelectedColor = findActiveColorOption(mWallpaperColorOptions,
                         mPresetColorOptions);
                 mTabLayout.post(()-> setUpColorViewPager());

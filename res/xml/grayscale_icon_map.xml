@@ -495,6 +495,7 @@
     <icon drawable="@drawable/k9_mail" package="com.fsck.k9" />
     <icon drawable="@drawable/mal" package="net.myanimelist.app" />
     <icon drawable="@drawable/mdgram" package="org.telegram.mdgramyou" />
+    <icon drawable="@drawable/mdgram" package="org.telegram.mdgram" />
     <icon drawable="@drawable/mercado_libre" package="com.mercadolibre" />
     <icon drawable="@drawable/mercado_libre" package="com.mercadopago.wallet" />
     <icon drawable="@drawable/retro_music" package="io.github.muntashirakon.Music.debug" />
@@ -562,6 +563,7 @@
     <icon drawable="@drawable/scores_365" package="com.scores365" />
     <icon drawable="@drawable/aliucord_installer" package="com.aliucord.installer" />
     <icon drawable="@drawable/camscanner" package="com.intsig.camscanner" />
+    <icon drawable="@drawable/camscanner" package="com.cambyte.okenscan" />
     <icon drawable="@drawable/kiwi_browser" package="com.kiwibrowser.browser" />
     <icon drawable="@drawable/kiwi_browser" package="com.kiwibrowser.browser.dev" />
     <icon drawable="@drawable/discord_themer" package="com.aliucord.themer" />
@@ -589,7 +591,6 @@
     <icon drawable="@drawable/camera" package="org.codeaurora.snapcaa" />
     <icon drawable="@drawable/pomodo" package="com.ngalamsoftware.pomodo" />
     <icon drawable="@drawable/truecaller" package="com.truecaller" />
-    <icon drawable="@drawable/tinkoff" package="com.truecaller" />
     <icon drawable="@drawable/fitbit" package="com.fitbit.FitbitMobile" />
     <icon drawable="@drawable/fasthub" package="com.fastaccess.github.debug" />
     <icon drawable="@drawable/fasthub" package="com.fastaccess.github" />

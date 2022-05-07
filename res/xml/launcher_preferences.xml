@@ -160,10 +160,10 @@
         settings:units="%"
         android:defaultValue="100" />
 
-    <Preference
+    <!-- <Preference
         android:key="pref_developer_options"
         android:persistent="false"
         android:title="Developer Options"
-        android:fragment="com.android.launcher3.settings.DeveloperOptionsFragment"/>
+        android:fragment="com.android.launcher3.settings.DeveloperOptionsFragment"/> -->
 
 </androidx.preference.PreferenceScreen>

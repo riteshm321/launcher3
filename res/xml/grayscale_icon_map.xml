@@ -877,4 +877,9 @@
     <icon drawable="@drawable/themed_icon_ic_com_bilibili_comic" package="com.bilibili.comic" />
     <icon drawable="@drawable/themed_icon_island" package="com.oasisfeng.island" />
     <icon drawable="@drawable/themed_icon_geometricweather" package="wangdaye.com.geometricweather" />
+    <icon drawable="@drawable/themed_icon_admin" package="com.google.android.apps.enterprise.cpanel" />
+    <icon drawable="@drawable/themed_icon_nest" package="com.nest.android" />
+    <icon drawable="@drawable/themed_icon_classroom" package="com.google.android.apps.classroom" />
+    <icon drawable="@drawable/themed_icon_earth" package="com.google.earth" />
+    <icon drawable="@drawable/themed_icon_voice" package="com.google.android.apps.googlevoice" />
 </icons>

@@ -211,6 +211,10 @@ public final class Utilities {
          return getPrefs(context).getBoolean("pref_recents_show_memory", false);
     }
 
+    public static boolean recentsScrollVibration(Context context) {
+        return getPrefs(context).getBoolean("pref_recents_vibration", false);
+   }
+
     /**
      * Given a coordinate relative to the descendant, find the coordinate in a parent view's
      * coordinates.

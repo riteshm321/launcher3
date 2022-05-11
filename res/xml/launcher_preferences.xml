@@ -131,6 +131,12 @@
         android:title="@string/pref_recents_show_memory_title"/>
 
     <SwitchPreference
+        android:key="pref_recents_vibration"
+        android:defaultValue="false"
+        android:persistent="true"
+        android:title="@string/pref_recents_vibration_title"/>
+
+    <SwitchPreference
         android:key="pref_desktop_show_labels"
         android:title="@string/desktop_show_labels"
         android:defaultValue="true"

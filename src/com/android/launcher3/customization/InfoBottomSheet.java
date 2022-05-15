@@ -186,8 +186,10 @@ public class InfoBottomSheet extends WidgetsBottomSheet {
 
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            onMoreClick();
-            return true;
+            if (KEY_MORE.equals(preference.getKey())) {
+                onMoreClick();
+            }
+            return false;
         }
     }
 

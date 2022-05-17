@@ -35,6 +35,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
@@ -64,6 +65,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Color section view's controller for the logic of color customization.
@@ -158,6 +160,7 @@ public class ColorSectionController implements CustomizationSectionController<Co
         mColorSectionView = (ColorSectionView) LayoutInflater.from(context).inflate(
                 R.layout.color_section_view, /* root= */ null);
         mColorSectionViewPager = mColorSectionView.findViewById(R.id.color_section_view_pager);
+        mColorSectionViewPager.setAccessibilityDelegate(mAccessibilityDelegate);
         mColorSectionViewPager.setAdapter(mColorSectionAdapter);
         mColorSectionViewPager.setUserInputEnabled(false);
         if (ColorProvider.themeStyleEnabled) {
@@ -406,6 +409,14 @@ public class ColorSectionController implements CustomizationSectionController<Co
         return action;
     }
 
+    private View.AccessibilityDelegate mAccessibilityDelegate = new View.AccessibilityDelegate() {
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
+            super.onInitializeAccessibilityNodeInfo(host, info);
+            info.setUniqueId(UUID.randomUUID().toString());
+        }
+    };
+
     private class ColorSectionAdapter extends
             RecyclerView.Adapter<ColorSectionAdapter.ColorPageViewHolder> {
 
@@ -471,6 +482,8 @@ public class ColorSectionController implements CustomizationSectionController<Co
                 if (ColorProvider.themeStyleEnabled) {
                     mPageIndicator.setVisibility(VISIBLE);
                 }
+                itemView.setAccessibilityDelegate(mAccessibilityDelegate);
+                mContainer.setAccessibilityDelegate(mAccessibilityDelegate);
             }
         }
     }

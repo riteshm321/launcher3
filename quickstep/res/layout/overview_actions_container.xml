@@ -24,7 +24,7 @@
         android:id="@+id/action_buttons_parent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/overview_actions_height"
-        android:layout_gravity="center"
+        android:layout_gravity="center|bottom"
         android:orientation="vertical">
 
     <LinearLayout
@@ -116,43 +116,30 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <FrameLayout
+    <TextView 
+        android:id="@+id/recents_memory_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:drawableStart="@drawable/ic_memory"
+        android:drawablePadding="2dp"
+        android:textSize="12sp"
+        android:maxLines="1"
+        android:textColor="?attr/workspaceTextColor" />
+
+    <ProgressBar
+        android:id="@+id/recents_memory_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp">
-
-            <ProgressBar
-                android:id="@+id/recents_memory_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="40dp"
-                android:scaleY="4"
-                android:progressBackgroundTint="@*android:color/accent_device_default"
-                android:progressTint="@*android:color/accent_device_default"
-                style="?android:attr/progressBarStyleHorizontal" />
-
-            <TextView 
-                android:id="@+id/recents_memory_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="40dp"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:textColor="?attr/workspaceTextColor" />
-        
-        </RelativeLayout>
-
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:scaleY="2"
+        android:progressBackgroundTint="@*android:color/accent_device_default"
+        android:progressTint="@*android:color/accent_device_default"
+        style="?android:attr/progressBarStyleHorizontal" />
 
 </LinearLayout>
 

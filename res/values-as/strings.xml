@@ -42,7 +42,7 @@
     <string name="preview_name_shape" msgid="5676971146080968721">"আকৃতি"</string>
     <string name="preview_name_wallpaper" msgid="1738652462949531828">"ৱালপেপাৰ"</string>
     <string name="font_card_title" msgid="2343292653502548685">"ABC • abc • 123"</string>
-    <string name="font_card_body" msgid="6790525594503904468">"প্ৰত্যেকখন স্ক্ৰীণত আপোনাৰ প্ৰিয় ফণ্ট যোগ কৰক"</string>
+    <string name="font_card_body" msgid="6790525594503904468">"প্ৰত্যেকখন স্ক্ৰীনত আপোনাৰ প্ৰিয় ফ’ণ্ট যোগ দিয়ক"</string>
     <string name="grid_options_title" msgid="7071930966989877023">"এটা গ্ৰিডৰ আকাৰ বাছনি কৰক"</string>
     <string name="grid_title_pattern" msgid="9188866567612607806">"<xliff:g id="ID_1">%1$d</xliff:g>x<xliff:g id="ID_2">%2$d</xliff:g>"</string>
     <string name="applied_theme_msg" msgid="3749018706366796244">"শৈলী সফলতাৰে ছেট কৰা হ’ল"</string>

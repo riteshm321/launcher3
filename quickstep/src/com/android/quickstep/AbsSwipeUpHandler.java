@@ -429,7 +429,7 @@ public abstract class AbsSwipeUpHandler<T extends StatefulActivity<S>,
                 HashMap<Integer, ThumbnailData> snapshots =
                         mGestureState.consumeRecentsAnimationCanceledSnapshot();
                 if (snapshots != null) {
-                    mRecentsView.switchToScreenshot(snapshots, () -> {
+                    mRecentsView.onRecentsAnimationComplete();
                         if (mRecentsAnimationController != null) {
                             mRecentsAnimationController.cleanupScreenshot();
                         } else if (mDeferredCleanupRecentsAnimationController != null) {
@@ -437,7 +437,6 @@ public abstract class AbsSwipeUpHandler<T extends StatefulActivity<S>,
                             mDeferredCleanupRecentsAnimationController = null;
                         }
                     });
-                    mRecentsView.onRecentsAnimationComplete();
                 }
             });
 
